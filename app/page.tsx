@@ -4,7 +4,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 
-// מאגר שאלות מקיף המבוסס במדויק על חוברות ומבחני וינגייט
+// מאגר שאלות עם קישורי תמונות אנטומיות ופיזיולוגיות ממוקדות
 const WINGATE_QUESTION_BANK = [
   // --- מודול 1: אנטומיה א' - תאים, רקמות, שלד ומפרקים ---
   {
@@ -14,6 +14,7 @@ const WINGATE_QUESTION_BANK = [
     topic: 'רקמות חיבור',
     title: 'מבנה ותפקיד הדיסק הבין-חולייתי',
     illustration: '🦴 💿',
+    imageUrl: 'https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=800&auto=format&fit=crop&q=60',
     questionText: 'חומר ה-Annulus Fibrosus בדיסק הבין-חולייתי תפקידו בעיקר:',
     hint: 'חשוב על הטבעות הסיביות החיצוניות שמחזיקות את הדיסק.',
     options: [
@@ -31,6 +32,7 @@ const WINGATE_QUESTION_BANK = [
     topic: 'רקמת הסחוס',
     title: 'תא הסחוס - Chondrocyte',
     illustration: '🔬 🧬',
+    imageUrl: 'https://images.unsplash.com/photo-1576086213369-97a306d36557?w=800&auto=format&fit=crop&q=60',
     questionText: 'מה נכון לגבי תא הסחוס (Chondrocyte)?',
     hint: 'זהו התא המרכיב ומתחזק את רקמת הסחוס.',
     options: [
@@ -48,6 +50,7 @@ const WINGATE_QUESTION_BANK = [
     topic: 'רקמת הסחוס',
     title: 'הסחוס ההיאליני במפרקים',
     illustration: '🧊 🦴',
+    imageUrl: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&auto=format&fit=crop&q=60',
     questionText: 'בעניין הסחוס ההיאליני שבקצות העצמות, איזה משפט הוא הנכון?',
     hint: 'שים לב לאספקת הדם וההזנה של הסחוס.',
     options: [
@@ -65,6 +68,7 @@ const WINGATE_QUESTION_BANK = [
     topic: 'עמוד השדרה',
     title: 'חוליות הצוואר הייחודיות',
     illustration: '🦒 🦴',
+    imageUrl: 'https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?w=800&auto=format&fit=crop&q=60',
     questionText: 'מה מייחד את חוליות הצוואר מכל שאר חוליות עמוד השדרה?',
     hint: 'דרכו עוברים כלי דם חשובים המובילים דם אל המוח.',
     options: [
@@ -82,6 +86,7 @@ const WINGATE_QUESTION_BANK = [
     topic: 'מפרקים',
     title: 'מפרק ה-Atlantoaxial',
     illustration: '🔄 🗣️',
+    imageUrl: 'https://images.unsplash.com/photo-1507413245164-6160d8298b31?w=800&auto=format&fit=crop&q=60',
     questionText: 'מפרק ה-Atlantoaxial (בין C1 ל-C2) מאפשר בעיקר את התנועה הבאה של הראש:',
     hint: 'תנועת ה"לא".',
     options: [
@@ -92,25 +97,8 @@ const WINGATE_QUESTION_BANK = [
     ],
     explanation: 'השן של חוליית C2 (Dens) נכנסת לקשת של חוליית C1 (Atlas) ויוצרת ציר סיבוב של כ-45 מעלות לכל צד.'
   },
-  {
-    id: 'a1_6',
-    moduleId: 'anat1',
-    moduleName: "אנטומיה א': תאים, רקמות ושלד",
-    topic: 'עצמות ושלד',
-    title: 'עצם הבריח ומפרקיה',
-    illustration: '🦴 🔗',
-    questionText: 'עצם הבריח (Clavicle) יוצרת מפרקים עם:',
-    hint: 'חיבור אחד במרכז בית החזה וחיבור אחד בשכמה.',
-    options: [
-      { id: 'a', text: 'האקרומיון בשכמה (Acromion) ועצם החזה (Sternum)', isCorrect: true },
-      { id: 'b', text: 'עצם הזרוע (Humerus) בלבד', isCorrect: false },
-      { id: 'c', text: 'חוליות עמוד השדרה הצווארי', isCorrect: false },
-      { id: 'd', text: 'עצם הירך (Femur)', isCorrect: false }
-    ],
-    explanation: 'הבריח מחברת את שלד הגפה העליונה לשלד הציר דרך מפרק ה-Sternoclavicular ומפרק ה-Acromioclavicular.'
-  },
 
-  // --- מודול 2: אנטומיה ב' - שרירים, תחל/אחז ותנועות ---
+  // --- מודול 2: אנטומיה ב' - שרירים ותנועות ---
   {
     id: 'a2_1',
     moduleId: 'anat2',
@@ -118,6 +106,7 @@ const WINGATE_QUESTION_BANK = [
     topic: 'שרירי הירך והשוק',
     title: 'אחז בראש הפיבולה',
     illustration: '🦵 🦶',
+    imageUrl: 'https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=800&auto=format&fit=crop&q=60',
     questionText: 'איזה שריר נאחז (Insertion) בראש עצם השוקית (Head of Fibula)?',
     hint: 'זהו השריר הלטרלי מבין שרירי מיתר הירך (Hamstrings).',
     options: [
@@ -135,6 +124,7 @@ const WINGATE_QUESTION_BANK = [
     topic: 'מייצבי הכתף (Rotator Cuff)',
     title: 'סיבוב פנימי במפרק הכתף',
     illustration: '🛡️ 💪',
+    imageUrl: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=60',
     questionText: 'מי מבין שרירי ה-Rotator Cuff מבצע רוטציה מדיאלית (סיבוב פנימי) של הכתף?',
     hint: 'השריר היחיד מהקבוצה שנמצא בצד הקדמי של השכמה ונאחז ב-Lesser Tubercle.',
     options: [
@@ -152,6 +142,7 @@ const WINGATE_QUESTION_BANK = [
     topic: 'שרירי הגו והאגן',
     title: 'האחז ב-Greater Trochanter',
     illustration: '🍑 🦴',
+    imageUrl: 'https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=60',
     questionText: 'בליטת ה-Greater Trochanter בעצם הירך מהווה נקודת אחז מרכזית לשריר:',
     hint: 'השריר המרכזי המרחיק את הירך ומייצב את האגן בהליכה.',
     options: [
@@ -162,42 +153,8 @@ const WINGATE_QUESTION_BANK = [
     ],
     explanation: 'השרירים Gluteus Medius ו-Minimus נאחזים ב-Greater Trochanter ומונעים את צניחת האגן בצד הנגדי בעת עמידה והליכה (מבחן טרנדלנבורג).'
   },
-  {
-    id: 'a2_4',
-    moduleId: 'anat2',
-    moduleName: "אנטומיה ב': שרירים ותנועות",
-    topic: 'שרירי כף הרגל והקרסול',
-    title: 'הליכה על עקבים (Dorsiflexion)',
-    illustration: '🦶 ⬆️',
-    questionText: 'אדם ההולך על עקביו ומרים את בהונותיו מעלה מפעיל בעיקר את שריר ה:',
-    hint: 'השריר הקדמי של השוק המגן על קשת כף הרגל.',
-    options: [
-      { id: 'a', text: 'Tibialis Anterior', isCorrect: true },
-      { id: 'b', text: 'Gastrocnemius (תאומים)', isCorrect: false },
-      { id: 'c', text: 'Soleus (סולאוס)', isCorrect: false },
-      { id: 'd', text: 'Peroneus Longus', isCorrect: false }
-    ],
-    explanation: 'ה-Tibialis Anterior מתחיל בקדמת השוק ונאחז בעצמות שורש כף הרגל, והוא המבצע הראשי של Dorsiflexion והרמת כף הרגל.'
-  },
-  {
-    id: 'a2_5',
-    moduleId: 'anat2',
-    moduleName: "אנטומיה ב': שרירים ותנועות",
-    topic: 'שרירי הבטן',
-    title: 'שריר הבטן העמוק ביותר',
-    illustration: '🧘 🛡️',
-    questionText: 'איזה משרירי הבטן אינו משתתף ישירות בתנועות כפיפה או סיבוב של הגו, אלא מייצב ומעלה לחץ תוך-בטני?',
-    hint: 'השריר הרוחבי הפועל כמחוך פנימי לעמוד השדרה.',
-    options: [
-      { id: 'a', text: 'Transversus Abdominis (הרחב הבטני)', isCorrect: true },
-      { id: 'b', text: 'Rectus Abdominis (הישר הבטני)', isCorrect: false },
-      { id: 'c', text: 'External Oblique (אלכסון חיצוני)', isCorrect: false },
-      { id: 'd', text: 'Internal Oblique (אלכסון פנימי)', isCorrect: false }
-    ],
-    explanation: 'ה-Transversus Abdominis מקיף את חלל הבטן בסיבים אופקיים ומייצב את עמוד השדרה בעזרת לחץ תוך-בטני (IAP).'
-  },
 
-  // --- מודול 3: פיזיולוגיה א' - אספקת אנרגיה ומסלולים מטבוליים ---
+  // --- מודול 3: פיזיולוגיה א' - אנרגיה ומטבוליזם ---
   {
     id: 'p1_1',
     moduleId: 'phys1',
@@ -205,6 +162,7 @@ const WINGATE_QUESTION_BANK = [
     topic: 'מערכות אנרגיה',
     title: 'ריכוזי פוספטים תוך-תאיים',
     illustration: '🔋 ⚡',
+    imageUrl: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=60',
     questionText: 'מה נכון לגבי הריכוז הזמין של ATP לעומת קריאטין פוספט (CrP) בתא שריר?',
     hint: 'איזו מולקולה נאגרת בכמות גדולה יותר בציטופלזמה?',
     options: [
@@ -222,6 +180,7 @@ const WINGATE_QUESTION_BANK = [
     topic: 'מערכות אנרגיה',
     title: 'גורמי עייפות בגליקוליזה',
     illustration: '🧪 🏃‍♂️',
+    imageUrl: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&auto=format&fit=crop&q=60',
     questionText: 'במאמץ מרבי הנמשך 40-60 שניות (גליקוליזה אנאירובית), מהי הסיבה המרכזית לעייפות ולירידה בהספק?',
     hint: 'איזה יון נפלט ופוגע בפעילות אנזים ה-PFK?',
     options: [
@@ -232,42 +191,8 @@ const WINGATE_QUESTION_BANK = [
     ],
     explanation: 'הצטברות יוני מימן (H+) מורידה את ה-pH בתא, מעכבת את האנזים המרכזי בגליקוליזה (PFK) ופוגעת בקשירת הסידן לטרופונין.'
   },
-  {
-    id: 'p1_3',
-    moduleId: 'phys1',
-    moduleName: "פיזיולוגיה א': אנרגיה ומטבוליזם",
-    topic: 'פינוי חומרי פסולת',
-    title: 'מעגל קורי (Cori Cycle)',
-    illustration: '🔄 🩸',
-    questionText: 'מה מתרחש במסגרת "מעגל קורי" (Cori Cycle)?',
-    hint: 'איזה איבר בגוף ממחזר את הלקטט שנוצר בשריר חזרה לגלוקוז?',
-    options: [
-      { id: 'a', text: 'הלקטט המפונה מהשריר הופך מחדש לגלוקוז בכבד בהשקעת אנרגיה', isCorrect: true },
-      { id: 'b', text: 'שומן הופך לחלבון בתוך הכליה', isCorrect: false },
-      { id: 'c', text: 'פירובט הופך לסידן בעצם', isCorrect: false },
-      { id: 'd', text: 'חומצות אמינו מתפרקות ללא צורך באנרגיה', isCorrect: false }
-    ],
-    explanation: 'הכבד קולט את הלקטט מהדם ובתהליך גלוקונאוגנזה (השקעת 6 מולקולות ATP) מייצר ממנו גלוקוז המוזרם חזרה לשרירים.'
-  },
-  {
-    id: 'p1_4',
-    moduleId: 'phys1',
-    moduleName: "פיזיולוגיה א': אנרגיה ומטבוליזם",
-    topic: 'סף אנאירובי וצח"מ',
-    title: 'הגדרת הסף האנאירובי (OBLA)',
-    illustration: '📈 ⏱️',
-    questionText: 'מהי ההגדרה הפיזיולוגית של הסף האנאירובי?',
-    hint: 'הנקודה שבה קצב ייצור הלקטט מתחיל לעלות על קצב הפינוי שלו.',
-    options: [
-      { id: 'a', text: 'עצימות המאמץ המרבית שבה קצב ייצור הלקטט שווה לקצב פינויו (איזון דינמי)', isCorrect: true },
-      { id: 'b', text: 'המצב שבו אין חמצן בגוף כלל', isCorrect: false },
-      { id: 'c', text: 'הרגע שבו מגיעים לדופק מרבי של 220 פחות הגיל', isCorrect: false },
-      { id: 'd', text: 'הרגע שבו האדם מתעלף מאימון', isCorrect: false }
-    ],
-    explanation: 'בסף האנאירובי (לרוב סביב 4 מילימול לקטט/ליטר), פינוי הלקטט פועל במקסימום ומשמר שיווי משקל. מעבר לו – הלקטט והחומציות מצטברים בחדות.'
-  },
 
-  // --- מודול 4: פיזיולוגיה ב' - לב, כלי דם ונשימה ---
+  // --- מודול 4: פיזיולוגיה ב' - לב, דם ונשימה ---
   {
     id: 'p2_1',
     moduleId: 'phys2',
@@ -275,6 +200,7 @@ const WINGATE_QUESTION_BANK = [
     topic: 'מערכת הלב',
     title: 'שלב הדיאסטולה בלב',
     illustration: '❤️ 🩸',
+    imageUrl: 'https://images.unsplash.com/photo-1559757175-5700dde675bc?w=800&auto=format&fit=crop&q=60',
     questionText: 'בזמן שלב הדיאסטולה (הרפיית החדרים) של הלב, מהו מצב המסתמים?',
     hint: 'הדם צריך לזרום מהעליות אל תוך החדרים.',
     options: [
@@ -289,60 +215,10 @@ const WINGATE_QUESTION_BANK = [
     id: 'p2_2',
     moduleId: 'phys2',
     moduleName: "פיזיולוגיה ב': לב, דם ונשימה",
-    topic: 'מערכת הלב וכלי הדם',
-    title: 'תפוקת הלב והחזר ורידי',
-    illustration: '🚴‍♂️ ❤️',
-    questionText: 'על פי חוק פרנק-סטרלינג, מה גורם לעלייה בעוצמת כיווץ הלב ובנפח הפעימה במאמץ?',
-    hint: 'ככל שדופן החדר נמתחת יותר בשלב המילוי...',
-    options: [
-      { id: 'a', text: 'עלייה בהחזר הוורידי המותחת את שריר הלב בשלב הדיאסטולה', isCorrect: true },
-      { id: 'b', text: 'ירידה בלחת הדם מתחת ל-50', isCorrect: false },
-      { id: 'c', text: 'עצירת אספקת הדם לשרירים', isCorrect: false },
-      { id: 'd', text: 'היצרות כלי הדם במוח', isCorrect: false }
-    ],
-    explanation: 'חוק פרנק-סטרלינג קובע שככל שמילוי החדר בדם (החזר ורידי) מותח יותר את סיבי שריר הלב, כך כוח הכיווץ בסיסטולה יהיה חזק יותר ונפח הפעימה יגדל.'
-  },
-  {
-    id: 'p2_3',
-    moduleId: 'phys2',
-    moduleName: "פיזיולוגיה ב': לב, דם ונשימה",
-    topic: 'מערכת הנשימה',
-    title: 'נפח מת ואוורור ריאתי',
-    illustration: '🫁 💨',
-    questionText: 'מהו "נפח מת אנטומי" (Anatomical Dead Space)?',
-    hint: 'חלק מנפח האוויר הנשאף שנשאר בדרכי הנשימה המובילות.',
-    options: [
-      { id: 'a', text: 'כ-150 מ"ל אוויר שנשאר בדרכי הנשימה המוליכות ואינו משתתף בחילוף הגזים', isCorrect: true },
-      { id: 'b', text: 'נפח הריאות של אדם מבוגר שאינו מתאמן', isCorrect: false },
-      { id: 'c', text: 'אוויר מזוהם בלבד שאינו ניתן לנשיפה', isCorrect: false },
-      { id: 'd', text: 'כמות החמצן שהשריר פולט במנוחה', isCorrect: false }
-    ],
-    explanation: 'נפח מת אנטומי (כ-150 מ"ל) ממלא את האף, הקנה והסימפונות, שבהם אין נאדיות ולכן לא מתבצע חילוף גזים עם הדם.'
-  },
-  {
-    id: 'p2_4',
-    moduleId: 'phys2',
-    moduleName: "פיזיולוגיה ב': לב, דם ונשימה",
-    topic: 'התאמות לאימון אירובי',
-    title: 'הגורם המגביל במאמץ אירובי מרבי',
-    illustration: '🫀 ⚡',
-    questionText: 'אצל אדם בריא, מהו הגורם העיקרי המגביל את צריכת החמצן המרבית (צח"מ)?',
-    hint: 'האם זו מערכת הנשימה או משאבת הלב?',
-    options: [
-      { id: 'a', text: 'תפוקת הלב המרבית (היכולת להזרים דם מחומצן לשרירים)', isCorrect: true },
-      { id: 'b', text: 'קיבולת הריאות (אוורור הריאות)', isCorrect: false },
-      { id: 'c', text: 'מספר העצמות ברגליים', isCorrect: false },
-      { id: 'd', text: 'כמות המים בעור', isCorrect: false }
-    ],
-    explanation: 'למערכת הנשימה קיימת "רזרבה נשימתית" גדולה (MVV) שאינה מנוצלת עד תומה, ולכן תפוקת הלב ויכולת הובלת הדם היא הגורם המגביל המרכזי.'
-  },
-  {
-    id: 'p2_5',
-    moduleId: 'phys2',
-    moduleName: "פיזיולוגיה ב': לב, דם ונשימה",
     topic: 'שריר ומערכת העצבים',
     title: 'כישור השריר מול אברון גולג\'י',
     illustration: '⚡ 🧠',
+    imageUrl: 'https://images.unsplash.com/photo-1507413245164-6160d8298b31?w=800&auto=format&fit=crop&q=60',
     questionText: 'איזה מנגנון גורם להרפיה רפלקסיבית של שריר בתגובה למתיחת-יתר או עומס קיצוני בגיד?',
     hint: 'החיישן שנמצא בצומת שבין הגיד לשריר ומגן עליו מקרע.',
     options: [
@@ -355,7 +231,6 @@ const WINGATE_QUESTION_BANK = [
   }
 ];
 
-// פונקציית ערבוב חכמה (Fisher-Yates)
 function shuffleArray(arr) {
   const copy = [...arr];
   for (let i = copy.length - 1; i > 0; i--) {
@@ -375,8 +250,8 @@ export default function WingateExamApp() {
   const [streak, setStreak] = useState(0);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [showExplanation, setShowExplanation] = useState(false);
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
 
-  // אתחול מודול וערבוב מחדש של השאלות והתשובות
   const initModule = (modId = activeModule) => {
     if ('speechSynthesis' in window) window.speechSynthesis.cancel();
     
@@ -410,7 +285,6 @@ export default function WingateExamApp() {
 
   const currentQ = questions[currentIndex];
 
-  // מנוע הקראה קולית ברור בעברית
   const speak = (text) => {
     if (!('speechSynthesis' in window)) return;
     window.speechSynthesis.cancel();
@@ -469,7 +343,7 @@ export default function WingateExamApp() {
   if (!currentQ) {
     return (
       <main style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <p style={{ fontWeight: 'bold' }}>טוען שאלות מחוברת וינגייט...</p>
+        <p style={{ fontWeight: 'bold' }}>טוען שאלות ותמונות מחוברת וינגייט...</p>
       </main>
     );
   }
@@ -479,13 +353,13 @@ export default function WingateExamApp() {
       
       <div>
         {/* כותרת עליונה */}
-        <header style={{ marginBottom: '12px' }}>
+        <header style={{ marginBottom: '10px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
             <div>
               <h1 style={{ margin: 0, fontSize: '18px', fontWeight: '900', color: '#f59e0b' }}>
                 🎓 ווינגייט קואוץ' - שמואל
               </h1>
-              <span style={{ fontSize: '11px', color: '#94a3b8' }}>הכנה רשמית למבחני הסמכת מאמנים</span>
+              <span style={{ fontSize: '11px', color: '#94a3b8' }}>לימוד חזותי וקולי מותאם אישית</span>
             </div>
 
             <button
@@ -497,7 +371,7 @@ export default function WingateExamApp() {
             </button>
           </div>
 
-          {/* תפריט מודולים לבחירה */}
+          {/* תפריט מודולים */}
           <div style={{ display: 'flex', gap: '6px', overflowX: 'auto', paddingBottom: '6px', marginBottom: '8px' }}>
             <button
               onClick={() => handleModuleChange('all')}
@@ -611,7 +485,7 @@ export default function WingateExamApp() {
         </header>
 
         {/* כרטיסיית נושא */}
-        <div style={{ backgroundColor: '#0f172a', border: '1px solid #1e293b', borderRadius: '16px', padding: '10px 14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+        <div style={{ backgroundColor: '#0f172a', border: '1px solid #1e293b', borderRadius: '14px', padding: '8px 12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
           <div>
             <span style={{ color: '#f59e0b', fontSize: '10px', fontWeight: 'bold', display: 'block' }}>{currentQ.topic}</span>
             <span style={{ color: '#ffffff', fontSize: '13px', fontWeight: '900' }}>{currentQ.title}</span>
@@ -619,10 +493,36 @@ export default function WingateExamApp() {
           <span style={{ fontSize: '22px' }}>{currentQ.illustration}</span>
         </div>
 
+        {/* תמונה אנטומית/פיזיולוגית של השאלה */}
+        {currentQ.imageUrl && (
+          <div 
+            onClick={() => setIsImageModalOpen(true)}
+            style={{ 
+              width: '100%', 
+              height: '150px', 
+              borderRadius: '14px', 
+              overflow: 'hidden', 
+              marginBottom: '10px', 
+              border: '1px solid #334155', 
+              position: 'relative', 
+              cursor: 'pointer' 
+            }}
+          >
+            <img 
+              src={currentQ.imageUrl} 
+              alt={currentQ.title} 
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+            />
+            <span style={{ position: 'absolute', bottom: '6px', left: '6px', backgroundColor: 'rgba(2, 6, 23, 0.8)', color: '#fbbf24', fontSize: '10px', padding: '3px 6px', borderRadius: '6px', fontWeight: 'bold' }}>
+              🔍 לחץ להגדלה
+            </span>
+          </div>
+        )}
+
         {/* השאלה + כפתור הקראה קולית */}
-        <div style={{ backgroundColor: '#0b1329', border: '1px solid #1e293b', borderRadius: '16px', padding: '14px', marginBottom: '14px', position: 'relative' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '10px' }}>
-            <p style={{ margin: 0, fontSize: '15px', fontWeight: 'bold', color: '#f8fafc', lineHeight: '1.5' }}>
+        <div style={{ backgroundColor: '#0b1329', border: '1px solid #1e293b', borderRadius: '14px', padding: '12px', marginBottom: '10px', position: 'relative' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
+            <p style={{ margin: 0, fontSize: '14px', fontWeight: 'bold', color: '#f8fafc', lineHeight: '1.4' }}>
               {currentQ.questionText}
             </p>
 
@@ -632,12 +532,11 @@ export default function WingateExamApp() {
                 backgroundColor: isSpeaking ? '#f59e0b' : '#9333ea',
                 color: isSpeaking ? '#020617' : '#ffffff',
                 border: 'none',
-                borderRadius: '14px',
-                padding: '10px 14px',
-                fontSize: '18px',
+                borderRadius: '12px',
+                padding: '8px 12px',
+                fontSize: '16px',
                 cursor: 'pointer',
-                flexShrink: 0,
-                boxShadow: '0 4px 10px rgba(0,0,0,0.3)'
+                flexShrink: 0
               }}
               title="הקרא שאלה בעברית"
             >
@@ -645,13 +544,13 @@ export default function WingateExamApp() {
             </button>
           </div>
 
-          <div style={{ marginTop: '10px', backgroundColor: 'rgba(2, 6, 23, 0.6)', padding: '6px 10px', borderRadius: '8px', fontSize: '11px', color: '#94a3b8' }}>
+          <div style={{ marginTop: '8px', backgroundColor: 'rgba(2, 6, 23, 0.6)', padding: '6px 10px', borderRadius: '8px', fontSize: '11px', color: '#94a3b8' }}>
             💡 <strong>רמז:</strong> {currentQ.hint}
           </div>
         </div>
 
         {/* 4 אפשרויות בחירה (מעורבבות) */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '14px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '10px' }}>
           {currentQ.options.map((opt, idx) => {
             const isSelected = selectedOption === opt.id;
             let bgColor = '#0f172a';
@@ -683,21 +582,20 @@ export default function WingateExamApp() {
                 style={{
                   backgroundColor: bgColor,
                   border: `2px solid ${borderColor}`,
-                  borderRadius: '16px',
-                  padding: '12px 14px',
+                  borderRadius: '14px',
+                  padding: '10px 12px',
                   textAlign: 'right',
                   color: textColor,
-                  fontSize: '14px',
+                  fontSize: '13px',
                   fontWeight: isSelected || (isAnswerChecked && opt.isCorrect) ? 'bold' : 'normal',
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
-                  cursor: isAnswerChecked ? 'default' : 'pointer',
-                  boxShadow: '0 2px 6px rgba(0,0,0,0.2)'
+                  cursor: isAnswerChecked ? 'default' : 'pointer'
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <span style={{ backgroundColor: '#020617', width: '24px', height: '24px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 'bold', border: '1px solid #334155' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ backgroundColor: '#020617', width: '22px', height: '22px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 'bold', border: '1px solid #334155' }}>
                     {letter}
                   </span>
                   <span>{opt.text}</span>
@@ -712,25 +610,25 @@ export default function WingateExamApp() {
 
         {/* הסבר מלא מתוך חומרי הלימוד */}
         {showExplanation && (
-          <div style={{ backgroundColor: '#0f172a', border: '1px solid #334155', borderRadius: '16px', padding: '12px', marginBottom: '14px' }}>
+          <div style={{ backgroundColor: '#0f172a', border: '1px solid #334155', borderRadius: '14px', padding: '10px', marginBottom: '10px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-              <span style={{ color: '#f59e0b', fontSize: '12px', fontWeight: 'bold' }}>📖 הסבר מתוך חוברת וינגייט:</span>
+              <span style={{ color: '#f59e0b', fontSize: '11px', fontWeight: 'bold' }}>📖 הסבר מתוך חוברת וינגייט:</span>
               <button
                 onClick={() => speak(currentQ.explanation)}
-                style={{ backgroundColor: '#3b0764', color: '#d8b4fe', border: '1px solid #6b21a8', borderRadius: '8px', padding: '3px 8px', fontSize: '11px', cursor: 'pointer' }}
+                style={{ backgroundColor: '#3b0764', color: '#d8b4fe', border: '1px solid #6b21a8', borderRadius: '8px', padding: '2px 6px', fontSize: '10px', cursor: 'pointer' }}
               >
                 🔊 הקרא הסבר
               </button>
             </div>
-            <p style={{ margin: 0, fontSize: '12px', color: '#cbd5e1', lineHeight: '1.5', backgroundColor: '#020617', padding: '10px', borderRadius: '10px' }}>
+            <p style={{ margin: 0, fontSize: '11px', color: '#cbd5e1', lineHeight: '1.4', backgroundColor: '#020617', padding: '8px', borderRadius: '8px' }}>
               {currentQ.explanation}
             </p>
           </div>
         )}
       </div>
 
-      {/* כפתור בדיקה / שאלה הבאה */}
-      <footer style={{ paddingTop: '8px', paddingBottom: '10px' }}>
+      {/* כפתור פעולה תחתון */}
+      <footer style={{ paddingTop: '6px', paddingBottom: '6px' }}>
         {!isAnswerChecked ? (
           <button
             onClick={handleCheckAnswer}
@@ -740,12 +638,11 @@ export default function WingateExamApp() {
               backgroundColor: selectedOption ? '#f59e0b' : '#334155',
               color: selectedOption ? '#020617' : '#94a3b8',
               border: 'none',
-              borderRadius: '16px',
-              padding: '15px',
-              fontSize: '16px',
+              borderRadius: '14px',
+              padding: '14px',
+              fontSize: '15px',
               fontWeight: '900',
-              cursor: selectedOption ? 'pointer' : 'not-allowed',
-              boxShadow: '0 4px 14px rgba(0,0,0,0.4)'
+              cursor: selectedOption ? 'pointer' : 'not-allowed'
             }}
           >
             בדוק תשובה
@@ -758,18 +655,30 @@ export default function WingateExamApp() {
               backgroundColor: '#10b981',
               color: '#020617',
               border: 'none',
-              borderRadius: '16px',
-              padding: '15px',
-              fontSize: '16px',
+              borderRadius: '14px',
+              padding: '14px',
+              fontSize: '15px',
               fontWeight: '900',
-              cursor: 'pointer',
-              boxShadow: '0 4px 14px rgba(0,0,0,0.4)'
+              cursor: 'pointer'
             }}
           >
             {currentIndex === questions.length - 1 ? '🎉 סיים מודול וסכם ציון' : 'שאלה הבאה ➜'}
           </button>
         )}
       </footer>
+
+      {/* חלון צף להגדלת תמונה במסך מלא */}
+      {isImageModalOpen && (
+        <div 
+          onClick={() => setIsImageModalOpen(false)}
+          style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.9)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px' }}
+        >
+          <div style={{ maxWidth: '90%', maxHeight: '90%', textAlign: 'center' }}>
+            <img src={currentQ.imageUrl} alt={currentQ.title} style={{ maxWidth: '100%', maxHeight: '80vh', borderRadius: '12px', border: '2px solid #f59e0b' }} />
+            <p style={{ color: '#ffffff', fontSize: '13px', marginTop: '10px', fontWeight: 'bold' }}>{currentQ.title} - לחץ לסגירה ✕</p>
+          </div>
+        </div>
+      )}
 
     </main>
   );
