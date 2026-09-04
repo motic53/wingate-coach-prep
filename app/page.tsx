@@ -2,19 +2,169 @@
 // @ts-nocheck
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 
-// מאגר שאלות עם קישורי תמונות אנטומיות ופיזיולוגיות ממוקדות
+// --- רכיבי תרשימים גרפיים (SVG) מובנים לפי נושאי החוברות ---
+
+function DiagramDisc() {
+  return (
+    <svg viewBox="0 0 320 160" className="w-full h-36 mx-auto rounded-xl bg-slate-950 border border-slate-800">
+      <ellipse cx="160" cy="80" rx="130" ry="60" fill="#1e293b" stroke="#38bdf8" strokeWidth="3" />
+      <ellipse cx="160" cy="80" rx="100" ry="46" fill="#0f172a" stroke="#0284c7" strokeWidth="2" strokeDasharray="4 3" />
+      <ellipse cx="160" cy="80" rx="75" ry="34" fill="#0369a1" stroke="#38bdf8" strokeWidth="2" />
+      <ellipse cx="160" cy="80" rx="42" ry="20" fill="#f43f5e" stroke="#fda4af" strokeWidth="2" />
+      <text x="160" y="84" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">גרעין צמיגי (Nucleus Pulposus)</text>
+      <text x="160" y="32" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">טבעות סיביות (Annulus Fibrosus)</text>
+      <text x="160" y="152" fill="#94a3b8" fontSize="10" textAnchor="middle">חתך רוחב: דיסק בין-חולייתי ובלימת זעזועים</text>
+    </svg>
+  );
+}
+
+function DiagramSarcomere() {
+  return (
+    <svg viewBox="0 0 320 160" className="w-full h-36 mx-auto rounded-xl bg-slate-950 border border-slate-800">
+      <line x1="30" y1="20" x2="30" y2="140" stroke="#f43f5e" strokeWidth="4" />
+      <line x1="290" y1="20" x2="290" y2="140" stroke="#f43f5e" strokeWidth="4" />
+      <text x="30" y="16" fill="#f43f5e" fontSize="10" fontWeight="bold" textAnchor="middle">Z-Line</text>
+      <text x="290" y="16" fill="#f43f5e" fontSize="10" fontWeight="bold" textAnchor="middle">Z-Line</text>
+      
+      {/* חוטים דקים - אקטין */}
+      <line x1="30" y1="45" x2="135" y2="45" stroke="#38bdf8" strokeWidth="3" />
+      <line x1="185" y1="45" x2="290" y2="45" stroke="#38bdf8" strokeWidth="3" />
+      <line x1="30" y1="115" x2="135" y2="115" stroke="#38bdf8" strokeWidth="3" />
+      <line x1="185" y1="115" x2="290" y2="115" stroke="#38bdf8" strokeWidth="3" />
+
+      {/* חוט עבה - מיוזין */}
+      <rect x="85" y="70" width="150" height="20" rx="4" fill="#eab308" />
+      <line x1="160" y1="25" x2="160" y2="135" stroke="#ca8a04" strokeWidth="1.5" strokeDasharray="3 3" />
+      
+      {/* ראשי מיוזין */}
+      <circle cx="105" cy="65" r="4" fill="#ca8a04" />
+      <circle cx="125" cy="65" r="4" fill="#ca8a04" />
+      <circle cx="195" cy="65" r="4" fill="#ca8a04" />
+      <circle cx="215" cy="65" r="4" fill="#ca8a04" />
+      <circle cx="105" cy="95" r="4" fill="#ca8a04" />
+      <circle cx="125" cy="95" r="4" fill="#ca8a04" />
+      <circle cx="195" cy="95" r="4" fill="#ca8a04" />
+      <circle cx="215" cy="95" r="4" fill="#ca8a04" />
+
+      <text x="75" y="40" fill="#38bdf8" fontSize="10" fontWeight="bold">אקטין (חלבון דק)</text>
+      <text x="160" y="84" fill="#020617" fontSize="10" fontWeight="bold" textAnchor="middle">מיוזין (חלבון עבה)</text>
+      <text x="160" y="152" fill="#94a3b8" fontSize="10" textAnchor="middle">יחידת סרקומר: החלקת אקטין על גבי מיוזין</text>
+    </svg>
+  );
+}
+
+function DiagramSpine() {
+  return (
+    <svg viewBox="0 0 320 170" className="w-full h-40 mx-auto rounded-xl bg-slate-950 border border-slate-800">
+      <path d="M 160 20 Q 185 45 160 65 Q 130 95 160 120 Q 180 135 160 155" fill="none" stroke="#f59e0b" strokeWidth="6" strokeLinecap="round" />
+      <circle cx="160" cy="22" r="5" fill="#38bdf8" />
+      <circle cx="178" cy="45" r="5" fill="#38bdf8" />
+      <circle cx="160" cy="65" r="5" fill="#38bdf8" />
+      <circle cx="140" cy="95" r="5" fill="#10b981" />
+      <circle cx="160" cy="120" r="5" fill="#a855f7" />
+      <circle cx="172" cy="138" r="5" fill="#a855f7" />
+      
+      <text x="245" y="42" fill="#38bdf8" fontSize="11" fontWeight="bold">לורדוזה צווארית (C1-C7)</text>
+      <text x="65" y="92" fill="#10b981" fontSize="11" fontWeight="bold">קיפוזה חזית (T1-T12)</text>
+      <text x="245" y="132" fill="#a855f7" fontSize="11" fontWeight="bold">לורדוזה מותנית (L1-L5)</text>
+      <text x="160" y="165" fill="#94a3b8" fontSize="10" textAnchor="middle">עקומות עמוד השדרה ושלד הציר</text>
+    </svg>
+  );
+}
+
+function DiagramKnee() {
+  return (
+    <svg viewBox="0 0 320 160" className="w-full h-36 mx-auto rounded-xl bg-slate-950 border border-slate-800">
+      {/* עצם הירך פמור */}
+      <path d="M 120 15 L 200 15 L 205 60 Q 190 75 160 70 Q 130 75 115 60 Z" fill="#334155" stroke="#64748b" strokeWidth="2" />
+      <text x="160" y="38" fill="#f8fafc" fontSize="11" fontWeight="bold" textAnchor="middle">עצם הירך (Femur)</text>
+      
+      {/* סחוס ומניסקוס */}
+      <ellipse cx="132" cy="80" rx="18" ry="6" fill="#38bdf8" />
+      <ellipse cx="188" cy="80" rx="18" ry="6" fill="#38bdf8" />
+      
+      {/* רצועות צולבות */}
+      <line x1="140" y1="68" x2="180" y2="92" stroke="#f43f5e" strokeWidth="3" />
+      <line x1="180" y1="68" x2="140" y2="92" stroke="#fbbf24" strokeWidth="3" />
+      
+      {/* עצם השוק טיביה */}
+      <path d="M 115 95 Q 160 90 205 95 L 195 145 L 125 145 Z" fill="#1e293b" stroke="#475569" strokeWidth="2" />
+      <text x="160" y="125" fill="#f8fafc" fontSize="11" fontWeight="bold" textAnchor="middle">עצם השוק (Tibia)</text>
+      
+      <text x="55" y="83" fill="#38bdf8" fontSize="10" fontWeight="bold">מניסקוס</text>
+      <text x="265" y="80" fill="#f43f5e" fontSize="10" fontWeight="bold">רצועות צולבות (ACL/PCL)</text>
+    </svg>
+  );
+}
+
+function DiagramHeart() {
+  return (
+    <svg viewBox="0 0 320 160" className="w-full h-36 mx-auto rounded-xl bg-slate-950 border border-slate-800">
+      {/* חצי ימין של הלב - דם ורידי דל בחמצן כחול */}
+      <rect x="70" y="30" width="85" height="50" rx="8" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" />
+      <text x="112" y="60" fill="#ffffff" fontSize="10" fontWeight="bold" textAnchor="middle">עלייה ימין</text>
+      <rect x="70" y="85" width="85" height="55" rx="8" fill="#1d4ed8" stroke="#3b82f6" strokeWidth="2" />
+      <text x="112" y="118" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">חדר ימין</text>
+
+      {/* מחיצה */}
+      <line x1="160" y1="25" x2="160" y2="145" stroke="#64748b" strokeWidth="3" />
+
+      {/* חצי שמאל של הלב - דם עורקי מחומצן אדום */}
+      <rect x="165" y="30" width="85" height="50" rx="8" fill="#991b1b" stroke="#ef4444" strokeWidth="2" />
+      <text x="207" y="60" fill="#ffffff" fontSize="10" fontWeight="bold" textAnchor="middle">עלייה שמאל</text>
+      <rect x="165" y="85" width="85" height="55" rx="8" fill="#b91c1c" stroke="#ef4444" strokeWidth="3" />
+      <text x="207" y="118" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">חדר שמאל (דופן עבה)</text>
+
+      <text x="112" y="20" fill="#60a5fa" fontSize="9" textAnchor="middle">אל הריאות (עורק הריאה)</text>
+      <text x="207" y="20" fill="#f87171" fontSize="9" textAnchor="middle">אל הגוף (אבי העורקים)</text>
+      <text x="160" y="154" fill="#94a3b8" fontSize="10" textAnchor="middle">מבנה הלב: דיאסטולה (מילוי) מול סיסטולה (דחיפה)</text>
+    </svg>
+  );
+}
+
+function DiagramEnergy() {
+  return (
+    <svg viewBox="0 0 320 160" className="w-full h-36 mx-auto rounded-xl bg-slate-950 border border-slate-800">
+      <rect x="20" y="30" width="80" height="90" rx="10" fill="#78350f" stroke="#f59e0b" strokeWidth="2" />
+      <text x="60" y="55" fill="#fbbf24" fontSize="11" fontWeight="bold" textAnchor="middle">ATP-CrP</text>
+      <text x="60" y="75" fill="#fde68a" fontSize="10" textAnchor="middle">אנאירובי אלקטי</text>
+      <text x="60" y="102" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">0-10 שניות</text>
+
+      <rect x="120" y="30" width="80" height="90" rx="10" fill="#064e3b" stroke="#10b981" strokeWidth="2" />
+      <text x="160" y="55" fill="#34d399" fontSize="11" fontWeight="bold" textAnchor="middle">גליקוליזה</text>
+      <text x="160" y="75" fill="#a7f3d0" fontSize="10" textAnchor="middle">אנאירובי לקטי</text>
+      <text x="160" y="102" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">10-120 שנ'</text>
+
+      <rect x="220" y="30" width="80" height="90" rx="10" fill="#1e1b4b" stroke="#6366f1" strokeWidth="2" />
+      <text x="260" y="55" fill="#818cf8" fontSize="11" fontWeight="bold" textAnchor="middle">אירובי</text>
+      <text x="260" y="75" fill="#c7d2fe" fontSize="10" textAnchor="middle">חמצן במיטוכונדריה</text>
+      <text x="260" y="102" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">2+ דקות</text>
+
+      <text x="160" y="148" fill="#94a3b8" fontSize="10" textAnchor="middle">התפלגות מסלולי האנרגיה לפי עצימות ומשך המאמץ</text>
+    </svg>
+  );
+}
+
+// מיפוי רכיבי הדיאגרמות
+const DIAGRAM_MAP = {
+  disc: <DiagramDisc />,
+  sarcomere: <DiagramSarcomere />,
+  spine: <DiagramSpine />,
+  knee: <DiagramKnee />,
+  heart: <DiagramHeart />,
+  energy: <DiagramEnergy />
+};
+
+// מאגר השאלות המלא לפי חוברות וינגייט
 const WINGATE_QUESTION_BANK = [
-  // --- מודול 1: אנטומיה א' - תאים, רקמות, שלד ומפרקים ---
   {
     id: 'a1_1',
     moduleId: 'anat1',
-    moduleName: "אנטומיה א': תאים, רקמות ושלד",
     topic: 'רקמות חיבור',
-    title: 'מבנה ותפקיד הדיסק הבין-חולייתי',
-    illustration: '🦴 💿',
-    imageUrl: 'https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=800&auto=format&fit=crop&q=60',
+    title: 'מבנה הדיסק הבין-חולייתי',
+    diagramType: 'disc',
     questionText: 'חומר ה-Annulus Fibrosus בדיסק הבין-חולייתי תפקידו בעיקר:',
     hint: 'חשוב על הטבעות הסיביות החיצוניות שמחזיקות את הדיסק.',
     options: [
@@ -23,54 +173,16 @@ const WINGATE_QUESTION_BANK = [
       { id: 'c', text: 'לייצר תאי דם אדומים', isCorrect: false },
       { id: 'd', text: 'לחבר בין העור לשריר', isCorrect: false }
     ],
-    explanation: 'ה-Annulus Fibrosus בנוי מסיבי קולגן צפופים המקיפים את הגרעין הצמיגי (Nucleus Pulposus), בולמים זעזועים ומונעים חיכוך בין החוליות.'
+    explanation: 'ה-Annulus Fibrosus בנוי מטבעות קולגן קונצנטריות חזקות התוחמות את הגרעין הג\'לטיני, בולמות זעזועים ומונעות חיכוך.'
   },
   {
     id: 'a1_2',
     moduleId: 'anat1',
-    moduleName: "אנטומיה א': תאים, רקמות ושלד",
-    topic: 'רקמת הסחוס',
-    title: 'תא הסחוס - Chondrocyte',
-    illustration: '🔬 🧬',
-    imageUrl: 'https://images.unsplash.com/photo-1576086213369-97a306d36557?w=800&auto=format&fit=crop&q=60',
-    questionText: 'מה נכון לגבי תא הסחוס (Chondrocyte)?',
-    hint: 'זהו התא המרכיב ומתחזק את רקמת הסחוס.',
-    options: [
-      { id: 'a', text: 'מייצר קולגן ורכיבי חומר חוץ-תאי בסחוס', isCorrect: true },
-      { id: 'b', text: 'נמצא ברקמת העצם הצפופה', isCorrect: false },
-      { id: 'c', text: 'מהווה חלק מהחומר האנאורגני של השלד', isCorrect: false },
-      { id: 'd', text: 'נמצא בשכבה החיצונית של העור', isCorrect: false }
-    ],
-    explanation: 'כונדרוציטים (Chondrocytes) הם תאי הסחוס המייצרים קולגן ופרוטאוגליקנים ומתחזקים את המבנה המפרקי.'
-  },
-  {
-    id: 'a1_3',
-    moduleId: 'anat1',
-    moduleName: "אנטומיה א': תאים, רקמות ושלד",
-    topic: 'רקמת הסחוס',
-    title: 'הסחוס ההיאליני במפרקים',
-    illustration: '🧊 🦴',
-    imageUrl: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&auto=format&fit=crop&q=60',
-    questionText: 'בעניין הסחוס ההיאליני שבקצות העצמות, איזה משפט הוא הנכון?',
-    hint: 'שים לב לאספקת הדם וההזנה של הסחוס.',
-    options: [
-      { id: 'a', text: 'הוא מקבל חומרי מזון וחמצן בדיפוזיה מנוזל המפרק', isCorrect: true },
-      { id: 'b', text: 'הוא עשיר מאוד בכלי דם ישירים', isCorrect: false },
-      { id: 'c', text: 'הוא מורכב בעיקר מסיבי אלסטין', isCorrect: false },
-      { id: 'd', text: 'הוא נמצא בעיקר בדיסק הבין חולייתי', isCorrect: false }
-    ],
-    explanation: 'הסחוס ההיאליני הוא רקמה חסרת אספקת דם ישירה (Avascular) הניזונה בדיפוזיה מתוך הנוזל הסינוביאלי בעת תנועה ועומס.'
-  },
-  {
-    id: 'a1_4',
-    moduleId: 'anat1',
-    moduleName: "אנטומיה א': תאים, רקמות ושלד",
     topic: 'עמוד השדרה',
-    title: 'חוליות הצוואר הייחודיות',
-    illustration: '🦒 🦴',
-    imageUrl: 'https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?w=800&auto=format&fit=crop&q=60',
+    title: 'עקומות עמוד השדרה ושלד הציר',
+    diagramType: 'spine',
     questionText: 'מה מייחד את חוליות הצוואר מכל שאר חוליות עמוד השדרה?',
-    hint: 'דרכו עוברים כלי דם חשובים המובילים דם אל המוח.',
+    hint: 'דרכו עוברים כלי דם המובילים דם אל המוח.',
     options: [
       { id: 'a', text: 'נקב מיוחד בכל זיז רוחבי (Transverse Foramen)', isCorrect: true },
       { id: 'b', text: 'גוף חוליה ענק בהשוואה לחוליות המותניים', isCorrect: false },
@@ -80,33 +192,11 @@ const WINGATE_QUESTION_BANK = [
     explanation: 'בחוליות הצוואר (C1-C7) קיים נקב בזיז הרוחבי (Foramen transversarium) שדרכו עוברים עורקי הצוואר אל המוח.'
   },
   {
-    id: 'a1_5',
+    id: 'a1_3',
     moduleId: 'anat1',
-    moduleName: "אנטומיה א': תאים, רקמות ושלד",
-    topic: 'מפרקים',
-    title: 'מפרק ה-Atlantoaxial',
-    illustration: '🔄 🗣️',
-    imageUrl: 'https://images.unsplash.com/photo-1507413245164-6160d8298b31?w=800&auto=format&fit=crop&q=60',
-    questionText: 'מפרק ה-Atlantoaxial (בין C1 ל-C2) מאפשר בעיקר את התנועה הבאה של הראש:',
-    hint: 'תנועת ה"לא".',
-    options: [
-      { id: 'a', text: 'רוטציה (סיבוב הראש לצדדים)', isCorrect: true },
-      { id: 'b', text: 'פשיטה לאחור בלבד', isCorrect: false },
-      { id: 'c', text: 'הרחקה וקירוב', isCorrect: false },
-      { id: 'd', text: 'החלקה ללא תנועה', isCorrect: false }
-    ],
-    explanation: 'השן של חוליית C2 (Dens) נכנסת לקשת של חוליית C1 (Atlas) ויוצרת ציר סיבוב של כ-45 מעלות לכל צד.'
-  },
-
-  // --- מודול 2: אנטומיה ב' - שרירים ותנועות ---
-  {
-    id: 'a2_1',
-    moduleId: 'anat2',
-    moduleName: "אנטומיה ב': שרירים ותנועות",
-    topic: 'שרירי הירך והשוק',
-    title: 'אחז בראש הפיבולה',
-    illustration: '🦵 🦶',
-    imageUrl: 'https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=800&auto=format&fit=crop&q=60',
+    topic: 'מפרקים וסחוסים',
+    title: 'מבנה מפרק הברך והרצועות',
+    diagramType: 'knee',
     questionText: 'איזה שריר נאחז (Insertion) בראש עצם השוקית (Head of Fibula)?',
     hint: 'זהו השריר הלטרלי מבין שרירי מיתר הירך (Hamstrings).',
     options: [
@@ -118,51 +208,27 @@ const WINGATE_QUESTION_BANK = [
     explanation: 'שני הראשים של ה-Biceps Femoris נאחזים בראש הפיבולה ומבצעים כפיפת ברך ופשיטת ירך (הראש הארוך).'
   },
   {
-    id: 'a2_2',
+    id: 'a2_1',
     moduleId: 'anat2',
-    moduleName: "אנטומיה ב': שרירים ותנועות",
-    topic: 'מייצבי הכתף (Rotator Cuff)',
-    title: 'סיבוב פנימי במפרק הכתף',
-    illustration: '🛡️ 💪',
-    imageUrl: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=60',
-    questionText: 'מי מבין שרירי ה-Rotator Cuff מבצע רוטציה מדיאלית (סיבוב פנימי) של הכתף?',
-    hint: 'השריר היחיד מהקבוצה שנמצא בצד הקדמי של השכמה ונאחז ב-Lesser Tubercle.',
+    topic: 'מערכת השרירים',
+    title: 'מנגנון הסרקומר וחלבון הכיווץ',
+    diagramType: 'sarcomere',
+    questionText: 'במהלך כיווץ שריר שלד, איזה חלבון נמשך פנימה אל מרכז הסרקומר על ידי גשרי הרוחב?',
+    hint: 'זהו החוט הדק (Thin Filament) המחובר לקו ה-Z.',
     options: [
-      { id: 'a', text: 'Subscapularis', isCorrect: true },
-      { id: 'b', text: 'Supraspinatus', isCorrect: false },
-      { id: 'c', text: 'Infraspinatus', isCorrect: false },
-      { id: 'd', text: 'Teres Minor', isCorrect: false }
+      { id: 'a', text: 'אקטין (Actin)', isCorrect: true },
+      { id: 'b', text: 'מיוזין (Myosin)', isCorrect: false },
+      { id: 'c', text: 'קולגן מסוג 1', isCorrect: false },
+      { id: 'd', text: 'המוגלובין', isCorrect: false }
     ],
-    explanation: 'ה-Subscapularis יושב בשקע הקדמי של השכמה (Subscapular fossa) ומבצע רוטציה מדיאלית (פנימית) במפרק הכתף.'
+    explanation: 'ראשי המיוזין יוצרים גשרי רוחב ומושכים את חלבוני האקטין הדקים למרכז הסרקומר (Power Stroke), וכך השריר מתקצר.'
   },
-  {
-    id: 'a2_3',
-    moduleId: 'anat2',
-    moduleName: "אנטומיה ב': שרירים ותנועות",
-    topic: 'שרירי הגו והאגן',
-    title: 'האחז ב-Greater Trochanter',
-    illustration: '🍑 🦴',
-    imageUrl: 'https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=60',
-    questionText: 'בליטת ה-Greater Trochanter בעצם הירך מהווה נקודת אחז מרכזית לשריר:',
-    hint: 'השריר המרכזי המרחיק את הירך ומייצב את האגן בהליכה.',
-    options: [
-      { id: 'a', text: 'Gluteus Medius (וגם Minimus)', isCorrect: true },
-      { id: 'b', text: 'Gluteus Maximus', isCorrect: false },
-      { id: 'c', text: 'Iliopsoas', isCorrect: false },
-      { id: 'd', text: 'Hamstrings', isCorrect: false }
-    ],
-    explanation: 'השרירים Gluteus Medius ו-Minimus נאחזים ב-Greater Trochanter ומונעים את צניחת האגן בצד הנגדי בעת עמידה והליכה (מבחן טרנדלנבורג).'
-  },
-
-  // --- מודול 3: פיזיולוגיה א' - אנרגיה ומטבוליזם ---
   {
     id: 'p1_1',
     moduleId: 'phys1',
-    moduleName: "פיזיולוגיה א': אנרגיה ומטבוליזם",
     topic: 'מערכות אנרגיה',
-    title: 'ריכוזי פוספטים תוך-תאיים',
-    illustration: '🔋 ⚡',
-    imageUrl: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=60',
+    title: 'מסלולים אנרגטיים במאמץ',
+    diagramType: 'energy',
     questionText: 'מה נכון לגבי הריכוז הזמין של ATP לעומת קריאטין פוספט (CrP) בתא שריר?',
     hint: 'איזו מולקולה נאגרת בכמות גדולה יותר בציטופלזמה?',
     options: [
@@ -174,33 +240,11 @@ const WINGATE_QUESTION_BANK = [
     explanation: 'מולקולת ה-CrP קטנה יותר ולכן התא אוגר כמות הגדולה פי 3 לפחות ממאגר ה-ATP, המספיקה יחד לכ-10 שניות מאמץ מרבי.'
   },
   {
-    id: 'p1_2',
-    moduleId: 'phys1',
-    moduleName: "פיזיולוגיה א': אנרגיה ומטבוליזם",
-    topic: 'מערכות אנרגיה',
-    title: 'גורמי עייפות בגליקוליזה',
-    illustration: '🧪 🏃‍♂️',
-    imageUrl: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&auto=format&fit=crop&q=60',
-    questionText: 'במאמץ מרבי הנמשך 40-60 שניות (גליקוליזה אנאירובית), מהי הסיבה המרכזית לעייפות ולירידה בהספק?',
-    hint: 'איזה יון נפלט ופוגע בפעילות אנזים ה-PFK?',
-    options: [
-      { id: 'a', text: 'עלייה בחומציות עקב הצטברות יוני מימן (H+) ופגיעה באנזים PFK ובכיווץ', isCorrect: true },
-      { id: 'b', text: 'סיום מוחלט של כל מאגרי השומן בגוף', isCorrect: false },
-      { id: 'c', text: 'מחסור באוויר בריאות', isCorrect: false },
-      { id: 'd', text: 'ירידה בלתי הפיכה בנפח הלב', isCorrect: false }
-    ],
-    explanation: 'הצטברות יוני מימן (H+) מורידה את ה-pH בתא, מעכבת את האנזים המרכזי בגליקוליזה (PFK) ופוגעת בקשירת הסידן לטרופונין.'
-  },
-
-  // --- מודול 4: פיזיולוגיה ב' - לב, דם ונשימה ---
-  {
     id: 'p2_1',
     moduleId: 'phys2',
-    moduleName: "פיזיולוגיה ב': לב, דם ונשימה",
-    topic: 'מערכת הלב',
-    title: 'שלב הדיאסטולה בלב',
-    illustration: '❤️ 🩸',
-    imageUrl: 'https://images.unsplash.com/photo-1559757175-5700dde675bc?w=800&auto=format&fit=crop&q=60',
+    topic: 'מערכת הלב וכלי הדם',
+    title: 'שלבי פעולת הלב ומסתמיו',
+    diagramType: 'heart',
     questionText: 'בזמן שלב הדיאסטולה (הרפיית החדרים) של הלב, מהו מצב המסתמים?',
     hint: 'הדם צריך לזרום מהעליות אל תוך החדרים.',
     options: [
@@ -210,24 +254,6 @@ const WINGATE_QUESTION_BANK = [
       { id: 'd', text: 'כל המסתמים פתוחים יחד', isCorrect: false }
     ],
     explanation: 'בדיאסטולה החדרים נרפים ומתמלאים בדם מהעליות דרך המסתמים הפתוחים ביניהם, בעוד המסתמים לאבי העורקים ולעורק הריאה סגורים למניעת חזרת דם.'
-  },
-  {
-    id: 'p2_2',
-    moduleId: 'phys2',
-    moduleName: "פיזיולוגיה ב': לב, דם ונשימה",
-    topic: 'שריר ומערכת העצבים',
-    title: 'כישור השריר מול אברון גולג\'י',
-    illustration: '⚡ 🧠',
-    imageUrl: 'https://images.unsplash.com/photo-1507413245164-6160d8298b31?w=800&auto=format&fit=crop&q=60',
-    questionText: 'איזה מנגנון גורם להרפיה רפלקסיבית של שריר בתגובה למתיחת-יתר או עומס קיצוני בגיד?',
-    hint: 'החיישן שנמצא בצומת שבין הגיד לשריר ומגן עליו מקרע.',
-    options: [
-      { id: 'a', text: 'אברון הגיד ע"ש גולג\'י (Golgi Tendon Organ - GTO)', isCorrect: true },
-      { id: 'b', text: 'כישור השריר (Muscle Spindle)', isCorrect: false },
-      { id: 'c', text: 'רשת הסרקופלזמה', isCorrect: false },
-      { id: 'd', text: 'תאי הלוויין', isCorrect: false }
-    ],
-    explanation: 'אברון גולג\'י (GTO) חש במתח יתר בגיד ומעכב רפלקסיבית את האגוניסט כדי למנוע תלישה, בעוד כישור השריר גורם דווקא לכיווץ כנגד מתיחה מהירה.'
   }
 ];
 
@@ -250,7 +276,6 @@ export default function WingateExamApp() {
   const [streak, setStreak] = useState(0);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [showExplanation, setShowExplanation] = useState(false);
-  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
 
   const initModule = (modId = activeModule) => {
     if ('speechSynthesis' in window) window.speechSynthesis.cancel();
@@ -343,7 +368,7 @@ export default function WingateExamApp() {
   if (!currentQ) {
     return (
       <main style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <p style={{ fontWeight: 'bold' }}>טוען שאלות ותמונות מחוברת וינגייט...</p>
+        <p style={{ fontWeight: 'bold' }}>טוען שאלות ותרשימים גרפיים...</p>
       </main>
     );
   }
@@ -359,7 +384,7 @@ export default function WingateExamApp() {
               <h1 style={{ margin: 0, fontSize: '18px', fontWeight: '900', color: '#f59e0b' }}>
                 🎓 ווינגייט קואוץ' - שמואל
               </h1>
-              <span style={{ fontSize: '11px', color: '#94a3b8' }}>לימוד חזותי וקולי מותאם אישית</span>
+              <span style={{ fontSize: '11px', color: '#94a3b8' }}>תרשימים גרפיים מובנים והקראה קולית</span>
             </div>
 
             <button
@@ -490,32 +515,13 @@ export default function WingateExamApp() {
             <span style={{ color: '#f59e0b', fontSize: '10px', fontWeight: 'bold', display: 'block' }}>{currentQ.topic}</span>
             <span style={{ color: '#ffffff', fontSize: '13px', fontWeight: '900' }}>{currentQ.title}</span>
           </div>
-          <span style={{ fontSize: '22px' }}>{currentQ.illustration}</span>
+          <span style={{ fontSize: '11px', color: '#38bdf8', fontWeight: 'bold' }}>תרשים ויזואלי 📊</span>
         </div>
 
-        {/* תמונה אנטומית/פיזיולוגית של השאלה */}
-        {currentQ.imageUrl && (
-          <div 
-            onClick={() => setIsImageModalOpen(true)}
-            style={{ 
-              width: '100%', 
-              height: '150px', 
-              borderRadius: '14px', 
-              overflow: 'hidden', 
-              marginBottom: '10px', 
-              border: '1px solid #334155', 
-              position: 'relative', 
-              cursor: 'pointer' 
-            }}
-          >
-            <img 
-              src={currentQ.imageUrl} 
-              alt={currentQ.title} 
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-            />
-            <span style={{ position: 'absolute', bottom: '6px', left: '6px', backgroundColor: 'rgba(2, 6, 23, 0.8)', color: '#fbbf24', fontSize: '10px', padding: '3px 6px', borderRadius: '6px', fontWeight: 'bold' }}>
-              🔍 לחץ להגדלה
-            </span>
+        {/* הצגת התרשים הגרפי המובנה */}
+        {currentQ.diagramType && DIAGRAM_MAP[currentQ.diagramType] && (
+          <div style={{ marginBottom: '10px' }}>
+            {DIAGRAM_MAP[currentQ.diagramType]}
           </div>
         )}
 
@@ -666,19 +672,6 @@ export default function WingateExamApp() {
           </button>
         )}
       </footer>
-
-      {/* חלון צף להגדלת תמונה במסך מלא */}
-      {isImageModalOpen && (
-        <div 
-          onClick={() => setIsImageModalOpen(false)}
-          style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.9)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px' }}
-        >
-          <div style={{ maxWidth: '90%', maxHeight: '90%', textAlign: 'center' }}>
-            <img src={currentQ.imageUrl} alt={currentQ.title} style={{ maxWidth: '100%', maxHeight: '80vh', borderRadius: '12px', border: '2px solid #f59e0b' }} />
-            <p style={{ color: '#ffffff', fontSize: '13px', marginTop: '10px', fontWeight: 'bold' }}>{currentQ.title} - לחץ לסגירה ✕</p>
-          </div>
-        </div>
-      )}
 
     </main>
   );
