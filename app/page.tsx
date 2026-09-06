@@ -1,18 +1,16 @@
-/* eslint-disable */
-// @ts-nocheck
 'use client';
 
 import React, { useState, useEffect } from 'react';
 
-// מאגר שאלות מקיף ומדויק לפי חוברות וינגייט
-const QUESTIONS_DATA = [
-  // --- פיזיולוגיה: אנרגיה ומטבוליזם ---
+// מאגר השאלות והתרשימים המובנים ישירות
+const QUIZ_DATA = [
+  // 1. שאלה על BMR
   {
     id: 'p1_bmr',
     moduleId: 'phys1',
     topic: 'חילוף חומרים בסיסי',
     title: 'משתנים המשפיעים על BMR',
-    diagram: 'bmr',
+    diagramType: 'bmr',
     questionText: 'אילו משתנים משפיעים ישירות על חילוף החומרים הבסיסי (BMR)?',
     hint: 'שריר צורך פי 4 אנרגיה משומן במנוחה, ואדם גדול ממדים מאבד יותר חום דרך שטח העור לסביבה.',
     options: [
@@ -23,64 +21,15 @@ const QUESTIONS_DATA = [
     ],
     explanation: 'BMR מושפע ממסת רקמת השריר הפעילה (שורפת פי 4 קלוריות משומן במנוחה), מגיל, מגדר ושטח פני הגוף.'
   },
-  {
-    id: 'p1_marathon',
-    moduleId: 'phys1',
-    topic: 'מערכות אנרגיה',
-    title: 'מקור אנרגיה במרתון',
-    diagram: 'energy',
-    questionText: 'מקורם העיקרי של מולקולות ה-ATP במהלך ריצת מרתון הוא:',
-    hint: 'מאגרי הפחמימות מספיקים לכשעה וחצי. מאיזה מחסן ענק של עשרות אלפי קלוריות הגוף שואב דלק לאורך שעות?',
-    options: [
-      { id: 'a', text: 'בשומנים (ובפחמימות במסלול האירובי)', isCorrect: true },
-      { id: 'b', text: 'במסלול האנאירובי אלקטי בלבד', isCorrect: false },
-      { id: 'c', text: 'בחלבונים בלבד', isCorrect: false },
-      { id: 'd', text: 'בוויטמינים', isCorrect: false }
-    ],
-    explanation: 'במאמצים אירוביים ממושכים מעל חצי שעה, שומנים מהווים את מקור הדלק המרכזי במיטוכונדריות בנוכחות חמצן.'
-  },
-  {
-    id: 'p1_cori',
-    moduleId: 'phys1',
-    topic: 'מעגל קורי',
-    title: 'פינוי לקטט במעגל קורי',
-    diagram: 'cori',
-    questionText: 'במסגרת מעגל קורי (Cori Cycle), מה מתרחש בכבד?',
-    hint: 'הכבד הוא מפעל המיחזור של הגוף: הוא לוקח את הלקטט שנשפך לדם ומשקיע אנרגיה כדי לבנות ממנו שוב סוכר נקי.',
-    options: [
-      { id: 'a', text: 'לקטט הופך שוב לגלוקוז בתאי הכבד בהשקעת אנרגיה', isCorrect: true },
-      { id: 'b', text: 'לקטט הופך לגלוקוז בתוך השריר הפעיל עצמו', isCorrect: false },
-      { id: 'c', text: 'לקטט הופך לשומן בתוך הריאות', isCorrect: false },
-      { id: 'd', text: 'לקטט מסולק מהגוף ישירות דרך הנשיפה', isCorrect: false }
-    ],
-    explanation: 'הכבד קולט לקטט מהדם וממחזר אותו חזרה לגלוקוז בתהליך גלוקונאוגנזה הדורש 6 מולקולות ATP.'
-  },
-  {
-    id: 'p1_obla',
-    moduleId: 'phys1',
-    topic: 'סף אנאירובי',
-    title: 'הגדרת הסף האנאירובי OBLA',
-    diagram: 'energy',
-    questionText: 'מהי ההגדרה של הסף האנאירובי (OBLA)?',
-    hint: 'חשוב על ברז שפותח מים (ייצור) מול פתח ניקוז (פינוי). כל עוד הניקוז עומד בקצב, הכיור לא עולה על גדותיו.',
-    options: [
-      { id: 'a', text: 'קצב הפעילות המרבי שבו קצב ייצור הלקטט שווה עדיין לקצב הפינוי שלו (איזון)', isCorrect: true },
-      { id: 'b', text: 'קצב ייצור הלקטט נמוך בהרבה מקצב הפינוי', isCorrect: false },
-      { id: 'c', text: 'מצב בו אין שימוש בגלוקוז כלל', isCorrect: false },
-      { id: 'd', text: 'הרגע שבו נגמרים מאגרי השומן', isCorrect: false }
-    ],
-    explanation: 'בסף האנאירובי (כ-4 מילימול/ליטר) קצב הפינוי הוא מקסימלי אך עדיין שווה לייצור. מעבר לו – החומציות מצטברת בחדות.'
-  },
-
-  // --- אנטומיה א': שלד, רקמות ומפרקים ---
+  // 2. שאלה על מפרק הברך וראש הפיבולה
   {
     id: 'a1_fibula',
     moduleId: 'anat1',
     topic: 'שרירי הירך ומפרק הברך',
     title: 'אחז בראש הפיבולה',
-    diagram: 'knee',
+    diagramType: 'knee',
     questionText: 'איזה שריר נאחז (Insertion) בראש עצם השוקית (Head of Fibula)?',
-    hint: 'הפיבולה היא העצם החיצונית (לטרלית) של השוק. איזה שריר מהירך האחורית פונה החוצה לצד הלטרלי בתרשים?',
+    hint: 'הפיבולה היא העצם החיצונית של השוק. איזה שריר מהירך האחורית פונה החוצה לצד הלטרלי?',
     options: [
       { id: 'a', text: 'Biceps Femoris (הדו-ראשי הירכי)', isCorrect: true },
       { id: 'b', text: 'Semitendinosus', isCorrect: false },
@@ -89,12 +38,13 @@ const QUESTIONS_DATA = [
     ],
     explanation: 'ה-Biceps Femoris יורד בצד הלטרלי ונאחז בראש הפיבולה, בעוד שני שרירי ה"סמי" נאחזים בצד הפנימי של הטיביה.'
   },
+  // 3. שאלה על הדיסק הבין-חולייתי
   {
     id: 'a1_disc',
     moduleId: 'anat1',
     topic: 'רקמות חיבור',
     title: 'מבנה הדיסק הבין-חולייתי',
-    diagram: 'disc',
+    diagramType: 'disc',
     questionText: 'חומר ה-Annulus Fibrosus בדיסק הבין-חולייתי תפקידו בעיקר:',
     hint: 'Annulus בלטינית זה טבעת. דמיין מעטפת של צמיג קשיח שמחזיקה ג\'ל בפנים ובולמת זעזועים.',
     options: [
@@ -105,12 +55,13 @@ const QUESTIONS_DATA = [
     ],
     explanation: 'ה-Annulus Fibrosus בנוי מטבעות קולגן צפופות העוטפות את הגרעין הצמיגי (Nucleus Pulposus) ובולמות עומסים.'
   },
+  // 4. שאלה על חוליות הצוואר
   {
     id: 'a1_cervical',
     moduleId: 'anat1',
     topic: 'עמוד השדרה',
     title: 'מאפייני חוליות הצוואר',
-    diagram: 'cervical',
+    diagramType: 'cervical',
     questionText: 'נקב בזיזים הרוחביים (Transverse Foramen) מאפיין את חוליות:',
     hint: 'המוח יושב למעלה וחייב לקבל דם. באיזה אזור בעמוד השדרה העורקים צריכים מנהרה מוגנת בתוך העצם?',
     options: [
@@ -121,46 +72,30 @@ const QUESTIONS_DATA = [
     ],
     explanation: 'נקב בזיז הרוחבי (C1-C7) מאפשר מעבר בטוח ומוגן של עורק הצוואר המוביל דם למוח.'
   },
+  // 5. שאלה על הלב ומסתמים
   {
-    id: 'a1_spine',
-    moduleId: 'anat1',
-    topic: 'עמוד השדרה',
-    title: 'עקומות עמוד השדרה',
-    diagram: 'spine',
-    questionText: 'איזו עקומה קעורה קיימת בעמוד השדרה המותני (Lumbar)?',
-    hint: 'שקע הגב התחתון הטבעי המאפשר לנו לעמוד זקוף על שתיים.',
+    id: 'p2_heart',
+    moduleId: 'phys2',
+    topic: 'מערכת הלב וכלי הדם',
+    title: 'שלבי פעולת הלב ומסתמיו',
+    diagramType: 'heart',
+    questionText: 'בזמן שלב הדיאסטולה (הרפיית החדרים ומילויים) בלב:',
+    hint: 'דמיין דלתות שנפתחות כדי שהדם ייכנס מהעליות לתוך החדרים, בזמן שהדלת לעורקים סגורה.',
     options: [
-      { id: 'a', text: 'לורדוזה מותנית (Lumbar Lordosis)', isCorrect: true },
-      { id: 'b', text: 'קיפוזה חזית (Thoracic Kyphosis)', isCorrect: false },
-      { id: 'c', text: 'סקוליוזיס (עקמת)', isCorrect: false },
-      { id: 'd', text: 'קיפוזה סקרלית', isCorrect: false }
+      { id: 'a', text: 'המסתמים בין העליות לחדרים פתוחים, והמסתמים בין החדרים לעורקים סגורים', isCorrect: true },
+      { id: 'b', text: 'המסתמים בין החדרים לעורקים פתוחים', isCorrect: false },
+      { id: 'c', text: 'כל המסתמים בלב סגורים לחלוטין', isCorrect: false },
+      { id: 'd', text: 'כל המסתמים פתוחים יחד', isCorrect: false }
     ],
-    explanation: 'באזור המותני קיימת עקומת לורדוזה (שקע קעור) הנושאת את עיקר משקל הגו ובולמת זעזועים.'
+    explanation: 'בדיאסטולה החדרים נרפים ומתמלאים בדם מהעליות דרך המסתמים הפתוחים ביניהם, בעוד מסתמי היציאה לעורקים סגורים.'
   },
-
-  // --- אנטומיה ב': שרירים ותנועות ---
-  {
-    id: 'a2_deltoid',
-    moduleId: 'anat2',
-    topic: 'שרירי הכתף',
-    title: 'קירוב אופקי ורוטציה פנימית',
-    diagram: 'deltoid',
-    questionText: 'התנועות קירוב אופקי (Horizontal Adduction) ורוטציה מדיאלית של הכתף מבוצעות ע״י:',
-    hint: 'שים יד על קדמת הכתף וקרב את הזרוע אל החזה – תרגיש את הסיבים הקדמיים של שריר הכתף מתקשים מיד.',
-    options: [
-      { id: 'a', text: 'Anterior deltoid (הדלתואיד הקדמי)', isCorrect: true },
-      { id: 'b', text: 'Posterior deltoid', isCorrect: false },
-      { id: 'c', text: 'Brachialis', isCorrect: false },
-      { id: 'd', text: 'Infraspinatus', isCorrect: false }
-    ],
-    explanation: 'הדלתואיד הקדמי מושך את הזרוע מלפנים ומבצע כפיפה, קירוב אופקי וסיבוב פנימי (מדיאלי).'
-  },
+  // 6. שאלה על הסרקומר
   {
     id: 'a2_sarcomere',
     moduleId: 'anat2',
     topic: 'מערכת השרירים',
     title: 'מנגנון הסרקומר וחלבון הכיווץ',
-    diagram: 'sarcomere',
+    diagramType: 'sarcomere',
     questionText: 'במהלך כיווץ שריר שלד, איזה חלבון נמשך אל עבר מרכז הסרקומר על ידי גשרי הרוחב?',
     hint: 'החוט הדק שמחובר לקו ה-Z ונגרר פנימה ע"י ראשי המיוזין העבים.',
     options: [
@@ -170,96 +105,145 @@ const QUESTIONS_DATA = [
       { id: 'd', text: 'אלסטין', isCorrect: false }
     ],
     explanation: 'ראשי המיוזין נאחזים באקטין וגוררים אותו למרכז הסרקומר בתנועת חתירה (Power Stroke), וכך הסרקומר מתקצר.'
-  },
-
-  // --- פיזיולוגיה ב': מערכות הגוף ---
-  {
-    id: 'p2_heart',
-    moduleId: 'phys2',
-    topic: 'מערכת הלב וכלי הדם',
-    title: 'שלבי פעולת הלב ומסתמיו',
-    diagram: 'heart',
-    questionText: 'בזמן שלב הדיאסטולה (הרפיית החדרים ומילויים) בלב:',
-    hint: 'דמיין דלתות שנפתחות כדי שהאורחים (הדם) ייכנסו מהמרפסת (העלייה) לתוך הסלון (החדר), בזמן שהדלת לרחוב סגורה.',
-    options: [
-      { id: 'a', text: 'המסתמים בין העליות לחדרים פתוחים, והמסתמים בין החדרים לעורקים סגורים', isCorrect: true },
-      { id: 'b', text: 'המסתמים בין החדרים לעורקים פתוחים', isCorrect: false },
-      { id: 'c', text: 'כל המסתמים בלב סגורים לחלוטין', isCorrect: false },
-      { id: 'd', text: 'כל המסתמים פתוחים יחד', isCorrect: false }
-    ],
-    explanation: 'בדיאסטולה החדרים נרפים ומתמלאים בדם מהעליות דרך המסתמים הפתוחים ביניהם, בעוד מסתמי היציאה לעורקים סגורים.'
-  },
-  {
-    id: 'p2_veins',
-    moduleId: 'phys2',
-    topic: 'כלי דם ומחזורי הדם',
-    title: 'הוורידים במחזורי הדם',
-    diagram: 'heart',
-    questionText: 'מה נכון לגבי הוורידים במחזורי הדם של גוף האדם?',
-    hint: 'וריד תמיד נכנס ללב. מאיפה ורידי הריאה מגיעים? מהריאות שבהן הרגע נשמנו חמצן נקי!',
-    options: [
-      { id: 'a', text: 'במחזור הריאתי (הקטן) זורם בהם דם עשיר בחמצן, ובמחזור הגדול דם עני בחמצן', isCorrect: true },
-      { id: 'b', text: 'בכל הוורידים בגוף תמיד זורם רק דם דל בחמצן', isCorrect: false },
-      { id: 'c', text: 'ורידים מובילים דם מהלב אל הרקמות', isCorrect: false },
-      { id: 'd', text: 'אין שסתומים בוורידים כלל', isCorrect: false }
-    ],
-    explanation: 'ההגדרה של וריד היא כיוון הזרימה (אל הלב): ורידי הריאה מחזירים דם מחומצן מהריאות לעלייה השמאלית, בעוד ורידי הגוף מחזירים דם ורידי.'
   }
 ];
 
-// פונקציית ערבוב פשוטה ובטוחה
-function shuffle(array) {
-  const arr = [...array];
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
+// רכיב התרשימים הגרפיים
+function VisualDiagram({ type }: { type: string }) {
+  if (type === 'bmr') {
+    return (
+      <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+        <rect x="15" y="20" width="95" height="110" rx="8" fill="#1e293b" stroke="#f59e0b" strokeWidth="2" />
+        <text x="62" y="45" fill="#f59e0b" fontSize="11" fontWeight="bold" textAnchor="middle">מסת שריר</text>
+        <text x="62" y="70" fill="#cbd5e1" fontSize="9" textAnchor="middle">צורכת פי 4 אנרגיה</text>
+        <text x="62" y="85" fill="#cbd5e1" fontSize="9" textAnchor="middle">משומן במנוחה</text>
+        <text x="62" y="112" fill="#10b981" fontSize="11" fontWeight="bold" textAnchor="middle">מעלה BMR ⬆</text>
+
+        <rect x="122" y="20" width="95" height="110" rx="8" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
+        <text x="170" y="45" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">שטח פני הגוף</text>
+        <text x="170" y="70" fill="#cbd5e1" fontSize="9" textAnchor="middle">איבוד חום מוגבר</text>
+        <text x="170" y="85" fill="#cbd5e1" fontSize="9" textAnchor="middle">בגוף גדול ממדים</text>
+        <text x="170" y="112" fill="#10b981" fontSize="11" fontWeight="bold" textAnchor="middle">מעלה BMR ⬆</text>
+
+        <rect x="230" y="20" width="95" height="110" rx="8" fill="#1e293b" stroke="#a855f7" strokeWidth="2" />
+        <text x="277" y="45" fill="#a855f7" fontSize="11" fontWeight="bold" textAnchor="middle">גיל ומגדר</text>
+        <text x="277" y="70" fill="#cbd5e1" fontSize="9" textAnchor="middle">טסטוסטרון בגבר</text>
+        <text x="277" y="85" fill="#cbd5e1" fontSize="9" textAnchor="middle">ירידה טבעית בגיל</text>
+        <text x="277" y="112" fill="#fbbf24" fontSize="10" fontWeight="bold" textAnchor="middle">משפיע ישירות</text>
+        <text x="170" y="150" fill="#94a3b8" fontSize="10" textAnchor="middle">הגורמים המשפיעים על חילוף החומרים הבסיסי (BMR)</text>
+      </svg>
+    );
   }
-  return arr;
+
+  if (type === 'knee') {
+    return (
+      <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+        <path d="M 120 10 L 220 10 L 225 50 Q 210 70 170 65 Q 130 70 115 50 Z" fill="#334155" stroke="#64748b" strokeWidth="2" />
+        <text x="170" y="32" fill="#f8fafc" fontSize="11" fontWeight="bold" textAnchor="middle">עצם הירך (Femur)</text>
+        <ellipse cx="135" cy="70" rx="16" ry="6" fill="#38bdf8" />
+        <ellipse cx="205" cy="70" rx="16" ry="6" fill="#38bdf8" />
+        <path d="M 130 80 Q 170 75 210 80 L 200 150 L 140 150 Z" fill="#1e293b" stroke="#475569" strokeWidth="2" />
+        <text x="170" y="115" fill="#f8fafc" fontSize="11" fontWeight="bold" textAnchor="middle">שוק (Tibia)</text>
+        <path d="M 95 85 L 115 85 L 110 150 L 90 150 Z" fill="#475569" stroke="#94a3b8" strokeWidth="2" />
+        <circle cx="105" cy="88" r="10" fill="#e11d48" stroke="#fecdd3" strokeWidth="2" />
+        <path d="M 85 20 Q 75 60 100 82" fill="none" stroke="#fb7185" strokeWidth="3" strokeDasharray="4 2" />
+        <text x="45" y="32" fill="#fb7185" fontSize="10" fontWeight="bold">Biceps Femoris</text>
+        <text x="45" y="110" fill="#f59e0b" fontSize="10" fontWeight="bold">ראש השוקית</text>
+        <text x="45" y="122" fill="#f59e0b" fontSize="9">(Head of Fibula)</text>
+      </svg>
+    );
+  }
+
+  if (type === 'disc') {
+    return (
+      <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+        <ellipse cx="170" cy="80" rx="135" ry="60" fill="#1e293b" stroke="#38bdf8" strokeWidth="3" />
+        <ellipse cx="170" cy="80" rx="105" ry="46" fill="#0f172a" stroke="#0284c7" strokeWidth="2" strokeDasharray="5 3" />
+        <ellipse cx="170" cy="80" rx="75" ry="32" fill="#0369a1" stroke="#38bdf8" strokeWidth="2" />
+        <ellipse cx="170" cy="80" rx="40" ry="18" fill="#f43f5e" stroke="#fda4af" strokeWidth="2" />
+        <text x="170" y="84" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">גרעין צמיגי (Nucleus Pulposus)</text>
+        <text x="170" y="35" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">טבעות קולגן סיביות (Annulus Fibrosus)</text>
+        <text x="170" y="152" fill="#94a3b8" fontSize="10" textAnchor="middle">מבנה הדיסק הבין-חולייתי ובלימת זעזועים</text>
+      </svg>
+    );
+  }
+
+  if (type === 'cervical') {
+    return (
+      <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+        <ellipse cx="170" cy="40" rx="55" ry="20" fill="#334155" stroke="#64748b" strokeWidth="2" />
+        <text x="170" y="44" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">גוף החוליה (Body)</text>
+        <ellipse cx="170" cy="90" rx="38" ry="24" fill="#020617" stroke="#38bdf8" strokeWidth="2" />
+        <circle cx="85" cy="70" r="10" fill="#f43f5e" stroke="#fecdd3" strokeWidth="2" />
+        <circle cx="255" cy="70" r="10" fill="#f43f5e" stroke="#fecdd3" strokeWidth="2" />
+        <text x="85" y="105" fill="#f43f5e" fontSize="10" fontWeight="bold" textAnchor="middle">נקב עורק הצוואר</text>
+        <text x="85" y="118" fill="#f43f5e" fontSize="9" textAnchor="middle">(Transverse Foramen)</text>
+        <path d="M 155 115 L 170 150 L 185 115 Z" fill="#334155" stroke="#64748b" strokeWidth="2" />
+        <text x="170" y="142" fill="#94a3b8" fontSize="10" textAnchor="middle">זיז אחורי (Spine)</text>
+      </svg>
+    );
+  }
+
+  if (type === 'heart') {
+    return (
+      <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+        <rect x="70" y="20" width="90" height="45" rx="8" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" />
+        <text x="115" y="47" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">עלייה ימנית</text>
+        <rect x="70" y="70" width="90" height="55" rx="8" fill="#1d4ed8" stroke="#3b82f6" strokeWidth="2" />
+        <text x="115" y="102" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">חדר ימין</text>
+        <line x1="170" y1="15" x2="170" y2="135" stroke="#64748b" strokeWidth="3" />
+        <rect x="180" y="20" width="90" height="45" rx="8" fill="#991b1b" stroke="#ef4444" strokeWidth="2" />
+        <text x="225" y="47" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">עלייה שמאלית</text>
+        <rect x="180" y="70" width="90" height="55" rx="8" fill="#b91c1c" stroke="#ef4444" strokeWidth="3" />
+        <text x="225" y="102" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">חדר שמאל</text>
+        <text x="170" y="150" fill="#94a3b8" fontSize="10" textAnchor="middle">בדיאסטולה: מסתמים בין עליות לחדרים פתוחים למילוי</text>
+      </svg>
+    );
+  }
+
+  // ברירת מחדל: סרקומר
+  return (
+    <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+      <line x1="30" y1="20" x2="30" y2="140" stroke="#f43f5e" strokeWidth="4" />
+      <line x1="310" y1="20" x2="310" y2="140" stroke="#f43f5e" strokeWidth="4" />
+      <text x="30" y="15" fill="#f43f5e" fontSize="10" fontWeight="bold" textAnchor="middle">Z-Line</text>
+      <text x="310" y="15" fill="#f43f5e" fontSize="10" fontWeight="bold" textAnchor="middle">Z-Line</text>
+      <line x1="30" y1="50" x2="145" y2="50" stroke="#38bdf8" strokeWidth="3" />
+      <line x1="195" y1="50" x2="310" y2="50" stroke="#38bdf8" strokeWidth="3" />
+      <line x1="30" y1="110" x2="145" y2="110" stroke="#38bdf8" strokeWidth="3" />
+      <line x1="195" y1="110" x2="310" y2="110" stroke="#38bdf8" strokeWidth="3" />
+      <text x="85" y="42" fill="#38bdf8" fontSize="10" fontWeight="bold">אקטין (דק)</text>
+      <rect x="95" y="70" width="150" height="20" rx="4" fill="#eab308" />
+      <text x="170" y="84" fill="#020617" fontSize="10" fontWeight="bold" textAnchor="middle">מיוזין (עבה)</text>
+      <text x="170" y="150" fill="#94a3b8" fontSize="10" textAnchor="middle">מנגנון גשרי הרוחב בסרקומר</text>
+    </svg>
+  );
 }
 
 export default function App() {
-  const [mounted, setMounted] = useState(false);
-  const [activeModule, setActiveModule] = useState('all');
-  const [questions, setQuestions] = useState([]);
+  const [isClient, setIsClient] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isAnswerChecked, setIsAnswerChecked] = useState(false);
   const [score, setScore] = useState(0);
   const [streak, setStreak] = useState(0);
   const [showExplanation, setShowExplanation] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // אתחול אך ורק בצד לקוח (Client Side Only) לאחר שהדפדפן נטען
   useEffect(() => {
-    setMounted(true);
-    loadModule('all');
+    setIsClient(true);
   }, []);
 
-  const loadModule = (modId) => {
-    let filtered = QUESTIONS_DATA;
-    if (modId !== 'all') {
-      filtered = QUESTIONS_DATA.filter((q) => q.moduleId === modId);
-    }
-    const prepared = shuffle(filtered).map((q) => ({
-      ...q,
-      options: shuffle(q.options)
-    }));
+  if (!isClient) {
+    return (
+      <div style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#f59e0b', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px', fontWeight: 'bold' }}>
+        טוען את אפליקציית וינגייט לשמואל...
+      </div>
+    );
+  }
 
-    setQuestions(prepared);
-    setCurrentIndex(0);
-    setSelectedOption(null);
-    setIsAnswerChecked(false);
-    setShowExplanation(false);
-    setScore(0);
-    setStreak(0);
-  };
+  const currentQ = QUIZ_DATA[currentIndex];
 
-  const handleModuleClick = (modId) => {
-    setActiveModule(modId);
-    loadModule(modId);
-  };
-
-  const speakText = (text) => {
+  const handleSpeak = (text: string) => {
     try {
       if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
         window.speechSynthesis.cancel();
@@ -271,9 +255,8 @@ export default function App() {
     } catch (e) {}
   };
 
-  const handleCheckAnswer = () => {
+  const handleCheck = () => {
     if (!selectedOption || isAnswerChecked) return;
-    const currentQ = questions[currentIndex];
     const chosen = currentQ.options.find((o) => o.id === selectedOption);
     const correct = chosen?.isCorrect;
 
@@ -283,11 +266,11 @@ export default function App() {
     if (correct) {
       setScore((s) => s + 10);
       setStreak((s) => s + 1);
-      speakText('נכון מאוד שמואל! תשובה מדויקת.');
+      handleSpeak('נכון מאוד שמואל! תשובה מדויקת.');
     } else {
       setStreak(0);
       const right = currentQ.options.find((o) => o.isCorrect)?.text;
-      speakText(`לא מדויק. התשובה הנכונה היא: ${right}.`);
+      handleSpeak(`לא מדויק. התשובה הנכונה היא: ${right}.`);
     }
   };
 
@@ -298,27 +281,21 @@ export default function App() {
       }
     } catch (e) {}
 
-    if (currentIndex < questions.length - 1) {
+    if (currentIndex < QUIZ_DATA.length - 1) {
       setCurrentIndex((i) => i + 1);
       setSelectedOption(null);
       setIsAnswerChecked(false);
       setShowExplanation(false);
     } else {
       alert(`כל הכבוד שמואל!\nסיימת את המבחן בהצלחה!\nצברת ${score} נקודות!`);
-      loadModule(activeModule);
+      setCurrentIndex(0);
+      setSelectedOption(null);
+      setIsAnswerChecked(false);
+      setShowExplanation(false);
+      setScore(0);
+      setStreak(0);
     }
   };
-
-  // מסך טעינה בטוח המונע שגיאת Client-Side Mismatch
-  if (!mounted || questions.length === 0) {
-    return (
-      <div style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <p style={{ fontWeight: 'bold', fontSize: '18px', color: '#f59e0b' }}>טוען את אפליקציית וינגייט לשמואל...</p>
-      </div>
-    );
-  }
-
-  const currentQ = questions[currentIndex];
 
   return (
     <main style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#f8fafc', padding: '14px', maxWidth: '520px', margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }} dir="rtl">
@@ -331,102 +308,21 @@ export default function App() {
               <h1 style={{ margin: 0, fontSize: '18px', fontWeight: '900', color: '#f59e0b' }}>
                 🎓 ווינגייט קואוץ' - שמואל
               </h1>
-              <span style={{ fontSize: '11px', color: '#94a3b8' }}>תרשימים ייעודיים והקראה קולית</span>
+              <span style={{ fontSize: '11px', color: '#94a3b8' }}>תרשימים מותאמים והקראה קולית</span>
             </div>
 
             <button
-              onClick={() => loadModule(activeModule)}
+              onClick={() => {
+                setCurrentIndex(0);
+                setSelectedOption(null);
+                setIsAnswerChecked(false);
+                setShowExplanation(false);
+                setScore(0);
+                setStreak(0);
+              }}
               style={{ backgroundColor: '#1e293b', color: '#fbbf24', border: '1px solid #d97706', padding: '6px 12px', borderRadius: '12px', fontSize: '12px', fontWeight: 'bold', cursor: 'pointer' }}
             >
-              🔄 איפוס וערבוב
-            </button>
-          </div>
-
-          {/* תפריט מודולים */}
-          <div style={{ display: 'flex', gap: '6px', overflowX: 'auto', paddingBottom: '6px', marginBottom: '8px' }}>
-            <button
-              onClick={() => handleModuleClick('all')}
-              style={{
-                backgroundColor: activeModule === 'all' ? '#f59e0b' : '#0f172a',
-                color: activeModule === 'all' ? '#020617' : '#94a3b8',
-                border: '1px solid #334155',
-                padding: '6px 10px',
-                borderRadius: '10px',
-                fontSize: '11px',
-                fontWeight: 'bold',
-                whiteSpace: 'nowrap',
-                cursor: 'pointer'
-              }}
-            >
-              🎯 כל המבחן ({QUESTIONS_DATA.length})
-            </button>
-
-            <button
-              onClick={() => handleModuleClick('anat1')}
-              style={{
-                backgroundColor: activeModule === 'anat1' ? '#f59e0b' : '#0f172a',
-                color: activeModule === 'anat1' ? '#020617' : '#94a3b8',
-                border: '1px solid #334155',
-                padding: '6px 10px',
-                borderRadius: '10px',
-                fontSize: '11px',
-                fontWeight: 'bold',
-                whiteSpace: 'nowrap',
-                cursor: 'pointer'
-              }}
-            >
-              🦴 אנטומיה א'
-            </button>
-
-            <button
-              onClick={() => handleModuleClick('anat2')}
-              style={{
-                backgroundColor: activeModule === 'anat2' ? '#f59e0b' : '#0f172a',
-                color: activeModule === 'anat2' ? '#020617' : '#94a3b8',
-                border: '1px solid #334155',
-                padding: '6px 10px',
-                borderRadius: '10px',
-                fontSize: '11px',
-                fontWeight: 'bold',
-                whiteSpace: 'nowrap',
-                cursor: 'pointer'
-              }}
-            >
-              💪 אנטומיה ב'
-            </button>
-
-            <button
-              onClick={() => handleModuleClick('phys1')}
-              style={{
-                backgroundColor: activeModule === 'phys1' ? '#f59e0b' : '#0f172a',
-                color: activeModule === 'phys1' ? '#020617' : '#94a3b8',
-                border: '1px solid #334155',
-                padding: '6px 10px',
-                borderRadius: '10px',
-                fontSize: '11px',
-                fontWeight: 'bold',
-                whiteSpace: 'nowrap',
-                cursor: 'pointer'
-              }}
-            >
-              ⚡ פיזיולוגיה א'
-            </button>
-
-            <button
-              onClick={() => handleModuleClick('phys2')}
-              style={{
-                backgroundColor: activeModule === 'phys2' ? '#f59e0b' : '#0f172a',
-                color: activeModule === 'phys2' ? '#020617' : '#94a3b8',
-                border: '1px solid #334155',
-                padding: '6px 10px',
-                borderRadius: '10px',
-                fontSize: '11px',
-                fontWeight: 'bold',
-                whiteSpace: 'nowrap',
-                cursor: 'pointer'
-              }}
-            >
-              ❤️ פיזיולוגיה ב'
+              🔄 איפוס מבחן
             </button>
           </div>
 
@@ -440,13 +336,13 @@ export default function App() {
                 ⭐ {score} XP
               </span>
             </div>
-            <span style={{ color: '#94a3b8', fontWeight: 'bold' }}>שאלה {currentIndex + 1} מתוך {questions.length}</span>
+            <span style={{ color: '#94a3b8', fontWeight: 'bold' }}>שאלה {currentIndex + 1} מתוך {QUIZ_DATA.length}</span>
           </div>
 
           <div style={{ width: '100%', backgroundColor: '#0f172a', height: '8px', borderRadius: '999px', overflow: 'hidden', border: '1px solid #1e293b' }}>
             <div 
               style={{ 
-                width: `${((currentIndex + 1) / questions.length) * 100}%`, 
+                width: `${((currentIndex + 1) / QUIZ_DATA.length) * 100}%`, 
                 height: '100%', 
                 background: 'linear-gradient(to left, #10b981, #f59e0b)',
                 transition: 'width 0.3s ease'
@@ -461,40 +357,23 @@ export default function App() {
             <span style={{ color: '#f59e0b', fontSize: '10px', fontWeight: 'bold', display: 'block' }}>{currentQ.topic}</span>
             <span style={{ color: '#ffffff', fontSize: '13px', fontWeight: '900' }}>{currentQ.title}</span>
           </div>
-          <span style={{ fontSize: '11px', color: '#38bdf8', fontWeight: 'bold' }}>תרשים מותאם אישית 📊</span>
+          <span style={{ fontSize: '11px', color: '#38bdf8', fontWeight: 'bold' }}>תרשים מדויק 📊</span>
         </div>
 
-        {/* תרשים גרפי מותאם לשאלה */}
-        <div 
-          onClick={() => setIsModalOpen(true)}
-          style={{ 
-            width: '100%', 
-            height: '170px', 
-            borderRadius: '14px', 
-            overflow: 'hidden', 
-            marginBottom: '10px', 
-            border: '1px solid #334155', 
-            backgroundColor: '#020617',
-            position: 'relative', 
-            cursor: 'pointer' 
-          }}
-        >
-          {DIAGRAMS_LIBRARY[currentQ.diagram] || DIAGRAMS_LIBRARY.disc}
-
-          <span style={{ position: 'absolute', bottom: '6px', left: '6px', backgroundColor: 'rgba(2, 6, 23, 0.85)', color: '#fbbf24', fontSize: '10px', padding: '3px 8px', borderRadius: '6px', fontWeight: 'bold', border: '1px solid #334155' }}>
-            🔍 לחץ להגדלה במסך מלא
-          </span>
+        {/* תרשים ויזואלי מותאם אישית */}
+        <div style={{ width: '100%', height: '170px', borderRadius: '14px', overflow: 'hidden', marginBottom: '10px', border: '1px solid #334155', backgroundColor: '#020617' }}>
+          <VisualDiagram type={currentQ.diagramType} />
         </div>
 
-        {/* השאלה + כפתור הקראה */}
-        <div style={{ backgroundColor: '#0b1329', border: '1px solid #1e293b', borderRadius: '14px', padding: '12px', marginBottom: '10px', position: 'relative' }}>
+        {/* שאלה + כפתור הקראה */}
+        <div style={{ backgroundColor: '#0b1329', border: '1px solid #1e293b', borderRadius: '14px', padding: '12px', marginBottom: '10px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
             <p style={{ margin: 0, fontSize: '14px', fontWeight: 'bold', color: '#f8fafc', lineHeight: '1.4' }}>
               {currentQ.questionText}
             </p>
 
             <button
-              onClick={() => speakText(`${currentQ.questionText}. רמז: ${currentQ.hint}`)}
+              onClick={() => handleSpeak(`${currentQ.questionText}. רמז: ${currentQ.hint}`)}
               style={{
                 backgroundColor: '#9333ea',
                 color: '#ffffff',
@@ -581,7 +460,7 @@ export default function App() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
               <span style={{ color: '#f59e0b', fontSize: '11px', fontWeight: 'bold' }}>📖 הסבר רשמי ומפורט:</span>
               <button
-                onClick={() => speakText(currentQ.explanation)}
+                onClick={() => handleSpeak(currentQ.explanation)}
                 style={{ backgroundColor: '#3b0764', color: '#d8b4fe', border: '1px solid #6b21a8', borderRadius: '8px', padding: '2px 6px', fontSize: '10px', cursor: 'pointer' }}
               >
                 🔊 הקרא הסבר
@@ -598,7 +477,7 @@ export default function App() {
       <footer style={{ paddingTop: '6px', paddingBottom: '6px' }}>
         {!isAnswerChecked ? (
           <button
-            onClick={handleCheckAnswer}
+            onClick={handleCheck}
             disabled={!selectedOption}
             style={{
               width: '100%',
@@ -629,25 +508,10 @@ export default function App() {
               cursor: 'pointer'
             }}
           >
-            {currentIndex === questions.length - 1 ? '🎉 סיים מודול וסכם ציון' : 'שאלה הבאה ➜'}
+            {currentIndex === QUIZ_DATA.length - 1 ? '🎉 סיום מבחן ואיפוס' : 'שאלה הבאה ➜'}
           </button>
         )}
       </footer>
-
-      {/* חלון צף להגדלת תרשים */}
-      {isModalOpen && (
-        <div 
-          onClick={() => setIsModalOpen(false)}
-          style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.95)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px' }}
-        >
-          <div style={{ width: '100%', maxWidth: '480px', textAlign: 'center' }}>
-            <div style={{ height: '260px', borderRadius: '14px', border: '2px solid #f59e0b', overflow: 'hidden' }}>
-              {DIAGRAMS_LIBRARY[currentQ.diagram] || DIAGRAMS_LIBRARY.disc}
-            </div>
-            <p style={{ color: '#ffffff', fontSize: '13px', marginTop: '10px', fontWeight: 'bold' }}>{currentQ.title} - לחץ לסגירה ✕</p>
-          </div>
-        </div>
-      )}
 
     </main>
   );
