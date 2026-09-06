@@ -347,7 +347,6 @@ const DIAGRAMS_LIBRARY = {
   )
 };
 
-// פונקציית ערבוב חכמה (Fisher-Yates)
 function shuffleArray(arr) {
   const copy = [...arr];
   for (let i = copy.length - 1; i > 0; i--) {
@@ -368,9 +367,11 @@ export default function WingateExamApp() {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [showExplanation, setShowExplanation] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
-  // אתחול בטוח ללא שגיאות Client / Hydration
+  // מניעת שגיאות Hydration Mismatch לחלוטין
   useEffect(() => {
+    setIsClient(true);
     initModule('all');
   }, []);
 
@@ -462,10 +463,10 @@ export default function WingateExamApp() {
     }
   };
 
-  if (!currentQ) {
+  if (!isClient || !currentQ) {
     return (
       <main style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <p style={{ fontWeight: 'bold' }}>טוען שאלות ותרשימים אנטומיים מדויקים...</p>
+        <p style={{ fontWeight: 'bold' }}>טוען את מאגר השאלות והתרשימים המלא...</p>
       </main>
     );
   }
@@ -481,7 +482,7 @@ export default function WingateExamApp() {
               <h1 style={{ margin: 0, fontSize: '18px', fontWeight: '900', color: '#f59e0b' }}>
                 🎓 ווינגייט קואוץ' - שמואל
               </h1>
-              <span style={{ fontSize: '11px', color: '#94a3b8' }}>תרשימים אנטומיים מדויקים והקראה קולית</span>
+              <span style={{ fontSize: '11px', color: '#94a3b8' }}>תרשימים גרפיים ייעודיים והקראה קולית</span>
             </div>
 
             <button
@@ -615,7 +616,7 @@ export default function WingateExamApp() {
           <span style={{ fontSize: '11px', color: '#38bdf8', fontWeight: 'bold' }}>תרשים מותאם אישית 📊</span>
         </div>
 
-        {/* הצגת התרשים המדויק מתוך ספרית הדיאגרמות */}
+        {/* הצגת התרשים הגרפי הייעודי מתוך הספרייה */}
         <div 
           onClick={() => setIsModalOpen(true)}
           style={{ 
@@ -726,11 +727,11 @@ export default function WingateExamApp() {
           })}
         </div>
 
-        {/* הסבר מפורט מתוך חוברות וינגייט */}
+        {/* הסבר מלא מתוך חוברות וינגייט */}
         {showExplanation && (
           <div style={{ backgroundColor: '#0f172a', border: '1px solid #334155', borderRadius: '14px', padding: '10px', marginBottom: '10px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-              <span style={{ color: '#f59e0b', fontSize: '11px', fontWeight: 'bold' }}>📖 הסבר רשמי מתוך חוברת וינגייט:</span>
+              <span style={{ color: '#f59e0b', fontSize: '11px', fontWeight: 'bold' }}>📖 הסבר רשמי ומפורט:</span>
               <button
                 onClick={() => speak(currentQ.explanation)}
                 style={{ backgroundColor: '#3b0764', color: '#d8b4fe', border: '1px solid #6b21a8', borderRadius: '8px', padding: '2px 6px', fontSize: '10px', cursor: 'pointer' }}
