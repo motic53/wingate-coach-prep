@@ -4,31 +4,34 @@
 
 import React, { useState, useEffect } from 'react';
 
-// --- ספריית תרשימים גרפיים (SVG) מותאמים לכל נושא ---
+// --- ספריית תרשימים גרפיים (SVG) מותאמים אישית לכל נושא ---
 const DIAGRAMS_LIBRARY = {
-  // BMR וחילוף חומרים
+  // 1. תרשים BMR - חילוף חומרים בסיסי
   bmr: (
     <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
-      <rect x="20" y="20" width="90" height="120" rx="8" fill="#1e293b" stroke="#f59e0b" strokeWidth="2" />
-      <text x="65" y="45" fill="#f59e0b" fontSize="11" fontWeight="bold" textAnchor="middle">מסת שריר</text>
-      <text x="65" y="70" fill="#cbd5e1" fontSize="9" textAnchor="middle">צורכת פי 4 אנרגיה</text>
-      <text x="65" y="85" fill="#cbd5e1" fontSize="9" textAnchor="middle">משומן במנוחה</text>
-      <text x="65" y="115" fill="#10b981" fontSize="11" fontWeight="bold" textAnchor="middle">מעלה BMR ⬆</text>
-      <rect x="125" y="20" width="90" height="120" rx="8" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
+      <rect x="15" y="20" width="95" height="120" rx="8" fill="#1e293b" stroke="#f59e0b" strokeWidth="2" />
+      <text x="62" y="45" fill="#f59e0b" fontSize="11" fontWeight="bold" textAnchor="middle">מסת שריר</text>
+      <text x="62" y="70" fill="#cbd5e1" fontSize="9" textAnchor="middle">צורכת פי 4 אנרגיה</text>
+      <text x="62" y="85" fill="#cbd5e1" fontSize="9" textAnchor="middle">משומן במנוחה</text>
+      <text x="62" y="115" fill="#10b981" fontSize="11" fontWeight="bold" textAnchor="middle">מעלה BMR ⬆</text>
+
+      <rect x="122" y="20" width="95" height="120" rx="8" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
       <text x="170" y="45" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">שטח פני הגוף</text>
       <text x="170" y="70" fill="#cbd5e1" fontSize="9" textAnchor="middle">איבוד חום מוגבר</text>
       <text x="170" y="85" fill="#cbd5e1" fontSize="9" textAnchor="middle">בגוף גדול ממדים</text>
       <text x="170" y="115" fill="#10b981" fontSize="11" fontWeight="bold" textAnchor="middle">מעלה BMR ⬆</text>
-      <rect x="230" y="20" width="90" height="120" rx="8" fill="#1e293b" stroke="#a855f7" strokeWidth="2" />
-      <text x="275" y="45" fill="#a855f7" fontSize="11" fontWeight="bold" textAnchor="middle">גיל ומגדר</text>
-      <text x="275" y="70" fill="#cbd5e1" fontSize="9" textAnchor="middle">טסטוסטרון בגבר</text>
-      <text x="275" y="85" fill="#cbd5e1" fontSize="9" textAnchor="middle">ירידה טבעית עם הגיל</text>
-      <text x="275" y="115" fill="#fbbf24" fontSize="10" fontWeight="bold" textAnchor="middle">משפיע ישירות</text>
+
+      <rect x="230" y="20" width="95" height="120" rx="8" fill="#1e293b" stroke="#a855f7" strokeWidth="2" />
+      <text x="277" y="45" fill="#a855f7" fontSize="11" fontWeight="bold" textAnchor="middle">גיל ומגדר</text>
+      <text x="277" y="70" fill="#cbd5e1" fontSize="9" textAnchor="middle">טסטוסטרון בגבר</text>
+      <text x="277" y="85" fill="#cbd5e1" fontSize="9" textAnchor="middle">ירידה טבעית עם הגיל</text>
+      <text x="277" y="115" fill="#fbbf24" fontSize="10" fontWeight="bold" textAnchor="middle">משפיע ישירות</text>
+
       <text x="170" y="160" fill="#94a3b8" fontSize="10" textAnchor="middle">הגורמים המשפיעים על חילוף החומרים הבסיסי (BMR)</text>
     </svg>
   ),
 
-  // דיסק בין חולייתי
+  // 2. דיסק בין-חולייתי
   disc: (
     <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
       <ellipse cx="170" cy="85" rx="140" ry="65" fill="#1e293b" stroke="#38bdf8" strokeWidth="3" />
@@ -41,7 +44,7 @@ const DIAGRAMS_LIBRARY = {
     </svg>
   ),
 
-  // תא סחוס
+  // 3. תא סחוס
   chondrocyte: (
     <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
       <rect x="20" y="20" width="300" height="130" rx="15" fill="#0c4a6e" stroke="#0284c7" strokeWidth="2" />
@@ -55,7 +58,7 @@ const DIAGRAMS_LIBRARY = {
     </svg>
   ),
 
-  // עצם צפופה ומערכת הוורס
+  // 4. עצם צפופה ומערכת הוורס
   osteon: (
     <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
       <circle cx="170" cy="85" r="65" fill="#1e293b" stroke="#ca8a04" strokeWidth="3" />
@@ -69,7 +72,7 @@ const DIAGRAMS_LIBRARY = {
     </svg>
   ),
 
-  // חוליית צוואר
+  // 5. חוליית צוואר
   cervical: (
     <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
       <ellipse cx="170" cy="45" rx="55" ry="22" fill="#334155" stroke="#64748b" strokeWidth="2" />
@@ -84,7 +87,7 @@ const DIAGRAMS_LIBRARY = {
     </svg>
   ),
 
-  // אטלס ואקסיס
+  // 6. אטלס ואקסיס
   atlas_axis: (
     <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
       <ellipse cx="170" cy="80" rx="90" ry="45" fill="none" stroke="#38bdf8" strokeWidth="4" />
@@ -97,7 +100,7 @@ const DIAGRAMS_LIBRARY = {
     </svg>
   ),
 
-  // עקומות עמוד השדרה
+  // 7. עקומות עמוד השדרה
   spine_curves: (
     <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
       <path d="M 170 15 Q 195 42 170 68 Q 140 98 170 124 Q 190 144 170 162" fill="none" stroke="#f59e0b" strokeWidth="6" strokeLinecap="round" />
@@ -113,7 +116,7 @@ const DIAGRAMS_LIBRARY = {
     </svg>
   ),
 
-  // סטרנום
+  // 8. סטרנום ובית חזה
   sternum: (
     <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
       <polygon points="145,15 195,15 205,45 135,45" fill="#0284c7" stroke="#38bdf8" strokeWidth="2" />
@@ -126,7 +129,7 @@ const DIAGRAMS_LIBRARY = {
     </svg>
   ),
 
-  // ברך וראש פיבולה
+  // 9. מפרק הברך וראש הפיבולה
   knee_fibula: (
     <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
       <path d="M 120 10 L 220 10 L 225 55 Q 210 75 170 70 Q 130 75 115 55 Z" fill="#334155" stroke="#64748b" strokeWidth="2" />
@@ -144,7 +147,7 @@ const DIAGRAMS_LIBRARY = {
     </svg>
   ),
 
-  // סרקומר
+  // 10. סרקומר
   sarcomere: (
     <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
       <line x1="30" y1="20" x2="30" y2="150" stroke="#f43f5e" strokeWidth="4" />
@@ -166,7 +169,7 @@ const DIAGRAMS_LIBRARY = {
     </svg>
   ),
 
-  // דלתואיד בכתף
+  // 11. דלתואיד
   deltoid: (
     <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
       <line x1="70" y1="30" x2="270" y2="30" stroke="#94a3b8" strokeWidth="4" />
@@ -182,7 +185,7 @@ const DIAGRAMS_LIBRARY = {
     </svg>
   ),
 
-  // ארבע-ראשי
+  // 12. ארבע-ראשי
   quadriceps: (
     <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
       <rect x="130" y="20" width="80" height="100" rx="15" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" />
@@ -195,7 +198,7 @@ const DIAGRAMS_LIBRARY = {
     </svg>
   ),
 
-  // גיד אכילס ושוק
+  // 13. גיד אכילס ושוק
   achilles: (
     <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
       <ellipse cx="145" cy="50" rx="25" ry="35" fill="#991b1b" stroke="#ef4444" strokeWidth="2" />
@@ -208,7 +211,7 @@ const DIAGRAMS_LIBRARY = {
     </svg>
   ),
 
-  // זוקפי הגב
+  // 14. זוקפי הגב
   erector_spinae: (
     <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
       <line x1="170" y1="20" x2="170" y2="150" stroke="#64748b" strokeWidth="4" />
@@ -222,7 +225,7 @@ const DIAGRAMS_LIBRARY = {
     </svg>
   ),
 
-  // מסלולי אנרגיה
+  // 15. מסלולי אנרגיה
   energy: (
     <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
       <rect x="15" y="25" width="90" height="105" rx="10" fill="#78350f" stroke="#f59e0b" strokeWidth="2" />
@@ -241,7 +244,7 @@ const DIAGRAMS_LIBRARY = {
     </svg>
   ),
 
-  // מעגל קורי
+  // 16. מעגל קורי
   cori: (
     <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
       <rect x="30" y="25" width="110" height="110" rx="12" fill="#881337" stroke="#f43f5e" strokeWidth="2" />
@@ -258,7 +261,7 @@ const DIAGRAMS_LIBRARY = {
     </svg>
   ),
 
-  // עקומת לקטט ו-OBLA
+  // 17. עקומת לקטט ו-OBLA
   obla: (
     <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
       <line x1="40" y1="130" x2="310" y2="130" stroke="#64748b" strokeWidth="2" />
@@ -272,7 +275,7 @@ const DIAGRAMS_LIBRARY = {
     </svg>
   ),
 
-  // לב ומסתמים
+  // 18. לב ומסתמים
   heart: (
     <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
       <rect x="70" y="25" width="90" height="50" rx="8" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" />
@@ -290,7 +293,7 @@ const DIAGRAMS_LIBRARY = {
     </svg>
   ),
 
-  // שסתומי ורידים
+  // 19. שסתומי ורידים
   veins: (
     <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
       <rect x="130" y="15" width="80" height="135" fill="#1e293b" stroke="#3b82f6" strokeWidth="3" />
@@ -307,7 +310,7 @@ const DIAGRAMS_LIBRARY = {
     </svg>
   ),
 
-  // נאדיות ריאה
+  // 20. נאדיות ריאה
   alveoli: (
     <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
       <circle cx="170" cy="80" r="55" fill="#042f2e" stroke="#14b8a6" strokeWidth="3" />
@@ -320,7 +323,7 @@ const DIAGRAMS_LIBRARY = {
     </svg>
   ),
 
-  // כישור השריר מול גולג'י
+  // 21. כישור השריר מול גולג'י
   spindle: (
     <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
       <ellipse cx="110" cy="80" rx="60" ry="30" fill="#881337" stroke="#f43f5e" strokeWidth="2" />
@@ -335,7 +338,7 @@ const DIAGRAMS_LIBRARY = {
     </svg>
   ),
 
-  // אינסולין וסוכר
+  // 22. אינסולין וסוכר
   insulin: (
     <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
       <rect x="40" y="40" width="260" height="100" rx="15" fill="#1e293b" stroke="#64748b" strokeWidth="3" />
@@ -350,7 +353,7 @@ const DIAGRAMS_LIBRARY = {
     </svg>
   ),
 
-  // מערכת החיסון
+  // 23. מערכת החיסון
   immune: (
     <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
       <rect x="20" y="30" width="85" height="95" rx="8" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
@@ -370,597 +373,453 @@ const DIAGRAMS_LIBRARY = {
   )
 };
 
-// --- מאגר השאלות המלא והרשמי (אנטומיה ופיזיולוגיה) ---
-const ALL_WINGATE_QUESTIONS = [
-  // ==========================================
-  // מודול 1: אנטומיה א' - שלד, רקמות ומפרקים
-  // ==========================================
-  {
-    id: 'anat1_1',
-    moduleId: 'anat1',
-    topic: 'רקמות חיבור',
-    title: 'מבנה ותפקיד הדיסק הבין-חולייתי',
-    diagramKey: 'disc',
-    questionText: 'חומר ה-Annulus Fibrosus בדיסק הבין-חולייתי תפקידו בעיקר:',
-    hint: 'Annulus בלטינית זה טבעת. דמיין מעטפת של צמיג קשיח שמחזיקה ג\'ל בפנים ובולמת זעזועים.',
-    options: [
-      { id: 'a', text: 'למנוע חיכוך ולבלום זעזועים (תשובות א׳+ב׳ נכונות)', isCorrect: true },
-      { id: 'b', text: 'להציג יכולת החלקה בלבד', isCorrect: false },
-      { id: 'c', text: 'לייצר תאי דם אדומים', isCorrect: false },
-      { id: 'd', text: 'להזין ישירות את חוט השדרה', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 35: Annulus Fibrosus הוא טבעת סיבית קולגנית צפופה העוטפת את הגרעין הצמיגי (Nucleus Pulposus) ובולמת עומסים.'
-  },
-  {
-    id: 'anat1_2',
-    moduleId: 'anat1',
-    topic: 'רקמת הסחוס',
-    title: 'תאי סחוס - Chondrocyte',
-    diagramKey: 'chondrocyte',
-    questionText: 'תא הסחוס (Chondrocyte):',
-    hint: 'הסיומת "ציט" פירושה תא בוגר, ו"כונדרו" זה סחוס. מה התא מייצר ומפריש כדי לבנות את הרקמה?',
-    options: [
-      { id: 'a', text: 'מייצר קולגן ורכיבי חומר חוץ-תאי בסחוס', isCorrect: true },
-      { id: 'b', text: 'נמצא ברקמת העצם הצפופה', isCorrect: false },
-      { id: 'c', text: 'הוא חלק מהחומר האנאורגני של הסחוס', isCorrect: false },
-      { id: 'd', text: 'נמצא ברקמת חיבור צפופה בלבד', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 35: תאי הסחוס (כונדרוציטים) מייצרים ומפרישים ללא הרף את סיבי הקולגן והפרוטאוגליקנים למטריקס.'
-  },
-  {
-    id: 'anat1_3',
-    moduleId: 'anat1',
-    topic: 'רקמת הסחוס',
-    title: 'הזנת סחוס היאליני',
-    diagramKey: 'chondrocyte',
-    questionText: 'בעניין הסחוס ההיאליני שבקצות העצמות, מי מבין המשפטים הבאים הוא הנכון:',
-    hint: 'חשוב על ספוג: אין לו כלי דם משלו, הוא יונק נוזל מהסביבה הסינוביאלית בזמן תנועה ועומס.',
-    options: [
-      { id: 'a', text: 'מקבל חומרי מזון וחמצן בדיפוזיה מנוזל המפרק', isCorrect: true },
-      { id: 'b', text: 'עשיר באספקת דם ישירה', isCorrect: false },
-      { id: 'c', text: 'אלסטי מאוד הודות לאחוז גבוה של אלסטין', isCorrect: false },
-      { id: 'd', text: 'נמצא בדיסק הבין חולייתי', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 21, 35: הסחוס ההיאליני חסר כלי דם ישירים וניזון בדיפוזיה מתוך הנוזל הסינוביאלי בעת עומס ותנועה.'
-  },
-  {
-    id: 'anat1_4',
-    moduleId: 'anat1',
-    topic: 'רקמת העצם',
-    title: 'מבנה העצם הצפופה',
-    diagramKey: 'osteon',
-    questionText: 'מה מייחד את העצם הצפופה (Compact Bone)?',
-    hint: 'דמיין גזע עץ שנחתך לרוחב: טבעות עגולות זו בתוך זו סביב תעלה מרכזית.',
-    options: [
-      { id: 'a', text: 'מורכבת מיחידות המסודרות בצורה קונצנטרית (מערכות הוורס - Osteons)', isCorrect: true },
-      { id: 'b', text: 'חסרת אספקה דמית לחלוטין', isCorrect: false },
-      { id: 'c', text: 'נמצאת בעיקר בחלקן הפנימי של האפיפיזות', isCorrect: false },
-      { id: 'd', text: 'מורכבת מטרבקולות ספוגיות בלבד', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 28, 35: העצם הצפופה בנויה מאוסטאונים (מערכות הוורס) – גלילים של גבישי סידן וקולגן סביב תעלת דם ועצבים.'
-  },
-  {
-    id: 'anat1_5',
-    moduleId: 'anat1',
-    topic: 'עמוד השדרה',
-    title: 'מאפייני חוליות הצוואר',
-    diagramKey: 'cervical',
-    questionText: 'נקב בזיזים הרוחביים (Transverse Foramen) מאפיין את חוליות:',
-    hint: 'המוח יושב בראש וחייב לקבל דם. באיזה אזור בעמוד השדרה העורקים צריכים מנהרה מוגנת בתוך העצם?',
-    options: [
-      { id: 'a', text: 'הצוואר (Cervical vertebrae)', isCorrect: true },
-      { id: 'b', text: 'החזה (Thoracic)', isCorrect: false },
-      { id: 'c', text: 'המותניים (Lumbar)', isCorrect: false },
-      { id: 'd', text: 'הסקרום', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 54, 65: נקב בזיז הרוחבי ייחודי לחוליות הצוואר (C1-C7) ומגן על עורק הצוואר המוביל דם למוח.'
-  },
-  {
-    id: 'anat1_6',
-    moduleId: 'anat1',
-    topic: 'עמוד השדרה',
-    title: 'חוליה C1 אטלס',
-    diagramKey: 'atlas_axis',
-    questionText: 'חוליה C1 (Atlas) יוצאת דופן מכל שאר החוליות כי:',
-    hint: 'אטלס נושא את כדור הארץ. החוליה הזו היא טבעת רחבה שמחזיקה ישירות את הראש, ואין בה גוף חוליה רגיל.',
-    options: [
-      { id: 'a', text: 'אין לה גוף חוליה והיא נושאת את הגולגולת (תשובות א׳+ב׳ נכונות)', isCorrect: true },
-      { id: 'b', text: 'היא החוליה הגדולה והכבדה ביותר בשלד', isCorrect: false },
-      { id: 'c', text: 'היא מחוברת ישירות לצלע הראשונה', isCorrect: false },
-      { id: 'd', text: 'אין לה תעלה עבור חוט השדרה', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 54, 65: חוליית האטלס (C1) היא טבעת גרמית ללא גוף חוליה מרכזי, הבנויה לשאת את הגולגולת.'
-  },
-  {
-    id: 'anat1_7',
-    moduleId: 'anat1',
-    topic: 'מפרקים',
-    title: 'מפרק Atlantoaxial C1-C2',
-    diagramKey: 'atlas_axis',
-    questionText: 'ה-Atlantoaxial joint מאפשר את התנועה העיקרית הבאה:',
-    hint: 'חוליה C2 נקראת Axis (ציר) וממנה בולטת שן שעליה C1 מסתובבת כמו גלגל על ציר.',
-    options: [
-      { id: 'a', text: 'רוטציה (סיבוב ראש ימינה ושמאלה)', isCorrect: true },
-      { id: 'b', text: 'כפיפה ופשיטה בלבד', isCorrect: false },
-      { id: 'c', text: 'כפיפה צידית בלבד', isCorrect: false },
-      { id: 'd', text: 'הרחקה וקירוב', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 56, 66: השן של אקסיס (Dens) משמשת כציר סביבו חוליית אטלס מסתובבת ומספקת כ-50% מכלל תנועת הסיבוב של הראש.'
-  },
-  {
-    id: 'anat1_8',
-    moduleId: 'anat1',
-    topic: 'עמוד השדרה',
-    title: 'עקומות עמוד השדרה',
-    diagramKey: 'spine_curves',
-    questionText: 'כמה חוליות יש בכל עקומה בעמוד השדרה של אדם בוגר?',
-    hint: 'זכור: 7 בצוואר, 12 בחזה, 5 במותניים, 5 בסקרום, 4 בזנב.',
-    options: [
-      { id: 'a', text: '7 צוואריות, 12 חזיות, 5 מותניות, 5 בסקרום, 4 בקוקסיקס', isCorrect: true },
-      { id: 'b', text: '12 צוואריות, 7 חזיות, 5 מותניות', isCorrect: false },
-      { id: 'c', text: '5 צוואריות, 10 חזיות, 10 מותניות', isCorrect: false },
-      { id: 'd', text: '33 חוליות מותניות בלבד', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 50: סה״כ 33 חוליות: 7 צוואריות (לורדוזה), 12 חזיות (קיפוזה), 5 מותניות (לורדוזה), 5 סקרליות ו-4 בקוקסיקס.'
-  },
-  {
-    id: 'anat1_9',
-    moduleId: 'anat1',
-    topic: 'שלד בית החזה',
-    title: 'חלקי עצם החזה Sternum',
-    diagramKey: 'sternum',
-    questionText: 'עצם החזה (Sternum) מורכבת מ-3 חלקים עיקריים מלמעלה למטה:',
-    hint: 'דמיין חרב: למעלה הידית הרחבה, באמצע הלהב הארוך, ולמטה השפיץ החד.',
-    options: [
-      { id: 'a', text: 'Manubrium (ידית), Body (גוף), Xiphoid process (סיף)', isCorrect: true },
-      { id: 'b', text: 'אטלס, אקסיס וסקרום', isCorrect: false },
-      { id: 'c', text: 'איליום, איסכיום ופיוביס', isCorrect: false },
-      { id: 'd', text: 'אפיפיזה, דיאפיזה ומטפיזה', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 63: עצם הסטרנום בנויה מידית (מנובריום), גוף העצם, וזיז החרב התחתון (קספואיד).'
-  },
-  {
-    id: 'anat1_10',
-    moduleId: 'anat1',
-    topic: 'עמוד השדרה',
-    title: 'משטחים מפרקיים של חוליות המותניים',
-    diagramKey: 'spine_curves',
-    questionText: 'המשטחים המפרקיים (Facet Joints) של חוליות המותניים נמצאים בעיקר במישור:',
-    hint: 'בגב התחתון קל להתכופף קדימה וליישר אחורה, אך קשה ומסוכן להסתובב. איזה מישור מאפשר כפיפה ופשיטה?',
-    options: [
-      { id: 'a', text: 'הסגיטלי (מאפשר כפיפה ופשיטה, ומגביל רוטציה)', isCorrect: true },
-      { id: 'b', text: 'הפרונטלי (מאפשר רק הרחקה)', isCorrect: false },
-      { id: 'c', text: 'האופקי בלבד', isCorrect: false },
-      { id: 'd', text: 'אין מפרקים בין חוליות המותניים', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 58, 62: המשטחים במותניים מונחים במישור הסגיטלי, מה שמאפשר כפיפה ופשיטה יעילות אך נועל ומגן על הגב מרוטציה מזיקה.'
-  },
-
-  // ==========================================
-  // מודול 2: אנטומיה ב' - שרירים ותנועות
-  // ==========================================
-  {
-    id: 'anat2_1',
-    moduleId: 'anat2',
-    topic: 'שרירי הירך',
-    title: 'אחז בראש הפיבולה (עמ׳ 124)',
-    diagramKey: 'knee_fibula',
-    questionText: 'מי מהשרירים הבאים נאחז (Insertion) בעצם השוקית (Fibula)?',
-    hint: 'הפיבולה היא העצם החיצונית (לטרלית) של השוק. איזה שריר מהירך האחורית פונה החוצה לצד הלטרלי בתרשים?',
-    options: [
-      { id: 'a', text: 'Biceps femoris (הדו-ראשי הירכי)', isCorrect: true },
-      { id: 'b', text: 'Semitendinosus', isCorrect: false },
-      { id: 'c', text: 'Semimembranosus', isCorrect: false },
-      { id: 'd', text: 'Quadriceps', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 124, 129: ה-Biceps Femoris יורד בצד הלטרלי ונאחז בראש הפיבולה, בעוד שני שרירי ה"סמי" נאחזים בטיביה.'
-  },
-  {
-    id: 'anat2_2',
-    moduleId: 'anat2',
-    topic: 'שרירי הבטן',
-    title: 'שריר שלא מניע גו (עמ׳ 124)',
-    diagramKey: 'sarcomere',
-    questionText: 'מי מהשרירים הבאים אינו משתתף בכפיפה (Flexion) או רוטציה של הגו?',
-    hint: 'חשוב על חגורת גב רחבה שהסיבים שלה רצים לרוחב (Transverse): היא יכולה רק להדק את הבטן, לא לכופף אותך.',
-    options: [
-      { id: 'a', text: 'Transversus abdominis (הרחב הבטני)', isCorrect: true },
-      { id: 'b', text: 'External oblique', isCorrect: false },
-      { id: 'c', text: 'Internal oblique', isCorrect: false },
-      { id: 'd', text: 'Rectus abdominis', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 96, 124: שריר הרחב הבטני (Transversus Abdominis) סיביו אופקיים לחלוטין ולכן תפקידו לייצב ולהעלות לחץ תוך-בטני.'
-  },
-  {
-    id: 'anat2_3',
-    moduleId: 'anat2',
-    topic: 'שרירי הכתף',
-    title: 'קירוב אופקי ורוטציה פנימית (עמ׳ 124)',
-    diagramKey: 'deltoid',
-    questionText: 'התנועות קירוב אופקי (Horizontal Adduction) ורוטציה מדיאלית של הכתף מבוצעות ע״י:',
-    hint: 'שים יד על קדמת הכתף וקרב את הזרוע אל החזה – תרגיש את הסיבים הקדמיים של שריר הכתף מתקשים מיד.',
-    options: [
-      { id: 'a', text: 'Anterior deltoid (הדלתואיד הקדמי)', isCorrect: true },
-      { id: 'b', text: 'Posterior deltoid', isCorrect: false },
-      { id: 'c', text: 'Brachialis', isCorrect: false },
-      { id: 'd', text: 'Infraspinatus', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 81, 124: הדלתואיד הקדמי מושך את הזרוע מלפנים ומבצע כפיפה, קירוב אופקי וסיבוב פנימי (מדיאלי).'
-  },
-  {
-    id: 'anat2_4',
-    moduleId: 'anat2',
-    topic: 'שרירי הכתף',
-    title: 'שריר שאינו מבצע רוטציה מדיאלית (עמ׳ 124)',
-    diagramKey: 'deltoid',
-    questionText: 'מי מהשרירים הבאים אינו מבצע רוטציה מדיאלית (סיבוב פנימי) של הכתף?',
-    hint: 'זכור את צמד האחים שמסובבים את הזרוע החוצה: אינפראספינטוס וחברו הקטן "מינור".',
-    options: [
-      { id: 'a', text: 'Teres minor (מבצע רוטציה לטרלית/חיצונית)', isCorrect: true },
-      { id: 'b', text: 'Teres major', isCorrect: false },
-      { id: 'c', text: 'Anterior deltoid', isCorrect: false },
-      { id: 'd', text: 'Latissimus dorsi', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 85, 124: ה-Teres Minor ממוקם מאחור ונאחז בחלק האחורי של ה-Greater Tubercle ולכן מושך את הזרוע לרוטציה לטרלית.'
-  },
-  {
-    id: 'anat2_5',
-    moduleId: 'anat2',
-    topic: 'שרירי הכתף',
-    title: 'מסובבי הכתף Rotator Cuff (עמ׳ 125)',
-    diagramKey: 'deltoid',
-    questionText: 'מי מבין מייצבי הכתף (Rotator Cuff) מבצע רוטציה מדיאלית (פנימית)?',
-    hint: 'כל שרירי השרוול יושבים מאחורי השכמה מלבד אחד בלבד שמתחבא מקדימה, מתחת (Sub) לשכמה.',
-    options: [
-      { id: 'a', text: 'Subscapularis', isCorrect: true },
-      { id: 'b', text: 'Supraspinatus', isCorrect: false },
-      { id: 'c', text: 'Infraspinatus', isCorrect: false },
-      { id: 'd', text: 'Teres minor', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 85, 125: ה-Subscapularis יושב בחלק הקדמי של השכמה ונאחז ב-Lesser Tubercle מקדימה, ולכן הוא היחיד שמסובב פנימה.'
-  },
-  {
-    id: 'anat2_6',
-    moduleId: 'anat2',
-    topic: 'שרירי האגן',
-    title: 'אחז ב-Greater Trochanter (עמ׳ 125)',
-    diagramKey: 'knee_fibula',
-    questionText: 'ה-Greater Trochanter של הפמור מהווה נקודת אחיזה (Insertion) לשריר:',
-    hint: 'הבליטה שאתה יכול למשש בצד החיצוני של הירך. איזה שריר מושך שם כדי לייצב את האגן בעמידה על רגל אחת?',
-    options: [
-      { id: 'a', text: 'Gluteus medius', isCorrect: true },
-      { id: 'b', text: 'Iliopsoas', isCorrect: false },
-      { id: 'c', text: 'Gluteus maximus', isCorrect: false },
-      { id: 'd', text: 'Hamstrings', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 118, 125: השרירים Gluteus Medius ו-Minimus נאחזים ב-Greater Trochanter ומרחיקים את הירך ומייצבים את האגן בהליכה.'
-  },
-  {
-    id: 'anat2_7',
-    moduleId: 'anat2',
-    topic: 'שרירי הירך',
-    title: 'תחל בעצם ה-Femur (עמ׳ 125)',
-    diagramKey: 'quadriceps',
-    questionText: 'מי מהשרירים הבאים מתחיל (Origin) מעצם הירך (Femur)?',
-    hint: 'שלושת ה"וואסטוסים" מתחילים בירך עצמה. הרקטוס (הישר) לעומתם חייב לעלות עד לעצם האגן.',
-    options: [
-      { id: 'a', text: 'Vastus intermedius', isCorrect: true },
-      { id: 'b', text: 'Rectus femoris (מתחיל באגן ב-AIIS)', isCorrect: false },
-      { id: 'c', text: 'Iliopsoas', isCorrect: false },
-      { id: 'd', text: 'Semitendinosus', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 108, 125: שלושת ראשי ה-Vastus מתחילים ישירות על גבי הפמור, בעוד הרקטוס פמוריס מתחיל באגן.'
-  },
-  {
-    id: 'anat2_8',
-    moduleId: 'anat2',
-    topic: 'שרירי הקרסול',
-    title: 'הרמת בהונות ועמידה על עקבים (עמ׳ 126)',
-    diagramKey: 'knee_fibula',
-    questionText: 'אתה הולך על העקבים ומרים את בהונות כף הרגל מעלה (Dorsiflexion). איזה שריר פועל?',
-    hint: 'גע בקדמת השוק שלך והרם את האצבעות מעלה – תרגיש שריר קדמי מתקשה מיד לאורך הטיביה.',
-    options: [
-      { id: 'a', text: 'Tibialis anterior', isCorrect: true },
-      { id: 'b', text: 'Gastrocnemius', isCorrect: false },
-      { id: 'c', text: 'Soleus', isCorrect: false },
-      { id: 'd', text: 'Quadriceps', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 122, 126: ה-Tibialis Anterior נמצא בקדמת השוק ומבצע Dorsiflexion ו-Inversion ושומר על קשת כף הרגל מפני צניחה.'
-  },
-  {
-    id: 'anat2_9',
-    moduleId: 'anat2',
-    topic: 'שרירי הירך',
-    title: 'פשיטת ירך ראשית (עמ׳ 126)',
-    diagramKey: 'quadriceps',
-    questionText: 'פשיטת ירך (Hip Extension) בעלייה מסקוואט או עלייה במדרגות מבוצעת בעוצמה ע״י:',
-    hint: 'זהו השריר בעל המסה הגדולה והחזקה ביותר בישבן של האדם ההולך על שתיים.',
-    options: [
-      { id: 'a', text: 'Gluteus maximus', isCorrect: true },
-      { id: 'b', text: 'Iliopsoas', isCorrect: false },
-      { id: 'c', text: 'Rectus femoris', isCorrect: false },
-      { id: 'd', text: 'Vastus medialis', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 117, 126: ה-Gluteus Maximus הוא הפושט הראשי והחזק ביותר של מפרק הירך, הנכנס לפעולה מסיבית כנגד עומס.'
-  },
-  {
-    id: 'anat2_10',
-    moduleId: 'anat2',
-    topic: 'שרירי השוק',
-    title: 'עלייה על קצות האצבעות (עמ׳ 126)',
-    diagramKey: 'achilles',
-    questionText: 'עלייה על קצות האצבעות (Plantarflexion) מבוצעת באמצעות:',
-    hint: 'השרירים שמתחברים לחבל הביולוגי העבה ביותר בגוף – גיד אכילס שמושך את העקב למעלה.',
-    options: [
-      { id: 'a', text: 'Gastrocnemius (תאומים) ו-Soleus', isCorrect: true },
-      { id: 'b', text: 'Tibialis anterior', isCorrect: false },
-      { id: 'c', text: 'Hamstrings', isCorrect: false },
-      { id: 'd', text: 'Quadriceps', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 120, 126: הגסטרוקנמיוס והסולאוס מתחברים לגיד אכילס שנאחז בעצם העקב (Calcaneus) ומרימים את הגוף לעמידה על קצות האצבעות.'
-  },
-
-  // ==========================================
-  // מודול 3: פיזיולוגיה א' - אנרגיה ומטבוליזם
-  // ==========================================
-  {
-    id: 'p1_bmr',
-    moduleId: 'phys1',
-    topic: 'חילוף חומרים בסיסי',
-    title: 'משתנים המשפיעים על BMR (עמ׳ 9, 14)',
-    diagramKey: 'bmr',
-    questionText: 'אילו משתנים משפיעים ישירות על חילוף החומרים הבסיסי (BMR)?',
-    hint: 'התבונן בתרשים BMR: שריר צורך פי 4 אנרגיה משומן במנוחה, ואדם גדול ממדים מאבד יותר חום דרך שטח העור.',
-    options: [
-      { id: 'a', text: 'מסת שריר ואחוז שומן, גיל, מגדר, שטח פני הגוף והורמונים', isCorrect: true },
-      { id: 'b', text: 'צבע העיניים בלבד', isCorrect: false },
-      { id: 'c', text: 'סוג הנעליים שלובשים', isCorrect: false },
-      { id: 'd', text: 'כמות השיער על הראש', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 9, 14: BMR מושפע ישירות ממסת השריר הפעילה, מגיל, מגדר, שטח פני הגוף ופעילות בלוטת התריס.'
-  },
-  {
-    id: 'phys1_1',
-    moduleId: 'phys1',
-    topic: 'מערכות אנרגיה',
-    title: 'מקור אנרגיה במרתון (עמ׳ 47)',
-    diagramKey: 'energy',
-    questionText: 'מקורם העיקרי של מולקולות ה-ATP במהלך ריצת מרתון הוא:',
-    hint: 'מאגרי הפחמימות מספיקים לכשעה וחצי. מאיזה מחסן ענק של עשרות אלפי קלוריות הגוף שואב דלק לאורך שעות?',
-    options: [
-      { id: 'a', text: 'בשומנים (ובפחמימות במסלול האירובי)', isCorrect: true },
-      { id: 'b', text: 'במסלול האנאירובי אלקטי בלבד', isCorrect: false },
-      { id: 'c', text: 'בחלבונים בלבד', isCorrect: false },
-      { id: 'd', text: 'בוויטמינים', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 47, 50: במאמצים אירוביים ממושכים מעל חצי שעה, שומנים מהווים את מקור הדלק המרכזי במיטוכונדריות בנוכחות חמצן.'
-  },
-  {
-    id: 'phys1_2',
-    moduleId: 'phys1',
-    topic: 'דלק מטבולי במאמץ',
-    title: 'תרומת שומנים מול עצימות (עמ׳ 47)',
-    diagramKey: 'energy',
-    questionText: 'בזמן מאמץ גופני, התרומה היחסית של השומנים כמקור אנרגיה:',
-    hint: 'ככל שאתה רץ מהר יותר, השריר צריך ATP כאן ועכשיו. שומן מתפרק לאט ודורש המון חמצן, אז מה קורה לחלקו היחסי?',
-    options: [
-      { id: 'a', text: 'יורדת ככל שמתגברת עצימות המאמץ (ועולה חלקן של הפחמימות)', isCorrect: true },
-      { id: 'b', text: 'עולה ככל שמתגברת עצימות המאמץ', isCorrect: false },
-      { id: 'c', text: 'זהה בכל דרגות המאמץ', isCorrect: false },
-      { id: 'd', text: 'שומן משמש רק באימוני ספרינט של 10 שניות', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 32-33: בעצימות גבוהה הגוף עובר לדלק מהיר וחסכוני בחמצן (פחמימות), בעוד חלקו היחסי של השומן יורד.'
-  },
-  {
-    id: 'phys1_3',
-    moduleId: 'phys1',
-    topic: 'מעגל קורי',
-    title: 'פינוי לקטט במעגל קורי (עמ׳ 47)',
-    diagramKey: 'cori',
-    questionText: 'במעגל קורי (Cori Cycle):',
-    hint: 'הכבד הוא מפעל המיחזור של הגוף: הוא לוקח את הלקטט שנשפך לדם ומשקיע אנרגיה כדי לבנות ממנו שוב סוכר נקי.',
-    options: [
-      { id: 'a', text: 'לקטט הופך שוב לגלוקוז בתאי הכבד (בהשקעת אנרגיה)', isCorrect: true },
-      { id: 'b', text: 'לקטט הופך לגלוקוז בתוך השריר הפעיל עצמו', isCorrect: false },
-      { id: 'c', text: 'לקטט הופך לשומן בתוך הריאות', isCorrect: false },
-      { id: 'd', text: 'לקטט מסולק מהגוף ישירות דרך הנשיפה', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 39, 47: הכבד הופך 2 מולקולות לקטט חזרה לגלוקוז בתהליך גלוקונאוגנזה הדורש 6 מולקולות ATP.'
-  },
-  {
-    id: 'phys1_4',
-    moduleId: 'phys1',
-    topic: 'מאגרי אנרגיה',
-    title: 'מאגרי הגליקוגן (עמ׳ 47)',
-    diagramKey: 'energy',
-    questionText: 'עיקר הגליקוגן נאגר בגוף ב:',
-    hint: 'המאגר המקומי הגדול נמצא בשרירים שזזים, והמאגר המרכזי שנשלח לדם נמצא באיבר הגדול בבטן.',
-    options: [
-      { id: 'a', text: 'בשרירי השלד ובכבד', isCorrect: true },
-      { id: 'b', text: 'במוח ובעצמות', isCorrect: false },
-      { id: 'c', text: 'ברקמת השומן בלבד', isCorrect: false },
-      { id: 'd', text: 'בקיבה ובמעיים', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 13, 47: כ-300-400 גרם גליקוגן שמורים בשרירים לשימושם העצמי, ועוד כ-70-100 גרם בכבד לשמירה על רמת הסוכר בדם.'
-  },
-  {
-    id: 'phys1_5',
-    moduleId: 'phys1',
-    topic: 'סף אנאירובי וצח"מ',
-    title: 'השוואה בין שני אתלטים (עמ׳ 48)',
-    diagramKey: 'obla',
-    questionText: 'בהשוואה בין שני אתלטים בעלי VO2max זהה אך סף אנאירובי שונה:',
-    hint: 'לשניהם מנוע באותו גודל, אבל לאחד מהם נורית החומציות נדלקת רק במהירות גבוהה בהרבה.',
-    options: [
-      { id: 'a', text: 'לבעל הסף האנאירובי הגבוה יותר יתרון ברור בריצת מרתון ומאמצי סיבולת', isCorrect: true },
-      { id: 'b', text: 'לבעל הסף האנאירובי הנמוך יתרון במרתון', isCorrect: false },
-      { id: 'c', text: 'אין שום הבדל בביצועים ביניהם', isCorrect: false },
-      { id: 'd', text: 'שניהם יתעייפו בדיוק באותה דקה', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 42, 48: סף אנאירובי גבוה מאפשר להתחרות בקצב מהיר יותר לאורך זמן מבלי לצבור חומציות הגורמת לעייפות.'
-  },
-  {
-    id: 'phys1_6',
-    moduleId: 'phys1',
-    topic: 'גליקוליזה ועייפות',
-    title: 'השפעת חומציות על PFK (עמ׳ 48)',
-    diagramKey: 'energy',
-    questionText: 'עלייה בחומציות עקב הצטברות יוני מימן (H+) במאמץ עצים גורמת ל:',
-    hint: 'אנזימים הם חלבונים עדינים: בסביבה חומצית הם משנים צורה ומפסיקים לעבוד, כמו מפתח שהתעקם בחור המנעול.',
-    options: [
-      { id: 'a', text: 'לירידה בפעילות האנזים המרכזי PFK ולירידה ביכולת הכיווץ', isCorrect: true },
-      { id: 'b', text: 'לעלייה מואצת בפעילות PFK', isCorrect: false },
-      { id: 'c', text: 'לחוסר שינוי בפעילות האנזים', isCorrect: false },
-      { id: 'd', text: 'לייצור מוגבר של סידן', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 23, 48: החומציות העולה (H+) מעכבת את אנזים ה-PFK (שלב 3 בגליקוליזה) ו"תוקעת" את חידוש ה-ATP, מה שמוביל לעייפות מהירה.'
-  },
-  {
-    id: 'phys1_7',
-    moduleId: 'phys1',
-    topic: 'התאוששות',
-    title: 'הורדת חומציות לאחר מאמץ (עמ׳ 49)',
-    diagramKey: 'cori',
-    questionText: 'מה הדרך היעילה ביותר להורדת החומציות בשריר לאחר מאמץ עצים?',
-    hint: 'אם תשב במקום – זרם הדם יאט. אם תמשיך ללכת או לרוץ קל – המשאבה תמשיך לשטוף את השריר.',
-    options: [
-      { id: 'a', text: 'התאוששות אקטיבית קלה (ריצה קלה ב-35%-50% מצח"מ)', isCorrect: true },
-      { id: 'b', text: 'ספרינט נוסף', isCorrect: false },
-      { id: 'c', text: 'ישיבה פסיבית מוחלטת', isCorrect: false },
-      { id: 'd', text: 'עמידה ללא תנועה', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 46, 49: פעילות אירובית קלה שומרת על זרימת דם מוגברת שמפנה את יוני המימן והלקטט לשרירים הפחות פעילים ולכבד.'
-  },
-  {
-    id: 'phys1_8',
-    moduleId: 'phys1',
-    topic: 'סף אנאירובי',
-    title: 'הגדרת הסף האנאירובי (עמ׳ 49)',
-    diagramKey: 'obla',
-    questionText: 'מהי ההגדרה של הסף האנאירובי (OBLA)?',
-    hint: 'חשוב על ברז שפותח מים (ייצור) מול פתח ניקוז (פינוי). כל עוד הניקוז עומד בקצב, הכיור לא עולה על גדותיו.',
-    options: [
-      { id: 'a', text: 'קצב הפעילות המרבי שבו קצב ייצור הלקטט שווה עדיין לקצב הפינוי שלו (איזון)', isCorrect: true },
-      { id: 'b', text: 'קצב ייצור הלקטט נמוך בהרבה מקצב הפינוי', isCorrect: false },
-      { id: 'c', text: 'מצב בו אין שימוש בגלוקוז כלל', isCorrect: false },
-      { id: 'd', text: 'הרגע שבו נגמרים מאגרי השומן', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 40, 49: בסף האנאירובי (כ-4 מילימול/ליטר) קצב הפינוי הוא מקסימלי אך עדיין שווה לייצור. מעבר לו – הלקטט והחומציות מצטברים בחדות.'
-  },
-  {
-    id: 'phys1_9',
-    moduleId: 'phys1',
-    topic: 'זמני חידוש מאגרים',
-    title: 'זמן מילוי ATP-CrP לאחר מאמץ (עמ׳ 46, 50)',
-    diagramKey: 'energy',
-    questionText: 'כמה זמן נדרש למילוי מלא של מאגרי ה-ATP וה-CrP בתום מאמץ מרבי של 10 שניות?',
-    hint: 'זמן המנוחה בין סטים כבדים בחדר כושר כדי להרגיש רענן וכוח מלא לסט הבא.',
-    options: [
-      { id: 'a', text: 'כ-2 עד 4 דקות מנוחה (בנוכחות חמצן)', isCorrect: true },
-      { id: 'b', text: '3 ימים תמימים', isCorrect: false },
-      { id: 'c', text: 'שנייה אחת בלבד', isCorrect: false },
-      { id: 'd', text: 'שעה שלמה', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 20, 46: המיטוכונדריות צריכות 2-4 דקות של חמצן ומנוחה כדי לייצר ATP חדש שיטעין מחדש את מאגרי הקריאטין פוספט.'
-  },
-
-  // ==========================================
-  // מודול 4: פיזיולוגיה ב' - לב, כלי דם, נשימה והורמונים
-  // ==========================================
-  {
-    id: 'phys2_1',
-    moduleId: 'phys2',
-    topic: 'מערכת הלב',
-    title: 'מצב המסתמים בדיאסטולה (עמ׳ 74)',
-    diagramKey: 'heart',
-    questionText: 'בזמן שלב הדיאסטולה (הרפיית החדרים ומילויים) בלב:',
-    hint: 'דמיין דלתות שנפתחות כדי שהאורחים ייכנסו מהמרפסת (העלייה) לתוך הסלון (החדר), בזמן שהדלת לרחוב סגורה.',
-    options: [
-      { id: 'a', text: 'המסתמים בין העליות לחדרים פתוחים, והמסתמים בין החדרים לעורקים סגורים', isCorrect: true },
-      { id: 'b', text: 'המסתמים בין החדרים לעורקים פתוחים', isCorrect: false },
-      { id: 'c', text: 'כל המסתמים בלב סגורים לחלוטין', isCorrect: false },
-      { id: 'd', text: 'כל המסתמים פתוחים יחד', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 55, 74: בדיאסטולה החדרים נרפים ומתמלאים בדם מהעליות דרך המסתמים הפתוחים ביניהם, בעוד מסתמי היציאה לעורקים סגורים.'
-  },
-  {
-    id: 'phys2_2',
-    moduleId: 'phys2',
-    topic: 'כלי דם ומחזורי הדם',
-    title: 'הוורידים במחזורי הדם (עמ׳ 74)',
-    diagramKey: 'veins',
-    questionText: 'מה נכון לגבי הוורידים במחזורי הדם של גוף האדם?',
-    hint: 'וריד תמיד נכנס ללב. מאיפה ורידי הריאה מגיעים? מהריאות שבהן הרגע נשמנו חמצן נקי!',
-    options: [
-      { id: 'a', text: 'במחזור הריאתי (הקטן) זורם בהם דם עשיר בחמצן, ובמחזור הגדול דם עני בחמצן', isCorrect: true },
-      { id: 'b', text: 'בכל הוורידים בגוף תמיד זורם רק דם דל בחמצן', isCorrect: false },
-      { id: 'c', text: 'ורידים מובילים דם מהלב אל הרקמות', isCorrect: false },
-      { id: 'd', text: 'אין שסתומים בוורידים כלל', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 53, 74: ההגדרה של וריד היא כיוון הזרימה (אל הלב): ורידי הריאה מחזירים דם מחומצן מהריאות לעלייה השמאלית, בעוד ורידי הגוף מחזירים דם ורידי.'
-  },
-  {
-    id: 'phys2_3',
-    moduleId: 'phys2',
-    topic: 'מערכת הנשימה',
-    title: 'שחלוף גזים בנאדיות (עמ׳ 93)',
-    diagramKey: 'alveoli',
-    questionText: 'שחלוף הגזים (חמצן ופחמן דו-חמצני) בין נאדיות הריאה לנימי הדם מתבצע באמצעות מנגנון פיזיקלי של:',
-    hint: 'מעבר פסיבי ספונטני מריכוז גבוה לריכוז נמוך ללא צורך בהשקעת אנרגיה.',
-    options: [
-      { id: 'a', text: 'דיפוזיה פסיבית על פני שטח פנים ענק של הנאדיות', isCorrect: true },
-      { id: 'b', text: 'משאבות חשמליות הצורכות ATP', isCorrect: false },
-      { id: 'c', text: 'סינון מכני של כדוריות דם אדומות', isCorrect: false },
-      { id: 'd', text: 'עיכול כימי ע״י חומצה', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 93: בנאדיות הריאה החמצן והפחמן הדו-חמצני חוצים את הממברנה הדקה בדיפוזיה פשוטה לפי מפל הלחצים והריכוזים שלהם.'
-  },
-  {
-    id: 'phys2_4',
-    moduleId: 'phys2',
-    topic: 'מערכת העצבים והשריר',
-    title: 'כישור השריר מול אברון גולג\'י (עמ׳ 87-88)',
-    diagramKey: 'spindle',
-    questionText: 'איזה מנגנון גורם להרפיה רפלקסיבית של שריר בתגובה למתיחת-יתר או עומס קיצוני בגיד?',
-    hint: 'זהו מפסק הביטחון: אם המשקל כבד מדי ומאיים לתלוש את הגיד מהעצם, הוא פוקד: "שחרר הכל ותרפה מיד!".',
-    options: [
-      { id: 'a', text: 'אברון הגיד ע״ש גולג׳י (Golgi Tendon Organ - GTO)', isCorrect: true },
-      { id: 'b', text: 'כישור השריר (Muscle Spindle המכווץ כנגד מתיחה)', isCorrect: false },
-      { id: 'c', text: 'רשת הסרקופלזמה', isCorrect: false },
-      { id: 'd', text: 'תאי הלוויין', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 87-88: אברון גולג\'י בצומת גיד-שריר חש במתח מופרז ומעכב את הנוירון המוטורי כדי להרפות את השריר ולהצילו מתלישה.'
-  },
-  {
-    id: 'phys2_5',
-    moduleId: 'phys2',
-    topic: 'המערכת ההורמונלית',
-    title: 'פעולת אינסולין וסוכר (עמ׳ 111-112)',
-    diagramKey: 'insulin',
-    questionText: 'איזה הורמון מופרש מתאי בטא בלבלב במצב שובע ואחראי על פתיחת תעלות להכנסת גלוקוז לתאי השריר והכבד?',
-    hint: 'אחרי ארוחה טובה, ההורמון הזה משמש כמפתח שפותח את דלתות התא לסוכר.',
-    options: [
-      { id: 'a', text: 'אינסולין (Insulin)', isCorrect: true },
-      { id: 'b', text: 'גלוקגון (הורמון הרעב)', isCorrect: false },
-      { id: 'c', text: 'קורטיזול (הורמון סטרס)', isCorrect: false },
-      { id: 'd', text: 'אדרנלין', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 111-112: אינסולין נקשר לקולטן בקרום התא, פותח תעלות גלוקוז ומאפשר לסוכר להיכנס מהדם לתאים לצורך אנרגיה או אגירה כגליקוגן.'
-  },
-  {
-    id: 'phys2_6',
-    moduleId: 'phys2',
-    topic: 'מערכת החיסון',
-    title: 'קווי ההגנה של הגוף (עמ׳ 119-120)',
-    diagramKey: 'immune',
-    questionText: 'העור, הריריות בדרכי הנשימה והפרשות הזיעה והדמעות מהווים את:',
-    hint: 'המחסום הפיזי והכימי הראשון שחיידק או נגיף פוגש לפני שהוא חודר לגוף.',
-    options: [
-      { id: 'a', text: 'קו ההגנה הראשון של מערכת החיסון (מחסום מכני וכימי רציף)', isCorrect: true },
-      { id: 'b', text: 'קו ההגנה השלישי (נוגדנים ספציפיים)', isCorrect: false },
-      { id: 'c', text: 'מערכת ה-ATP', isCorrect: false },
-      { id: 'd', text: 'מנגנון ה-DOMS', isCorrect: false }
-    ],
-    explanation: 'עמ׳ 119: קו ההגנה הראשון כולל מחסומים פיזיים וכימיים (עור, ריריות, חומציות, אנזימים ברוק ובדמעות) המונעים כניסת מזהמים.'
+function shuffleArray(arr) {
+  const copy = [...arr];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
   }
-];
+  return copy;
+}
+
+export default function WingateExamApp() {
+  const [activeModule, setActiveModule] = useState('all');
+  const [questions, setQuestions] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [isAnswerChecked, setIsAnswerChecked] = useState(false);
+  const [score, setScore] = useState(0);
+  const [streak, setStreak] = useState(0);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [showExplanation, setShowExplanation] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const initModule = (modId = activeModule) => {
+    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    
+    let base = ALL_WINGATE_QUESTIONS;
+    if (modId !== 'all') {
+      base = ALL_WINGATE_QUESTIONS.filter(q => q.moduleId === modId);
+    }
+
+    const shuffled = shuffleArray(base).map(q => ({
+      ...q,
+      options: shuffleArray(q.options)
+    }));
+
+    setQuestions(shuffled);
+    setCurrentIndex(0);
+    setSelectedOption(null);
+    setIsAnswerChecked(false);
+    setShowExplanation(false);
+    setScore(0);
+    setStreak(0);
+  };
+
+  useEffect(() => {
+    initModule('all');
+  }, []);
+
+  const handleModuleChange = (newMod) => {
+    setActiveModule(newMod);
+    initModule(newMod);
+  };
+
+  const currentQ = questions[currentIndex];
+
+  const speak = (text) => {
+    if (!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'he-IL';
+    u.rate = 0.88;
+
+    u.onstart = () => setIsSpeaking(true);
+    u.onend = () => setIsSpeaking(false);
+    u.onerror = () => setIsSpeaking(false);
+
+    window.speechSynthesis.speak(u);
+  };
+
+  const speakQuestion = () => {
+    if (!currentQ) return;
+    const text = `שאלה בנושא ${currentQ.topic}. ${currentQ.questionText}. אפשרויות: ${currentQ.options.map((o, idx) => `אפשרות ${['א','ב','ג','ד'][idx]}: ${o.text}`).join('. ')}`;
+    speak(text);
+  };
+
+  const handleCheckAnswer = () => {
+    if (!selectedOption || isAnswerChecked || !currentQ) return;
+
+    const chosen = currentQ.options.find(o => o.id === selectedOption);
+    const correct = chosen?.isCorrect;
+
+    setIsAnswerChecked(true);
+    setShowExplanation(true);
+
+    if (correct) {
+      setScore(prev => prev + 10);
+      setStreak(prev => prev + 1);
+      speak('נכון מאוד שמואל! תשובה מדויקת.');
+    } else {
+      setStreak(0);
+      const right = currentQ.options.find(o => o.isCorrect)?.text;
+      speak(`לא מדויק. התשובה הנכונה היא: ${right}. שים לב להסבר.`);
+    }
+  };
+
+  const handleNext = () => {
+    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+
+    if (currentIndex < questions.length - 1) {
+      setCurrentIndex(prev => prev + 1);
+      setSelectedOption(null);
+      setIsAnswerChecked(false);
+      setShowExplanation(false);
+    } else {
+      const finalScore = score + (currentQ.options.find(o => o.id === selectedOption)?.isCorrect ? 10 : 0);
+      alert(`כל הכבוד שמואל!\nסיימת את המודול בהצלחה!\nצברת ${finalScore} נקודות מתוך ${questions.length * 10}!`);
+      initModule(activeModule);
+    }
+  };
+
+  if (!currentQ) {
+    return (
+      <main style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <p style={{ fontWeight: 'bold' }}>טוען את מאגר השאלות והתרשימים המלא...</p>
+      </main>
+    );
+  }
+
+  return (
+    <main style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#f8fafc', padding: '14px', maxWidth: '520px', margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }} dir="rtl">
+      
+      <div>
+        {/* כותרת עליונה */}
+        <header style={{ marginBottom: '10px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+            <div>
+              <h1 style={{ margin: 0, fontSize: '18px', fontWeight: '900', color: '#f59e0b' }}>
+                🎓 ווינגייט קואוץ' - שמואל
+              </h1>
+              <span style={{ fontSize: '11px', color: '#94a3b8' }}>תרשימים גרפיים ייעודיים והקראה קולית</span>
+            </div>
+
+            <button
+              onClick={() => initModule(activeModule)}
+              style={{ backgroundColor: '#1e293b', color: '#fbbf24', border: '1px solid #d97706', padding: '6px 12px', borderRadius: '12px', fontSize: '12px', fontWeight: 'bold', cursor: 'pointer' }}
+              title="ערבוב מחדש של כל השאלות והתשובות"
+            >
+              🔄 איפוס וערבוב
+            </button>
+          </div>
+
+          {/* תפריט מודולים */}
+          <div style={{ display: 'flex', gap: '6px', overflowX: 'auto', paddingBottom: '6px', marginBottom: '8px' }}>
+            <button
+              onClick={() => handleModuleChange('all')}
+              style={{
+                backgroundColor: activeModule === 'all' ? '#f59e0b' : '#0f172a',
+                color: activeModule === 'all' ? '#020617' : '#94a3b8',
+                border: '1px solid #334155',
+                padding: '6px 10px',
+                borderRadius: '10px',
+                fontSize: '11px',
+                fontWeight: 'bold',
+                whiteSpace: 'nowrap',
+                cursor: 'pointer'
+              }}
+            >
+              🎯 כל המבחן ({ALL_WINGATE_QUESTIONS.length})
+            </button>
+
+            <button
+              onClick={() => handleModuleChange('anat1')}
+              style={{
+                backgroundColor: activeModule === 'anat1' ? '#f59e0b' : '#0f172a',
+                color: activeModule === 'anat1' ? '#020617' : '#94a3b8',
+                border: '1px solid #334155',
+                padding: '6px 10px',
+                borderRadius: '10px',
+                fontSize: '11px',
+                fontWeight: 'bold',
+                whiteSpace: 'nowrap',
+                cursor: 'pointer'
+              }}
+            >
+              🦴 אנטומיה א' (שלד ורקמות)
+            </button>
+
+            <button
+              onClick={() => handleModuleChange('anat2')}
+              style={{
+                backgroundColor: activeModule === 'anat2' ? '#f59e0b' : '#0f172a',
+                color: activeModule === 'anat2' ? '#020617' : '#94a3b8',
+                border: '1px solid #334155',
+                padding: '6px 10px',
+                borderRadius: '10px',
+                fontSize: '11px',
+                fontWeight: 'bold',
+                whiteSpace: 'nowrap',
+                cursor: 'pointer'
+              }}
+            >
+              💪 אנטומיה ב' (שרירים ותנועה)
+            </button>
+
+            <button
+              onClick={() => handleModuleChange('phys1')}
+              style={{
+                backgroundColor: activeModule === 'phys1' ? '#f59e0b' : '#0f172a',
+                color: activeModule === 'phys1' ? '#020617' : '#94a3b8',
+                border: '1px solid #334155',
+                padding: '6px 10px',
+                borderRadius: '10px',
+                fontSize: '11px',
+                fontWeight: 'bold',
+                whiteSpace: 'nowrap',
+                cursor: 'pointer'
+              }}
+            >
+              ⚡ פיזיולוגיה א' (אנרגיה)
+            </button>
+
+            <button
+              onClick={() => handleModuleChange('phys2')}
+              style={{
+                backgroundColor: activeModule === 'phys2' ? '#f59e0b' : '#0f172a',
+                color: activeModule === 'phys2' ? '#020617' : '#94a3b8',
+                border: '1px solid #334155',
+                padding: '6px 10px',
+                borderRadius: '10px',
+                fontSize: '11px',
+                fontWeight: 'bold',
+                whiteSpace: 'nowrap',
+                cursor: 'pointer'
+              }}
+            >
+              ❤️ פיזיולוגיה ב' (מערכות הגוף)
+            </button>
+          </div>
+
+          {/* מד התקדמות וניקוד */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '12px', marginBottom: '6px' }}>
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <span style={{ backgroundColor: 'rgba(245, 158, 11, 0.15)', color: '#fbbf24', padding: '3px 8px', borderRadius: '8px', fontWeight: 'bold' }}>
+                🔥 רצף: {streak}
+              </span>
+              <span style={{ backgroundColor: 'rgba(16, 185, 129, 0.15)', color: '#34d399', padding: '3px 8px', borderRadius: '8px', fontWeight: 'bold' }}>
+                ⭐ {score} XP
+              </span>
+            </div>
+            <span style={{ color: '#94a3b8', fontWeight: 'bold' }}>שאלה {currentIndex + 1} מתוך {questions.length}</span>
+          </div>
+
+          <div style={{ width: '100%', backgroundColor: '#0f172a', height: '8px', borderRadius: '999px', overflow: 'hidden', border: '1px solid #1e293b' }}>
+            <div 
+              style={{ 
+                width: `${((currentIndex + 1) / questions.length) * 100}%`, 
+                height: '100%', 
+                background: 'linear-gradient(to left, #10b981, #f59e0b)',
+                transition: 'width 0.3s ease'
+              }} 
+            />
+          </div>
+        </header>
+
+        {/* כרטיסיית נושא */}
+        <div style={{ backgroundColor: '#0f172a', border: '1px solid #1e293b', borderRadius: '14px', padding: '8px 12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+          <div>
+            <span style={{ color: '#f59e0b', fontSize: '10px', fontWeight: 'bold', display: 'block' }}>{currentQ.topic}</span>
+            <span style={{ color: '#ffffff', fontSize: '13px', fontWeight: '900' }}>{currentQ.title}</span>
+          </div>
+          <span style={{ fontSize: '11px', color: '#38bdf8', fontWeight: 'bold' }}>תרשים ויזואלי ייעודי 📊</span>
+        </div>
+
+        {/* הצגת התרשים הגרפי המותאם במדויק לשאלה הנוכחית מתוך הספרייה */}
+        <div 
+          onClick={() => setIsModalOpen(true)}
+          style={{ 
+            width: '100%', 
+            height: '170px', 
+            borderRadius: '14px', 
+            overflow: 'hidden', 
+            marginBottom: '10px', 
+            border: '1px solid #334155', 
+            backgroundColor: '#020617',
+            position: 'relative', 
+            cursor: 'pointer' 
+          }}
+        >
+          {DIAGRAMS_LIBRARY[currentQ.diagramKey] || DIAGRAMS_LIBRARY.disc}
+
+          <span style={{ position: 'absolute', bottom: '6px', left: '6px', backgroundColor: 'rgba(2, 6, 23, 0.85)', color: '#fbbf24', fontSize: '10px', padding: '3px 8px', borderRadius: '6px', fontWeight: 'bold', border: '1px solid #334155' }}>
+            🔍 לחץ להגדלה במסך מלא
+          </span>
+        </div>
+
+        {/* השאלה + כפתור הקראה קולית */}
+        <div style={{ backgroundColor: '#0b1329', border: '1px solid #1e293b', borderRadius: '14px', padding: '12px', marginBottom: '10px', position: 'relative' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
+            <p style={{ margin: 0, fontSize: '14px', fontWeight: 'bold', color: '#f8fafc', lineHeight: '1.4' }}>
+              {currentQ.questionText}
+            </p>
+
+            <button
+              onClick={speakQuestion}
+              style={{
+                backgroundColor: isSpeaking ? '#f59e0b' : '#9333ea',
+                color: isSpeaking ? '#020617' : '#ffffff',
+                border: 'none',
+                borderRadius: '12px',
+                padding: '8px 12px',
+                fontSize: '16px',
+                cursor: 'pointer',
+                flexShrink: 0
+              }}
+              title="הקרא שאלה בעברית"
+            >
+              🔊
+            </button>
+          </div>
+
+          <div style={{ marginTop: '8px', backgroundColor: 'rgba(2, 6, 23, 0.6)', padding: '6px 10px', borderRadius: '8px', fontSize: '11px', color: '#94a3b8' }}>
+            💡 <strong>רמז אסוציאטיבי:</strong> {currentQ.hint}
+          </div>
+        </div>
+
+        {/* 4 אפשרויות בחירה (מעורבבות) */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '10px' }}>
+          {currentQ.options.map((opt, idx) => {
+            const isSelected = selectedOption === opt.id;
+            let bgColor = '#0f172a';
+            let borderColor = '#1e293b';
+            let textColor = '#e2e8f0';
+
+            if (isSelected && !isAnswerChecked) {
+              bgColor = 'rgba(245, 158, 11, 0.2)';
+              borderColor = '#f59e0b';
+              textColor = '#fbbf24';
+            } else if (isAnswerChecked) {
+              if (opt.isCorrect) {
+                bgColor = 'rgba(16, 185, 129, 0.25)';
+                borderColor = '#10b981';
+                textColor = '#34d399';
+              } else if (isSelected && !opt.isCorrect) {
+                bgColor = 'rgba(244, 63, 94, 0.25)';
+                borderColor = '#f43f5e';
+                textColor = '#fb7185';
+              }
+            }
+
+            const letter = ['א', 'ב', 'ג', 'ד'][idx] || '';
+
+            return (
+              <button
+                key={opt.id}
+                onClick={() => !isAnswerChecked && setSelectedOption(opt.id)}
+                style={{
+                  backgroundColor: bgColor,
+                  border: `2px solid ${borderColor}`,
+                  borderRadius: '14px',
+                  padding: '10px 12px',
+                  textAlign: 'right',
+                  color: textColor,
+                  fontSize: '13px',
+                  fontWeight: isSelected || (isAnswerChecked && opt.isCorrect) ? 'bold' : 'normal',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  cursor: isAnswerChecked ? 'default' : 'pointer'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ backgroundColor: '#020617', width: '22px', height: '22px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 'bold', border: '1px solid #334155' }}>
+                    {letter}
+                  </span>
+                  <span>{opt.text}</span>
+                </div>
+
+                {isAnswerChecked && opt.isCorrect && <span style={{ color: '#34d399', fontWeight: 'bold' }}>✔ נכון</span>}
+                {isAnswerChecked && isSelected && !opt.isCorrect && <span style={{ color: '#fb7185', fontWeight: 'bold' }}>✖ שגוי</span>}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* הסבר מלא מתוך חוברות וינגייט */}
+        {showExplanation && (
+          <div style={{ backgroundColor: '#0f172a', border: '1px solid #334155', borderRadius: '14px', padding: '10px', marginBottom: '10px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+              <span style={{ color: '#f59e0b', fontSize: '11px', fontWeight: 'bold' }}>📖 הסבר רשמי ומפורט:</span>
+              <button
+                onClick={() => speak(currentQ.explanation)}
+                style={{ backgroundColor: '#3b0764', color: '#d8b4fe', border: '1px solid #6b21a8', borderRadius: '8px', padding: '2px 6px', fontSize: '10px', cursor: 'pointer' }}
+              >
+                🔊 הקרא הסבר
+              </button>
+            </div>
+            <p style={{ margin: 0, fontSize: '11px', color: '#cbd5e1', lineHeight: '1.4', backgroundColor: '#020617', padding: '8px', borderRadius: '8px' }}>
+              {currentQ.explanation}
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* כפתור פעולה תחתון */}
+      <footer style={{ paddingTop: '6px', paddingBottom: '6px' }}>
+        {!isAnswerChecked ? (
+          <button
+            onClick={handleCheckAnswer}
+            disabled={!selectedOption}
+            style={{
+              width: '100%',
+              backgroundColor: selectedOption ? '#f59e0b' : '#334155',
+              color: selectedOption ? '#020617' : '#94a3b8',
+              border: 'none',
+              borderRadius: '14px',
+              padding: '14px',
+              fontSize: '15px',
+              fontWeight: '900',
+              cursor: selectedOption ? 'pointer' : 'not-allowed'
+            }}
+          >
+            בדוק תשובה
+          </button>
+        ) : (
+          <button
+            onClick={handleNext}
+            style={{
+              width: '100%',
+              backgroundColor: '#10b981',
+              color: '#020617',
+              border: 'none',
+              borderRadius: '14px',
+              padding: '14px',
+              fontSize: '15px',
+              fontWeight: '900',
+              cursor: 'pointer'
+            }}
+          >
+            {currentIndex === questions.length - 1 ? '🎉 סיים מודול וסכם ציון' : 'שאלה הבאה ➜'}
+          </button>
+        )}
+      </footer>
+
+      {/* חלון צף להגדלת איור במסך מלא */}
+      {isModalOpen && (
+        <div 
+          onClick={() => setIsModalOpen(false)}
+          style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.95)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px' }}
+        >
+          <div style={{ width: '100%', maxWidth: '480px', textAlign: 'center' }}>
+            <div style={{ height: '260px', borderRadius: '14px', border: '2px solid #f59e0b', overflow: 'hidden' }}>
+              {DIAGRAMS_LIBRARY[currentQ.diagramKey] || DIAGRAMS_LIBRARY.disc}
+            </div>
+            <p style={{ color: '#ffffff', fontSize: '13px', marginTop: '10px', fontWeight: 'bold' }}>{currentQ.title} - לחץ לסגירה ✕</p>
+          </div>
+        </div>
+      )}
+
+    </main>
+  );
+}
