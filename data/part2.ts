@@ -400,6 +400,166 @@ export const PART2_ANATOMY2 = [
       { id: 'c', text: 'השריר נשאר בדיוק באותו אורך ללא שום כוח', isCorrect: false },
       { id: 'd', text: 'זהו מצב של שיתוק שרירי מוחלט', isCorrect: false }
     ],
-    explanation: 'עמ׳ 94: בכיווץ אקסצנטרי העומס החיצוני גובר על כוח השריר, והשריר בולם את התנועה תוך כדי התארכות מבוקרת (שלב שבו מופק הכוח המרבי ונרשם הנזק השרירי הגבוה ביותר).'
+    explanation: 'עמ׳ 94: בכיווץ אקסצנטרי העומס החיצוני גובר על כוח השריר, והשריר בולם את התנועה תוך כדי התארכות מבוקרת.'
+  },
+  {
+    id: 'a2_26',
+    moduleId: 'anat2',
+    topic: 'שרירי הצוואר',
+    title: 'שריר ה-Sternocleidomastoid SCM (עמ׳ 95)',
+    diagram: 'cervical',
+    questionText: 'שריר ה-Sternocleidomastoid (SCM) בצוואר, בכיווץ חד-צדדי (Unilateral), מבצע:',
+    hint: 'נסה לכופף את הראש הצידה לאותו צד ולסובב את הסנטר לצד השני.',
+    options: [
+      { id: 'a', text: 'כפיפה צידית של הצוואר לאותו הצד ורוטציה של הפנים לצד הנגדי', isCorrect: true },
+      { id: 'b', text: 'פשיטת גו מלאה לאחור', isCorrect: false },
+      { id: 'c', text: 'הרמת הידיים מעל הראש', isCorrect: false },
+      { id: 'd', text: 'כפיפת ברכיים בלבד', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 95: שריר מפנה הראש (SCM) מתחיל בסטרנום ובבריח ונאחז במסטואיד של הגולגולת; כיווץ של צד אחד מסובב את הראש לצד הנגדי.'
+  },
+  {
+    id: 'a2_27',
+    moduleId: 'anat2',
+    topic: 'שרירי הגב התחתון',
+    title: 'שריר ה-Quadratus Lumborum QL (עמ׳ 99)',
+    diagram: 'spine_curves',
+    questionText: 'שריר ה-Quadratus Lumborum (המרובע המותני) מחבר בין עצם הכסל לצלע 12, ותפקידו העיקרי:',
+    hint: 'כיווץ שלו מרים את צד האגן למעלה או מבצע כפיפה צידית של הגו (Lateral Flexion).',
+    options: [
+      { id: 'a', text: 'כפיפה צידית של עמוד השדרה המותני והרמת האגן (Hip Hiking)', isCorrect: true },
+      { id: 'b', text: 'כפיפת מרפקים', isCorrect: false },
+      { id: 'c', text: 'פשיטת אצבעות כף הרגל', isCorrect: false },
+      { id: 'd', text: 'יישור הברך בספרינט', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 99: ה-QL מייצב את עמוד השדרה המותני ומבצע כפיפה צידית של הגו או הרמת אגן באותו הצד.'
+  },
+  {
+    id: 'a2_28',
+    moduleId: 'anat2',
+    topic: 'שרירי הירך',
+    title: 'שריר החייטים Sartorius (עמ׳ 115)',
+    diagram: 'knee',
+    questionText: 'שריר ה-Sartorius (השריר הארוך ביותר בגוף) מבצע שילוב של התנועות הבאות בירך:',
+    hint: 'דמיין ישיבה של חייט: כפיפת ירך, הרחקה וסיבוב חיצוני (ישיבה מזרחית).',
+    options: [
+      { id: 'a', text: 'כפיפה, הרחקה ורוטציה לטרלית של הירך (וכפיפת ברך)', isCorrect: true },
+      { id: 'b', text: 'פשיטת ירך ופשיטת ברך בעוצמה', isCorrect: false },
+      { id: 'c', text: 'קירוב ירך הדוק בלבד', isCorrect: false },
+      { id: 'd', text: 'רוטציה פנימית של הקרסול בלבד', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 115: הסרטוריוס יוצא מה-ASIS באגן וחוצה את הירך באלכסון עד לטיביה, ומאפשר את ישיבת ה"חייט" (ישיבה מזרחית).'
+  },
+  {
+    id: 'a2_29',
+    moduleId: 'anat2',
+    topic: 'שרירי הירך',
+    title: 'שריר ה-Tensor Fasciae Latae TFL (עמ׳ 119)',
+    diagram: 'knee_fibula',
+    questionText: 'שריר ה-TFL מתחבר ישירות אל רצועת ה-ITB (Iliotibial Band) ותפקידו העיקרי:',
+    hint: 'הוא מותח את הפאשיה הלטרלית של הירך ועוזר בהרחקת ירך וייצוב הברך.',
+    options: [
+      { id: 'a', text: 'מתיחת ה-ITB, הרחקת ירך וייצוב צידי של האגן והברך', isCorrect: true },
+      { id: 'b', text: 'כפיפת אצבעות כף הרגל', isCorrect: false },
+      { id: 'c', text: 'פשיטת עמוד השדרה הצווארי', isCorrect: false },
+      { id: 'd', text: 'עצירת זרימת הדם לירך', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 119: ה-TFL מותח את שובל הכסל והשוקה (ITB) ומסייע בהרחקה ובייצוב האגן בזמן הליכה וריצה.'
+  },
+  {
+    id: 'a2_30',
+    moduleId: 'anat2',
+    topic: 'שרירי הירך',
+    title: 'מקרבי הירך Adductors (עמ׳ 114)',
+    diagram: 'knee',
+    questionText: 'קבוצת שרירי ה-Adductors (מקרבי הירך: Brevis, Longus, Magnus, Gracilis) מתחילה ב:',
+    hint: 'בעצם החיק של האגן (Pubis) ונאחזת לאורך ה-Linea Aspera בירך.',
+    options: [
+      { id: 'a', text: 'עצם החיק (Pubis) באגן ונאחזת בעצם הירך (Femur)', isCorrect: true },
+      { id: 'b', text: 'עצם העקב (Calcaneus)', isCorrect: false },
+      { id: 'c', text: 'עצם השכמה בלבד', isCorrect: false },
+      { id: 'd', text: 'חוליות הצוואר', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 114: שרירי המקרבים יוצאים מאזור הפיוביס והאיסכיום ונאחזים לאורך החלק המדיאלי של הפמור כדי לקרב את הירכיים.'
+  },
+  {
+    id: 'a2_31',
+    moduleId: 'anat2',
+    topic: 'תפקידי שרירים בתנועה',
+    title: 'אגוניסט מול אנטגוניסט (עמ׳ 93)',
+    diagram: 'sarcomere',
+    questionText: 'בכפיפת מרפק בעלייה במתח או בעליית משקולת, שריר ה-Triceps Brachii משמש בתור:',
+    hint: 'השריר הנגדי לפעולה שצריך להרפות או להתארך כדי לאפשר את הכפיפה.',
+    options: [
+      { id: 'a', text: 'אנטגוניסט (Antagonist - שריר מנוגד)', isCorrect: true },
+      { id: 'b', text: 'אגוניסט ראשי (Prime mover)', isCorrect: false },
+      { id: 'c', text: 'סינרגיסט בלבד', isCorrect: false },
+      { id: 'd', text: 'שריר ניטרלי ללא שום קשר', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 93: האגוניסט הוא המבצע הראשי (בייספס בכפיפת מרפק), והאנטגוניסט הוא השריר הנגדי (טריספס) המתארך ומבקר את התנועה.'
+  },
+  {
+    id: 'a2_32',
+    moduleId: 'anat2',
+    topic: 'שרירי החזה',
+    title: 'שריר ה-Pectoralis Major (עמ׳ 83)',
+    diagram: 'deltoid',
+    questionText: 'שריר החזה הגדול (Pectoralis Major) מבצע את הפעולות הבאות במפרק הכתף:',
+    hint: 'דמיין תנועת חיבוק או לחיצת חזה: קירוב אופקי, כפיפה ורוטציה פנימית.',
+    options: [
+      { id: 'a', text: 'קירוב אופקי (Horizontal Adduction), קירוב ורוטציה פנימית של הזרוע', isCorrect: true },
+      { id: 'b', text: 'פשיטת מרפק והרחקת שכמות בלבד', isCorrect: false },
+      { id: 'c', text: 'פשיטת ירך וכפיפת ברך', isCorrect: false },
+      { id: 'd', text: 'הרמת בהונות כף הרגל', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 83: הפקטורליס מייג\'ור יוצא מהבריח, עצם החזה והצלעות, ונאחז בזרוע (Humerus) ומקרב אותה בעוצמה קדימה ואופקית.'
+  },
+  {
+    id: 'a2_33',
+    moduleId: 'anat2',
+    topic: 'שרירי הגב הרחב',
+    title: 'שריר ה-Latissimus Dorsi (עמ׳ 84)',
+    diagram: 'deltoid',
+    questionText: 'שריר הרחב-גבי (Latissimus Dorsi) מבצע במפרק הכתף (כמו בעליית מתח):',
+    hint: 'תנועת המשיכה של השחיינים והמטפסים: פשיטה, קירוב ורוטציה פנימית.',
+    options: [
+      { id: 'a', text: 'פשיטה (Extension), קירוב (Adduction) ורוטציה פנימית של הזרוע', isCorrect: true },
+      { id: 'b', text: 'הרחקה אופקית וכפיפת צוואר בלבד', isCorrect: false },
+      { id: 'c', text: 'כפיפת ברכיים', isCorrect: false },
+      { id: 'd', text: 'דחיקת כתפיים מעלה', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 84: הרחב-גבי הוא השריר העיקרי המושך את הזרוע מלמעלה למטה ומלפנים לאחור (פשיטה וקירוב חזקים).'
+  },
+  {
+    id: 'a2_34',
+    moduleId: 'anat2',
+    topic: 'שרירי הבטן',
+    title: 'השריר הישר-בטני Rectus Abdominis (עמ׳ 96)',
+    diagram: 'sarcomere',
+    questionText: 'השריר הישר-בטני (Rectus Abdominis) מתחיל בפיוביס ונאחז בצלעות 5-7 ובקספואיד. מהי פעולתו העיקרית?',
+    hint: 'התקרבות של בית החזה לאגן (כפיפת עמוד השדרה לפנים כמו בכפיפות בטן).',
+    options: [
+      { id: 'a', text: 'כפיפה (Flexion) של עמוד השדרה והטיית אגן לאחור (Posterior Pelvic Tilt)', isCorrect: true },
+      { id: 'b', text: 'פשיטת גב לאחור (Hyper-extension)', isCorrect: false },
+      { id: 'c', text: 'הרחקת ירכיים לצדדים', isCorrect: false },
+      { id: 'd', text: 'נשיפה פסיבית בלבד', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 96: הרקטוס אבדומיניס מקרב את הצלעות לאגן ובכך מכופף את עמוד השדרה ומייצב את מרכז הגוף.'
+  },
+  {
+    id: 'a2_35',
+    moduleId: 'anat2',
+    topic: 'שרירי השכמה',
+    title: 'שרירי הרומבואידים Rhomboids (עמ׳ 76)',
+    diagram: 'deltoid',
+    questionText: 'שרירי ה-Rhomboid Major ו-Minor מחברים את עמוד השדרה לגבול המדיאלי של השכמה ומבצעים:',
+    hint: 'קירוב שכמות לאחור (Retraction) והרמה שלהן.',
+    options: [
+      { id: 'a', text: 'קירוב שכמות לאחור (Retraction/Adduction) ורוטציה מטה', isCorrect: true },
+      { id: 'b', text: 'הרחקת שכמות קדימה (Protraction)', isCorrect: false },
+      { id: 'c', text: 'כפיפת מרפק מלאה', isCorrect: false },
+      { id: 'd', text: 'פשיטת ירך', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 76: הרומבואידים מושכים את השכמות לכיוון עמוד השדרה (קירוב שכמות לאחור) ומונעים את שמיטת הכתפיים לפנים.'
   }
 ];
