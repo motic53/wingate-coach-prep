@@ -3,6 +3,54 @@
 
 export const PART1_ANATOMY1 = [
   {
+    id: 'a1_cell',
+    moduleId: 'anat1',
+    topic: 'ביולוגיה של התא',
+    title: 'מיטוכונדריון בתא האנושי (עמ׳ 12)',
+    diagram: 'cell',
+    questionText: 'איזה אברון בתא מכונה "תחנת הכוח של התא" ובו מתבצע תהליך הנשימה התאית האירובית?',
+    hint: 'האברון האדום המוארך בתרשים התא שמייצר את מרבית מולקולות ה-ATP בנוכחות חמצן.',
+    options: [
+      { id: 'a', text: 'מיטוכונדריון (Mitochondrion)', isCorrect: true },
+      { id: 'b', text: 'גרעין התא', isCorrect: false },
+      { id: 'c', text: 'ריבוזום', isCorrect: false },
+      { id: 'd', text: 'מנגנון גולג׳י', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 12: המיטוכונדריה היא אברון תוך-תאי המכיל את אנזימי מעגל קרבס ושרשרת הנשימה שבהם מופקת עיקר אנרגיית ה-ATP.'
+  },
+  {
+    id: 'a1_membrane',
+    moduleId: 'anat1',
+    topic: 'ביולוגיה של התא',
+    title: 'קרום התא (עמ׳ 10-11)',
+    diagram: 'cell',
+    questionText: 'קרום התא (Cell Membrane) מורכב בעיקר משכבה כפולה של:',
+    hint: 'שכבת פוספוליפידים עם ראש הידרופילי וזנב הידרופובי המאפשרת חדירות בררנית.',
+    options: [
+      { id: 'a', text: 'פוספוליפידים וחלבונים משובצים', isCorrect: true },
+      { id: 'b', text: 'סידן טהור בלבד', isCorrect: false },
+      { id: 'c', text: 'קולגן מסוג 1 בלבד', isCorrect: false },
+      { id: 'd', text: 'סחוס היאליני', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 10: קרום התא בנוי משכבה כפולה של פוספוליפידים וחלבונים ומשמש מחסום בררני בין הסביבה התוך-תאית לחוץ-תאית.'
+  },
+  {
+    id: 'a1_ribosome',
+    moduleId: 'anat1',
+    topic: 'ביולוגיה של התא',
+    title: 'תפקיד הריבוזומים (עמ׳ 12)',
+    diagram: 'cell',
+    questionText: 'מהו התפקיד המרכזי של הריבוזומים בתא?',
+    hint: 'הם מקבלים את פקודת ה-RNA מהגרעין ומרכיבים לפיה חומצות אמינו לשרשראות חלבון.',
+    options: [
+      { id: 'a', text: 'סינתזה (בנייה) של חלבונים', isCorrect: true },
+      { id: 'b', text: 'פירוק שומנים לייצור חום', isCorrect: false },
+      { id: 'c', text: 'אגירת גליקוגן בלבד', isCorrect: false },
+      { id: 'd', text: 'ייצור תאי דם אדומים', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 12: הריבוזומים אחראים על תרגום המידע הגנטי ובניית חלבונים הדרושים לתפקוד התא ולבניית השריר.'
+  },
+  {
     id: 'a1_1',
     moduleId: 'anat1',
     topic: 'רקמות חיבור',
@@ -401,5 +449,165 @@ export const PART1_ANATOMY1 = [
       { id: 'd', text: 'צלעות 1-5 אמיתיות וכל השאר צפות', isCorrect: false }
     ],
     explanation: 'עמ׳ 63: צלעות 1-7 מחוברות ישירות בעצמן לסטרנום, 8-10 מתחברות לסחוס הצלע שמעליהן, וצלעות 11-12 צפות מאחור.'
+  },
+  {
+    id: 'a1_26',
+    moduleId: 'anat1',
+    topic: 'סוגי מפרקים',
+    title: 'מפרק סינוביאלי (עמ׳ 38-40)',
+    diagram: 'knee',
+    questionText: 'מה מאפיין מפרק סינוביאלי (Diarthrosis)?',
+    hint: 'חלל מפרק עם קפסולה ונוזל סיכה המאפשר טווח תנועה חופשי ורחב.',
+    options: [
+      { id: 'a', text: 'קפסולה מפרקית, חלל מפרק המכיל נוזל סינוביאלי ותנועה חופשית', isCorrect: true },
+      { id: 'b', text: 'חיבור גרמי ללא שום תנועה כלל', isCorrect: false },
+      { id: 'c', text: 'היעדר סחוס מפרקי בקצות העצמות', isCorrect: false },
+      { id: 'd', text: 'הוא קיים אך ורק בין עצמות הגולגולת', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 38: מפרק סינוביאלי הוא המפרק הנפוץ ביותר בגפיים, עטוף בקופסית ומאפשר תנועה רחבה וחופשית ללא חיכוך.'
+  },
+  {
+    id: 'a1_27',
+    moduleId: 'anat1',
+    topic: 'סוגי מפרקים',
+    title: 'מפרק כדורי Ball and Socket (עמ׳ 41)',
+    diagram: 'deltoid',
+    questionText: 'אילו מפרקים בגוף שייכים לסוג "מפרק כדורי ומכתש" (Ball and Socket) בעל מספר דרגות החופש הגבוה ביותר?',
+    hint: 'המפרקים שמאפשרים תנועה מעגלית של 360 מעלות בכתף ובירך.',
+    options: [
+      { id: 'a', text: 'מפרק הכתף (Glenohumeral) ומפרק הירך (Acetabulofemoral)', isCorrect: true },
+      { id: 'b', text: 'מפרק המרפק והברך בלבד', isCorrect: false },
+      { id: 'c', text: 'מפרקי האצבעות בלבד', isCorrect: false },
+      { id: 'd', text: 'מפרקי החוליות בגב התחתון בלבד', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 41: מפרק כדורי (כתף וירך) הוא תלת-צירי ומאפשר כפיפה, פשיטה, הרחקה, קירוב ורוטציה חופשית.'
+  },
+  {
+    id: 'a1_28',
+    moduleId: 'anat1',
+    topic: 'סוגי סחוס',
+    title: 'סחוס סיבי פיברוטי (עמ׳ 21)',
+    diagram: 'disc',
+    questionText: 'איזה סוג סחוס עשיר בסיבי קולגן צפופים, עומד בכוחות גזירה ודחיסה ונמצא במניסקוסים ובדיסקים?',
+    hint: 'הסחוס הסיבי הקשוח ביותר בגוף (Fibrocartilage).',
+    options: [
+      { id: 'a', text: 'סחוס סיבי (Fibrocartilage)', isCorrect: true },
+      { id: 'b', text: 'סחוס היאליני זגוגי בלבד', isCorrect: false },
+      { id: 'c', text: 'סחוס אלסטי של תנוך האוזן בלבד', isCorrect: false },
+      { id: 'd', text: 'רקמת שומן חוץ-תאית', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 21: סחוס סיבי (Fibrocartilage) מכיל שפע סיבי קולגן עבים ועמידים ביותר, ונמצא בדיסקים הבין-חולייתיים ובמיניסקוסים של הברך.'
+  },
+  {
+    id: 'a1_29',
+    moduleId: 'anat1',
+    topic: 'עצם ספוגית',
+    title: 'עצם ספוגית וטרבקולות (עמ׳ 28)',
+    diagram: 'osteon',
+    questionText: 'בניגוד לעצם הצפופה, העצם הספוגית (Spongy/Cancellous Bone):',
+    hint: 'בנויה מקוריות עצם סריגיות (Trabeculae) המותאמות לקווי העומס, ומכילה מח עצם אדום.',
+    options: [
+      { id: 'a', text: 'בנויה מקוריות וקוריות (Trabeculae) המקטינות את משקל השלד ומכילות מח עצם', isCorrect: true },
+      { id: 'b', text: 'אינה מכילה סידן כלל ורכה כמו עור', isCorrect: false },
+      { id: 'c', text: 'נמצאת אך ורק בשכבה החיצונית ביותר של הדיאפיזה', isCorrect: false },
+      { id: 'd', text: 'חסרת גמישות לחלוטין', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 28: העצם הספוגית ממוקמת בעיקר בקצוות (אפיפיזות), בנויה מקוריות סריגיות המעניקות חוזק מבני במשקל קל ומאכלסות מח עצם אדום.'
+  },
+  {
+    id: 'a1_30',
+    moduleId: 'anat1',
+    topic: 'מפרקי שלד',
+    title: 'מפרק סיבי / תפרים (עמ׳ 37)',
+    diagram: 'disc',
+    questionText: 'תפרי הגולגולת (Sutures) הם דוגמה למפרק מסוג:',
+    hint: 'מפרק ללא חלל מפרק, המחובר בסיבי קולגן הדוקים ואינו מאפשר תנועה (Synarthrosis).',
+    options: [
+      { id: 'a', text: 'מפרק סיבי ללא תנועה (Synarthrosis)', isCorrect: true },
+      { id: 'b', text: 'מפרק סינוביאלי בעל תנועה מלאה', isCorrect: false },
+      { id: 'c', text: 'מפרק כדורי ומכתש', isCorrect: false },
+      { id: 'd', text: 'מפרק ציר כמו הברך', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 37: מפרקים סיביים מחברים עצמות ברקמת חיבור צפופה ללא תנועה כלל, במטרה להגן על איברים רגישים כמו המוח.'
+  },
+  {
+    id: 'a1_31',
+    moduleId: 'anat1',
+    topic: 'שלד האגן',
+    title: 'מפרק ה-Sacroiliac SIJ (עמ׳ 64)',
+    diagram: 'spine_curves',
+    questionText: 'מפרק ה-Sacroiliac (SI Joint) מחבר בין:',
+    hint: 'החיבור בין המשולש התחתון של עמוד השדרה (סקרום) לכנף האגן (איליום).',
+    options: [
+      { id: 'a', text: 'עצם העצה (Sacrum) ועצם הכסל (Ilium) של האגן', isCorrect: true },
+      { id: 'b', text: 'עצם הירך ועצם השוקה', isCorrect: false },
+      { id: 'c', text: 'עצם החזה לצלעות', isCorrect: false },
+      { id: 'd', text: 'עצם הבריח לשכמה', isCorrect: false }
+    ],
+    explanation: 'מפרק ה-SI מעביר את משקל כל פלג הגוף העליון מעמוד השדרה אל חגורת האגן והגפיים התחתונות.'
+  },
+  {
+    id: 'a1_32',
+    moduleId: 'anat1',
+    topic: 'שלד הגולגולת',
+    title: 'נקב ה-Foramen Magnum (עמ׳ 48)',
+    diagram: 'cervical',
+    questionText: 'הפתח הגדול בבסיס הגולגולת (Foramen Magnum) משמש מעבר עבור:',
+    hint: 'מאיפה יוצא חוט השדרה מהמוח לעבר עמוד השדרה?',
+    options: [
+      { id: 'a', text: 'גזע המוח והמשכו כחוט השדרה', isCorrect: true },
+      { id: 'b', text: 'עצב הראייה בלבד', isCorrect: false },
+      { id: 'c', text: 'שריר הלסת הראשי', isCorrect: false },
+      { id: 'd', text: 'קנה הנשימה', isCorrect: false }
+    ],
+    explanation: 'ה-Foramen Magnum הוא הנקב הגדול בעצם האוקסיפיטלית דרכו גזע המוח מתחבר לחוט השדרה.'
+  },
+  {
+    id: 'a1_33',
+    moduleId: 'anat1',
+    topic: 'עצמות הגפה העליונה',
+    title: 'האנטומיה של עצם הבריח Clavicle (עמ׳ 69)',
+    diagram: 'deltoid',
+    questionText: 'עצם הבריח (Clavicle) מהווה את החיבור הגרמי היחיד בין:',
+    hint: 'איך היד וכל חגורת הכתף מחוברות פיזית לעצמות בית החזה (שלד הציר)?',
+    options: [
+      { id: 'a', text: 'חגורת הכתף (השכמה) אל שלד בית החזה (עצם הסטרנום במפרק SC)', isCorrect: true },
+      { id: 'b', text: 'עצם הזרוע לעצם הירך', isCorrect: false },
+      { id: 'c', text: 'עמוד השדרה המותני לצלעות', isCorrect: false },
+      { id: 'd', text: 'הגולגולת לחוליה הראשונה', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 69: עצם הבריח מחברת במפרק ה-Sternoclavicular (SC) את כל חגורת הגפה העליונה לשלד המרכזי.'
+  },
+  {
+    id: 'a1_34',
+    moduleId: 'anat1',
+    topic: 'שלד הגפה התחתונה',
+    title: 'מבנה האצטבולום Acetabulum (עמ׳ 104)',
+    diagram: 'knee',
+    questionText: 'האצטבולום (Acetabulum), שקע המפרק של הירך, נוצר מחיבור של שלוש העצמות:',
+    hint: 'שלוש העצמות שמתאחות בבגרות לעצם האגן: כסל, שת וחיק.',
+    options: [
+      { id: 'a', text: 'Ilium, Ischium, Pubis', isCorrect: true },
+      { id: 'b', text: 'Femur, Patella, Tibia', isCorrect: false },
+      { id: 'c', text: 'Sacrum, Coccyx, Lumbar', isCorrect: false },
+      { id: 'd', text: 'Atlas, Axis, C3', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 104: השקע המפרקי העמוק באגן (אצטבולום) נוצר מנקודת המפגש של עצמות האיליום, האיסכיום והפיוביס.'
+  },
+  {
+    id: 'a1_35',
+    moduleId: 'anat1',
+    topic: 'מפרק הברך',
+    title: 'רצועות צולבות ACL ו-PCL (עמ׳ 106)',
+    diagram: 'knee',
+    questionText: 'מהו התפקיד הביומכני העיקרי של הרצועה הצולבת הקדמית (ACL) בברך?',
+    hint: 'היא מונעת מעצם השוק (Tibia) להחליק קדימה ביחס לעצם הירך.',
+    options: [
+      { id: 'a', text: 'מניעת תזוזה קדמית של הטיביה ביחס לפמור וייצוב סיבובי', isCorrect: true },
+      { id: 'b', text: 'מניעת תזוזה אחורית של הטיביה (תפקיד ה-PCL)', isCorrect: false },
+      { id: 'c', text: 'חיבור הפיקה לשריר התאומים', isCorrect: false },
+      { id: 'd', text: 'ייצור נוזל סינוביאלי למפרק', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 106: ה-ACL (הרצועה הצולבת הקדמית) בולמת תנועה קדמית של השוק ביחס לירך ומייצבת את הברך בנחיתות ושינויי כיוון.'
   }
 ];
