@@ -4,219 +4,348 @@
 
 import React, { useState, useEffect } from 'react';
 
-// --- תרשימים גרפיים וקטוריים מובנים (משמשים כגיבוי בטוח ללא תלות ברשת) ---
+// --- תרשימים אנטומיים וקטוריים מדויקים לפי חוברות וינגייט ---
 
+// 1. תרשים מפרק הברך וראש הפיבולה (Biceps Femoris Insertion)
+function DiagramKneeFibula() {
+  return (
+    <svg viewBox="0 0 340 180" className="w-full h-full bg-slate-950 p-2">
+      {/* עצם הירך Femur */}
+      <path d="M 120 10 L 220 10 L 225 55 Q 210 75 170 70 Q 130 75 115 55 Z" fill="#334155" stroke="#64748b" strokeWidth="2" />
+      <text x="170" y="35" fill="#f8fafc" fontSize="12" fontWeight="bold" textAnchor="middle">עצם הירך (Femur)</text>
+
+      {/* מניסקוסים וסחוס */}
+      <ellipse cx="135" cy="78" rx="16" ry="6" fill="#38bdf8" />
+      <ellipse cx="205" cy="78" rx="16" ry="6" fill="#38bdf8" />
+
+      {/* עצם השוק Tibia */}
+      <path d="M 130 90 Q 170 85 210 90 L 200 165 L 140 165 Z" fill="#1e293b" stroke="#475569" strokeWidth="2" />
+      <text x="170" y="130" fill="#f8fafc" fontSize="12" fontWeight="bold" textAnchor="middle">שוק (Tibia)</text>
+
+      {/* עצם השוקית Fibula בצד לטרלי */}
+      <path d="M 95 95 L 115 95 L 110 165 L 90 165 Z" fill="#475569" stroke="#94a3b8" strokeWidth="2" />
+      <circle cx="105" cy="98" r="12" fill="#e11d48" stroke="#fecdd3" strokeWidth="2" />
+      
+      {/* גיד Biceps Femoris */}
+      <path d="M 85 30 Q 75 70 100 92" fill="none" stroke="#fb7185" strokeWidth="4" strokeDasharray="4 2" />
+      <text x="50" y="45" fill="#fb7185" fontSize="10" fontWeight="bold">גיד Biceps Femoris</text>
+
+      {/* סימון מודגש לראש הפיבולה */}
+      <line x1="45" y1="105" x2="90" y2="100" stroke="#f59e0b" strokeWidth="2" markerEnd="url(#arrow)" />
+      <text x="45" y="120" fill="#f59e0b" fontSize="11" fontWeight="bold">ראש השוקית</text>
+      <text x="45" y="135" fill="#f59e0b" fontSize="10">(Head of Fibula)</text>
+    </svg>
+  );
+}
+
+// 2. תרשים הדיסק הבין-חולייתי
 function DiagramDisc() {
   return (
-    <svg viewBox="0 0 320 160" className="w-full h-full bg-slate-950 p-2">
-      <ellipse cx="160" cy="80" rx="130" ry="60" fill="#1e293b" stroke="#38bdf8" strokeWidth="3" />
-      <ellipse cx="160" cy="80" rx="95" ry="44" fill="#0f172a" stroke="#0284c7" strokeWidth="2" strokeDasharray="4 3" />
-      <ellipse cx="160" cy="80" rx="70" ry="32" fill="#0369a1" stroke="#38bdf8" strokeWidth="2" />
-      <ellipse cx="160" cy="80" rx="38" ry="18" fill="#f43f5e" stroke="#fda4af" strokeWidth="2" />
-      <text x="160" y="84" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">גרעין צמיגי (Nucleus Pulposus)</text>
-      <text x="160" y="32" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">טבעות סיביות (Annulus Fibrosus)</text>
+    <svg viewBox="0 0 340 180" className="w-full h-full bg-slate-950 p-2">
+      <ellipse cx="170" cy="90" rx="140" ry="65" fill="#1e293b" stroke="#38bdf8" strokeWidth="3" />
+      <ellipse cx="170" cy="90" rx="110" ry="50" fill="#0f172a" stroke="#0284c7" strokeWidth="2" strokeDasharray="5 3" />
+      <ellipse cx="170" cy="90" rx="80" ry="36" fill="#0369a1" stroke="#38bdf8" strokeWidth="2" />
+      <ellipse cx="170" cy="90" rx="45" ry="20" fill="#f43f5e" stroke="#fda4af" strokeWidth="2" />
+      <text x="170" y="94" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">גרעין צמיגי (Nucleus Pulposus)</text>
+      <text x="170" y="40" fill="#38bdf8" fontSize="12" fontWeight="bold" textAnchor="middle">טבעות סיביות קולגניות (Annulus Fibrosus)</text>
+      <text x="170" y="170" fill="#94a3b8" fontSize="11" textAnchor="middle">עמידה בעומסי דחיסה ובלימת זעזועים</text>
     </svg>
   );
 }
 
-function DiagramSpine() {
+// 3. תרשים חוליית צוואר ונקב הזיז הרוחבי
+function DiagramCervicalVertebra() {
   return (
-    <svg viewBox="0 0 320 160" className="w-full h-full bg-slate-950 p-2">
-      <path d="M 160 20 Q 185 45 160 65 Q 130 95 160 120 Q 180 135 160 150" fill="none" stroke="#f59e0b" strokeWidth="6" strokeLinecap="round" />
-      <circle cx="160" cy="22" r="5" fill="#38bdf8" />
-      <circle cx="178" cy="45" r="5" fill="#38bdf8" />
-      <circle cx="160" cy="65" r="5" fill="#38bdf8" />
-      <circle cx="140" cy="95" r="5" fill="#10b981" />
-      <circle cx="160" cy="120" r="5" fill="#a855f7" />
-      <text x="240" y="42" fill="#38bdf8" fontSize="11" fontWeight="bold">לורדוזה צווארית (C1-C7)</text>
-      <text x="70" y="92" fill="#10b981" fontSize="11" fontWeight="bold">קיפוזה חזית (T1-T12)</text>
-      <text x="240" y="130" fill="#a855f7" fontSize="11" fontWeight="bold">לורדוזה מותנית (L1-L5)</text>
+    <svg viewBox="0 0 340 180" className="w-full h-full bg-slate-950 p-2">
+      {/* גוף חוליה קטן מקדימה */}
+      <ellipse cx="170" cy="45" rx="55" ry="25" fill="#334155" stroke="#64748b" strokeWidth="2" />
+      <text x="170" y="49" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">גוף החוליה (Body)</text>
+
+      {/* נקב חוט השדרה הגדול */}
+      <ellipse cx="170" cy="100" rx="40" ry="28" fill="#020617" stroke="#38bdf8" strokeWidth="2" />
+      <text x="170" y="104" fill="#38bdf8" fontSize="10" textAnchor="middle">נקב חוט השדרה</text>
+
+      {/* זיזים רוחביים עם הנקבים הייחודיים */}
+      <circle cx="85" cy="75" r="10" fill="#f43f5e" stroke="#fecdd3" strokeWidth="2" />
+      <circle cx="255" cy="75" r="10" fill="#f43f5e" stroke="#fecdd3" strokeWidth="2" />
+
+      {/* חיצים לנקב */}
+      <text x="85" y="115" fill="#f43f5e" fontSize="11" fontWeight="bold" textAnchor="middle">נקב עורק הצוואר</text>
+      <text x="85" y="130" fill="#f43f5e" fontSize="9" textAnchor="middle">(Transverse Foramen)</text>
+
+      {/* זיז אחורי מפוצל */}
+      <path d="M 155 130 L 170 165 L 185 130 Z" fill="#334155" stroke="#64748b" strokeWidth="2" />
+      <text x="170" y="155" fill="#94a3b8" fontSize="10" textAnchor="middle">זיז אחורי (Spine)</text>
     </svg>
   );
 }
 
-function DiagramKnee() {
+// 4. תרשים עקומות עמוד השדרה
+function DiagramSpineCurves() {
   return (
-    <svg viewBox="0 0 320 160" className="w-full h-full bg-slate-950 p-2">
-      <path d="M 120 15 L 200 15 L 205 60 Q 190 75 160 70 Q 130 75 115 60 Z" fill="#334155" stroke="#64748b" strokeWidth="2" />
-      <text x="160" y="38" fill="#f8fafc" fontSize="11" fontWeight="bold" textAnchor="middle">עצם הירך (Femur)</text>
-      <ellipse cx="132" cy="80" rx="18" ry="6" fill="#38bdf8" />
-      <ellipse cx="188" cy="80" rx="18" ry="6" fill="#38bdf8" />
-      <line x1="140" y1="68" x2="180" y2="92" stroke="#f43f5e" strokeWidth="3" />
-      <line x1="180" y1="68" x2="140" y2="92" stroke="#fbbf24" strokeWidth="3" />
-      <path d="M 115 95 Q 160 90 205 95 L 195 145 L 125 145 Z" fill="#1e293b" stroke="#475569" strokeWidth="2" />
-      <text x="160" y="125" fill="#f8fafc" fontSize="11" fontWeight="bold" textAnchor="middle">עצם השוק (Tibia)</text>
-      <text x="55" y="83" fill="#38bdf8" fontSize="10" fontWeight="bold">מניסקוס</text>
-      <text x="265" y="80" fill="#f43f5e" fontSize="10" fontWeight="bold">רצועות צולבות (ACL/PCL)</text>
+    <svg viewBox="0 0 340 180" className="w-full h-full bg-slate-950 p-2">
+      <path d="M 170 20 Q 195 45 170 70 Q 140 100 170 125 Q 190 145 170 165" fill="none" stroke="#f59e0b" strokeWidth="6" strokeLinecap="round" />
+      <circle cx="170" cy="22" r="5" fill="#38bdf8" />
+      <circle cx="188" cy="45" r="5" fill="#38bdf8" />
+      <circle cx="170" cy="70" r="5" fill="#38bdf8" />
+      <circle cx="150" cy="100" r="5" fill="#10b981" />
+      <circle cx="170" cy="125" r="5" fill="#a855f7" />
+      <circle cx="182" cy="145" r="5" fill="#a855f7" />
+      
+      <text x="255" y="42" fill="#38bdf8" fontSize="11" fontWeight="bold">לורדוזה צווארית (C1-C7)</text>
+      <text x="65" y="98" fill="#10b981" fontSize="11" fontWeight="bold">קיפוזה חזית (T1-T12)</text>
+      <text x="255" y="135" fill="#a855f7" fontSize="11" fontWeight="bold">לורדוזה מותנית (L1-L5)</text>
+      <text x="65" y="155" fill="#fbbf24" fontSize="10">סקרום וקוקסיקס</text>
     </svg>
   );
 }
 
+// 5. תרשים סרקומר וחלבון הכיווץ
 function DiagramSarcomere() {
   return (
-    <svg viewBox="0 0 320 160" className="w-full h-full bg-slate-950 p-2">
-      <line x1="30" y1="20" x2="30" y2="140" stroke="#f43f5e" strokeWidth="4" />
-      <line x1="290" y1="20" x2="290" y2="140" stroke="#f43f5e" strokeWidth="4" />
-      <line x1="30" y1="45" x2="135" y2="45" stroke="#38bdf8" strokeWidth="3" />
-      <line x1="185" y1="45" x2="290" y2="45" stroke="#38bdf8" strokeWidth="3" />
-      <line x1="30" y1="115" x2="135" y2="115" stroke="#38bdf8" strokeWidth="3" />
-      <line x1="185" y1="115" x2="290" y2="115" stroke="#38bdf8" strokeWidth="3" />
-      <rect x="85" y="70" width="150" height="20" rx="4" fill="#eab308" />
-      <text x="80" y="38" fill="#38bdf8" fontSize="10" fontWeight="bold">אקטין (חלבון דק)</text>
-      <text x="160" y="84" fill="#020617" fontSize="10" fontWeight="bold" textAnchor="middle">מיוזין (חלבון עבה)</text>
-      <text x="160" y="150" fill="#94a3b8" fontSize="10" textAnchor="middle">מנגנון הסרקומר: החלקת חלבוני הכיווץ</text>
+    <svg viewBox="0 0 340 180" className="w-full h-full bg-slate-950 p-2">
+      <line x1="30" y1="20" x2="30" y2="150" stroke="#f43f5e" strokeWidth="4" />
+      <line x1="310" y1="20" x2="310" y2="150" stroke="#f43f5e" strokeWidth="4" />
+      <text x="30" y="16" fill="#f43f5e" fontSize="11" fontWeight="bold" textAnchor="middle">Z-Line</text>
+      <text x="310" y="16" fill="#f43f5e" fontSize="11" fontWeight="bold" textAnchor="middle">Z-Line</text>
+
+      {/* אקטין - דק */}
+      <line x1="30" y1="50" x2="145" y2="50" stroke="#38bdf8" strokeWidth="3.5" />
+      <line x1="195" y1="50" x2="310" y2="50" stroke="#38bdf8" strokeWidth="3.5" />
+      <line x1="30" y1="120" x2="145" y2="120" stroke="#38bdf8" strokeWidth="3.5" />
+      <line x1="195" y1="120" x2="310" y2="120" stroke="#38bdf8" strokeWidth="3.5" />
+      <text x="85" y="42" fill="#38bdf8" fontSize="11" fontWeight="bold">אקטין (חלבון דק נגרר)</text>
+
+      {/* מיוזין - עבה וראשי גשרים */}
+      <rect x="95" y="75" width="150" height="20" rx="4" fill="#eab308" />
+      <circle cx="115" cy="70" r="5" fill="#ca8a04" />
+      <circle cx="135" cy="70" r="5" fill="#ca8a04" />
+      <circle cx="205" cy="70" r="5" fill="#ca8a04" />
+      <circle cx="225" cy="70" r="5" fill="#ca8a04" />
+      <text x="170" y="89" fill="#020617" fontSize="11" fontWeight="bold" textAnchor="middle">מיוזין (חלבון עבה מושך)</text>
+      <text x="170" y="165" fill="#94a3b8" fontSize="11" textAnchor="middle">תנועת גשרי הרוחב מושכת את האקטין למרכז</text>
     </svg>
   );
 }
 
+// 6. תרשים הלב ומחזורי הדם
 function DiagramHeart() {
   return (
-    <svg viewBox="0 0 320 160" className="w-full h-full bg-slate-950 p-2">
-      <rect x="65" y="25" width="85" height="50" rx="8" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" />
-      <text x="107" y="55" fill="#ffffff" fontSize="10" fontWeight="bold" textAnchor="middle">עלייה ימין</text>
-      <rect x="65" y="80" width="85" height="55" rx="8" fill="#1d4ed8" stroke="#3b82f6" strokeWidth="2" />
-      <text x="107" y="112" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">חדר ימין</text>
-      <line x1="160" y1="20" x2="160" y2="140" stroke="#64748b" strokeWidth="3" />
-      <rect x="170" y="25" width="85" height="50" rx="8" fill="#991b1b" stroke="#ef4444" strokeWidth="2" />
-      <text x="212" y="55" fill="#ffffff" fontSize="10" fontWeight="bold" textAnchor="middle">עלייה שמאל</text>
-      <rect x="170" y="80" width="85" height="55" rx="8" fill="#b91c1c" stroke="#ef4444" strokeWidth="3" />
-      <text x="212" y="112" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">חדר שמאל</text>
-      <text x="160" y="152" fill="#94a3b8" fontSize="10" textAnchor="middle">מבנה מדורי הלב והמסתמים</text>
+    <svg viewBox="0 0 340 180" className="w-full h-full bg-slate-950 p-2">
+      {/* צד ימין (ורידי - כחול) */}
+      <rect x="70" y="30" width="90" height="50" rx="8" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" />
+      <text x="115" y="60" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">עלייה ימנית</text>
+      <rect x="70" y="85" width="90" height="60" rx="8" fill="#1d4ed8" stroke="#3b82f6" strokeWidth="2" />
+      <text x="115" y="120" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">חדר ימין</text>
+
+      {/* מחיצה */}
+      <line x1="170" y1="20" x2="170" y2="155" stroke="#64748b" strokeWidth="3" />
+
+      {/* צד שמאל (עורקי - אדום) */}
+      <rect x="180" y="30" width="90" height="50" rx="8" fill="#991b1b" stroke="#ef4444" strokeWidth="2" />
+      <text x="225" y="60" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">עלייה שמאלית</text>
+      <rect x="180" y="85" width="90" height="60" rx="8" fill="#b91c1c" stroke="#ef4444" strokeWidth="3" />
+      <text x="225" y="120" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">חדר שמאל</text>
+
+      <text x="115" y="20" fill="#60a5fa" fontSize="10" textAnchor="middle">דם דל בחמצן מהגוף</text>
+      <text x="225" y="20" fill="#f87171" fontSize="10" textAnchor="middle">דם עשיר בחמצן אל הגוף</text>
+      <text x="170" y="168" fill="#94a3b8" fontSize="10" textAnchor="middle">בדיאסטולה: מסתמים בין עליות לחדרים פתוחים למילוי</text>
     </svg>
   );
 }
 
+// 7. תרשים מעגל קורי ופינוי לקטט
+function DiagramCoriCycle() {
+  return (
+    <svg viewBox="0 0 340 180" className="w-full h-full bg-slate-950 p-2">
+      {/* שריר פעיל */}
+      <rect x="30" y="30" width="110" height="110" rx="12" fill="#881337" stroke="#f43f5e" strokeWidth="2" />
+      <text x="85" y="55" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">שריר פעיל</text>
+      <text x="85" y="80" fill="#fecdd3" fontSize="11" textAnchor="middle">גלוקוז ➔ פירובט</text>
+      <text x="85" y="105" fill="#fb7185" fontSize="11" fontWeight="bold" textAnchor="middle">הצטברות לקטט + H+</text>
+
+      {/* כבד ממחזר */}
+      <rect x="200" y="30" width="110" height="110" rx="12" fill="#14532d" stroke="#22c55e" strokeWidth="2" />
+      <text x="255" y="55" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">כבד (מחזור)</text>
+      <text x="255" y="80" fill="#bbf7d0" fontSize="11" textAnchor="middle">לקטט ➔ גלוקוז</text>
+      <text x="255" y="105" fill="#86efac" fontSize="10" textAnchor="middle">(השקעת 6 ATP)</text>
+
+      {/* חיצי זרימה בדם */}
+      <path d="M 140 60 L 200 60" stroke="#f59e0b" strokeWidth="3" markerEnd="url(#arrow)" />
+      <text x="170" y="52" fill="#f59e0b" fontSize="9" textAnchor="middle">לקטט לדם</text>
+
+      <path d="M 200 115 L 140 115" stroke="#38bdf8" strokeWidth="3" markerEnd="url(#arrow)" />
+      <text x="170" y="132" fill="#38bdf8" fontSize="9" textAnchor="middle">גלוקוז לשריר</text>
+
+      <text x="170" y="165" fill="#94a3b8" fontSize="10" textAnchor="middle">מעגל קורי: הפיכת לקטט מחדש לגלוקוז בכבד</text>
+    </svg>
+  );
+}
+
+// 8. תרשים מסלולי אנרגיה
 function DiagramEnergy() {
   return (
-    <svg viewBox="0 0 320 160" className="w-full h-full bg-slate-950 p-2">
-      <rect x="15" y="30" width="85" height="90" rx="10" fill="#78350f" stroke="#f59e0b" strokeWidth="2" />
-      <text x="57" y="55" fill="#fbbf24" fontSize="11" fontWeight="bold" textAnchor="middle">ATP-CrP</text>
-      <text x="57" y="75" fill="#fde68a" fontSize="10" textAnchor="middle">אלקטי</text>
-      <text x="57" y="102" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">0-10 שניות</text>
-      <rect x="115" y="30" width="85" height="90" rx="10" fill="#064e3b" stroke="#10b981" strokeWidth="2" />
-      <text x="157" y="55" fill="#34d399" fontSize="11" fontWeight="bold" textAnchor="middle">גליקוליזה</text>
-      <text x="157" y="75" fill="#a7f3d0" fontSize="10" textAnchor="middle">לקטי</text>
-      <text x="157" y="102" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">10-120 שנ'</text>
-      <rect x="215" y="30" width="85" height="90" rx="10" fill="#1e1b4b" stroke="#6366f1" strokeWidth="2" />
-      <text x="257" y="55" fill="#818cf8" fontSize="11" fontWeight="bold" textAnchor="middle">אירובי</text>
-      <text x="257" y="75" fill="#c7d2fe" fontSize="10" textAnchor="middle">מיטוכונדריה</text>
-      <text x="257" y="102" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">מעל 2 דק'</text>
+    <svg viewBox="0 0 340 180" className="w-full h-full bg-slate-950 p-2">
+      <rect x="15" y="30" width="90" height="100" rx="10" fill="#78350f" stroke="#f59e0b" strokeWidth="2" />
+      <text x="60" y="55" fill="#fbbf24" fontSize="12" fontWeight="bold" textAnchor="middle">ATP-CrP</text>
+      <text x="60" y="75" fill="#fde68a" fontSize="10" textAnchor="middle">אנאירובי אלקטי</text>
+      <text x="60" y="105" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">0-10 שניות</text>
+
+      <rect x="125" y="30" width="90" height="100" rx="10" fill="#064e3b" stroke="#10b981" strokeWidth="2" />
+      <text x="170" y="55" fill="#34d399" fontSize="12" fontWeight="bold" textAnchor="middle">גליקוליזה</text>
+      <text x="170" y="75" fill="#a7f3d0" fontSize="10" textAnchor="middle">אנאירובי לקטי</text>
+      <text x="170" y="105" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">10-120 שנ'</text>
+
+      <rect x="235" y="30" width="90" height="100" rx="10" fill="#1e1b4b" stroke="#6366f1" strokeWidth="2" />
+      <text x="280" y="55" fill="#818cf8" fontSize="12" fontWeight="bold" textAnchor="middle">אירובי</text>
+      <text x="280" y="75" fill="#c7d2fe" fontSize="10" textAnchor="middle">חמצן במיטוכונדריה</text>
+      <text x="280" y="105" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">מעל 2 דקות</text>
+
+      <text x="170" y="155" fill="#94a3b8" fontSize="10" textAnchor="middle">תרומת מסלולי האנרגיה לפי עצימות ומשך המאמץ</text>
     </svg>
   );
 }
 
-const DIAGRAMS = {
+const DIAGRAM_COMPONENTS = {
+  knee: <DiagramKneeFibula />,
   disc: <DiagramDisc />,
-  spine: <DiagramSpine />,
-  knee: <DiagramKnee />,
+  cervical: <DiagramCervicalVertebra />,
+  spine: <DiagramSpineCurves />,
   sarcomere: <DiagramSarcomere />,
   heart: <DiagramHeart />,
+  cori: <DiagramCoriCycle />,
   energy: <DiagramEnergy />
 };
 
-// מאגר שאלות עם קישורי תמונות ישירים וגיבוי וקטורי
+// מאגר שאלות מלא מחובר לתרשימים האנטומיים המובנים
 const WINGATE_QUESTION_BANK = [
   {
-    id: 'a1_1',
+    id: 'a1_fibula',
     moduleId: 'anat1',
-    topic: 'עמוד השדרה והדיסק',
-    title: 'מבנה הדיסק הבין-חולייתי',
-    diagramKey: 'disc',
-    imageUrl: 'https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=800&auto=format&fit=crop&q=80',
-    questionText: 'חומר ה-Annulus Fibrosus בדיסק הבין-חולייתי תפקידו בעיקר:',
-    hint: 'חשוב על הטבעות הסיביות החיצוניות שמחזיקות את הדיסק.',
-    options: [
-      { id: 'a', text: 'למנוע חיכוך ולבלום זעזועים', isCorrect: true },
-      { id: 'b', text: 'להציג יכולת החלקה בלבד', isCorrect: false },
-      { id: 'c', text: 'לייצר תאי דם אדומים', isCorrect: false },
-      { id: 'd', text: 'לחבר בין העור לשריר', isCorrect: false }
-    ],
-    explanation: 'ה-Annulus Fibrosus בנוי מטבעות קולגן צפופות המקיפות את הגרעין הצמיגי (Nucleus Pulposus), בולמות זעזועים ומחברות בין החוליות.'
-  },
-  {
-    id: 'a1_2',
-    moduleId: 'anat1',
-    topic: 'עמוד השדרה',
-    title: 'עקומות עמוד השדרה',
-    diagramKey: 'spine',
-    imageUrl: 'https://images.unsplash.com/photo-1507413245164-6160d8298b31?w=800&auto=format&fit=crop&q=80',
-    questionText: 'איזו עקומה קעורה קיימת בעמוד השדרה המותני (Lumbar)?',
-    hint: 'שקע הגב התחתון הטבעי הנושא את עיקר משקל הגו.',
-    options: [
-      { id: 'a', text: 'לורדוזה מותנית (Lumbar Lordosis)', isCorrect: true },
-      { id: 'b', text: 'קיפוזה חזית (Thoracic Kyphosis)', isCorrect: false },
-      { id: 'c', text: 'סקוליוזיס (עקמת)', isCorrect: false },
-      { id: 'd', text: 'קיפוזה סקרלית', isCorrect: false }
-    ],
-    explanation: 'באזור המותני (L1-L5) קיימת עקומת לורדוזה קעורה קדימה המאפשרת עמידה זקופה ובלימת עומסים אנכיים.'
-  },
-  {
-    id: 'a1_3',
-    moduleId: 'anat1',
-    topic: 'מפרקים ורצועות',
-    title: 'מבנה מפרק הברך',
+    topic: 'מפרקים ועצמות',
+    title: 'מבנה מפרק הברך וראש השוקית',
     diagramKey: 'knee',
-    imageUrl: 'https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=800&auto=format&fit=crop&q=80',
     questionText: 'איזה שריר נאחז (Insertion) בראש עצם השוקית (Head of Fibula)?',
-    hint: 'השריר הלטרלי מבין שרירי מיתר הירך (Hamstrings).',
+    hint: 'שים לב לחץ האדום בצידה הלטרלי (חיצוני) של הברך בתרשים.',
     options: [
       { id: 'a', text: 'Biceps Femoris (הדו-ראשי הירכי)', isCorrect: true },
       { id: 'b', text: 'Semitendinosus', isCorrect: false },
       { id: 'c', text: 'Semimembranosus', isCorrect: false },
       { id: 'd', text: 'Rectus Femoris', isCorrect: false }
     ],
-    explanation: 'ה-Biceps Femoris מגיע מהאגן והפמור ונאחז בראש הפיבולה בצד החיצוני של הברך.'
+    explanation: 'בתרשים ניתן לראות כי גיד שריר ה-Biceps Femoris יורד ונאחז ישירות בראש עצם השוקית (Head of Fibula) בצד החיצוני של הברך.'
   },
   {
-    id: 'a2_1',
+    id: 'a1_disc',
+    moduleId: 'anat1',
+    topic: 'עמוד השדרה והדיסק',
+    title: 'מבנה הדיסק הבין-חולייתי',
+    diagramKey: 'disc',
+    questionText: 'חומר ה-Annulus Fibrosus בדיסק הבין-חולייתי תפקידו בעיקר:',
+    hint: 'הסתכל על הטבעות הסיביות החיצוניות בתרשים.',
+    options: [
+      { id: 'a', text: 'למנוע חיכוך ולבלום זעזועים', isCorrect: true },
+      { id: 'b', text: 'להציג יכולת החלקה בלבד', isCorrect: false },
+      { id: 'c', text: 'לייצר תאי דם אדומים', isCorrect: false },
+      { id: 'd', text: 'לחבר בין העור לשריר', isCorrect: false }
+    ],
+    explanation: 'ה-Annulus Fibrosus מורכב מטבעות קולגן חזקות המקיפות את הגרעין הג\'לטיני, בולמות זעזועים ושומרות על יציבות עמוד השדרה.'
+  },
+  {
+    id: 'a1_cervical',
+    moduleId: 'anat1',
+    topic: 'עמוד השדרה הצווארי',
+    title: 'חוליית צוואר ונקב הזיז הרוחבי',
+    diagramKey: 'cervical',
+    questionText: 'מה מייחד את חוליות הצוואר מכל שאר חוליות עמוד השדרה?',
+    hint: 'ראה את שני הנקבים האדומים בזיזים הצדדיים בתרשים.',
+    options: [
+      { id: 'a', text: 'נקב מיוחד בכל זיז רוחבי (Transverse Foramen)', isCorrect: true },
+      { id: 'b', text: 'גוף חוליה ענק בהשוואה לחוליות המותניים', isCorrect: false },
+      { id: 'c', text: 'מפרקים עם צלעות', isCorrect: false },
+      { id: 'd', text: 'היעדר תעלה עבור חוט השדרה', isCorrect: false }
+    ],
+    explanation: 'בחוליות הצוואר קיים נקב בזיז הרוחבי (Transverse Foramen) שדרכו עוברים כלי הדם המובילים דם למוח.'
+  },
+  {
+    id: 'a1_spine',
+    moduleId: 'anat1',
+    topic: 'עמוד השדרה',
+    title: 'עקומות עמוד השדרה',
+    diagramKey: 'spine',
+    questionText: 'איזו עקומה קעורה קיימת בעמוד השדרה המותני (Lumbar)?',
+    hint: 'התבונן בשקע הסגול התחתון בתרשים העקומות.',
+    options: [
+      { id: 'a', text: 'לורדוזה מותנית (Lumbar Lordosis)', isCorrect: true },
+      { id: 'b', text: 'קיפוזה חזית (Thoracic Kyphosis)', isCorrect: false },
+      { id: 'c', text: 'סקוליוזיס (עקמת)', isCorrect: false },
+      { id: 'd', text: 'קיפוזה סקרלית', isCorrect: false }
+    ],
+    explanation: 'באזור המותני (L1-L5) קיימת עקומת לורדוזה קעורה הנושאת את עיקר עומס משקל הגו.'
+  },
+  {
+    id: 'a2_sarcomere',
     moduleId: 'anat2',
     topic: 'מערכת השרירים',
-    title: 'מבנה הסרקומר והמיופיבריל',
+    title: 'מנגנון הסרקומר וחלבון הכיווץ',
     diagramKey: 'sarcomere',
-    imageUrl: 'https://images.unsplash.com/photo-1576086213369-97a306d36557?w=800&auto=format&fit=crop&q=80',
-    questionText: 'במהלך כיווץ שריר שלד, איזה חלבון נמשך אל עבר מרכז הסרקומר?',
-    hint: 'זהו החוט הדק (Thin Filament) המחובר לקו ה-Z.',
+    questionText: 'במהלך כיווץ שריר שלד, איזה חלבון נמשך אל עבר מרכז הסרקומר על ידי גשרי הרוחב?',
+    hint: 'החוט הכחול הדק שמתחבר לקווי ה-Z בתרשים.',
     options: [
       { id: 'a', text: 'אקטין (Actin)', isCorrect: true },
       { id: 'b', text: 'מיוזין (Myosin)', isCorrect: false },
       { id: 'c', text: 'קולגן מסוג 1', isCorrect: false },
       { id: 'd', text: 'אלסטין', isCorrect: false }
     ],
-    explanation: 'ראשי המיוזין העבים נאחזים באתרי הקשירה של חלבוני האקטין הדקים וגוררים אותם למרכז הסרקומר (Power Stroke).'
+    explanation: 'ראשי המיוזין הצהובים תופסים את חלבוני האקטין הכחולים וגוררים אותם למרכז הסרקומר, וכך השריר מתכווץ.'
   },
   {
-    id: 'p1_1',
+    id: 'p1_energy',
     moduleId: 'phys1',
     topic: 'מערכות אנרגיה',
     title: 'מסלולים אנרגטיים במאמץ',
     diagramKey: 'energy',
-    imageUrl: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80',
     questionText: 'מה נכון לגבי הריכוז הזמין של ATP לעומת קריאטין פוספט (CrP) בתא שריר?',
-    hint: 'איזו מולקולה נאגרת בכמות גדולה פי 3 לפחות?',
+    hint: 'התבונן בעמודה השמאלית של ה-0-10 שניות בתרשים.',
     options: [
       { id: 'a', text: 'הריכוז הזמין של CrP גדול לפחות פי 3 מהריכוז של ATP', isCorrect: true },
       { id: 'b', text: 'הריכוז של ATP גדול פי 3 מ-CrP', isCorrect: false },
       { id: 'c', text: 'שתי המולקולות מספקות אנרגיה אך ורק בנוכחות חמצן', isCorrect: false },
       { id: 'd', text: 'המאגר של שניהם יחד מספיק לפעילות מרבית של 20 דקות', isCorrect: false }
     ],
-    explanation: 'מולקולת ה-CrP קטנה יותר ולכן התא אוגר כמות הגדולה פי 3 לפחות ממאגר ה-ATP, המספיקה יחד לכ-10 שניות מאמץ מרבי.'
+    explanation: 'מאגר ה-CrP גדול פי 3 לפחות ממאגר ה-ATP, והוא מחדש את ה-ATP במאמצים מתפרצים של עד 10 שניות.'
   },
   {
-    id: 'p2_1',
+    id: 'p1_cori',
+    moduleId: 'phys1',
+    topic: 'מטבוליזם ופינוי פסולת',
+    title: 'מעגל קורי (Cori Cycle)',
+    diagramKey: 'cori',
+    questionText: 'במסגרת "מעגל קורי" (Cori Cycle), מה מתרחש בכבד?',
+    hint: 'ראה את החיצים בתרשים המראים את מחזור הלקטט.',
+    options: [
+      { id: 'a', text: 'לקטט המפונה מהשריר הופך מחדש לגלוקוז בכבד בהשקעת אנרגיה', isCorrect: true },
+      { id: 'b', text: 'שומן הופך לחלבון בתוך הכבד', isCorrect: false },
+      { id: 'c', text: 'פירובט נשרף ללא חמצן', isCorrect: false },
+      { id: 'd', text: 'חומצות אמינו הופכות לסידן', isCorrect: false }
+    ],
+    explanation: 'הכבד קולט את הלקטט שנוצר בשריר וממחזר אותו חזרה לגלוקוז זמין בהשקעת 6 מולקולות ATP.'
+  },
+  {
+    id: 'p2_heart',
     moduleId: 'phys2',
     topic: 'מערכת הלב וכלי הדם',
     title: 'שלבי פעולת הלב ומסתמיו',
     diagramKey: 'heart',
-    imageUrl: 'https://images.unsplash.com/photo-1559757175-5700dde675bc?w=800&auto=format&fit=crop&q=80',
     questionText: 'בזמן שלב הדיאסטולה (הרפיית החדרים) של הלב, מהו מצב המסתמים?',
-    hint: 'הדם צריך לזרום מהעליות אל תוך החדרים.',
+    hint: 'הדם צריך לזרום מהעליות אל תוך החדרים בתרשים.',
     options: [
       { id: 'a', text: 'המסתמים בין העליות לחדרים פתוחים, והמסתמים לעורקים סגורים', isCorrect: true },
       { id: 'b', text: 'כל המסתמים בלב סגורים לחלוטין', isCorrect: false },
       { id: 'c', text: 'המסתמים לעורקים פתוחים והמסתמים לעליות סגורים', isCorrect: false },
       { id: 'd', text: 'כל המסתמים פתוחים יחד', isCorrect: false }
     ],
-    explanation: 'בדיאסטולה החדרים נרפים ומתמלאים בדם מהעליות דרך המסתמים הפתוחים, בעוד המסתמים לאבי העורקים ולעורק הריאה סגורים למניעת חזרת דם.'
+    explanation: 'בדיאסטולה החדרים נרפים ומתמלאים בדם מהעליות דרך המסתמים הפתוחים, בעוד המסתמים לאבי העורקים ולעורק הריאה סגורים.'
   }
 ];
 
@@ -239,7 +368,6 @@ export default function WingateExamApp() {
   const [streak, setStreak] = useState(0);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [showExplanation, setShowExplanation] = useState(false);
-  const [imageFailed, setImageFailed] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const initModule = (modId = activeModule) => {
@@ -260,7 +388,6 @@ export default function WingateExamApp() {
     setSelectedOption(null);
     setIsAnswerChecked(false);
     setShowExplanation(false);
-    setImageFailed(false);
     setScore(0);
     setStreak(0);
   };
@@ -324,7 +451,6 @@ export default function WingateExamApp() {
       setSelectedOption(null);
       setIsAnswerChecked(false);
       setShowExplanation(false);
-      setImageFailed(false);
     } else {
       const finalScore = score + (currentQ.options.find(o => o.id === selectedOption)?.isCorrect ? 10 : 0);
       alert(`כל הכבוד שמואל!\nסיימת את המודול בהצלחה!\nצברת ${finalScore} נקודות מתוך ${questions.length * 10}!`);
@@ -335,7 +461,7 @@ export default function WingateExamApp() {
   if (!currentQ) {
     return (
       <main style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <p style={{ fontWeight: 'bold' }}>טוען שאלות ותרשימים...</p>
+        <p style={{ fontWeight: 'bold' }}>טוען שאלות ותרשימים אנטומיים...</p>
       </main>
     );
   }
@@ -351,7 +477,7 @@ export default function WingateExamApp() {
               <h1 style={{ margin: 0, fontSize: '18px', fontWeight: '900', color: '#f59e0b' }}>
                 🎓 ווינגייט קואוץ' - שמואל
               </h1>
-              <span style={{ fontSize: '11px', color: '#94a3b8' }}>איורים מובנים והקראה קולית</span>
+              <span style={{ fontSize: '11px', color: '#94a3b8' }}>תרשימים אנטומיים מובנים והקראה קולית</span>
             </div>
 
             <button
@@ -482,15 +608,15 @@ export default function WingateExamApp() {
             <span style={{ color: '#f59e0b', fontSize: '10px', fontWeight: 'bold', display: 'block' }}>{currentQ.topic}</span>
             <span style={{ color: '#ffffff', fontSize: '13px', fontWeight: '900' }}>{currentQ.title}</span>
           </div>
-          <span style={{ fontSize: '11px', color: '#38bdf8', fontWeight: 'bold' }}>איור המחשה 🖼️</span>
+          <span style={{ fontSize: '11px', color: '#38bdf8', fontWeight: 'bold' }}>תרשים אנטומי מדויק 📊</span>
         </div>
 
-        {/* תצוגת איור: תמונה עם גיבוי וקטורי מובנה שמבטיח טעינה של 100% */}
+        {/* הצגת התרשים האנטומי המובנה ישירות בקוד */}
         <div 
           onClick={() => setIsModalOpen(true)}
           style={{ 
             width: '100%', 
-            height: '160px', 
+            height: '170px', 
             borderRadius: '14px', 
             overflow: 'hidden', 
             marginBottom: '10px', 
@@ -500,18 +626,7 @@ export default function WingateExamApp() {
             cursor: 'pointer' 
           }}
         >
-          {!imageFailed && currentQ.imageUrl ? (
-            <img 
-              src={currentQ.imageUrl} 
-              alt={currentQ.title} 
-              referrerPolicy="no-referrer"
-              crossOrigin="anonymous"
-              onError={() => setImageFailed(true)}
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-            />
-          ) : (
-            DIAGRAMS[currentQ.diagramKey] || <DiagramDisc />
-          )}
+          {DIAGRAM_COMPONENTS[currentQ.diagramKey] || <DiagramKneeFibula />}
 
           <span style={{ position: 'absolute', bottom: '6px', left: '6px', backgroundColor: 'rgba(2, 6, 23, 0.85)', color: '#fbbf24', fontSize: '10px', padding: '3px 8px', borderRadius: '6px', fontWeight: 'bold', border: '1px solid #334155' }}>
             🔍 לחץ להגדלה במסך מלא
@@ -670,17 +785,13 @@ export default function WingateExamApp() {
       {isModalOpen && (
         <div 
           onClick={() => setIsModalOpen(false)}
-          style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.92)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px' }}
+          style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.95)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px' }}
         >
-          <div style={{ width: '100%', maxWidth: '460px', textAlign: 'center' }}>
-            <div style={{ height: '240px', borderRadius: '12px', border: '2px solid #f59e0b', overflow: 'hidden' }}>
-              {!imageFailed && currentQ.imageUrl ? (
-                <img src={currentQ.imageUrl} alt={currentQ.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-              ) : (
-                DIAGRAMS[currentQ.diagramKey] || <DiagramDisc />
-              )}
+          <div style={{ width: '100%', maxWidth: '480px', textAlign: 'center' }}>
+            <div style={{ height: '260px', borderRadius: '14px', border: '2px solid #f59e0b', overflow: 'hidden' }}>
+              {DIAGRAM_COMPONENTS[currentQ.diagramKey] || <DiagramKneeFibula />}
             </div>
-            <p style={{ color: '#ffffff', fontSize: '13px', marginTop: '10px', fontWeight: 'bold' }}>{currentQ.title} - לחץ לסגירה ✕</p>
+            <p style={{ color: '#ffffff', fontSize: '13px', marginTop: '10px', fontWeight: 'bold' }}>{currentQ.title} - לחץ בכל מקום לסגירה ✕</p>
           </div>
         </div>
       )}
