@@ -4,7 +4,7 @@
 
 import React, { useState, useEffect } from 'react';
 
-// --- ספריית תרשימים גרפיים (SVG) מותאמים אישית ---
+// --- ספריית תרשימים גרפיים (SVG) ייעודיים לכל נושא ---
 const DIAGRAMS_LIBRARY = {
   bmr: (
     <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -101,6 +101,17 @@ const DIAGRAMS_LIBRARY = {
       <text x="255" y="40" fill="#38bdf8" fontSize="10" fontWeight="bold">לורדוזה צווארית (C1-C7)</text>
       <text x="65" y="95" fill="#10b981" fontSize="10" fontWeight="bold">קיפוזה חזית (T1-T12)</text>
       <text x="255" y="125" fill="#a855f7" fontSize="10" fontWeight="bold">לורדוזה מותנית (L1-L5)</text>
+    </svg>
+  ),
+
+  sternum: (
+    <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+      <polygon points="145,15 195,15 205,45 135,45" fill="#0284c7" stroke="#38bdf8" strokeWidth="2" />
+      <text x="170" y="34" fill="#ffffff" fontSize="10" fontWeight="bold" textAnchor="middle">ידית (Manubrium)</text>
+      <rect x="150" y="50" width="40" height="70" rx="4" fill="#0369a1" stroke="#38bdf8" strokeWidth="2" />
+      <text x="170" y="88" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">גוף</text>
+      <polygon points="160,125 180,125 170,148" fill="#f43f5e" stroke="#fda4af" strokeWidth="2" />
+      <text x="170" y="158" fill="#f43f5e" fontSize="9" fontWeight="bold" textAnchor="middle">זיז החרב (Xiphoid)</text>
     </svg>
   ),
 
@@ -223,7 +234,7 @@ const DIAGRAMS_LIBRARY = {
   )
 };
 
-// מאגר השאלות המלא והרשמי (אנטומיה ופיזיולוגיה)
+// מאגר השאלות המלא לפי חוברות וינגייט
 const COMPLETE_WINGATE_QUESTIONS = [
   // --- אנטומיה א': שלד, רקמות ומפרקים ---
   {
@@ -297,7 +308,7 @@ const COMPLETE_WINGATE_QUESTIONS = [
     title: 'מאפייני חוליות הצוואר (עמ׳ 65)',
     diagram: 'cervical',
     questionText: 'נקב בזיזים הרוחביים (Transverse Foramen) מאפיין את חוליות:',
-    hint: 'המוח יושב למעלה וחייב לקבל דם. באיזה אזור בעמוד השדרה העורקים צריכים מנהרה מוגנת בתוך העצם?',
+    hint: 'המוח יושב בראש וחייב לקבל דם. באיזה אזור בעמוד השדרה העורקים צריכים מנהרה מוגנת בתוך העצם?',
     options: [
       { id: 'a', text: 'הצוואר (Cervical vertebrae)', isCorrect: true },
       { id: 'b', text: 'החזה (Thoracic)', isCorrect: false },
@@ -501,7 +512,7 @@ const COMPLETE_WINGATE_QUESTIONS = [
     explanation: 'עמ׳ 107: הרקטוס פמוריס הוא היחיד מהארבעה שיוצא מעצם האגן ולכן משתתף בכפיפת ירך בנוסף לפשיטת ברך.'
   },
 
-  // --- פיזיולוגיה א' (אנרגיה ומטבוליזם) ---
+  // --- פיזיולוגיה א': אנרגיה ומטבוליזם ---
   {
     id: 'p1_bmr',
     moduleId: 'phys1',
@@ -564,10 +575,10 @@ const COMPLETE_WINGATE_QUESTIONS = [
       { id: 'c', text: 'מצב בו אין שימוש בגלוקוז כלל', isCorrect: false },
       { id: 'd', text: 'הרגע שבו נגמרים מאגרי השומן', isCorrect: false }
     ],
-    explanation: 'עמ׳ 40, 49: בסף האנאירובי (כ-4 מילימול/ליטר) קצב הפינוי הוא מקסימלי אך עדיין שווה לייצור. מעבר לו – החומציות מצטברת בחדות.'
+    explanation: 'עמ׳ 40, 49: בסף האנאירובי (כ-4 מילימול/ליטר) קצב הפינוי הוא מקסימלי אך עדיין שווה לייצור. מעבר לו – החומציות מצטברים בחדות.'
   },
 
-  // --- פיזיולוגיה ב' (מערכות הגוף) ---
+  // --- פיזיולוגיה ב': מערכות הגוף ---
   {
     id: 'p2_heart',
     moduleId: 'phys2',
@@ -586,7 +597,7 @@ const COMPLETE_WINGATE_QUESTIONS = [
   }
 ];
 
-// פונקציית ערבוב אקראית
+// פונקציית ערבוב חכמה (Fisher-Yates)
 function shuffleList(list) {
   const copy = [...list];
   for (let i = copy.length - 1; i > 0; i--) {
@@ -622,6 +633,7 @@ export default function App() {
       source = COMPLETE_WINGATE_QUESTIONS.filter((q) => q.moduleId === modId);
     }
 
+    // ערבוב כפול: גם שאלות וגם אפשרויות בחירה!
     const randomized = shuffleList(source).map((q) => ({
       ...q,
       options: shuffleList(q.options)
