@@ -8,7 +8,7 @@ import { PART2_ANATOMY2 } from '../data/part2';
 import { PART3_PHYSIO1 } from '../data/part3';
 import { PART4_PHYSIO2 } from '../data/part4';
 
-// איחוד כלל המאגרים מכל החוברות
+// איחוד כלל המאגרים
 const ALL_WINGATE_DATA = [
   ...PART1_ANATOMY1,
   ...PART2_ANATOMY2,
@@ -16,136 +16,396 @@ const ALL_WINGATE_DATA = [
   ...PART4_PHYSIO2
 ];
 
-// ספרית תרשימים גרפיים (SVG) מובנית ומדויקת
+// ספריית 20 תרשימים גרפיים ייעודיים
 function DiagramRenderer({ type }: { type: string }) {
-  if (type === 'bmr') {
-    return (
-      <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
-        <rect x="15" y="20" width="95" height="110" rx="8" fill="#1e293b" stroke="#f59e0b" strokeWidth="2" />
-        <text x="62" y="45" fill="#f59e0b" fontSize="11" fontWeight="bold" textAnchor="middle">מסת שריר</text>
-        <text x="62" y="70" fill="#cbd5e1" fontSize="9" textAnchor="middle">צורכת פי 4 אנרגיה</text>
-        <text x="62" y="85" fill="#cbd5e1" fontSize="9" textAnchor="middle">משומן במנוחה</text>
-        <text x="62" y="112" fill="#10b981" fontSize="11" fontWeight="bold" textAnchor="middle">מעלה BMR ⬆</text>
+  switch (type) {
+    case 'disc':
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <ellipse cx="170" cy="80" rx="135" ry="60" fill="#1e293b" stroke="#38bdf8" strokeWidth="3" />
+          <ellipse cx="170" cy="80" rx="105" ry="46" fill="#0f172a" stroke="#0284c7" strokeWidth="2" strokeDasharray="5 3" />
+          <ellipse cx="170" cy="80" rx="75" ry="32" fill="#0369a1" stroke="#38bdf8" strokeWidth="2" />
+          <ellipse cx="170" cy="80" rx="40" ry="18" fill="#f43f5e" stroke="#fda4af" strokeWidth="2" />
+          <text x="170" y="84" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">גרעין צמיגי (Nucleus Pulposus)</text>
+          <text x="170" y="35" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">טבעות קולגן סיביות (Annulus Fibrosus)</text>
+          <text x="170" y="152" fill="#94a3b8" fontSize="10" textAnchor="middle">מבנה הדיסק הבין-חולייתי ובלימת זעזועים</text>
+        </svg>
+      );
 
-        <rect x="122" y="20" width="95" height="110" rx="8" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
-        <text x="170" y="45" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">שטח פני הגוף</text>
-        <text x="170" y="70" fill="#cbd5e1" fontSize="9" textAnchor="middle">איבוד חום מוגבר</text>
-        <text x="170" y="85" fill="#cbd5e1" fontSize="9" textAnchor="middle">בגוף גדול ממדים</text>
-        <text x="170" y="112" fill="#10b981" fontSize="11" fontWeight="bold" textAnchor="middle">מעלה BMR ⬆</text>
+    case 'chondrocyte':
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <rect x="20" y="20" width="300" height="120" rx="15" fill="#0c4a6e" stroke="#0284c7" strokeWidth="2" />
+          <ellipse cx="100" cy="80" rx="35" ry="25" fill="#0284c7" stroke="#38bdf8" strokeWidth="2" />
+          <circle cx="100" cy="80" r="10" fill="#082f49" />
+          <ellipse cx="240" cy="80" rx="35" ry="25" fill="#0284c7" stroke="#38bdf8" strokeWidth="2" />
+          <circle cx="240" cy="80" r="10" fill="#082f49" />
+          <text x="100" y="120" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">תא סחוס (Chondrocyte)</text>
+          <text x="170" y="35" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">מטריקס: סיבי קולגן ופרוטאוגליקנים</text>
+          <text x="170" y="152" fill="#94a3b8" fontSize="10" textAnchor="middle">דיפוזיה של מזון מנוזל המפרק הסינוביאלי</text>
+        </svg>
+      );
 
-        <rect x="230" y="20" width="95" height="110" rx="8" fill="#1e293b" stroke="#a855f7" strokeWidth="2" />
-        <text x="277" y="45" fill="#a855f7" fontSize="11" fontWeight="bold" textAnchor="middle">גיל ומגדר</text>
-        <text x="277" y="70" fill="#cbd5e1" fontSize="9" textAnchor="middle">טסטוסטרון בגבר</text>
-        <text x="277" y="85" fill="#cbd5e1" fontSize="9" textAnchor="middle">ירידה טבעית בגיל</text>
-        <text x="277" y="112" fill="#fbbf24" fontSize="10" fontWeight="bold" textAnchor="middle">משפיע ישירות</text>
-        <text x="170" y="150" fill="#94a3b8" fontSize="10" textAnchor="middle">הגורמים המשפיעים על חילוף החומרים הבסיסי (BMR)</text>
-      </svg>
-    );
+    case 'osteon':
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <circle cx="170" cy="80" r="60" fill="#1e293b" stroke="#ca8a04" strokeWidth="3" />
+          <circle cx="170" cy="80" r="44" fill="#0f172a" stroke="#eab308" strokeWidth="2" />
+          <circle cx="170" cy="80" r="28" fill="#1e293b" stroke="#fde047" strokeWidth="1.5" />
+          <circle cx="170" cy="80" r="10" fill="#dc2626" />
+          <text x="170" y="84" fill="#ffffff" fontSize="8" fontWeight="bold" textAnchor="middle">תעלת דם</text>
+          <text x="170" y="14" fill="#facc15" fontSize="11" fontWeight="bold" textAnchor="middle">מערכת הוורס קונצנטרית (Osteon)</text>
+          <text x="170" y="152" fill="#94a3b8" fontSize="10" textAnchor="middle">עצם צפופה (Compact Bone) ולמלות מעגליות</text>
+        </svg>
+      );
+
+    case 'cervical':
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <ellipse cx="170" cy="40" rx="55" ry="20" fill="#334155" stroke="#64748b" strokeWidth="2" />
+          <text x="170" y="44" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">גוף החוליה (Body)</text>
+          <ellipse cx="170" cy="90" rx="38" ry="24" fill="#020617" stroke="#38bdf8" strokeWidth="2" />
+          <circle cx="85" cy="70" r="10" fill="#f43f5e" stroke="#fecdd3" strokeWidth="2" />
+          <circle cx="255" cy="70" r="10" fill="#f43f5e" stroke="#fecdd3" strokeWidth="2" />
+          <text x="85" y="105" fill="#f43f5e" fontSize="10" fontWeight="bold" textAnchor="middle">נקב עורק הצוואר</text>
+          <text x="85" y="118" fill="#f43f5e" fontSize="9" textAnchor="middle">(Transverse Foramen)</text>
+          <path d="M 155 115 L 170 150 L 185 115 Z" fill="#334155" stroke="#64748b" strokeWidth="2" />
+          <text x="170" y="142" fill="#94a3b8" fontSize="10" textAnchor="middle">זיז אחורי מפוצל (Spine)</text>
+        </svg>
+      );
+
+    case 'atlas_axis':
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <ellipse cx="170" cy="75" rx="85" ry="40" fill="none" stroke="#38bdf8" strokeWidth="4" />
+          <circle cx="170" cy="50" r="13" fill="#f59e0b" stroke="#fde68a" strokeWidth="3" />
+          <text x="170" y="54" fill="#020617" fontSize="10" fontWeight="bold" textAnchor="middle">שן Dens</text>
+          <text x="170" y="105" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">טבעת חוליית האטלס (C1 - ללא גוף חוליה)</text>
+          <text x="170" y="25" fill="#10b981" fontSize="10" textAnchor="middle">רוטציה חופשית של הראש ("לא") סביב האקסיס (C2)</text>
+          <text x="170" y="145" fill="#94a3b8" fontSize="10" textAnchor="middle">מפרק Atlantoaxial C1-C2</text>
+        </svg>
+      );
+
+    case 'spine_curves':
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <path d="M 170 15 Q 195 40 170 65 Q 140 95 170 120 Q 190 138 170 152" fill="none" stroke="#f59e0b" strokeWidth="5" strokeLinecap="round" />
+          <circle cx="170" cy="18" r="4" fill="#38bdf8" />
+          <circle cx="188" cy="40" r="4" fill="#38bdf8" />
+          <circle cx="170" cy="65" r="4" fill="#38bdf8" />
+          <circle cx="150" cy="95" r="4" fill="#10b981" />
+          <circle cx="170" cy="120" r="4" fill="#a855f7" />
+          <text x="255" y="40" fill="#38bdf8" fontSize="10" fontWeight="bold">לורדוזה צווארית (C1-C7)</text>
+          <text x="65" y="95" fill="#10b981" fontSize="10" fontWeight="bold">קיפוזה חזית (T1-T12)</text>
+          <text x="255" y="125" fill="#a855f7" fontSize="10" fontWeight="bold">לורדוזה מותנית (L1-L5)</text>
+          <text x="70" y="145" fill="#fbbf24" fontSize="9">סקרום וקוקסיקס</text>
+        </svg>
+      );
+
+    case 'sternum':
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <polygon points="145,15 195,15 205,45 135,45" fill="#0284c7" stroke="#38bdf8" strokeWidth="2" />
+          <text x="170" y="34" fill="#ffffff" fontSize="10" fontWeight="bold" textAnchor="middle">ידית (Manubrium)</text>
+          <rect x="150" y="50" width="40" height="65" rx="4" fill="#0369a1" stroke="#38bdf8" strokeWidth="2" />
+          <text x="170" y="85" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">גוף</text>
+          <polygon points="160,120 180,120 170,145" fill="#f43f5e" stroke="#fda4af" strokeWidth="2" />
+          <text x="170" y="155" fill="#f43f5e" fontSize="9" fontWeight="bold" textAnchor="middle">זיז החרב (Xiphoid)</text>
+          <text x="65" y="75" fill="#94a3b8" fontSize="9">צלעות 1-7 אמיתיות</text>
+          <text x="275" y="75" fill="#94a3b8" fontSize="9">8-10 מדומות, 11-12 צפות</text>
+        </svg>
+      );
+
+    case 'planes':
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <rect x="25" y="30" width="85" height="90" rx="8" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
+          <text x="67" y="55" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">סגיטלי (חיצי)</text>
+          <text x="67" y="80" fill="#cbd5e1" fontSize="9" textAnchor="middle">ימין ושמאל</text>
+          <text x="67" y="100" fill="#fde047" fontSize="9" textAnchor="middle">כפיפה ופשיטה</text>
+
+          <rect x="128" y="30" width="85" height="90" rx="8" fill="#1e293b" stroke="#f59e0b" strokeWidth="2" />
+          <text x="170" y="55" fill="#f59e0b" fontSize="11" fontWeight="bold" textAnchor="middle">פרונטלי (חזית)</text>
+          <text x="170" y="80" fill="#cbd5e1" fontSize="9" textAnchor="middle">קדמי ואחורי</text>
+          <text x="170" y="100" fill="#fde047" fontSize="9" textAnchor="middle">הרחקה וקירוב</text>
+
+          <rect x="230" y="30" width="85" height="90" rx="8" fill="#1e293b" stroke="#10b981" strokeWidth="2" />
+          <text x="272" y="55" fill="#10b981" fontSize="11" fontWeight="bold" textAnchor="middle">אופקי (רוחבי)</text>
+          <text x="272" y="80" fill="#cbd5e1" fontSize="9" textAnchor="middle">עליון ותחתון</text>
+          <text x="272" y="100" fill="#fde047" fontSize="9" textAnchor="middle">רוטציה (סיבוב)</text>
+          <text x="170" y="148" fill="#94a3b8" fontSize="10" textAnchor="middle">שלושת מישורי התנועה האנטומיים</text>
+        </svg>
+      );
+
+    case 'cells':
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <circle cx="95" cy="70" r="40" fill="#15803d" stroke="#4ade80" strokeWidth="2" />
+          <text x="95" y="65" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">אוסטאובלסט</text>
+          <text x="95" y="82" fill="#dcfce7" fontSize="9" textAnchor="middle">בונה עצם (Build)</text>
+
+          <circle cx="245" cy="70" r="40" fill="#b91c1c" stroke="#f87171" strokeWidth="2" />
+          <text x="245" y="65" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">אוסטאוקלסט</text>
+          <text x="245" y="82" fill="#fee2e2" fontSize="9" textAnchor="middle">מפרק עצם (Clear)</text>
+          <text x="170" y="145" fill="#94a3b8" fontSize="10" textAnchor="middle">תאי רקמת העצם ובנייה מחדש מתמדת</text>
+        </svg>
+      );
+
+    case 'ligament_tendon':
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <rect x="25" y="30" width="130" height="90" rx="8" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
+          <text x="90" y="55" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">רצועה (Ligament)</text>
+          <text x="90" y="80" fill="#cbd5e1" fontSize="9" textAnchor="middle">מחברת עצם לעצם</text>
+          <text x="90" y="100" fill="#fde047" fontSize="9" textAnchor="middle">מייצבת ומגבילה טווח</text>
+
+          <rect x="185" y="30" width="130" height="90" rx="8" fill="#1e293b" stroke="#f59e0b" strokeWidth="2" />
+          <text x="250" y="55" fill="#f59e0b" fontSize="11" fontWeight="bold" textAnchor="middle">גיד (Tendon)</text>
+          <text x="250" y="80" fill="#cbd5e1" fontSize="9" textAnchor="middle">מחבר שריר לעצם</text>
+          <text x="250" y="100" fill="#fde047" fontSize="9" textAnchor="middle">מעביר כוח כיווץ</text>
+          <text x="170" y="148" fill="#94a3b8" fontSize="10" textAnchor="middle">הבחנה יסודית ברקמות חיבור צפופות</text>
+        </svg>
+      );
+
+    case 'knee_fibula':
+    case 'knee':
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <path d="M 120 10 L 220 10 L 225 50 Q 210 70 170 65 Q 130 70 115 50 Z" fill="#334155" stroke="#64748b" strokeWidth="2" />
+          <text x="170" y="32" fill="#f8fafc" fontSize="11" fontWeight="bold" textAnchor="middle">עצם הירך (Femur)</text>
+          <ellipse cx="135" cy="70" rx="16" ry="6" fill="#38bdf8" />
+          <ellipse cx="205" cy="70" rx="16" ry="6" fill="#38bdf8" />
+          <path d="M 130 80 Q 170 75 210 80 L 200 150 L 140 150 Z" fill="#1e293b" stroke="#475569" strokeWidth="2" />
+          <text x="170" y="115" fill="#f8fafc" fontSize="11" fontWeight="bold" textAnchor="middle">שוק (Tibia)</text>
+          <path d="M 95 85 L 115 85 L 110 150 L 90 150 Z" fill="#475569" stroke="#94a3b8" strokeWidth="2" />
+          <circle cx="105" cy="88" r="10" fill="#e11d48" stroke="#fecdd3" strokeWidth="2" />
+          <path d="M 85 20 Q 75 60 100 82" fill="none" stroke="#fb7185" strokeWidth="3" strokeDasharray="4 2" />
+          <text x="45" y="32" fill="#fb7185" fontSize="10" fontWeight="bold">Biceps Femoris</text>
+          <text x="45" y="110" fill="#f59e0b" fontSize="10" fontWeight="bold">ראש השוקית</text>
+          <text x="45" y="122" fill="#f59e0b" fontSize="9">(Head of Fibula)</text>
+        </svg>
+      );
+
+    case 'pelvis':
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <ellipse cx="110" cy="55" rx="55" ry="35" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
+          <ellipse cx="230" cy="55" rx="55" ry="35" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
+          <text x="110" y="55" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">Ilium (כסל)</text>
+          <text x="230" y="55" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">Ilium (כסל)</text>
+          <circle cx="140" cy="115" r="22" fill="#1e293b" stroke="#f59e0b" strokeWidth="2" />
+          <circle cx="200" cy="115" r="22" fill="#1e293b" stroke="#f59e0b" strokeWidth="2" />
+          <text x="140" y="118" fill="#f59e0b" fontSize="9" fontWeight="bold" textAnchor="middle">שת/ישיבה</text>
+          <text x="200" y="118" fill="#f59e0b" fontSize="9" fontWeight="bold" textAnchor="middle">שת/ישיבה</text>
+          <text x="170" y="152" fill="#94a3b8" fontSize="10" textAnchor="middle">עצם האגן: איחוי של איליום, איסכיום ופיוביס</text>
+        </svg>
+      );
+
+    case 'quadriceps':
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <rect x="130" y="15" width="80" height="95" rx="12" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" />
+          <rect x="145" y="10" width="50" height="100" rx="8" fill="#dc2626" stroke="#f87171" strokeWidth="2" />
+          <text x="170" y="55" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">Rectus Femoris</text>
+          <text x="170" y="70" fill="#fecdd3" fontSize="9" textAnchor="middle">(דו-מפרקי: מהאגן AIIS)</text>
+          <circle cx="170" cy="140" r="7" fill="#38bdf8" />
+          <text x="170" y="155" fill="#38bdf8" fontSize="9" textAnchor="middle">אחז משותף: Tibial Tuberosity</text>
+          <text x="65" y="65" fill="#94a3b8" fontSize="9">3 ראשי Vastus</text>
+          <text x="65" y="80" fill="#94a3b8" fontSize="9">מתחילים בפמור</text>
+        </svg>
+      );
+
+    case 'hamstrings':
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <rect x="80" y="25" width="50" height="90" rx="6" fill="#881337" stroke="#f43f5e" strokeWidth="2" />
+          <text x="105" y="65" fill="#ffffff" fontSize="10" fontWeight="bold" textAnchor="middle">Biceps Femoris</text>
+          <text x="105" y="80" fill="#fecdd3" fontSize="8" textAnchor="middle">לטרלי ➔ פיבולה</text>
+
+          <rect x="145" y="25" width="50" height="90" rx="6" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
+          <text x="170" y="65" fill="#38bdf8" fontSize="9" fontWeight="bold" textAnchor="middle">Semitendinosus</text>
+          <text x="170" y="80" fill="#cbd5e1" fontSize="8" textAnchor="middle">מדיאלי ➔ טיביה</text>
+
+          <rect x="210" y="25" width="50" height="90" rx="6" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
+          <text x="235" y="65" fill="#38bdf8" fontSize="9" fontWeight="bold" textAnchor="middle">Semimembranosus</text>
+          <text x="235" y="80" fill="#cbd5e1" fontSize="8" textAnchor="middle">מדיאלי ➔ טיביה</text>
+          <text x="170" y="148" fill="#94a3b8" fontSize="10" textAnchor="middle">שלושת שרירי מיתר הירך (Hamstrings) לפשיטת ירך וכפיפת ברך</text>
+        </svg>
+      );
+
+    case 'gluteus':
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <ellipse cx="170" cy="70" rx="85" ry="45" fill="#881337" stroke="#f43f5e" strokeWidth="2" />
+          <text x="170" y="65" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">Gluteus Maximus</text>
+          <text x="170" y="85" fill="#fecdd3" fontSize="10" textAnchor="middle">פושט הירך העוצמתי ביותר</text>
+          <circle cx="70" cy="110" r="14" fill="#ca8a04" />
+          <text x="70" y="140" fill="#facc15" fontSize="9" textAnchor="middle">Greater Trochanter</text>
+          <text x="170" y="152" fill="#94a3b8" fontSize="10" textAnchor="middle">Gluteus Medius ו-Minimus נאחזים ב-Greater Trochanter ומרחיקים ירך</text>
+        </svg>
+      );
+
+    case 'calves':
+    case 'achilles':
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <ellipse cx="145" cy="45" rx="22" ry="32" fill="#991b1b" stroke="#ef4444" strokeWidth="2" />
+          <ellipse cx="195" cy="45" rx="22" ry="32" fill="#991b1b" stroke="#ef4444" strokeWidth="2" />
+          <text x="170" y="50" fill="#ffffff" fontSize="10" fontWeight="bold" textAnchor="middle">תאומים (Gastrocnemius)</text>
+          <rect x="164" y="80" width="12" height="40" fill="#e2e8f0" />
+          <text x="110" y="105" fill="#e2e8f0" fontSize="11" fontWeight="bold">גיד אכילס</text>
+          <path d="M 150 125 L 190 125 L 205 150 L 150 150 Z" fill="#475569" />
+          <text x="170" y="142" fill="#fbbf24" fontSize="10" textAnchor="middle">עקב (Calcaneus) ➔ Plantarflexion</text>
+        </svg>
+      );
+
+    case 'tibialis':
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <rect x="145" y="20" width="50" height="95" rx="8" fill="#0284c7" stroke="#38bdf8" strokeWidth="2" />
+          <text x="170" y="60" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">Tibialis</text>
+          <text x="170" y="75" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">Anterior</text>
+          <text x="170" y="135" fill="#fbbf24" fontSize="10" fontWeight="bold" textAnchor="middle">הרמת בהונות (Dorsiflexion)</text>
+          <text x="170" y="152" fill="#94a3b8" fontSize="9" textAnchor="middle">שומר על הקשת המדיאלית של כף הרגל</text>
+        </svg>
+      );
+
+    case 'deltoid':
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <line x1="70" y1="30" x2="270" y2="30" stroke="#94a3b8" strokeWidth="4" />
+          <path d="M 90 35 Q 110 90 170 135" stroke="#38bdf8" strokeWidth="5" fill="none" />
+          <path d="M 170 35 Q 170 90 170 135" stroke="#f59e0b" strokeWidth="5" fill="none" />
+          <path d="M 250 35 Q 230 90 170 135" stroke="#a855f7" strokeWidth="5" fill="none" />
+          <circle cx="170" cy="135" r="7" fill="#ef4444" />
+          <text x="170" y="155" fill="#ef4444" fontSize="10" fontWeight="bold" textAnchor="middle">אחז: Deltoid Tuberosity</text>
+          <text x="75" y="75" fill="#38bdf8" fontSize="9">קדמי (כפיפה/קירוב)</text>
+          <text x="185" y="65" fill="#f59e0b" fontSize="9">אמצעי (הרחקה)</text>
+          <text x="265" y="75" fill="#a855f7" fontSize="9">אחורי (פשיטה)</text>
+        </svg>
+      );
+
+    case 'rotator_cuff':
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <rect x="70" y="25" width="200" height="95" rx="10" fill="#1e293b" stroke="#3b82f6" strokeWidth="2" />
+          <text x="170" y="48" fill="#60a5fa" fontSize="12" fontWeight="bold" textAnchor="middle">Subscapularis (קדמי)</text>
+          <text x="170" y="65" fill="#93c5fd" fontSize="9" textAnchor="middle">רוטציה פנימית (מדיאלית) ➔ Lesser Tubercle</text>
+          <text x="170" y="90" fill="#f87171" fontSize="11" fontWeight="bold" textAnchor="middle">Infraspinatus & Teres Minor (אחורי)</text>
+          <text x="170" y="105" fill="#fca5a5" fontSize="9" textAnchor="middle">רוטציה חיצונית (לטרלית) ➔ Greater Tubercle</text>
+          <text x="170" y="148" fill="#94a3b8" fontSize="10" textAnchor="middle">שרירי השרוול המסובב (Rotator Cuff) של הכתף</text>
+        </svg>
+      );
+
+    case 'arm_muscles':
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <rect x="60" y="25" width="100" height="90" rx="8" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
+          <text x="110" y="50" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">Biceps Brachii</text>
+          <text x="110" y="70" fill="#cbd5e1" fontSize="9" textAnchor="middle">נאחז ברדיוס</text>
+          <text x="110" y="85" fill="#fde047" fontSize="9" textAnchor="middle">סופינציה וכפיפה</text>
+          <text x="110" y="102" fill="#94a3b8" fontSize="8" textAnchor="middle">מוצא ב-Coracoid</text>
+
+          <rect x="180" y="25" width="100" height="90" rx="8" fill="#1e293b" stroke="#f59e0b" strokeWidth="2" />
+          <text x="230" y="50" fill="#f59e0b" fontSize="11" fontWeight="bold" textAnchor="middle">Triceps Brachii</text>
+          <text x="230" y="70" fill="#cbd5e1" fontSize="9" textAnchor="middle">נאחז באולקרנון</text>
+          <text x="230" y="85" fill="#fde047" fontSize="9" textAnchor="middle">פשיטת מרפק</text>
+          <text x="230" y="102" fill="#94a3b8" fontSize="8" textAnchor="middle">ראש ארוך פושט כתף</text>
+          <text x="170" y="148" fill="#94a3b8" fontSize="10" textAnchor="middle">שרירי הזרוע הקדמיים והאחוריים</text>
+        </svg>
+      );
+
+    case 'bmr':
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <rect x="15" y="20" width="95" height="110" rx="8" fill="#1e293b" stroke="#f59e0b" strokeWidth="2" />
+          <text x="62" y="45" fill="#f59e0b" fontSize="11" fontWeight="bold" textAnchor="middle">מסת שריר</text>
+          <text x="62" y="70" fill="#cbd5e1" fontSize="9" textAnchor="middle">צורכת פי 4 אנרגיה</text>
+          <text x="62" y="85" fill="#cbd5e1" fontSize="9" textAnchor="middle">משומן במנוחה</text>
+          <text x="62" y="112" fill="#10b981" fontSize="11" fontWeight="bold" textAnchor="middle">מעלה BMR ⬆</text>
+          <rect x="122" y="20" width="95" height="110" rx="8" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
+          <text x="170" y="45" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">שטח פני הגוף</text>
+          <text x="170" y="70" fill="#cbd5e1" fontSize="9" textAnchor="middle">איבוד חום מוגבר</text>
+          <text x="170" y="85" fill="#cbd5e1" fontSize="9" textAnchor="middle">בגוף גדול ממדים</text>
+          <text x="170" y="112" fill="#10b981" fontSize="11" fontWeight="bold" textAnchor="middle">מעלה BMR ⬆</text>
+          <rect x="230" y="20" width="95" height="110" rx="8" fill="#1e293b" stroke="#a855f7" strokeWidth="2" />
+          <text x="277" y="45" fill="#a855f7" fontSize="11" fontWeight="bold" textAnchor="middle">גיל ומגדר</text>
+          <text x="277" y="70" fill="#cbd5e1" fontSize="9" textAnchor="middle">טסטוסטרון בגבר</text>
+          <text x="277" y="85" fill="#cbd5e1" fontSize="9" textAnchor="middle">ירידה טבעית בגיל</text>
+          <text x="277" y="112" fill="#fbbf24" fontSize="10" fontWeight="bold" textAnchor="middle">משפיע ישירות</text>
+          <text x="170" y="150" fill="#94a3b8" fontSize="10" textAnchor="middle">הגורמים המשפיעים על חילוף החומרים הבסיסי (BMR)</text>
+        </svg>
+      );
+
+    case 'cori':
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <rect x="30" y="25" width="110" height="100" rx="10" fill="#881337" stroke="#f43f5e" strokeWidth="2" />
+          <text x="85" y="48" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">שריר פעיל</text>
+          <text x="85" y="70" fill="#fecdd3" fontSize="10" textAnchor="middle">גלוקוז ➔ פירובט</text>
+          <text x="85" y="95" fill="#fb7185" fontSize="10" fontWeight="bold" textAnchor="middle">לקטט + יוני מימן</text>
+          <rect x="200" y="25" width="110" height="100" rx="10" fill="#14532d" stroke="#22c55e" strokeWidth="2" />
+          <text x="255" y="48" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">כבד (מחזור)</text>
+          <text x="255" y="70" fill="#bbf7d0" fontSize="10" textAnchor="middle">לקטט ➔ גלוקוז</text>
+          <text x="255" y="95" fill="#86efac" fontSize="9" textAnchor="middle">(השקעת 6 ATP)</text>
+          <text x="170" y="150" fill="#94a3b8" fontSize="10" textAnchor="middle">מעגל קורי: פינוי ומיחזור לקטט בכבד</text>
+        </svg>
+      );
+
+    case 'heart':
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <rect x="70" y="20" width="90" height="45" rx="8" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" />
+          <text x="115" y="47" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">עלייה ימנית</text>
+          <rect x="70" y="70" width="90" height="55" rx="8" fill="#1d4ed8" stroke="#3b82f6" strokeWidth="2" />
+          <text x="115" y="102" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">חדר ימין</text>
+          <line x1="170" y1="15" x2="170" y2="135" stroke="#64748b" strokeWidth="3" />
+          <rect x="180" y="20" width="90" height="45" rx="8" fill="#991b1b" stroke="#ef4444" strokeWidth="2" />
+          <text x="225" y="47" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">עלייה שמאלית</text>
+          <rect x="180" y="70" width="90" height="55" rx="8" fill="#b91c1c" stroke="#ef4444" strokeWidth="3" />
+          <text x="225" y="102" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">חדר שמאל</text>
+          <text x="170" y="150" fill="#94a3b8" fontSize="10" textAnchor="middle">בדיאסטולה: מסתמים בין עליות לחדרים פתוחים למילוי</text>
+        </svg>
+      );
+
+    case 'energy':
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <rect x="15" y="25" width="90" height="100" rx="8" fill="#78350f" stroke="#f59e0b" strokeWidth="2" />
+          <text x="60" y="50" fill="#fbbf24" fontSize="11" fontWeight="bold" textAnchor="middle">ATP-CrP</text>
+          <text x="60" y="70" fill="#fde68a" fontSize="9" textAnchor="middle">אנאירובי אלקטי</text>
+          <text x="60" y="95" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">0-10 שניות</text>
+          <rect x="125" y="25" width="90" height="100" rx="8" fill="#064e3b" stroke="#10b981" strokeWidth="2" />
+          <text x="170" y="50" fill="#34d399" fontSize="11" fontWeight="bold" textAnchor="middle">גליקוליזה</text>
+          <text x="170" y="70" fill="#a7f3d0" fontSize="9" textAnchor="middle">אנאירובי לקטי</text>
+          <text x="170" y="95" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">10-120 שנ'</text>
+          <rect x="235" y="25" width="90" height="100" rx="8" fill="#1e1b4b" stroke="#6366f1" strokeWidth="2" />
+          <text x="280" y="50" fill="#818cf8" fontSize="11" fontWeight="bold" textAnchor="middle">אירובי</text>
+          <text x="280" y="70" fill="#c7d2fe" fontSize="9" textAnchor="middle">מיטוכונדריה</text>
+          <text x="280" y="95" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">מעל 2 דקות</text>
+          <text x="170" y="148" fill="#94a3b8" fontSize="10" textAnchor="middle">מסלולי האנרגיה לפי עצימות ומשך</text>
+        </svg>
+      );
+
+    default:
+      // סרקומר
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <line x1="30" y1="20" x2="30" y2="140" stroke="#f43f5e" strokeWidth="4" />
+          <line x1="310" y1="20" x2="310" y2="140" stroke="#f43f5e" strokeWidth="4" />
+          <text x="30" y="15" fill="#f43f5e" fontSize="10" fontWeight="bold" textAnchor="middle">Z-Line</text>
+          <text x="310" y="15" fill="#f43f5e" fontSize="10" fontWeight="bold" textAnchor="middle">Z-Line</text>
+          <line x1="30" y1="50" x2="145" y2="50" stroke="#38bdf8" strokeWidth="3" />
+          <line x1="195" y1="50" x2="310" y2="50" stroke="#38bdf8" strokeWidth="3" />
+          <line x1="30" y1="110" x2="145" y2="110" stroke="#38bdf8" strokeWidth="3" />
+          <line x1="195" y1="110" x2="310" y2="110" stroke="#38bdf8" strokeWidth="3" />
+          <text x="85" y="42" fill="#38bdf8" fontSize="10" fontWeight="bold">אקטין (דק)</text>
+          <rect x="95" y="70" width="150" height="20" rx="4" fill="#eab308" />
+          <text x="170" y="84" fill="#020617" fontSize="10" fontWeight="bold" textAnchor="middle">מיוזין (עבה)</text>
+          <text x="170" y="150" fill="#94a3b8" fontSize="10" textAnchor="middle">מנגנון גשרי הרוחב בסרקומר</text>
+        </svg>
+      );
   }
-
-  if (type === 'knee') {
-    return (
-      <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
-        <path d="M 120 10 L 220 10 L 225 50 Q 210 70 170 65 Q 130 70 115 50 Z" fill="#334155" stroke="#64748b" strokeWidth="2" />
-        <text x="170" y="32" fill="#f8fafc" fontSize="11" fontWeight="bold" textAnchor="middle">עצם הירך (Femur)</text>
-        <ellipse cx="135" cy="70" rx="16" ry="6" fill="#38bdf8" />
-        <ellipse cx="205" cy="70" rx="16" ry="6" fill="#38bdf8" />
-        <path d="M 130 80 Q 170 75 210 80 L 200 150 L 140 150 Z" fill="#1e293b" stroke="#475569" strokeWidth="2" />
-        <text x="170" y="115" fill="#f8fafc" fontSize="11" fontWeight="bold" textAnchor="middle">שוק (Tibia)</text>
-        <path d="M 95 85 L 115 85 L 110 150 L 90 150 Z" fill="#475569" stroke="#94a3b8" strokeWidth="2" />
-        <circle cx="105" cy="88" r="10" fill="#e11d48" stroke="#fecdd3" strokeWidth="2" />
-        <path d="M 85 20 Q 75 60 100 82" fill="none" stroke="#fb7185" strokeWidth="3" strokeDasharray="4 2" />
-        <text x="45" y="32" fill="#fb7185" fontSize="10" fontWeight="bold">Biceps Femoris</text>
-        <text x="45" y="110" fill="#f59e0b" fontSize="10" fontWeight="bold">ראש השוקית</text>
-        <text x="45" y="122" fill="#f59e0b" fontSize="9">(Head of Fibula)</text>
-      </svg>
-    );
-  }
-
-  if (type === 'disc') {
-    return (
-      <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
-        <ellipse cx="170" cy="80" rx="135" ry="60" fill="#1e293b" stroke="#38bdf8" strokeWidth="3" />
-        <ellipse cx="170" cy="80" rx="105" ry="46" fill="#0f172a" stroke="#0284c7" strokeWidth="2" strokeDasharray="5 3" />
-        <ellipse cx="170" cy="80" rx="75" ry="32" fill="#0369a1" stroke="#38bdf8" strokeWidth="2" />
-        <ellipse cx="170" cy="80" rx="40" ry="18" fill="#f43f5e" stroke="#fda4af" strokeWidth="2" />
-        <text x="170" y="84" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">גרעין צמיגי (Nucleus Pulposus)</text>
-        <text x="170" y="35" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">טבעות קולגן סיביות (Annulus Fibrosus)</text>
-        <text x="170" y="152" fill="#94a3b8" fontSize="10" textAnchor="middle">מבנה הדיסק הבין-חולייתי ובלימת זעזועים</text>
-      </svg>
-    );
-  }
-
-  if (type === 'cervical') {
-    return (
-      <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
-        <ellipse cx="170" cy="40" rx="55" ry="20" fill="#334155" stroke="#64748b" strokeWidth="2" />
-        <text x="170" y="44" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">גוף החוליה (Body)</text>
-        <ellipse cx="170" cy="90" rx="38" ry="24" fill="#020617" stroke="#38bdf8" strokeWidth="2" />
-        <circle cx="85" cy="70" r="10" fill="#f43f5e" stroke="#fecdd3" strokeWidth="2" />
-        <circle cx="255" cy="70" r="10" fill="#f43f5e" stroke="#fecdd3" strokeWidth="2" />
-        <text x="85" y="105" fill="#f43f5e" fontSize="10" fontWeight="bold" textAnchor="middle">נקב עורק הצוואר</text>
-        <text x="85" y="118" fill="#f43f5e" fontSize="9" textAnchor="middle">(Transverse Foramen)</text>
-        <path d="M 155 115 L 170 150 L 185 115 Z" fill="#334155" stroke="#64748b" strokeWidth="2" />
-        <text x="170" y="142" fill="#94a3b8" fontSize="10" textAnchor="middle">זיז אחורי (Spine)</text>
-      </svg>
-    );
-  }
-
-  if (type === 'heart') {
-    return (
-      <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
-        <rect x="70" y="20" width="90" height="45" rx="8" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" />
-        <text x="115" y="47" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">עלייה ימנית</text>
-        <rect x="70" y="70" width="90" height="55" rx="8" fill="#1d4ed8" stroke="#3b82f6" strokeWidth="2" />
-        <text x="115" y="102" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">חדר ימין</text>
-        <line x1="170" y1="15" x2="170" y2="135" stroke="#64748b" strokeWidth="3" />
-        <rect x="180" y="20" width="90" height="45" rx="8" fill="#991b1b" stroke="#ef4444" strokeWidth="2" />
-        <text x="225" y="47" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">עלייה שמאלית</text>
-        <rect x="180" y="70" width="90" height="55" rx="8" fill="#b91c1c" stroke="#ef4444" strokeWidth="3" />
-        <text x="225" y="102" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">חדר שמאל</text>
-        <text x="170" y="150" fill="#94a3b8" fontSize="10" textAnchor="middle">בדיאסטולה: מסתמים בין עליות לחדרים פתוחים למילוי</text>
-      </svg>
-    );
-  }
-
-  if (type === 'cori') {
-    return (
-      <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
-        <rect x="30" y="25" width="110" height="100" rx="10" fill="#881337" stroke="#f43f5e" strokeWidth="2" />
-        <text x="85" y="48" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">שריר פעיל</text>
-        <text x="85" y="70" fill="#fecdd3" fontSize="10" textAnchor="middle">גלוקוז ➔ פירובט</text>
-        <text x="85" y="95" fill="#fb7185" fontSize="10" fontWeight="bold" textAnchor="middle">לקטט + יוני מימן</text>
-
-        <rect x="200" y="25" width="110" height="100" rx="10" fill="#14532d" stroke="#22c55e" strokeWidth="2" />
-        <text x="255" y="48" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">כבד (מחזור)</text>
-        <text x="255" y="70" fill="#bbf7d0" fontSize="10" textAnchor="middle">לקטט ➔ גלוקוז</text>
-        <text x="255" y="95" fill="#86efac" fontSize="9" textAnchor="middle">(השקעת 6 ATP)</text>
-
-        <text x="170" y="42" fill="#f59e0b" fontSize="9" textAnchor="middle">לקטט בדם ➔</text>
-        <text x="170" y="115" fill="#38bdf8" fontSize="9" textAnchor="middle">גלוקוז לשריר ➔</text>
-        <text x="170" y="150" fill="#94a3b8" fontSize="10" textAnchor="middle">מעגל קורי: פינוי ומיחזור לקטט בכבד</text>
-      </svg>
-    );
-  }
-
-  // ברירת מחדל
-  return (
-    <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
-      <line x1="30" y1="20" x2="30" y2="140" stroke="#f43f5e" strokeWidth="4" />
-      <line x1="310" y1="20" x2="310" y2="140" stroke="#f43f5e" strokeWidth="4" />
-      <text x="30" y="15" fill="#f43f5e" fontSize="10" fontWeight="bold" textAnchor="middle">Z-Line</text>
-      <text x="310" y="15" fill="#f43f5e" fontSize="10" fontWeight="bold" textAnchor="middle">Z-Line</text>
-      <line x1="30" y1="50" x2="145" y2="50" stroke="#38bdf8" strokeWidth="3" />
-      <line x1="195" y1="50" x2="310" y2="50" stroke="#38bdf8" strokeWidth="3" />
-      <line x1="30" y1="110" x2="145" y2="110" stroke="#38bdf8" strokeWidth="3" />
-      <line x1="195" y1="110" x2="310" y2="110" stroke="#38bdf8" strokeWidth="3" />
-      <text x="85" y="42" fill="#38bdf8" fontSize="10" fontWeight="bold">אקטין (דק)</text>
-      <rect x="95" y="70" width="150" height="20" rx="4" fill="#eab308" />
-      <text x="170" y="84" fill="#020617" fontSize="10" fontWeight="bold" textAnchor="middle">מיוזין (עבה)</text>
-      <text x="170" y="150" fill="#94a3b8" fontSize="10" textAnchor="middle">מנגנון גשרי הרוחב בסרקומר</text>
-    </svg>
-  );
 }
 
 // פונקציית ערבוב חכמה (Fisher-Yates)
@@ -274,7 +534,7 @@ export default function App() {
               <h1 style={{ margin: 0, fontSize: '18px', fontWeight: '900', color: '#f59e0b' }}>
                 🎓 ווינגייט קואוץ' - שמואל
               </h1>
-              <span style={{ fontSize: '11px', color: '#94a3b8' }}>מאגר מלא, תרשימים מדויקים ושפלינג</span>
+              <span style={{ fontSize: '11px', color: '#94a3b8' }}>20 תרשימים גרפיים מקוריים ושפלינג מלא</span>
             </div>
 
             <button
