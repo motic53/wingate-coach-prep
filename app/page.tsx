@@ -4,359 +4,221 @@
 
 import React, { useState, useEffect } from 'react';
 
-// --- ספריית תרשימים גרפיים (SVG) מותאמים אישית לכל נושא ---
-const DIAGRAMS_LIBRARY = {
-  bmr: (
-    <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
-      <rect x="15" y="20" width="95" height="120" rx="8" fill="#1e293b" stroke="#f59e0b" strokeWidth="2" />
-      <text x="62" y="45" fill="#f59e0b" fontSize="11" fontWeight="bold" textAnchor="middle">מסת שריר</text>
-      <text x="62" y="70" fill="#cbd5e1" fontSize="9" textAnchor="middle">צורכת פי 4 אנרגיה</text>
-      <text x="62" y="85" fill="#cbd5e1" fontSize="9" textAnchor="middle">משומן במנוחה</text>
-      <text x="62" y="115" fill="#10b981" fontSize="11" fontWeight="bold" textAnchor="middle">מעלה BMR ⬆</text>
-      <rect x="122" y="20" width="95" height="120" rx="8" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
-      <text x="170" y="45" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">שטח פני הגוף</text>
-      <text x="170" y="70" fill="#cbd5e1" fontSize="9" textAnchor="middle">איבוד חום מוגבר</text>
-      <text x="170" y="85" fill="#cbd5e1" fontSize="9" textAnchor="middle">בגוף גדול ממדים</text>
-      <text x="170" y="115" fill="#10b981" fontSize="11" fontWeight="bold" textAnchor="middle">מעלה BMR ⬆</text>
-      <rect x="230" y="20" width="95" height="120" rx="8" fill="#1e293b" stroke="#a855f7" strokeWidth="2" />
-      <text x="277" y="45" fill="#a855f7" fontSize="11" fontWeight="bold" textAnchor="middle">גיל ומגדר</text>
-      <text x="277" y="70" fill="#cbd5e1" fontSize="9" textAnchor="middle">טסטוסטרון בגבר</text>
-      <text x="277" y="85" fill="#cbd5e1" fontSize="9" textAnchor="middle">ירידה טבעית עם הגיל</text>
-      <text x="277" y="115" fill="#fbbf24" fontSize="10" fontWeight="bold" textAnchor="middle">משפיע ישירות</text>
-      <text x="170" y="160" fill="#94a3b8" fontSize="10" textAnchor="middle">הגורמים המשפיעים על חילוף החומרים הבסיסי (BMR)</text>
-    </svg>
-  ),
+// מאגר שאלות מקיף ומדויק לפי חוברות וינגייט
+const QUESTIONS_DATA = [
+  // --- פיזיולוגיה: אנרגיה ומטבוליזם ---
+  {
+    id: 'p1_bmr',
+    moduleId: 'phys1',
+    topic: 'חילוף חומרים בסיסי',
+    title: 'משתנים המשפיעים על BMR',
+    diagram: 'bmr',
+    questionText: 'אילו משתנים משפיעים ישירות על חילוף החומרים הבסיסי (BMR)?',
+    hint: 'שריר צורך פי 4 אנרגיה משומן במנוחה, ואדם גדול ממדים מאבד יותר חום דרך שטח העור לסביבה.',
+    options: [
+      { id: 'a', text: 'מסת שריר ואחוז שומן, גיל, מגדר, שטח פני הגוף והורמונים', isCorrect: true },
+      { id: 'b', text: 'צבע העיניים בלבד', isCorrect: false },
+      { id: 'c', text: 'סוג הנעליים שלובשים באימון', isCorrect: false },
+      { id: 'd', text: 'כמות השיער על הראש', isCorrect: false }
+    ],
+    explanation: 'BMR מושפע ממסת רקמת השריר הפעילה (שורפת פי 4 קלוריות משומן במנוחה), מגיל, מגדר ושטח פני הגוף.'
+  },
+  {
+    id: 'p1_marathon',
+    moduleId: 'phys1',
+    topic: 'מערכות אנרגיה',
+    title: 'מקור אנרגיה במרתון',
+    diagram: 'energy',
+    questionText: 'מקורם העיקרי של מולקולות ה-ATP במהלך ריצת מרתון הוא:',
+    hint: 'מאגרי הפחמימות מספיקים לכשעה וחצי. מאיזה מחסן ענק של עשרות אלפי קלוריות הגוף שואב דלק לאורך שעות?',
+    options: [
+      { id: 'a', text: 'בשומנים (ובפחמימות במסלול האירובי)', isCorrect: true },
+      { id: 'b', text: 'במסלול האנאירובי אלקטי בלבד', isCorrect: false },
+      { id: 'c', text: 'בחלבונים בלבד', isCorrect: false },
+      { id: 'd', text: 'בוויטמינים', isCorrect: false }
+    ],
+    explanation: 'במאמצים אירוביים ממושכים מעל חצי שעה, שומנים מהווים את מקור הדלק המרכזי במיטוכונדריות בנוכחות חמצן.'
+  },
+  {
+    id: 'p1_cori',
+    moduleId: 'phys1',
+    topic: 'מעגל קורי',
+    title: 'פינוי לקטט במעגל קורי',
+    diagram: 'cori',
+    questionText: 'במסגרת מעגל קורי (Cori Cycle), מה מתרחש בכבד?',
+    hint: 'הכבד הוא מפעל המיחזור של הגוף: הוא לוקח את הלקטט שנשפך לדם ומשקיע אנרגיה כדי לבנות ממנו שוב סוכר נקי.',
+    options: [
+      { id: 'a', text: 'לקטט הופך שוב לגלוקוז בתאי הכבד בהשקעת אנרגיה', isCorrect: true },
+      { id: 'b', text: 'לקטט הופך לגלוקוז בתוך השריר הפעיל עצמו', isCorrect: false },
+      { id: 'c', text: 'לקטט הופך לשומן בתוך הריאות', isCorrect: false },
+      { id: 'd', text: 'לקטט מסולק מהגוף ישירות דרך הנשיפה', isCorrect: false }
+    ],
+    explanation: 'הכבד קולט לקטט מהדם וממחזר אותו חזרה לגלוקוז בתהליך גלוקונאוגנזה הדורש 6 מולקולות ATP.'
+  },
+  {
+    id: 'p1_obla',
+    moduleId: 'phys1',
+    topic: 'סף אנאירובי',
+    title: 'הגדרת הסף האנאירובי OBLA',
+    diagram: 'energy',
+    questionText: 'מהי ההגדרה של הסף האנאירובי (OBLA)?',
+    hint: 'חשוב על ברז שפותח מים (ייצור) מול פתח ניקוז (פינוי). כל עוד הניקוז עומד בקצב, הכיור לא עולה על גדותיו.',
+    options: [
+      { id: 'a', text: 'קצב הפעילות המרבי שבו קצב ייצור הלקטט שווה עדיין לקצב הפינוי שלו (איזון)', isCorrect: true },
+      { id: 'b', text: 'קצב ייצור הלקטט נמוך בהרבה מקצב הפינוי', isCorrect: false },
+      { id: 'c', text: 'מצב בו אין שימוש בגלוקוז כלל', isCorrect: false },
+      { id: 'd', text: 'הרגע שבו נגמרים מאגרי השומן', isCorrect: false }
+    ],
+    explanation: 'בסף האנאירובי (כ-4 מילימול/ליטר) קצב הפינוי הוא מקסימלי אך עדיין שווה לייצור. מעבר לו – החומציות מצטברת בחדות.'
+  },
 
-  disc: (
-    <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
-      <ellipse cx="170" cy="85" rx="140" ry="65" fill="#1e293b" stroke="#38bdf8" strokeWidth="3" />
-      <ellipse cx="170" cy="85" rx="110" ry="50" fill="#0f172a" stroke="#0284c7" strokeWidth="2" strokeDasharray="5 3" />
-      <ellipse cx="170" cy="85" rx="80" ry="36" fill="#0369a1" stroke="#38bdf8" strokeWidth="2" />
-      <ellipse cx="170" cy="85" rx="45" ry="20" fill="#f43f5e" stroke="#fda4af" strokeWidth="2" />
-      <text x="170" y="89" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">גרעין צמיגי (Nucleus Pulposus)</text>
-      <text x="170" y="38" fill="#38bdf8" fontSize="12" fontWeight="bold" textAnchor="middle">טבעות קולגן סיביות (Annulus Fibrosus)</text>
-      <text x="170" y="162" fill="#94a3b8" fontSize="10" textAnchor="middle">מבנה הדיסק הבין-חולייתי ובלימת זעזועים</text>
-    </svg>
-  ),
+  // --- אנטומיה א': שלד, רקמות ומפרקים ---
+  {
+    id: 'a1_fibula',
+    moduleId: 'anat1',
+    topic: 'שרירי הירך ומפרק הברך',
+    title: 'אחז בראש הפיבולה',
+    diagram: 'knee',
+    questionText: 'איזה שריר נאחז (Insertion) בראש עצם השוקית (Head of Fibula)?',
+    hint: 'הפיבולה היא העצם החיצונית (לטרלית) של השוק. איזה שריר מהירך האחורית פונה החוצה לצד הלטרלי בתרשים?',
+    options: [
+      { id: 'a', text: 'Biceps Femoris (הדו-ראשי הירכי)', isCorrect: true },
+      { id: 'b', text: 'Semitendinosus', isCorrect: false },
+      { id: 'c', text: 'Semimembranosus', isCorrect: false },
+      { id: 'd', text: 'Rectus Femoris', isCorrect: false }
+    ],
+    explanation: 'ה-Biceps Femoris יורד בצד הלטרלי ונאחז בראש הפיבולה, בעוד שני שרירי ה"סמי" נאחזים בצד הפנימי של הטיביה.'
+  },
+  {
+    id: 'a1_disc',
+    moduleId: 'anat1',
+    topic: 'רקמות חיבור',
+    title: 'מבנה הדיסק הבין-חולייתי',
+    diagram: 'disc',
+    questionText: 'חומר ה-Annulus Fibrosus בדיסק הבין-חולייתי תפקידו בעיקר:',
+    hint: 'Annulus בלטינית זה טבעת. דמיין מעטפת של צמיג קשיח שמחזיקה ג\'ל בפנים ובולמת זעזועים.',
+    options: [
+      { id: 'a', text: 'למנוע חיכוך ולבלום זעזועים (תשובות א׳+ב׳ נכונות)', isCorrect: true },
+      { id: 'b', text: 'להציג יכולת החלקה בלבד', isCorrect: false },
+      { id: 'c', text: 'לייצר תאי דם אדומים', isCorrect: false },
+      { id: 'd', text: 'להזין ישירות את חוט השדרה', isCorrect: false }
+    ],
+    explanation: 'ה-Annulus Fibrosus בנוי מטבעות קולגן צפופות העוטפות את הגרעין הצמיגי (Nucleus Pulposus) ובולמות עומסים.'
+  },
+  {
+    id: 'a1_cervical',
+    moduleId: 'anat1',
+    topic: 'עמוד השדרה',
+    title: 'מאפייני חוליות הצוואר',
+    diagram: 'cervical',
+    questionText: 'נקב בזיזים הרוחביים (Transverse Foramen) מאפיין את חוליות:',
+    hint: 'המוח יושב למעלה וחייב לקבל דם. באיזה אזור בעמוד השדרה העורקים צריכים מנהרה מוגנת בתוך העצם?',
+    options: [
+      { id: 'a', text: 'הצוואר (Cervical vertebrae)', isCorrect: true },
+      { id: 'b', text: 'החזה (Thoracic)', isCorrect: false },
+      { id: 'c', text: 'המותניים (Lumbar)', isCorrect: false },
+      { id: 'd', text: 'הסקרום', isCorrect: false }
+    ],
+    explanation: 'נקב בזיז הרוחבי (C1-C7) מאפשר מעבר בטוח ומוגן של עורק הצוואר המוביל דם למוח.'
+  },
+  {
+    id: 'a1_spine',
+    moduleId: 'anat1',
+    topic: 'עמוד השדרה',
+    title: 'עקומות עמוד השדרה',
+    diagram: 'spine',
+    questionText: 'איזו עקומה קעורה קיימת בעמוד השדרה המותני (Lumbar)?',
+    hint: 'שקע הגב התחתון הטבעי המאפשר לנו לעמוד זקוף על שתיים.',
+    options: [
+      { id: 'a', text: 'לורדוזה מותנית (Lumbar Lordosis)', isCorrect: true },
+      { id: 'b', text: 'קיפוזה חזית (Thoracic Kyphosis)', isCorrect: false },
+      { id: 'c', text: 'סקוליוזיס (עקמת)', isCorrect: false },
+      { id: 'd', text: 'קיפוזה סקרלית', isCorrect: false }
+    ],
+    explanation: 'באזור המותני קיימת עקומת לורדוזה (שקע קעור) הנושאת את עיקר משקל הגו ובולמת זעזועים.'
+  },
 
-  chondrocyte: (
-    <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
-      <rect x="20" y="20" width="300" height="130" rx="15" fill="#0c4a6e" stroke="#0284c7" strokeWidth="2" />
-      <ellipse cx="110" cy="85" rx="35" ry="25" fill="#0284c7" stroke="#38bdf8" strokeWidth="2" />
-      <circle cx="110" cy="85" r="10" fill="#082f49" />
-      <ellipse cx="230" cy="85" rx="35" ry="25" fill="#0284c7" stroke="#38bdf8" strokeWidth="2" />
-      <circle cx="230" cy="85" r="10" fill="#082f49" />
-      <path d="M 50 40 Q 170 30 290 50 M 50 130 Q 170 140 290 120" stroke="#bae6fd" strokeWidth="2" strokeDasharray="6 4" />
-      <text x="110" y="125" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">תא סחוס (Chondrocyte)</text>
-      <text x="170" y="35" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">מטריקס חוץ-תאי: קולגן סוג 2 ופרוטאוגליקנים</text>
-    </svg>
-  ),
+  // --- אנטומיה ב': שרירים ותנועות ---
+  {
+    id: 'a2_deltoid',
+    moduleId: 'anat2',
+    topic: 'שרירי הכתף',
+    title: 'קירוב אופקי ורוטציה פנימית',
+    diagram: 'deltoid',
+    questionText: 'התנועות קירוב אופקי (Horizontal Adduction) ורוטציה מדיאלית של הכתף מבוצעות ע״י:',
+    hint: 'שים יד על קדמת הכתף וקרב את הזרוע אל החזה – תרגיש את הסיבים הקדמיים של שריר הכתף מתקשים מיד.',
+    options: [
+      { id: 'a', text: 'Anterior deltoid (הדלתואיד הקדמי)', isCorrect: true },
+      { id: 'b', text: 'Posterior deltoid', isCorrect: false },
+      { id: 'c', text: 'Brachialis', isCorrect: false },
+      { id: 'd', text: 'Infraspinatus', isCorrect: false }
+    ],
+    explanation: 'הדלתואיד הקדמי מושך את הזרוע מלפנים ומבצע כפיפה, קירוב אופקי וסיבוב פנימי (מדיאלי).'
+  },
+  {
+    id: 'a2_sarcomere',
+    moduleId: 'anat2',
+    topic: 'מערכת השרירים',
+    title: 'מנגנון הסרקומר וחלבון הכיווץ',
+    diagram: 'sarcomere',
+    questionText: 'במהלך כיווץ שריר שלד, איזה חלבון נמשך אל עבר מרכז הסרקומר על ידי גשרי הרוחב?',
+    hint: 'החוט הדק שמחובר לקו ה-Z ונגרר פנימה ע"י ראשי המיוזין העבים.',
+    options: [
+      { id: 'a', text: 'אקטין (Actin)', isCorrect: true },
+      { id: 'b', text: 'מיוזין (Myosin)', isCorrect: false },
+      { id: 'c', text: 'קולגן מסוג 1', isCorrect: false },
+      { id: 'd', text: 'אלסטין', isCorrect: false }
+    ],
+    explanation: 'ראשי המיוזין נאחזים באקטין וגוררים אותו למרכז הסרקומר בתנועת חתירה (Power Stroke), וכך הסרקומר מתקצר.'
+  },
 
-  osteon: (
-    <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
-      <circle cx="170" cy="85" r="65" fill="#1e293b" stroke="#ca8a04" strokeWidth="3" />
-      <circle cx="170" cy="85" r="48" fill="#0f172a" stroke="#eab308" strokeWidth="2" />
-      <circle cx="170" cy="85" r="30" fill="#1e293b" stroke="#fde047" strokeWidth="1.5" />
-      <circle cx="170" cy="85" r="12" fill="#dc2626" />
-      <text x="170" y="89" fill="#ffffff" fontSize="9" fontWeight="bold" textAnchor="middle">תעלת דם</text>
-      <text x="170" y="14" fill="#facc15" fontSize="11" fontWeight="bold" textAnchor="middle">מערכת הוורס קונצנטרית (Osteon)</text>
-      <text x="50" y="85" fill="#cbd5e1" fontSize="10">למלות מעגליות</text>
-      <text x="170" y="165" fill="#94a3b8" fontSize="10" textAnchor="middle">עצם צפופה (Compact Bone)</text>
-    </svg>
-  ),
-
-  cervical: (
-    <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
-      <ellipse cx="170" cy="45" rx="55" ry="22" fill="#334155" stroke="#64748b" strokeWidth="2" />
-      <text x="170" y="49" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">גוף החוליה (Body)</text>
-      <ellipse cx="170" cy="98" rx="40" ry="26" fill="#020617" stroke="#38bdf8" strokeWidth="2" />
-      <circle cx="85" cy="75" r="10" fill="#f43f5e" stroke="#fecdd3" strokeWidth="2" />
-      <circle cx="255" cy="75" r="10" fill="#f43f5e" stroke="#fecdd3" strokeWidth="2" />
-      <text x="85" y="115" fill="#f43f5e" fontSize="10" fontWeight="bold" textAnchor="middle">נקב עורק הצוואר</text>
-      <text x="85" y="128" fill="#f43f5e" fontSize="9" textAnchor="middle">(Transverse Foramen)</text>
-      <path d="M 155 125 L 170 160 L 185 125 Z" fill="#334155" stroke="#64748b" strokeWidth="2" />
-      <text x="170" y="152" fill="#94a3b8" fontSize="10" textAnchor="middle">זיז אחורי מפוצל (Spine)</text>
-    </svg>
-  ),
-
-  atlas_axis: (
-    <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
-      <ellipse cx="170" cy="80" rx="90" ry="45" fill="none" stroke="#38bdf8" strokeWidth="4" />
-      <circle cx="170" cy="55" r="14" fill="#f59e0b" stroke="#fde68a" strokeWidth="3" />
-      <text x="170" y="59" fill="#020617" fontSize="10" fontWeight="bold" textAnchor="middle">שן Dens</text>
-      <text x="170" y="110" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">טבעת חוליית האטלס (C1)</text>
-      <path d="M 130 55 Q 170 30 210 55" fill="none" stroke="#10b981" strokeWidth="3" strokeDasharray="3 3" />
-      <text x="170" y="25" fill="#10b981" fontSize="10" textAnchor="middle">רוטציה חופשית של הראש ("לא")</text>
-      <text x="170" y="155" fill="#94a3b8" fontSize="10" textAnchor="middle">מפרק Atlantoaxial C1-C2</text>
-    </svg>
-  ),
-
-  spine_curves: (
-    <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
-      <path d="M 170 15 Q 195 42 170 68 Q 140 98 170 124 Q 190 144 170 162" fill="none" stroke="#f59e0b" strokeWidth="6" strokeLinecap="round" />
-      <circle cx="170" cy="18" r="5" fill="#38bdf8" />
-      <circle cx="188" cy="42" r="5" fill="#38bdf8" />
-      <circle cx="170" cy="68" r="5" fill="#38bdf8" />
-      <circle cx="150" cy="98" r="5" fill="#10b981" />
-      <circle cx="170" cy="124" r="5" fill="#a855f7" />
-      <text x="255" y="42" fill="#38bdf8" fontSize="11" fontWeight="bold">לורדוזה צווארית (C1-C7)</text>
-      <text x="65" y="98" fill="#10b981" fontSize="11" fontWeight="bold">קיפוזה חזית (T1-T12)</text>
-      <text x="255" y="132" fill="#a855f7" fontSize="11" fontWeight="bold">לורדוזה מותנית (L1-L5)</text>
-      <text x="70" y="155" fill="#fbbf24" fontSize="10">סקרום וקוקסיקס</text>
-    </svg>
-  ),
-
-  sternum: (
-    <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
-      <polygon points="145,15 195,15 205,45 135,45" fill="#0284c7" stroke="#38bdf8" strokeWidth="2" />
-      <text x="170" y="34" fill="#ffffff" fontSize="10" fontWeight="bold" textAnchor="middle">ידית (Manubrium)</text>
-      <rect x="150" y="50" width="40" height="75" rx="4" fill="#0369a1" stroke="#38bdf8" strokeWidth="2" />
-      <text x="170" y="90" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">גוף</text>
-      <polygon points="160,130 180,130 170,155" fill="#f43f5e" stroke="#fda4af" strokeWidth="2" />
-      <text x="170" y="168" fill="#f43f5e" fontSize="10" fontWeight="bold" textAnchor="middle">זיז החרב (Xiphoid)</text>
-      <text x="80" y="85" fill="#94a3b8" fontSize="10">חיבור צלעות 1-7</text>
-    </svg>
-  ),
-
-  knee_fibula: (
-    <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
-      <path d="M 120 10 L 220 10 L 225 55 Q 210 75 170 70 Q 130 75 115 55 Z" fill="#334155" stroke="#64748b" strokeWidth="2" />
-      <text x="170" y="35" fill="#f8fafc" fontSize="11" fontWeight="bold" textAnchor="middle">עצם הירך (Femur)</text>
-      <ellipse cx="135" cy="75" rx="16" ry="6" fill="#38bdf8" />
-      <ellipse cx="205" cy="75" rx="16" ry="6" fill="#38bdf8" />
-      <path d="M 130 85 Q 170 80 210 85 L 200 160 L 140 160 Z" fill="#1e293b" stroke="#475569" strokeWidth="2" />
-      <text x="170" y="125" fill="#f8fafc" fontSize="11" fontWeight="bold" textAnchor="middle">שוק (Tibia)</text>
-      <path d="M 95 90 L 115 90 L 110 160 L 90 160 Z" fill="#475569" stroke="#94a3b8" strokeWidth="2" />
-      <circle cx="105" cy="94" r="11" fill="#e11d48" stroke="#fecdd3" strokeWidth="2" />
-      <path d="M 85 25 Q 75 65 100 88" fill="none" stroke="#fb7185" strokeWidth="4" strokeDasharray="4 2" />
-      <text x="45" y="38" fill="#fb7185" fontSize="10" fontWeight="bold">Biceps Femoris</text>
-      <text x="45" y="115" fill="#f59e0b" fontSize="10" fontWeight="bold">ראש השוקית</text>
-      <text x="45" y="128" fill="#f59e0b" fontSize="9">(Head of Fibula)</text>
-    </svg>
-  ),
-
-  sarcomere: (
-    <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
-      <line x1="30" y1="20" x2="30" y2="150" stroke="#f43f5e" strokeWidth="4" />
-      <line x1="310" y1="20" x2="310" y2="150" stroke="#f43f5e" strokeWidth="4" />
-      <text x="30" y="15" fill="#f43f5e" fontSize="10" fontWeight="bold" textAnchor="middle">Z-Line</text>
-      <text x="310" y="15" fill="#f43f5e" fontSize="10" fontWeight="bold" textAnchor="middle">Z-Line</text>
-      <line x1="30" y1="50" x2="145" y2="50" stroke="#38bdf8" strokeWidth="3.5" />
-      <line x1="195" y1="50" x2="310" y2="50" stroke="#38bdf8" strokeWidth="3.5" />
-      <line x1="30" y1="120" x2="145" y2="120" stroke="#38bdf8" strokeWidth="3.5" />
-      <line x1="195" y1="120" x2="310" y2="120" stroke="#38bdf8" strokeWidth="3.5" />
-      <text x="85" y="42" fill="#38bdf8" fontSize="10" fontWeight="bold">אקטין (חלבון דק נגרר)</text>
-      <rect x="95" y="75" width="150" height="20" rx="4" fill="#eab308" />
-      <circle cx="115" cy="70" r="5" fill="#ca8a04" />
-      <circle cx="135" cy="70" r="5" fill="#ca8a04" />
-      <circle cx="205" cy="70" r="5" fill="#ca8a04" />
-      <circle cx="225" cy="70" r="5" fill="#ca8a04" />
-      <text x="170" y="89" fill="#020617" fontSize="10" fontWeight="bold" textAnchor="middle">מיוזין (חלבון עבה מושך)</text>
-      <text x="170" y="162" fill="#94a3b8" fontSize="10" textAnchor="middle">מנגנון גשרי הרוחב בסרקומר</text>
-    </svg>
-  ),
-
-  deltoid: (
-    <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
-      <line x1="70" y1="30" x2="270" y2="30" stroke="#94a3b8" strokeWidth="4" />
-      <text x="170" y="22" fill="#cbd5e1" fontSize="10" textAnchor="middle">עצם הבריח והאקרומיון</text>
-      <path d="M 90 35 Q 110 90 170 140" stroke="#38bdf8" strokeWidth="6" fill="none" />
-      <path d="M 170 35 Q 170 90 170 140" stroke="#f59e0b" strokeWidth="6" fill="none" />
-      <path d="M 250 35 Q 230 90 170 140" stroke="#a855f7" strokeWidth="6" fill="none" />
-      <circle cx="170" cy="140" r="8" fill="#ef4444" />
-      <text x="170" y="160" fill="#ef4444" fontSize="10" fontWeight="bold" textAnchor="middle">אחז: Deltoid Tuberosity</text>
-      <text x="75" y="80" fill="#38bdf8" fontSize="9">קדמי (כפיפה וקירוב אופקי)</text>
-      <text x="185" y="70" fill="#f59e0b" fontSize="9">אמצעי (הרחקה)</text>
-      <text x="265" y="80" fill="#a855f7" fontSize="9">אחורי (פשיטה)</text>
-    </svg>
-  ),
-
-  quadriceps: (
-    <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
-      <rect x="130" y="20" width="80" height="100" rx="15" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" />
-      <rect x="145" y="15" width="50" height="105" rx="10" fill="#dc2626" stroke="#f87171" strokeWidth="2" />
-      <text x="170" y="65" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">Rectus Femoris</text>
-      <text x="170" y="80" fill="#fecdd3" fontSize="9" textAnchor="middle">(דו-מפרקי: מגיע מהאגן AIIS)</text>
-      <polygon points="160,130 180,130 170,145" fill="#f59e0b" />
-      <circle cx="170" cy="155" r="7" fill="#38bdf8" />
-      <text x="170" y="168" fill="#38bdf8" fontSize="9" textAnchor="middle">אחז משותף: Tibial Tuberosity</text>
-    </svg>
-  ),
-
-  achilles: (
-    <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
-      <ellipse cx="145" cy="50" rx="25" ry="35" fill="#991b1b" stroke="#ef4444" strokeWidth="2" />
-      <ellipse cx="195" cy="50" rx="25" ry="35" fill="#991b1b" stroke="#ef4444" strokeWidth="2" />
-      <text x="170" y="55" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">Gastrocnemius (תאומים)</text>
-      <rect x="163" y="90" width="14" height="45" fill="#e2e8f0" stroke="#cbd5e1" strokeWidth="2" />
-      <text x="110" y="115" fill="#e2e8f0" fontSize="11" fontWeight="bold">גיד אכילס</text>
-      <path d="M 150 135 L 190 135 L 205 160 L 150 160 Z" fill="#475569" />
-      <text x="170" y="152" fill="#fbbf24" fontSize="10" textAnchor="middle">עקב (Calcaneus)</text>
-    </svg>
-  ),
-
-  erector_spinae: (
-    <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
-      <line x1="170" y1="20" x2="170" y2="150" stroke="#64748b" strokeWidth="4" />
-      <line x1="125" y1="30" x2="125" y2="140" stroke="#38bdf8" strokeWidth="5" />
-      <line x1="145" y1="25" x2="145" y2="145" stroke="#f59e0b" strokeWidth="5" />
-      <line x1="160" y1="20" x2="160" y2="150" stroke="#10b981" strokeWidth="5" />
-      <text x="70" y="60" fill="#38bdf8" fontSize="10">Iliocostalis (לטרלי)</text>
-      <text x="70" y="90" fill="#f59e0b" fontSize="10">Longissimus (אמצעי)</text>
-      <text x="70" y="120" fill="#10b981" fontSize="10">Spinalis (מדיאלי)</text>
-      <text x="170" y="165" fill="#94a3b8" fontSize="10" textAnchor="middle">שלושת עמודי ה-Erector Spinae לפשיטת גו</text>
-    </svg>
-  ),
-
-  energy: (
-    <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
-      <rect x="15" y="25" width="90" height="105" rx="10" fill="#78350f" stroke="#f59e0b" strokeWidth="2" />
-      <text x="60" y="50" fill="#fbbf24" fontSize="12" fontWeight="bold" textAnchor="middle">ATP-CrP</text>
-      <text x="60" y="70" fill="#fde68a" fontSize="10" textAnchor="middle">אנאירובי אלקטי</text>
-      <text x="60" y="100" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">0-10 שניות</text>
-      <rect x="125" y="25" width="90" height="105" rx="10" fill="#064e3b" stroke="#10b981" strokeWidth="2" />
-      <text x="170" y="50" fill="#34d399" fontSize="12" fontWeight="bold" textAnchor="middle">גליקוליזה</text>
-      <text x="170" y="70" fill="#a7f3d0" fontSize="10" textAnchor="middle">אנאירובי לקטי</text>
-      <text x="170" y="100" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">10-120 שנ'</text>
-      <rect x="235" y="25" width="90" height="105" rx="10" fill="#1e1b4b" stroke="#6366f1" strokeWidth="2" />
-      <text x="280" y="50" fill="#818cf8" fontSize="12" fontWeight="bold" textAnchor="middle">אירובי</text>
-      <text x="280" y="70" fill="#c7d2fe" fontSize="10" textAnchor="middle">מיטוכונדריה</text>
-      <text x="280" y="100" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">מעל 2 דקות</text>
-      <text x="170" y="155" fill="#94a3b8" fontSize="10" textAnchor="middle">תרומת מסלולי האנרגיה לפי עצימות ומשך המאמץ</text>
-    </svg>
-  ),
-
-  cori: (
-    <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
-      <rect x="30" y="25" width="110" height="110" rx="12" fill="#881337" stroke="#f43f5e" strokeWidth="2" />
-      <text x="85" y="50" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">שריר פעיל</text>
-      <text x="85" y="75" fill="#fecdd3" fontSize="11" textAnchor="middle">גלוקוז ➔ פירובט</text>
-      <text x="85" y="100" fill="#fb7185" fontSize="11" fontWeight="bold" textAnchor="middle">לקטט + H+</text>
-      <rect x="200" y="25" width="110" height="110" rx="12" fill="#14532d" stroke="#22c55e" strokeWidth="2" />
-      <text x="255" y="50" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">כבד (מחזור)</text>
-      <text x="255" y="75" fill="#bbf7d0" fontSize="11" textAnchor="middle">לקטט ➔ גלוקוז</text>
-      <text x="255" y="100" fill="#86efac" fontSize="10" textAnchor="middle">(השקעת 6 ATP)</text>
-      <text x="170" y="45" fill="#f59e0b" fontSize="10" textAnchor="middle">לקטט בדם ➔</text>
-      <text x="170" y="125" fill="#38bdf8" fontSize="10" textAnchor="middle">גלוקוז לשריר ➔</text>
-      <text x="170" y="160" fill="#94a3b8" fontSize="10" textAnchor="middle">מעגל קורי: פינוי ומיחזור לקטט בכבד</text>
-    </svg>
-  ),
-
-  obla: (
-    <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
-      <line x1="40" y1="130" x2="310" y2="130" stroke="#64748b" strokeWidth="2" />
-      <line x1="40" y1="20" x2="40" y2="130" stroke="#64748b" strokeWidth="2" />
-      <path d="M 40 120 Q 180 115 220 90 T 300 25" fill="none" stroke="#f43f5e" strokeWidth="4" />
-      <circle cx="220" cy="90" r="7" fill="#f59e0b" />
-      <text x="220" y="75" fill="#f59e0b" fontSize="11" fontWeight="bold" textAnchor="middle">סף אנאירובי (4 מילימול)</text>
-      <text x="110" y="110" fill="#10b981" fontSize="10">קצב ייצור = קצב פינוי</text>
-      <text x="270" y="45" fill="#ef4444" fontSize="10">הצטברות לקטט חדה</text>
-      <text x="170" y="155" fill="#94a3b8" fontSize="10" textAnchor="middle">עקומת הלקטט וקביעת סף אנאירובי (OBLA)</text>
-    </svg>
-  ),
-
-  heart: (
-    <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
-      <rect x="70" y="25" width="90" height="50" rx="8" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" />
-      <text x="115" y="55" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">עלייה ימנית</text>
-      <rect x="70" y="80" width="90" height="60" rx="8" fill="#1d4ed8" stroke="#3b82f6" strokeWidth="2" />
-      <text x="115" y="115" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">חדר ימין</text>
-      <line x1="170" y1="20" x2="170" y2="148" stroke="#64748b" strokeWidth="3" />
-      <rect x="180" y="25" width="90" height="50" rx="8" fill="#991b1b" stroke="#ef4444" strokeWidth="2" />
-      <text x="225" y="55" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">עלייה שמאלית</text>
-      <rect x="180" y="80" width="90" height="60" rx="8" fill="#b91c1c" stroke="#ef4444" strokeWidth="3" />
-      <text x="225" y="115" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">חדר שמאל (עבה)</text>
-      <text x="115" y="16" fill="#60a5fa" fontSize="9" textAnchor="middle">דם דל בחמצן לריאות</text>
-      <text x="225" y="16" fill="#f87171" fontSize="9" textAnchor="middle">דם מחומצן אל הגוף</text>
-      <text x="170" y="162" fill="#94a3b8" fontSize="10" textAnchor="middle">בדיאסטולה: מסתמים בין עליות לחדרים פתוחים למילוי</text>
-    </svg>
-  ),
-
-  veins: (
-    <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
-      <rect x="130" y="15" width="80" height="135" fill="#1e293b" stroke="#3b82f6" strokeWidth="3" />
-      <line x1="130" y1="65" x2="165" y2="45" stroke="#60a5fa" strokeWidth="4" />
-      <line x1="210" y1="65" x2="175" y2="45" stroke="#60a5fa" strokeWidth="4" />
-      <line x1="130" y1="120" x2="165" y2="100" stroke="#60a5fa" strokeWidth="4" />
-      <line x1="210" y1="120" x2="175" y2="100" stroke="#60a5fa" strokeWidth="4" />
-      <path d="M 170 140 L 170 30" stroke="#38bdf8" strokeWidth="3" strokeDasharray="5 3" />
-      <polygon points="165,30 175,30 170,18" fill="#38bdf8" />
-      <text x="70" y="85" fill="#38bdf8" fontSize="10" textAnchor="middle">שסתומים חד-כיווניים</text>
-      <text x="70" y="100" fill="#94a3b8" fontSize="9" textAnchor="middle">מונעים חזרת דם מטה</text>
-      <text x="270" y="85" fill="#f59e0b" fontSize="10" textAnchor="middle">משאבת שרירי השלד</text>
-      <text x="170" y="165" fill="#94a3b8" fontSize="10" textAnchor="middle">החזר ורידי אל הלב כנגד כוח המשיכה</text>
-    </svg>
-  ),
-
-  alveoli: (
-    <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
-      <circle cx="170" cy="80" r="55" fill="#042f2e" stroke="#14b8a6" strokeWidth="3" />
-      <text x="170" y="75" fill="#2dd4bf" fontSize="12" fontWeight="bold" textAnchor="middle">נאדית הריאה</text>
-      <text x="170" y="92" fill="#99f6e4" fontSize="10" textAnchor="middle">(Alveoli)</text>
-      <path d="M 95 80 Q 95 145 170 145 Q 245 145 245 80" fill="none" stroke="#ef4444" strokeWidth="4" />
-      <text x="170" y="40" fill="#38bdf8" fontSize="10" textAnchor="middle">חמצן (O2) עובר בדיפוזיה לדם ➔</text>
-      <text x="170" y="125" fill="#f87171" fontSize="10" textAnchor="middle">פחמן דו-חמצני (CO2) נפלט לנאדית ➔</text>
-      <text x="170" y="162" fill="#94a3b8" fontSize="10" textAnchor="middle">שחלוף גזים בדיפוזיה על פני שטח פנים ענק</text>
-    </svg>
-  ),
-
-  spindle: (
-    <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
-      <ellipse cx="110" cy="80" rx="60" ry="30" fill="#881337" stroke="#f43f5e" strokeWidth="2" />
-      <path d="M 80 80 Q 110 65 140 80" stroke="#facc15" strokeWidth="3" fill="none" />
-      <text x="110" y="75" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">כישור השריר (Spindle)</text>
-      <text x="110" y="125" fill="#fecdd3" fontSize="9" textAnchor="middle">חש מתיחה מהירה ➔ פוקד כיווץ מגן</text>
-      <rect x="200" y="68" width="85" height="24" rx="4" fill="#e2e8f0" stroke="#cbd5e1" strokeWidth="2" />
-      <circle cx="240" cy="80" r="8" fill="#a855f7" />
-      <text x="240" y="60" fill="#d8b4fe" fontSize="11" fontWeight="bold" textAnchor="middle">אברון גולג'י (GTO)</text>
-      <text x="240" y="125" fill="#cbd5e1" fontSize="9" textAnchor="middle">חש עומס יתר בגיד ➔ פוקד הרפיה</text>
-      <text x="170" y="160" fill="#94a3b8" fontSize="10" textAnchor="middle">בקרה עצבית: כישור השריר מכווץ, גולג'י מרפה</text>
-    </svg>
-  ),
-
-  insulin: (
-    <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
-      <rect x="40" y="40" width="260" height="100" rx="15" fill="#1e293b" stroke="#64748b" strokeWidth="3" />
-      <text x="170" y="110" fill="#94a3b8" fontSize="12" fontWeight="bold" textAnchor="middle">פנים התא (שריר / כבד)</text>
-      <circle cx="100" cy="40" r="12" fill="#a855f7" />
-      <text x="100" y="25" fill="#c084fc" fontSize="9" textAnchor="middle">אינסולין (המפתח)</text>
-      <rect x="190" y="32" width="25" height="16" fill="#10b981" />
-      <text x="202" y="25" fill="#34d399" fontSize="9" textAnchor="middle">תעלה פתוחה</text>
-      <circle cx="202" cy="70" r="6" fill="#f59e0b" />
-      <text x="202" y="90" fill="#fbbf24" fontSize="10" textAnchor="middle">גלוקוז נכנס</text>
-      <text x="170" y="160" fill="#94a3b8" fontSize="10" textAnchor="middle">אינסולין נקשר לקולטן ופותח מעבר לגלוקוז</text>
-    </svg>
-  ),
-
-  immune: (
-    <svg viewBox="0 0 340 170" className="w-full h-full bg-slate-950 p-2">
-      <rect x="20" y="30" width="85" height="95" rx="8" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
-      <text x="62" y="55" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">קו ראשון</text>
-      <text x="62" y="75" fill="#e2e8f0" fontSize="9" textAnchor="middle">עור, ריריות</text>
-      <text x="62" y="90" fill="#e2e8f0" fontSize="9" textAnchor="middle">והפרשות</text>
-      <rect x="125" y="30" width="90" height="95" rx="8" fill="#1e293b" stroke="#f59e0b" strokeWidth="2" />
-      <text x="170" y="55" fill="#f59e0b" fontSize="11" fontWeight="bold" textAnchor="middle">קו שני</text>
-      <text x="170" y="75" fill="#e2e8f0" fontSize="9" textAnchor="middle">תגובה דלקתית</text>
-      <text x="170" y="90" fill="#e2e8f0" fontSize="9" textAnchor="middle">פגוציטים בולעים</text>
-      <rect x="235" y="30" width="85" height="95" rx="8" fill="#1e293b" stroke="#ec4899" strokeWidth="2" />
-      <text x="277" y="55" fill="#ec4899" fontSize="11" fontWeight="bold" textAnchor="middle">קו שלישי</text>
-      <text x="277" y="75" fill="#e2e8f0" fontSize="9" textAnchor="middle">לימפוציטים B,T</text>
-      <text x="277" y="90" fill="#e2e8f0" fontSize="9" textAnchor="middle">נוגדנים ספציפיים</text>
-      <text x="170" y="155" fill="#94a3b8" fontSize="10" textAnchor="middle">שלושת קווי ההגנה מפני פתוגנים</text>
-    </svg>
-  )
-};
-
-function shuffleArray(arr) {
-  const copy = [...arr];
-  for (let i = copy.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [copy[i], copy[j]] = [copy[j], copy[i]];
+  // --- פיזיולוגיה ב': מערכות הגוף ---
+  {
+    id: 'p2_heart',
+    moduleId: 'phys2',
+    topic: 'מערכת הלב וכלי הדם',
+    title: 'שלבי פעולת הלב ומסתמיו',
+    diagram: 'heart',
+    questionText: 'בזמן שלב הדיאסטולה (הרפיית החדרים ומילויים) בלב:',
+    hint: 'דמיין דלתות שנפתחות כדי שהאורחים (הדם) ייכנסו מהמרפסת (העלייה) לתוך הסלון (החדר), בזמן שהדלת לרחוב סגורה.',
+    options: [
+      { id: 'a', text: 'המסתמים בין העליות לחדרים פתוחים, והמסתמים בין החדרים לעורקים סגורים', isCorrect: true },
+      { id: 'b', text: 'המסתמים בין החדרים לעורקים פתוחים', isCorrect: false },
+      { id: 'c', text: 'כל המסתמים בלב סגורים לחלוטין', isCorrect: false },
+      { id: 'd', text: 'כל המסתמים פתוחים יחד', isCorrect: false }
+    ],
+    explanation: 'בדיאסטולה החדרים נרפים ומתמלאים בדם מהעליות דרך המסתמים הפתוחים ביניהם, בעוד מסתמי היציאה לעורקים סגורים.'
+  },
+  {
+    id: 'p2_veins',
+    moduleId: 'phys2',
+    topic: 'כלי דם ומחזורי הדם',
+    title: 'הוורידים במחזורי הדם',
+    diagram: 'heart',
+    questionText: 'מה נכון לגבי הוורידים במחזורי הדם של גוף האדם?',
+    hint: 'וריד תמיד נכנס ללב. מאיפה ורידי הריאה מגיעים? מהריאות שבהן הרגע נשמנו חמצן נקי!',
+    options: [
+      { id: 'a', text: 'במחזור הריאתי (הקטן) זורם בהם דם עשיר בחמצן, ובמחזור הגדול דם עני בחמצן', isCorrect: true },
+      { id: 'b', text: 'בכל הוורידים בגוף תמיד זורם רק דם דל בחמצן', isCorrect: false },
+      { id: 'c', text: 'ורידים מובילים דם מהלב אל הרקמות', isCorrect: false },
+      { id: 'd', text: 'אין שסתומים בוורידים כלל', isCorrect: false }
+    ],
+    explanation: 'ההגדרה של וריד היא כיוון הזרימה (אל הלב): ורידי הריאה מחזירים דם מחומצן מהריאות לעלייה השמאלית, בעוד ורידי הגוף מחזירים דם ורידי.'
   }
-  return copy;
+];
+
+// פונקציית ערבוב פשוטה ובטוחה
+function shuffle(array) {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
 }
 
-export default function WingateExamApp() {
+export default function App() {
+  const [mounted, setMounted] = useState(false);
   const [activeModule, setActiveModule] = useState('all');
   const [questions, setQuestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -364,33 +226,26 @@ export default function WingateExamApp() {
   const [isAnswerChecked, setIsAnswerChecked] = useState(false);
   const [score, setScore] = useState(0);
   const [streak, setStreak] = useState(0);
-  const [isSpeaking, setIsSpeaking] = useState(false);
   const [showExplanation, setShowExplanation] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isClient, setIsClient] = useState(false);
 
-  // מניעת שגיאות Hydration Mismatch לחלוטין
+  // אתחול אך ורק בצד לקוח (Client Side Only) לאחר שהדפדפן נטען
   useEffect(() => {
-    setIsClient(true);
-    initModule('all');
+    setMounted(true);
+    loadModule('all');
   }, []);
 
-  const initModule = (modId = activeModule) => {
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-    }
-    
-    let base = ALL_QUESTIONS_BASE;
+  const loadModule = (modId) => {
+    let filtered = QUESTIONS_DATA;
     if (modId !== 'all') {
-      base = ALL_QUESTIONS_BASE.filter(q => q.moduleId === modId);
+      filtered = QUESTIONS_DATA.filter((q) => q.moduleId === modId);
     }
-
-    const shuffled = shuffleArray(base).map(q => ({
+    const prepared = shuffle(filtered).map((q) => ({
       ...q,
-      options: shuffleArray(q.options)
+      options: shuffle(q.options)
     }));
 
-    setQuestions(shuffled);
+    setQuestions(prepared);
     setCurrentIndex(0);
     setSelectedOption(null);
     setIsAnswerChecked(false);
@@ -399,77 +254,71 @@ export default function WingateExamApp() {
     setStreak(0);
   };
 
-  const handleModuleChange = (newMod) => {
-    setActiveModule(newMod);
-    initModule(newMod);
+  const handleModuleClick = (modId) => {
+    setActiveModule(modId);
+    loadModule(modId);
   };
 
-  const currentQ = questions[currentIndex];
-
-  const speak = (text) => {
-    if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = 'he-IL';
-    u.rate = 0.88;
-
-    u.onstart = () => setIsSpeaking(true);
-    u.onend = () => setIsSpeaking(false);
-    u.onerror = () => setIsSpeaking(false);
-
-    window.speechSynthesis.speak(u);
-  };
-
-  const speakQuestion = () => {
-    if (!currentQ) return;
-    const text = `שאלה בנושא ${currentQ.topic}. ${currentQ.questionText}. אפשרויות: ${currentQ.options.map((o, idx) => `אפשרות ${['א','ב','ג','ד'][idx]}: ${o.text}`).join('. ')}`;
-    speak(text);
+  const speakText = (text) => {
+    try {
+      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = 'he-IL';
+        u.rate = 0.9;
+        window.speechSynthesis.speak(u);
+      }
+    } catch (e) {}
   };
 
   const handleCheckAnswer = () => {
-    if (!selectedOption || isAnswerChecked || !currentQ) return;
-
-    const chosen = currentQ.options.find(o => o.id === selectedOption);
+    if (!selectedOption || isAnswerChecked) return;
+    const currentQ = questions[currentIndex];
+    const chosen = currentQ.options.find((o) => o.id === selectedOption);
     const correct = chosen?.isCorrect;
 
     setIsAnswerChecked(true);
     setShowExplanation(true);
 
     if (correct) {
-      setScore(prev => prev + 10);
-      setStreak(prev => prev + 1);
-      speak('נכון מאוד שמואל! תשובה מדויקת.');
+      setScore((s) => s + 10);
+      setStreak((s) => s + 1);
+      speakText('נכון מאוד שמואל! תשובה מדויקת.');
     } else {
       setStreak(0);
-      const right = currentQ.options.find(o => o.isCorrect)?.text;
-      speak(`לא מדויק. התשובה הנכונה היא: ${right}. שים לב להסבר.`);
+      const right = currentQ.options.find((o) => o.isCorrect)?.text;
+      speakText(`לא מדויק. התשובה הנכונה היא: ${right}.`);
     }
   };
 
   const handleNext = () => {
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-    }
+    try {
+      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    } catch (e) {}
 
     if (currentIndex < questions.length - 1) {
-      setCurrentIndex(prev => prev + 1);
+      setCurrentIndex((i) => i + 1);
       setSelectedOption(null);
       setIsAnswerChecked(false);
       setShowExplanation(false);
     } else {
-      const finalScore = score + (currentQ.options.find(o => o.id === selectedOption)?.isCorrect ? 10 : 0);
-      alert(`כל הכבוד שמואל!\nסיימת את המודול בהצלחה!\nצברת ${finalScore} נקודות מתוך ${questions.length * 10}!`);
-      initModule(activeModule);
+      alert(`כל הכבוד שמואל!\nסיימת את המבחן בהצלחה!\nצברת ${score} נקודות!`);
+      loadModule(activeModule);
     }
   };
 
-  if (!isClient || !currentQ) {
+  // מסך טעינה בטוח המונע שגיאת Client-Side Mismatch
+  if (!mounted || questions.length === 0) {
     return (
-      <main style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <p style={{ fontWeight: 'bold' }}>טוען את מאגר השאלות והתרשימים המלא...</p>
-      </main>
+      <div style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <p style={{ fontWeight: 'bold', fontSize: '18px', color: '#f59e0b' }}>טוען את אפליקציית וינגייט לשמואל...</p>
+      </div>
     );
   }
+
+  const currentQ = questions[currentIndex];
 
   return (
     <main style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#f8fafc', padding: '14px', maxWidth: '520px', margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }} dir="rtl">
@@ -482,13 +331,12 @@ export default function WingateExamApp() {
               <h1 style={{ margin: 0, fontSize: '18px', fontWeight: '900', color: '#f59e0b' }}>
                 🎓 ווינגייט קואוץ' - שמואל
               </h1>
-              <span style={{ fontSize: '11px', color: '#94a3b8' }}>תרשימים גרפיים ייעודיים והקראה קולית</span>
+              <span style={{ fontSize: '11px', color: '#94a3b8' }}>תרשימים ייעודיים והקראה קולית</span>
             </div>
 
             <button
-              onClick={() => initModule(activeModule)}
+              onClick={() => loadModule(activeModule)}
               style={{ backgroundColor: '#1e293b', color: '#fbbf24', border: '1px solid #d97706', padding: '6px 12px', borderRadius: '12px', fontSize: '12px', fontWeight: 'bold', cursor: 'pointer' }}
-              title="ערבוב מחדש של כל השאלות והתשובות"
             >
               🔄 איפוס וערבוב
             </button>
@@ -497,7 +345,7 @@ export default function WingateExamApp() {
           {/* תפריט מודולים */}
           <div style={{ display: 'flex', gap: '6px', overflowX: 'auto', paddingBottom: '6px', marginBottom: '8px' }}>
             <button
-              onClick={() => handleModuleChange('all')}
+              onClick={() => handleModuleClick('all')}
               style={{
                 backgroundColor: activeModule === 'all' ? '#f59e0b' : '#0f172a',
                 color: activeModule === 'all' ? '#020617' : '#94a3b8',
@@ -510,11 +358,11 @@ export default function WingateExamApp() {
                 cursor: 'pointer'
               }}
             >
-              🎯 כל המבחן ({ALL_QUESTIONS_BASE.length})
+              🎯 כל המבחן ({QUESTIONS_DATA.length})
             </button>
 
             <button
-              onClick={() => handleModuleChange('anat1')}
+              onClick={() => handleModuleClick('anat1')}
               style={{
                 backgroundColor: activeModule === 'anat1' ? '#f59e0b' : '#0f172a',
                 color: activeModule === 'anat1' ? '#020617' : '#94a3b8',
@@ -531,7 +379,7 @@ export default function WingateExamApp() {
             </button>
 
             <button
-              onClick={() => handleModuleChange('anat2')}
+              onClick={() => handleModuleClick('anat2')}
               style={{
                 backgroundColor: activeModule === 'anat2' ? '#f59e0b' : '#0f172a',
                 color: activeModule === 'anat2' ? '#020617' : '#94a3b8',
@@ -548,7 +396,7 @@ export default function WingateExamApp() {
             </button>
 
             <button
-              onClick={() => handleModuleChange('phys1')}
+              onClick={() => handleModuleClick('phys1')}
               style={{
                 backgroundColor: activeModule === 'phys1' ? '#f59e0b' : '#0f172a',
                 color: activeModule === 'phys1' ? '#020617' : '#94a3b8',
@@ -565,7 +413,7 @@ export default function WingateExamApp() {
             </button>
 
             <button
-              onClick={() => handleModuleChange('phys2')}
+              onClick={() => handleModuleClick('phys2')}
               style={{
                 backgroundColor: activeModule === 'phys2' ? '#f59e0b' : '#0f172a',
                 color: activeModule === 'phys2' ? '#020617' : '#94a3b8',
@@ -616,7 +464,7 @@ export default function WingateExamApp() {
           <span style={{ fontSize: '11px', color: '#38bdf8', fontWeight: 'bold' }}>תרשים מותאם אישית 📊</span>
         </div>
 
-        {/* הצגת התרשים הגרפי הייעודי מתוך הספרייה */}
+        {/* תרשים גרפי מותאם לשאלה */}
         <div 
           onClick={() => setIsModalOpen(true)}
           style={{ 
@@ -631,14 +479,14 @@ export default function WingateExamApp() {
             cursor: 'pointer' 
           }}
         >
-          {DIAGRAMS_LIBRARY[currentQ.diagramKey] || DIAGRAMS_LIBRARY.disc}
+          {DIAGRAMS_LIBRARY[currentQ.diagram] || DIAGRAMS_LIBRARY.disc}
 
           <span style={{ position: 'absolute', bottom: '6px', left: '6px', backgroundColor: 'rgba(2, 6, 23, 0.85)', color: '#fbbf24', fontSize: '10px', padding: '3px 8px', borderRadius: '6px', fontWeight: 'bold', border: '1px solid #334155' }}>
             🔍 לחץ להגדלה במסך מלא
           </span>
         </div>
 
-        {/* השאלה + כפתור הקראה קולית */}
+        {/* השאלה + כפתור הקראה */}
         <div style={{ backgroundColor: '#0b1329', border: '1px solid #1e293b', borderRadius: '14px', padding: '12px', marginBottom: '10px', position: 'relative' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
             <p style={{ margin: 0, fontSize: '14px', fontWeight: 'bold', color: '#f8fafc', lineHeight: '1.4' }}>
@@ -646,10 +494,10 @@ export default function WingateExamApp() {
             </p>
 
             <button
-              onClick={speakQuestion}
+              onClick={() => speakText(`${currentQ.questionText}. רמז: ${currentQ.hint}`)}
               style={{
-                backgroundColor: isSpeaking ? '#f59e0b' : '#9333ea',
-                color: isSpeaking ? '#020617' : '#ffffff',
+                backgroundColor: '#9333ea',
+                color: '#ffffff',
                 border: 'none',
                 borderRadius: '12px',
                 padding: '8px 12px',
@@ -657,7 +505,7 @@ export default function WingateExamApp() {
                 cursor: 'pointer',
                 flexShrink: 0
               }}
-              title="הקרא שאלה בעברית"
+              title="הקרא שאלה"
             >
               🔊
             </button>
@@ -668,7 +516,7 @@ export default function WingateExamApp() {
           </div>
         </div>
 
-        {/* 4 אפשרויות בחירה (מעורבבות) */}
+        {/* 4 אפשרויות בחירה */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '10px' }}>
           {currentQ.options.map((opt, idx) => {
             const isSelected = selectedOption === opt.id;
@@ -727,13 +575,13 @@ export default function WingateExamApp() {
           })}
         </div>
 
-        {/* הסבר מלא מתוך חוברות וינגייט */}
+        {/* הסבר מלא */}
         {showExplanation && (
           <div style={{ backgroundColor: '#0f172a', border: '1px solid #334155', borderRadius: '14px', padding: '10px', marginBottom: '10px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
               <span style={{ color: '#f59e0b', fontSize: '11px', fontWeight: 'bold' }}>📖 הסבר רשמי ומפורט:</span>
               <button
-                onClick={() => speak(currentQ.explanation)}
+                onClick={() => speakText(currentQ.explanation)}
                 style={{ backgroundColor: '#3b0764', color: '#d8b4fe', border: '1px solid #6b21a8', borderRadius: '8px', padding: '2px 6px', fontSize: '10px', cursor: 'pointer' }}
               >
                 🔊 הקרא הסבר
@@ -746,7 +594,7 @@ export default function WingateExamApp() {
         )}
       </div>
 
-      {/* כפתור פעולה תחתון */}
+      {/* כפתור בדיקה / שאלה הבאה */}
       <footer style={{ paddingTop: '6px', paddingBottom: '6px' }}>
         {!isAnswerChecked ? (
           <button
@@ -786,7 +634,7 @@ export default function WingateExamApp() {
         )}
       </footer>
 
-      {/* חלון צף להגדלת איור במסך מלא */}
+      {/* חלון צף להגדלת תרשים */}
       {isModalOpen && (
         <div 
           onClick={() => setIsModalOpen(false)}
@@ -794,7 +642,7 @@ export default function WingateExamApp() {
         >
           <div style={{ width: '100%', maxWidth: '480px', textAlign: 'center' }}>
             <div style={{ height: '260px', borderRadius: '14px', border: '2px solid #f59e0b', overflow: 'hidden' }}>
-              {DIAGRAMS_LIBRARY[currentQ.diagramKey] || DIAGRAMS_LIBRARY.disc}
+              {DIAGRAMS_LIBRARY[currentQ.diagram] || DIAGRAMS_LIBRARY.disc}
             </div>
             <p style={{ color: '#ffffff', fontSize: '13px', marginTop: '10px', fontWeight: 'bold' }}>{currentQ.title} - לחץ לסגירה ✕</p>
           </div>
