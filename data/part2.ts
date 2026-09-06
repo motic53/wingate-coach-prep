@@ -241,5 +241,85 @@ export const PART2_ANATOMY2 = [
       { id: 'd', text: 'Anconeus', isCorrect: false }
     ],
     explanation: 'עמ׳ 73, 88, 128: ה-Biceps Brachii נאחז בבליטת הרדיוס (Radial Tuberosity) ומבצע סופינציה וכפיפת מרפק; הוא אינו מתחבר לאולנה.'
+  },
+  {
+    id: 'a2_16',
+    moduleId: 'anat2',
+    topic: 'שרירי השכמה והזרוע',
+    title: 'תחל משותף ב-Coracoid Process (עמ׳ 70, 124)',
+    diagram: 'deltoid',
+    questionText: 'לאיזה זוג שרירים יש תחל (Origin) משותף בזיז ה-Coracoid של השכמה?',
+    hint: 'זיז מקור העורב בקדמת השכמה שמשמש נקודת מוצא לשני שרירי זרוע קדמיים.',
+    options: [
+      { id: 'a', text: 'הראש הקצר של Biceps Brachii ושריר ה-Coracobrachialis', isCorrect: true },
+      { id: 'b', text: 'הראש הארוך של ה-Biceps ושריר ה-Triceps', isCorrect: false },
+      { id: 'c', text: 'Deltoid ו-Trapezius', isCorrect: false },
+      { id: 'd', text: 'Brachialis ו-Brachioradialis', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 70, 88-89: זיז הקורקואיד (Coracoid process) משמש תחל לראש הקצר של הבייספס ולשריר הקורקובראכיאליס.'
+  },
+  {
+    id: 'a2_17',
+    moduleId: 'anat2',
+    topic: 'שרירי הכתף',
+    title: 'פשיטת כתף ע״י ראש ארוך של טריספס (עמ׳ 127)',
+    diagram: 'deltoid',
+    questionText: 'פשיטת כתף (Shoulder Extension) תתבצע ע״י איזה שריר זרוע?',
+    hint: 'הראש היחיד מבין שלושת ראשי פושט המרפק שחוצה גם את מפרק הכתף ומגיע עד לשכמה.',
+    options: [
+      { id: 'a', text: 'Long head of triceps (הראש הארוך של ה-Triceps Brachii)', isCorrect: true },
+      { id: 'b', text: 'Long head of biceps', isCorrect: false },
+      { id: 'c', text: 'Upper pectoralis', isCorrect: false },
+      { id: 'd', text: 'Anterior deltoid', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 90, 127: הראש הארוך של הטריספס מתחיל בשכמה (Infraglenoid tubercle) וחוצה את הכתף ולכן מבצע פשיטת כתף.'
+  },
+  {
+    id: 'a2_18',
+    moduleId: 'anat2',
+    topic: 'שרירי הירך',
+    title: 'שריר בחלק האחורי של הירך (עמ׳ 128)',
+    diagram: 'knee',
+    questionText: 'בחלק האחורי של עצם הירך נמצא השריר:',
+    hint: 'אחד משלושת שרירי ה-Hamstrings המכופפים את הברך ופושטים את הירך.',
+    options: [
+      { id: 'a', text: 'Semitendinosus (מקבוצת ההמסטרינגס)', isCorrect: true },
+      { id: 'b', text: 'Transversus abdominis', isCorrect: false },
+      { id: 'c', text: 'Gluteus minimus', isCorrect: false },
+      { id: 'd', text: 'Rectus femoris', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 109, 128: ה-Semitendinosus נמצא במדור האחורי של הירך יחד עם Semimembranosus ו-Biceps Femoris.'
+  },
+  {
+    id: 'a2_19',
+    moduleId: 'anat2',
+    topic: 'שרירי הכתף',
+    title: 'הרחקה אופקית של הכתף (עמ׳ 128)',
+    diagram: 'deltoid',
+    questionText: 'הרחקה אופקית (Horizontal Abduction) של הכתף מבוצעת ע״י:',
+    hint: 'החלק של שריר הכתף שנמצא מאחור (Posterior) ומושך את המרפקים לאחור.',
+    options: [
+      { id: 'a', text: 'Posterior Deltoid (דלתואיד אחורי)', isCorrect: true },
+      { id: 'b', text: 'Middle deltoid', isCorrect: false },
+      { id: 'c', text: 'Pectoralis major', isCorrect: false },
+      { id: 'd', text: 'Biceps brachii', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 81, 128: הדלתואיד האחורי יוצא מעצם השכמה ונאחז בזרוע, ומושך אותה לאחור במישור האופקי.'
+  },
+  {
+    id: 'a2_20',
+    moduleId: 'anat2',
+    topic: 'שרירי השכמה',
+    title: 'צמד כוחות בסיבוב שכמה (עמ׳ 78)',
+    diagram: 'deltoid',
+    questionText: 'איזה שריר עובד כ"צמד כוחות" (Couple Force) לביצוע סיבוב מעלה של השכמה יחד עם הסרטוס?',
+    hint: 'שריר בצורת יהלום בגב העליון שחלקו העליון מושך מעלה וחלקו התחתון מושך מטה.',
+    options: [
+      { id: 'a', text: 'שריר הטרפז (Trapezius) - חלק עליון ותחתון יחד', isCorrect: true },
+      { id: 'b', text: 'הרומבואידים בלבד', isCorrect: false },
+      { id: 'c', text: 'הישר הבטני', isCorrect: false },
+      { id: 'd', text: 'הדלתואיד האחורי', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 78: הסיבים העליונים של הטרפז מושכים מעלה והתחתונים מושכים מטה, ויחד עם הסרטוס מסובבים את השכמה מעלה בעת הרמת היד מעל הראש.'
   }
 ];
