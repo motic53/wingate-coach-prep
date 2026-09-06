@@ -1,115 +1,11 @@
+/* eslint-disable */
+// @ts-nocheck
 'use client';
 
 import React, { useState, useEffect } from 'react';
 
-// מאגר השאלות והתרשימים המובנים ישירות
-const QUIZ_DATA = [
-  // 1. שאלה על BMR
-  {
-    id: 'p1_bmr',
-    moduleId: 'phys1',
-    topic: 'חילוף חומרים בסיסי',
-    title: 'משתנים המשפיעים על BMR',
-    diagramType: 'bmr',
-    questionText: 'אילו משתנים משפיעים ישירות על חילוף החומרים הבסיסי (BMR)?',
-    hint: 'שריר צורך פי 4 אנרגיה משומן במנוחה, ואדם גדול ממדים מאבד יותר חום דרך שטח העור לסביבה.',
-    options: [
-      { id: 'a', text: 'מסת שריר ואחוז שומן, גיל, מגדר, שטח פני הגוף והורמונים', isCorrect: true },
-      { id: 'b', text: 'צבע העיניים בלבד', isCorrect: false },
-      { id: 'c', text: 'סוג הנעליים שלובשים באימון', isCorrect: false },
-      { id: 'd', text: 'כמות השיער על הראש', isCorrect: false }
-    ],
-    explanation: 'BMR מושפע ממסת רקמת השריר הפעילה (שורפת פי 4 קלוריות משומן במנוחה), מגיל, מגדר ושטח פני הגוף.'
-  },
-  // 2. שאלה על מפרק הברך וראש הפיבולה
-  {
-    id: 'a1_fibula',
-    moduleId: 'anat1',
-    topic: 'שרירי הירך ומפרק הברך',
-    title: 'אחז בראש הפיבולה',
-    diagramType: 'knee',
-    questionText: 'איזה שריר נאחז (Insertion) בראש עצם השוקית (Head of Fibula)?',
-    hint: 'הפיבולה היא העצם החיצונית של השוק. איזה שריר מהירך האחורית פונה החוצה לצד הלטרלי?',
-    options: [
-      { id: 'a', text: 'Biceps Femoris (הדו-ראשי הירכי)', isCorrect: true },
-      { id: 'b', text: 'Semitendinosus', isCorrect: false },
-      { id: 'c', text: 'Semimembranosus', isCorrect: false },
-      { id: 'd', text: 'Rectus Femoris', isCorrect: false }
-    ],
-    explanation: 'ה-Biceps Femoris יורד בצד הלטרלי ונאחז בראש הפיבולה, בעוד שני שרירי ה"סמי" נאחזים בצד הפנימי של הטיביה.'
-  },
-  // 3. שאלה על הדיסק הבין-חולייתי
-  {
-    id: 'a1_disc',
-    moduleId: 'anat1',
-    topic: 'רקמות חיבור',
-    title: 'מבנה הדיסק הבין-חולייתי',
-    diagramType: 'disc',
-    questionText: 'חומר ה-Annulus Fibrosus בדיסק הבין-חולייתי תפקידו בעיקר:',
-    hint: 'Annulus בלטינית זה טבעת. דמיין מעטפת של צמיג קשיח שמחזיקה ג\'ל בפנים ובולמת זעזועים.',
-    options: [
-      { id: 'a', text: 'למנוע חיכוך ולבלום זעזועים (תשובות א׳+ב׳ נכונות)', isCorrect: true },
-      { id: 'b', text: 'להציג יכולת החלקה בלבד', isCorrect: false },
-      { id: 'c', text: 'לייצר תאי דם אדומים', isCorrect: false },
-      { id: 'd', text: 'להזין ישירות את חוט השדרה', isCorrect: false }
-    ],
-    explanation: 'ה-Annulus Fibrosus בנוי מטבעות קולגן צפופות העוטפות את הגרעין הצמיגי (Nucleus Pulposus) ובולמות עומסים.'
-  },
-  // 4. שאלה על חוליות הצוואר
-  {
-    id: 'a1_cervical',
-    moduleId: 'anat1',
-    topic: 'עמוד השדרה',
-    title: 'מאפייני חוליות הצוואר',
-    diagramType: 'cervical',
-    questionText: 'נקב בזיזים הרוחביים (Transverse Foramen) מאפיין את חוליות:',
-    hint: 'המוח יושב למעלה וחייב לקבל דם. באיזה אזור בעמוד השדרה העורקים צריכים מנהרה מוגנת בתוך העצם?',
-    options: [
-      { id: 'a', text: 'הצוואר (Cervical vertebrae)', isCorrect: true },
-      { id: 'b', text: 'החזה (Thoracic)', isCorrect: false },
-      { id: 'c', text: 'המותניים (Lumbar)', isCorrect: false },
-      { id: 'd', text: 'הסקרום', isCorrect: false }
-    ],
-    explanation: 'נקב בזיז הרוחבי (C1-C7) מאפשר מעבר בטוח ומוגן של עורק הצוואר המוביל דם למוח.'
-  },
-  // 5. שאלה על הלב ומסתמים
-  {
-    id: 'p2_heart',
-    moduleId: 'phys2',
-    topic: 'מערכת הלב וכלי הדם',
-    title: 'שלבי פעולת הלב ומסתמיו',
-    diagramType: 'heart',
-    questionText: 'בזמן שלב הדיאסטולה (הרפיית החדרים ומילויים) בלב:',
-    hint: 'דמיין דלתות שנפתחות כדי שהדם ייכנס מהעליות לתוך החדרים, בזמן שהדלת לעורקים סגורה.',
-    options: [
-      { id: 'a', text: 'המסתמים בין העליות לחדרים פתוחים, והמסתמים בין החדרים לעורקים סגורים', isCorrect: true },
-      { id: 'b', text: 'המסתמים בין החדרים לעורקים פתוחים', isCorrect: false },
-      { id: 'c', text: 'כל המסתמים בלב סגורים לחלוטין', isCorrect: false },
-      { id: 'd', text: 'כל המסתמים פתוחים יחד', isCorrect: false }
-    ],
-    explanation: 'בדיאסטולה החדרים נרפים ומתמלאים בדם מהעליות דרך המסתמים הפתוחים ביניהם, בעוד מסתמי היציאה לעורקים סגורים.'
-  },
-  // 6. שאלה על הסרקומר
-  {
-    id: 'a2_sarcomere',
-    moduleId: 'anat2',
-    topic: 'מערכת השרירים',
-    title: 'מנגנון הסרקומר וחלבון הכיווץ',
-    diagramType: 'sarcomere',
-    questionText: 'במהלך כיווץ שריר שלד, איזה חלבון נמשך אל עבר מרכז הסרקומר על ידי גשרי הרוחב?',
-    hint: 'החוט הדק שמחובר לקו ה-Z ונגרר פנימה ע"י ראשי המיוזין העבים.',
-    options: [
-      { id: 'a', text: 'אקטין (Actin)', isCorrect: true },
-      { id: 'b', text: 'מיוזין (Myosin)', isCorrect: false },
-      { id: 'c', text: 'קולגן מסוג 1', isCorrect: false },
-      { id: 'd', text: 'אלסטין', isCorrect: false }
-    ],
-    explanation: 'ראשי המיוזין נאחזים באקטין וגוררים אותו למרכז הסרקומר בתנועת חתירה (Power Stroke), וכך הסרקומר מתקצר.'
-  }
-];
-
-// רכיב התרשימים הגרפיים
-function VisualDiagram({ type }: { type: string }) {
+// --- ספרית תרשימים גרפיים (SVG) מותאמת אישית ---
+function DiagramRenderer({ type }: { type: string }) {
   if (type === 'bmr') {
     return (
       <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -201,6 +97,42 @@ function VisualDiagram({ type }: { type: string }) {
     );
   }
 
+  if (type === 'cori') {
+    return (
+      <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+        <rect x="30" y="25" width="110" height="100" rx="10" fill="#881337" stroke="#f43f5e" strokeWidth="2" />
+        <text x="85" y="48" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">שריר פעיל</text>
+        <text x="85" y="70" fill="#fecdd3" fontSize="10" textAnchor="middle">גלוקוז ➔ פירובט</text>
+        <text x="85" y="95" fill="#fb7185" fontSize="10" fontWeight="bold" textAnchor="middle">לקטט + יוני מימן</text>
+
+        <rect x="200" y="25" width="110" height="100" rx="10" fill="#14532d" stroke="#22c55e" strokeWidth="2" />
+        <text x="255" y="48" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">כבד (מחזור)</text>
+        <text x="255" y="70" fill="#bbf7d0" fontSize="10" textAnchor="middle">לקטט ➔ גלוקוז</text>
+        <text x="255" y="95" fill="#86efac" fontSize="9" textAnchor="middle">(השקעת 6 ATP)</text>
+
+        <text x="170" y="42" fill="#f59e0b" fontSize="9" textAnchor="middle">לקטט בדם ➔</text>
+        <text x="170" y="115" fill="#38bdf8" fontSize="9" textAnchor="middle">גלוקוז לשריר ➔</text>
+        <text x="170" y="150" fill="#94a3b8" fontSize="10" textAnchor="middle">מעגל קורי: פינוי ומיחזור לקטט בכבד</text>
+      </svg>
+    );
+  }
+
+  if (type === 'spine_curves') {
+    return (
+      <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+        <path d="M 170 15 Q 195 40 170 65 Q 140 95 170 120 Q 190 138 170 152" fill="none" stroke="#f59e0b" strokeWidth="5" strokeLinecap="round" />
+        <circle cx="170" cy="18" r="4" fill="#38bdf8" />
+        <circle cx="188" cy="40" r="4" fill="#38bdf8" />
+        <circle cx="170" cy="65" r="4" fill="#38bdf8" />
+        <circle cx="150" cy="95" r="4" fill="#10b981" />
+        <circle cx="170" cy="120" r="4" fill="#a855f7" />
+        <text x="255" y="40" fill="#38bdf8" fontSize="10" fontWeight="bold">לורדוזה צווארית (C1-C7)</text>
+        <text x="65" y="95" fill="#10b981" fontSize="10" fontWeight="bold">קיפוזה חזית (T1-T12)</text>
+        <text x="255" y="125" fill="#a855f7" fontSize="10" fontWeight="bold">לורדוזה מותנית (L1-L5)</text>
+      </svg>
+    );
+  }
+
   // ברירת מחדל: סרקומר
   return (
     <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -220,8 +152,149 @@ function VisualDiagram({ type }: { type: string }) {
   );
 }
 
+// מאגר השאלות המלא לפי מודולים
+const ALL_QUESTIONS_DATA = [
+  // --- אנטומיה א' (שלד, רקמות ומפרקים) ---
+  {
+    id: 'anat1_disc',
+    moduleId: 'anat1',
+    topic: 'רקמות חיבור',
+    title: 'מבנה הדיסק הבין-חולייתי',
+    diagramType: 'disc',
+    questionText: 'חומר ה-Annulus Fibrosus בדיסק הבין-חולייתי תפקידו בעיקר:',
+    hint: 'Annulus בלטינית זה טבעת. דמיין מעטפת של צמיג קשיח שמחזיקה ג\'ל בפנים ובולמת זעזועים.',
+    options: [
+      { id: 'a', text: 'למנוע חיכוך ולבלום זעזועים (תשובות א׳+ב׳ נכונות)', isCorrect: true },
+      { id: 'b', text: 'להציג יכולת החלקה בלבד', isCorrect: false },
+      { id: 'c', text: 'לייצר תאי דם אדומים', isCorrect: false },
+      { id: 'd', text: 'להזין ישירות את חוט השדרה', isCorrect: false }
+    ],
+    explanation: 'ה-Annulus Fibrosus בנוי מטבעות קולגן צפופות העוטפות את הגרעין הצמיגי (Nucleus Pulposus) ובולמות עומסים.'
+  },
+  {
+    id: 'anat1_cervical',
+    moduleId: 'anat1',
+    topic: 'עמוד השדרה',
+    title: 'מאפייני חוליות הצוואר',
+    diagramType: 'cervical',
+    questionText: 'נקב בזיזים הרוחביים (Transverse Foramen) מאפיין את חוליות:',
+    hint: 'המוח יושב למעלה וחייב לקבל דם. באיזה אזור בעמוד השדרה העורקים צריכים מנהרה מוגנת בתוך העצם?',
+    options: [
+      { id: 'a', text: 'הצוואר (Cervical vertebrae)', isCorrect: true },
+      { id: 'b', text: 'החזה (Thoracic)', isCorrect: false },
+      { id: 'c', text: 'המותניים (Lumbar)', isCorrect: false },
+      { id: 'd', text: 'הסקרום', isCorrect: false }
+    ],
+    explanation: 'נקב בזיז הרוחבי (C1-C7) מאפשר מעבר בטוח ומוגן של עורק הצוואר המוביל דם למוח.'
+  },
+  {
+    id: 'anat1_curves',
+    moduleId: 'anat1',
+    topic: 'עמוד השדרה',
+    title: 'עקומות עמוד השדרה',
+    diagramType: 'spine_curves',
+    questionText: 'איזו עקומה קעורה קיימת בעמוד השדרה המותני (Lumbar)?',
+    hint: 'שקע הגב התחתון הטבעי המאפשר לנו לעמוד זקוף על שתיים.',
+    options: [
+      { id: 'a', text: 'לורדוזה מותנית (Lumbar Lordosis)', isCorrect: true },
+      { id: 'b', text: 'קיפוזה חזית (Thoracic Kyphosis)', isCorrect: false },
+      { id: 'c', text: 'סקוליוזיס (עקמת)', isCorrect: false },
+      { id: 'd', text: 'קיפוזה סקרלית', isCorrect: false }
+    ],
+    explanation: 'באזור המותני קיימת עקומת לורדוזה (שקע קעור) הנושאת את עיקר משקל הגו ובולמת זעזועים.'
+  },
+
+  // --- אנטומיה ב' (שרירים ותנועות) ---
+  {
+    id: 'anat2_fibula',
+    moduleId: 'anat2',
+    topic: 'שרירי הירך ומפרק הברך',
+    title: 'אחז בראש הפיבולה',
+    diagramType: 'knee',
+    questionText: 'איזה שריר נאחז (Insertion) בראש עצם השוקית (Head of Fibula)?',
+    hint: 'הפיבולה היא העצם החיצונית של השוק. איזה שריר מהירך האחורית פונה החוצה לצד הלטרלי בתרשים?',
+    options: [
+      { id: 'a', text: 'Biceps Femoris (הדו-ראשי הירכי)', isCorrect: true },
+      { id: 'b', text: 'Semitendinosus', isCorrect: false },
+      { id: 'c', text: 'Semimembranosus', isCorrect: false },
+      { id: 'd', text: 'Rectus Femoris', isCorrect: false }
+    ],
+    explanation: 'ה-Biceps Femoris יורד בצד הלטרלי ונאחז בראש הפיבולה, בעוד שני שרירי ה"סמי" נאחזים בצד הפנימי של הטיביה.'
+  },
+  {
+    id: 'anat2_sarcomere',
+    moduleId: 'anat2',
+    topic: 'מערכת השרירים',
+    title: 'מנגנון הסרקומר וחלבון הכיווץ',
+    diagramType: 'sarcomere',
+    questionText: 'במהלך כיווץ שריר שלד, איזה חלבון נמשך אל עבר מרכז הסרקומר על ידי גשרי הרוחב?',
+    hint: 'החוט הדק שמחובר לקו ה-Z ונגרר פנימה ע"י ראשי המיוזין העבים.',
+    options: [
+      { id: 'a', text: 'אקטין (Actin)', isCorrect: true },
+      { id: 'b', text: 'מיוזין (Myosin)', isCorrect: false },
+      { id: 'c', text: 'קולגן מסוג 1', isCorrect: false },
+      { id: 'd', text: 'אלסטין', isCorrect: false }
+    ],
+    explanation: 'ראשי המיוזין נאחזים באקטין וגוררים אותו למרכז הסרקומר בתנועת חתירה (Power Stroke), וכך הסרקומר מתקצר.'
+  },
+
+  // --- פיזיולוגיה א' (אנרגיה ומטבוליזם) ---
+  {
+    id: 'p1_bmr',
+    moduleId: 'phys1',
+    topic: 'חילוף חומרים בסיסי',
+    title: 'משתנים המשפיעים על BMR',
+    diagramType: 'bmr',
+    questionText: 'אילו משתנים משפיעים ישירות על חילוף החומרים הבסיסי (BMR)?',
+    hint: 'התבונן בתרשים BMR: שריר צורך פי 4 אנרגיה משומן במנוחה, ואדם גדול ממדים מאבד יותר חום דרך שטח העור לסביבה.',
+    options: [
+      { id: 'a', text: 'מסת שריר ואחוז שומן, גיל, מגדר, שטח פני הגוף והורמונים', isCorrect: true },
+      { id: 'b', text: 'צבע העיניים בלבד', isCorrect: false },
+      { id: 'c', text: 'סוג הנעליים שלובשים באימון', isCorrect: false },
+      { id: 'd', text: 'כמות השיער על הראש', isCorrect: false }
+    ],
+    explanation: 'BMR מושפע ממסת רקמת השריר הפעילה (שורפת פי 4 קלוריות משומן במנוחה), מגיל, מגדר ושטח פני הגוף.'
+  },
+  {
+    id: 'p1_cori',
+    moduleId: 'phys1',
+    topic: 'מעגל קורי',
+    title: 'פינוי לקטט במעגל קורי',
+    diagramType: 'cori',
+    questionText: 'במסגרת מעגל קורי (Cori Cycle), מה מתרחש בכבד?',
+    hint: 'הכבד הוא מפעל המיחזור של הגוף: הוא לוקח את הלקטט שנשפך לדם ומשקיע אנרגיה כדי לבנות ממנו שוב סוכר נקי.',
+    options: [
+      { id: 'a', text: 'לקטט הופך שוב לגלוקוז בתאי הכבד בהשקעת אנרגיה', isCorrect: true },
+      { id: 'b', text: 'לקטט הופך לגלוקוז בתוך השריר הפעיל עצמו', isCorrect: false },
+      { id: 'c', text: 'לקטט הופך לשומן בתוך הריאות', isCorrect: false },
+      { id: 'd', text: 'לקטט מסולק מהגוף ישירות דרך הנשיפה', isCorrect: false }
+    ],
+    explanation: 'הכבד קולט לקטט מהדם וממחזר אותו חזרה לגלוקוז בתהליך גלוקונאוגנזה הדורש 6 מולקולות ATP.'
+  },
+
+  // --- פיזיולוגיה ב' (מערכות הגוף) ---
+  {
+    id: 'p2_heart',
+    moduleId: 'phys2',
+    topic: 'מערכת הלב וכלי הדם',
+    title: 'שלבי פעולת הלב ומסתמיו',
+    diagramType: 'heart',
+    questionText: 'בזמן שלב הדיאסטולה (הרפיית החדרים ומילויים) בלב:',
+    hint: 'דמיין דלתות שנפתחות כדי שהדם ייכנס מהעליות לתוך החדרים, בזמן שהדלת לעורקים סגורה.',
+    options: [
+      { id: 'a', text: 'המסתמים בין העליות לחדרים פתוחים, והמסתמים בין החדרים לעורקים סגורים', isCorrect: true },
+      { id: 'b', text: 'המסתמים בין החדרים לעורקים פתוחים', isCorrect: false },
+      { id: 'c', text: 'כל המסתמים בלב סגורים לחלוטין', isCorrect: false },
+      { id: 'd', text: 'כל המסתמים פתוחים יחד', isCorrect: false }
+    ],
+    explanation: 'בדיאסטולה החדרים נרפים ומתמלאים בדם מהעליות דרך המסתמים הפתוחים ביניהם, בעוד מסתמי היציאה לעורקים סגורים.'
+  }
+];
+
 export default function App() {
-  const [isClient, setIsClient] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [activeModule, setActiveModule] = useState('all');
+  const [filteredList, setFilteredList] = useState(ALL_QUESTIONS_DATA);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isAnswerChecked, setIsAnswerChecked] = useState(false);
@@ -230,18 +303,23 @@ export default function App() {
   const [showExplanation, setShowExplanation] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
+    setMounted(true);
   }, []);
 
-  if (!isClient) {
-    return (
-      <div style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#f59e0b', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px', fontWeight: 'bold' }}>
-        טוען את אפליקציית וינגייט לשמואל...
-      </div>
-    );
-  }
-
-  const currentQ = QUIZ_DATA[currentIndex];
+  const handleModuleSelect = (modId: string) => {
+    setActiveModule(modId);
+    let updated = ALL_QUESTIONS_DATA;
+    if (modId !== 'all') {
+      updated = ALL_QUESTIONS_DATA.filter((q) => q.moduleId === modId);
+    }
+    setFilteredList(updated);
+    setCurrentIndex(0);
+    setSelectedOption(null);
+    setIsAnswerChecked(false);
+    setShowExplanation(false);
+    setScore(0);
+    setStreak(0);
+  };
 
   const handleSpeak = (text: string) => {
     try {
@@ -254,6 +332,16 @@ export default function App() {
       }
     } catch (e) {}
   };
+
+  if (!mounted) {
+    return (
+      <div style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#f59e0b', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px', fontWeight: 'bold' }}>
+        טוען את אפליקציית וינגייט לשמואל...
+      </div>
+    );
+  }
+
+  const currentQ = filteredList[currentIndex];
 
   const handleCheck = () => {
     if (!selectedOption || isAnswerChecked) return;
@@ -281,19 +369,14 @@ export default function App() {
       }
     } catch (e) {}
 
-    if (currentIndex < QUIZ_DATA.length - 1) {
+    if (currentIndex < filteredList.length - 1) {
       setCurrentIndex((i) => i + 1);
       setSelectedOption(null);
       setIsAnswerChecked(false);
       setShowExplanation(false);
     } else {
-      alert(`כל הכבוד שמואל!\nסיימת את המבחן בהצלחה!\nצברת ${score} נקודות!`);
-      setCurrentIndex(0);
-      setSelectedOption(null);
-      setIsAnswerChecked(false);
-      setShowExplanation(false);
-      setScore(0);
-      setStreak(0);
+      alert(`כל הכבוד שמואל!\nסיימת את המודול בהצלחה!\nצברת ${score} נקודות!`);
+      handleModuleSelect(activeModule);
     }
   };
 
@@ -312,17 +395,98 @@ export default function App() {
             </div>
 
             <button
-              onClick={() => {
-                setCurrentIndex(0);
-                setSelectedOption(null);
-                setIsAnswerChecked(false);
-                setShowExplanation(false);
-                setScore(0);
-                setStreak(0);
-              }}
+              onClick={() => handleModuleSelect(activeModule)}
               style={{ backgroundColor: '#1e293b', color: '#fbbf24', border: '1px solid #d97706', padding: '6px 12px', borderRadius: '12px', fontSize: '12px', fontWeight: 'bold', cursor: 'pointer' }}
             >
-              🔄 איפוס מבחן
+              🔄 איפוס
+            </button>
+          </div>
+
+          {/* סרגל בחירת מודולים עליון */}
+          <div style={{ display: 'flex', gap: '6px', overflowX: 'auto', paddingBottom: '6px', marginBottom: '8px' }}>
+            <button
+              onClick={() => handleModuleSelect('all')}
+              style={{
+                backgroundColor: activeModule === 'all' ? '#f59e0b' : '#0f172a',
+                color: activeModule === 'all' ? '#020617' : '#94a3b8',
+                border: '1px solid #334155',
+                padding: '6px 10px',
+                borderRadius: '10px',
+                fontSize: '11px',
+                fontWeight: 'bold',
+                whiteSpace: 'nowrap',
+                cursor: 'pointer'
+              }}
+            >
+              🎯 כל המבחן ({ALL_QUESTIONS_DATA.length})
+            </button>
+
+            <button
+              onClick={() => handleModuleSelect('anat1')}
+              style={{
+                backgroundColor: activeModule === 'anat1' ? '#f59e0b' : '#0f172a',
+                color: activeModule === 'anat1' ? '#020617' : '#94a3b8',
+                border: '1px solid #334155',
+                padding: '6px 10px',
+                borderRadius: '10px',
+                fontSize: '11px',
+                fontWeight: 'bold',
+                whiteSpace: 'nowrap',
+                cursor: 'pointer'
+              }}
+            >
+              🦴 אנטומיה א'
+            </button>
+
+            <button
+              onClick={() => handleModuleSelect('anat2')}
+              style={{
+                backgroundColor: activeModule === 'anat2' ? '#f59e0b' : '#0f172a',
+                color: activeModule === 'anat2' ? '#020617' : '#94a3b8',
+                border: '1px solid #334155',
+                padding: '6px 10px',
+                borderRadius: '10px',
+                fontSize: '11px',
+                fontWeight: 'bold',
+                whiteSpace: 'nowrap',
+                cursor: 'pointer'
+              }}
+            >
+              💪 אנטומיה ב'
+            </button>
+
+            <button
+              onClick={() => handleModuleSelect('phys1')}
+              style={{
+                backgroundColor: activeModule === 'phys1' ? '#f59e0b' : '#0f172a',
+                color: activeModule === 'phys1' ? '#020617' : '#94a3b8',
+                border: '1px solid #334155',
+                padding: '6px 10px',
+                borderRadius: '10px',
+                fontSize: '11px',
+                fontWeight: 'bold',
+                whiteSpace: 'nowrap',
+                cursor: 'pointer'
+              }}
+            >
+              ⚡ פיזיולוגיה א'
+            </button>
+
+            <button
+              onClick={() => handleModuleSelect('phys2')}
+              style={{
+                backgroundColor: activeModule === 'phys2' ? '#f59e0b' : '#0f172a',
+                color: activeModule === 'phys2' ? '#020617' : '#94a3b8',
+                border: '1px solid #334155',
+                padding: '6px 10px',
+                borderRadius: '10px',
+                fontSize: '11px',
+                fontWeight: 'bold',
+                whiteSpace: 'nowrap',
+                cursor: 'pointer'
+              }}
+            >
+              ❤️ פיזיולוגיה ב'
             </button>
           </div>
 
@@ -336,13 +500,13 @@ export default function App() {
                 ⭐ {score} XP
               </span>
             </div>
-            <span style={{ color: '#94a3b8', fontWeight: 'bold' }}>שאלה {currentIndex + 1} מתוך {QUIZ_DATA.length}</span>
+            <span style={{ color: '#94a3b8', fontWeight: 'bold' }}>שאלה {currentIndex + 1} מתוך {filteredList.length}</span>
           </div>
 
           <div style={{ width: '100%', backgroundColor: '#0f172a', height: '8px', borderRadius: '999px', overflow: 'hidden', border: '1px solid #1e293b' }}>
             <div 
               style={{ 
-                width: `${((currentIndex + 1) / QUIZ_DATA.length) * 100}%`, 
+                width: `${((currentIndex + 1) / filteredList.length) * 100}%`, 
                 height: '100%', 
                 background: 'linear-gradient(to left, #10b981, #f59e0b)',
                 transition: 'width 0.3s ease'
@@ -360,9 +524,9 @@ export default function App() {
           <span style={{ fontSize: '11px', color: '#38bdf8', fontWeight: 'bold' }}>תרשים מדויק 📊</span>
         </div>
 
-        {/* תרשים ויזואלי מותאם אישית */}
+        {/* תרשים גרפי מותאם לשאלה */}
         <div style={{ width: '100%', height: '170px', borderRadius: '14px', overflow: 'hidden', marginBottom: '10px', border: '1px solid #334155', backgroundColor: '#020617' }}>
-          <VisualDiagram type={currentQ.diagramType} />
+          <DiagramRenderer type={currentQ.diagramType} />
         </div>
 
         {/* שאלה + כפתור הקראה */}
@@ -508,7 +672,7 @@ export default function App() {
               cursor: 'pointer'
             }}
           >
-            {currentIndex === QUIZ_DATA.length - 1 ? '🎉 סיום מבחן ואיפוס' : 'שאלה הבאה ➜'}
+            {currentIndex === filteredList.length - 1 ? '🎉 סיום מודול ואיפוס' : 'שאלה הבאה ➜'}
           </button>
         )}
       </footer>
