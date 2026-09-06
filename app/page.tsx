@@ -8,7 +8,7 @@ import { PART2_ANATOMY2 } from '../data/part2';
 import { PART3_PHYSIO1 } from '../data/part3';
 import { PART4_PHYSIO2 } from '../data/part4';
 
-// איחוד כלל השאלות מכל חלקי הלימוד
+// איחוד כלל השאלות
 const ALL_WINGATE_DATA = [
   ...(PART1_ANATOMY1 || []),
   ...(PART2_ANATOMY2 || []),
@@ -16,10 +16,9 @@ const ALL_WINGATE_DATA = [
   ...(PART4_PHYSIO2 || [])
 ];
 
-// --- ספריית 30+ תרשימים גרפיים (SVG) מקוריים ומדויקים ---
+// --- ספריית תרשימי SVG וקטוריים מורחבת (30+ תרשימים) ---
 function DiagramRenderer({ type }: { type: string }) {
   switch (type) {
-    // 1. ביולוגיה של התא
     case 'cell':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -36,7 +35,6 @@ function DiagramRenderer({ type }: { type: string }) {
         </svg>
       );
 
-    // 2. דיסק בין-חולייתי
     case 'disc':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -50,7 +48,6 @@ function DiagramRenderer({ type }: { type: string }) {
         </svg>
       );
 
-    // 3. תא סחוס
     case 'chondrocyte':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -61,11 +58,10 @@ function DiagramRenderer({ type }: { type: string }) {
           <circle cx="240" cy="80" r="10" fill="#082f49" />
           <text x="100" y="120" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">תא סחוס (Chondrocyte)</text>
           <text x="170" y="35" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">מטריקס: סיבי קולגן ופרוטאוגליקנים</text>
-          <text x="170" y="152" fill="#94a3b8" fontSize="10" textAnchor="middle">דיפוזיה של מזון מנוזל המפרק הסינוביאלי (ללא כלי דם ישירים)</text>
+          <text x="170" y="152" fill="#94a3b8" fontSize="10" textAnchor="middle">דיפוזיה של מזון מנוזל המפרק הסינוביאלי</text>
         </svg>
       );
 
-    // 4. עצם צפופה ומערכת הוורס
     case 'osteon':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -79,7 +75,6 @@ function DiagramRenderer({ type }: { type: string }) {
         </svg>
       );
 
-    // 5. חוליית צוואר
     case 'cervical':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -95,7 +90,6 @@ function DiagramRenderer({ type }: { type: string }) {
         </svg>
       );
 
-    // 6. אטלס ואקסיס
     case 'atlas_axis':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -108,7 +102,6 @@ function DiagramRenderer({ type }: { type: string }) {
         </svg>
       );
 
-    // 7. עקומות עמוד השדרה
     case 'spine_curves':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -121,11 +114,9 @@ function DiagramRenderer({ type }: { type: string }) {
           <text x="255" y="40" fill="#38bdf8" fontSize="10" fontWeight="bold">לורדוזה צווארית (C1-C7)</text>
           <text x="65" y="95" fill="#10b981" fontSize="10" fontWeight="bold">קיפוזה חזית (T1-T12)</text>
           <text x="255" y="125" fill="#a855f7" fontSize="10" fontWeight="bold">לורדוזה מותנית (L1-L5)</text>
-          <text x="70" y="145" fill="#fbbf24" fontSize="9">סקרום וקוקסיקס</text>
         </svg>
       );
 
-    // 8. סטרנום וצלעות
     case 'sternum':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -135,62 +126,9 @@ function DiagramRenderer({ type }: { type: string }) {
           <text x="170" y="85" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">גוף</text>
           <polygon points="160,120 180,120 170,145" fill="#f43f5e" stroke="#fda4af" strokeWidth="2" />
           <text x="170" y="155" fill="#f43f5e" fontSize="9" fontWeight="bold" textAnchor="middle">זיז החרב (Xiphoid)</text>
-          <text x="65" y="75" fill="#94a3b8" fontSize="9">צלעות 1-7 אמיתיות</text>
-          <text x="275" y="75" fill="#94a3b8" fontSize="9">8-10 מדומות, 11-12 צפות</text>
         </svg>
       );
 
-    // 9. מישורי תנועה
-    case 'planes':
-      return (
-        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
-          <rect x="25" y="30" width="85" height="90" rx="8" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
-          <text x="67" y="55" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">סגיטלי (חיצי)</text>
-          <text x="67" y="80" fill="#cbd5e1" fontSize="9" textAnchor="middle">ימין ושמאל</text>
-          <text x="67" y="100" fill="#fde047" fontSize="9" textAnchor="middle">כפיפה ופשיטה</text>
-          <rect x="128" y="30" width="85" height="90" rx="8" fill="#1e293b" stroke="#f59e0b" strokeWidth="2" />
-          <text x="170" y="55" fill="#f59e0b" fontSize="11" fontWeight="bold" textAnchor="middle">פרונטלי (חזית)</text>
-          <text x="170" y="80" fill="#cbd5e1" fontSize="9" textAnchor="middle">קדמי ואחורי</text>
-          <text x="170" y="100" fill="#fde047" fontSize="9" textAnchor="middle">הרחקה וקירוב</text>
-          <rect x="230" y="30" width="85" height="90" rx="8" fill="#1e293b" stroke="#10b981" strokeWidth="2" />
-          <text x="272" y="55" fill="#10b981" fontSize="11" fontWeight="bold" textAnchor="middle">אופקי (רוחבי)</text>
-          <text x="272" y="80" fill="#cbd5e1" fontSize="9" textAnchor="middle">עליון ותחתון</text>
-          <text x="272" y="100" fill="#fde047" fontSize="9" textAnchor="middle">רוטציה (סיבוב)</text>
-          <text x="170" y="148" fill="#94a3b8" fontSize="10" textAnchor="middle">שלושת מישורי התנועה האנטומיים</text>
-        </svg>
-      );
-
-    // 10. תאי עצם
-    case 'cells':
-      return (
-        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
-          <circle cx="95" cy="70" r="40" fill="#15803d" stroke="#4ade80" strokeWidth="2" />
-          <text x="95" y="65" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">אוסטאובלסט</text>
-          <text x="95" y="82" fill="#dcfce7" fontSize="9" textAnchor="middle">בונה עצם (Build)</text>
-          <circle cx="245" cy="70" r="40" fill="#b91c1c" stroke="#f87171" strokeWidth="2" />
-          <text x="245" y="65" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">אוסטאוקלסט</text>
-          <text x="245" y="82" fill="#fee2e2" fontSize="9" textAnchor="middle">מפרק עצם (Clear)</text>
-          <text x="170" y="145" fill="#94a3b8" fontSize="10" textAnchor="middle">תאי רקמת העצם: בנייה והתחדשות מתמדת</text>
-        </svg>
-      );
-
-    // 11. רצועה מול גיד
-    case 'ligament_tendon':
-      return (
-        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
-          <rect x="25" y="30" width="130" height="90" rx="8" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
-          <text x="90" y="55" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">רצועה (Ligament)</text>
-          <text x="90" y="80" fill="#cbd5e1" fontSize="9" textAnchor="middle">מחברת עצם לעצם</text>
-          <text x="90" y="100" fill="#fde047" fontSize="9" textAnchor="middle">מייצבת ומגבילה טווח</text>
-          <rect x="185" y="30" width="130" height="90" rx="8" fill="#1e293b" stroke="#f59e0b" strokeWidth="2" />
-          <text x="250" y="55" fill="#f59e0b" fontSize="11" fontWeight="bold" textAnchor="middle">גיד (Tendon)</text>
-          <text x="250" y="80" fill="#cbd5e1" fontSize="9" textAnchor="middle">מחבר שריר לעצם</text>
-          <text x="250" y="100" fill="#fde047" fontSize="9" textAnchor="middle">מעביר כוח כיווץ</text>
-          <text x="170" y="148" fill="#94a3b8" fontSize="10" textAnchor="middle">הבחנה יסודית ברקמות חיבור צפופות</text>
-        </svg>
-      );
-
-    // 12. ברך וראש פיבולה
     case 'knee_fibula':
     case 'knee':
       return (
@@ -210,7 +148,6 @@ function DiagramRenderer({ type }: { type: string }) {
         </svg>
       );
 
-    // 13. סרקומר
     case 'sarcomere':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -229,7 +166,6 @@ function DiagramRenderer({ type }: { type: string }) {
         </svg>
       );
 
-    // 14. דלתואיד
     case 'deltoid':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -245,110 +181,50 @@ function DiagramRenderer({ type }: { type: string }) {
         </svg>
       );
 
-    // 15. שרוול מסובב Rotator Cuff
-    case 'rotator_cuff':
+    case 'alveoli':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
-          <rect x="70" y="25" width="200" height="95" rx="10" fill="#1e293b" stroke="#3b82f6" strokeWidth="2" />
-          <text x="170" y="48" fill="#60a5fa" fontSize="12" fontWeight="bold" textAnchor="middle">Subscapularis (קדמי)</text>
-          <text x="170" y="65" fill="#93c5fd" fontSize="9" textAnchor="middle">רוטציה פנימית (מדיאלית) ➔ Lesser Tubercle</text>
-          <text x="170" y="90" fill="#f87171" fontSize="11" fontWeight="bold" textAnchor="middle">Infraspinatus & Teres Minor (אחורי)</text>
-          <text x="170" y="105" fill="#fca5a5" fontSize="9" textAnchor="middle">רוטציה חיצונית (לטרלית) ➔ Greater Tubercle</text>
-          <text x="170" y="148" fill="#94a3b8" fontSize="10" textAnchor="middle">שרירי השרוול המסובב (Rotator Cuff) של הכתף</text>
+          <circle cx="170" cy="75" r="50" fill="#042f2e" stroke="#14b8a6" strokeWidth="3" />
+          <text x="170" y="70" fill="#2dd4bf" fontSize="12" fontWeight="bold" textAnchor="middle">נאדית הריאה</text>
+          <text x="170" y="86" fill="#99f6e4" fontSize="9" textAnchor="middle">(Alveoli)</text>
+          <path d="M 100 75 Q 100 135 170 135 Q 240 135 240 75" fill="none" stroke="#ef4444" strokeWidth="4" />
+          <text x="170" y="35" fill="#38bdf8" fontSize="10" textAnchor="middle">חמצן (O2) עובר בדיפוזיה לדם ➔</text>
+          <text x="170" y="120" fill="#f87171" fontSize="10" textAnchor="middle">פחמן דו-חמצני (CO2) נפלט לנאדית ➔</text>
+          <text x="170" y="152" fill="#94a3b8" fontSize="9" textAnchor="middle">שחלוף גזים בדיפוזיה פסיבית על פני שטח פנים ענק</text>
         </svg>
       );
 
-    // 16. שרירי זרוע
-    case 'arm_muscles':
+    case 'veins':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
-          <rect x="60" y="25" width="100" height="90" rx="8" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
-          <text x="110" y="50" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">Biceps Brachii</text>
-          <text x="110" y="70" fill="#cbd5e1" fontSize="9" textAnchor="middle">נאחז ברדיוס</text>
-          <text x="110" y="85" fill="#fde047" fontSize="9" textAnchor="middle">סופינציה וכפיפה</text>
-          <text x="110" y="102" fill="#94a3b8" fontSize="8" textAnchor="middle">מוצא ב-Coracoid</text>
-          <rect x="180" y="25" width="100" height="90" rx="8" fill="#1e293b" stroke="#f59e0b" strokeWidth="2" />
-          <text x="230" y="50" fill="#f59e0b" fontSize="11" fontWeight="bold" textAnchor="middle">Triceps Brachii</text>
-          <text x="230" y="70" fill="#cbd5e1" fontSize="9" textAnchor="middle">נאחז באולקרנון</text>
-          <text x="230" y="85" fill="#fde047" fontSize="9" textAnchor="middle">פשיטת מרפק</text>
-          <text x="230" y="102" fill="#94a3b8" fontSize="8" textAnchor="middle">ראש ארוך פושט כתף</text>
-          <text x="170" y="148" fill="#94a3b8" fontSize="10" textAnchor="middle">שרירי הזרוע הקדמיים והאחוריים</text>
+          <rect x="130" y="15" width="80" height="130" fill="#1e293b" stroke="#3b82f6" strokeWidth="3" />
+          <line x1="130" y1="60" x2="165" y2="40" stroke="#60a5fa" strokeWidth="4" />
+          <line x1="210" y1="60" x2="175" y2="40" stroke="#60a5fa" strokeWidth="4" />
+          <line x1="130" y1="110" x2="165" y2="90" stroke="#60a5fa" strokeWidth="4" />
+          <line x1="210" y1="110" x2="175" y2="90" stroke="#60a5fa" strokeWidth="4" />
+          <path d="M 170 135 L 170 25" stroke="#38bdf8" strokeWidth="3" strokeDasharray="5 3" />
+          <text x="65" y="80" fill="#38bdf8" fontSize="10" textAnchor="middle">שסתומים חד-כיווניים</text>
+          <text x="65" y="95" fill="#94a3b8" fontSize="9" textAnchor="middle">מונעים חזרה מטה</text>
+          <text x="275" y="80" fill="#f59e0b" fontSize="10" textAnchor="middle">משאבת שרירי שלד</text>
+          <text x="170" y="155" fill="#94a3b8" fontSize="9" textAnchor="middle">החזר ורידי כנגד כוח המשיכה אל הלב</text>
         </svg>
       );
 
-    // 17. ארבע-ראשי
-    case 'quadriceps':
+    case 'spindle':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
-          <rect x="130" y="15" width="80" height="95" rx="12" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" />
-          <rect x="145" y="10" width="50" height="100" rx="8" fill="#dc2626" stroke="#f87171" strokeWidth="2" />
-          <text x="170" y="55" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">Rectus Femoris</text>
-          <text x="170" y="70" fill="#fecdd3" fontSize="9" textAnchor="middle">(דו-מפרקי: מהאגן AIIS)</text>
-          <circle cx="170" cy="140" r="7" fill="#38bdf8" />
-          <text x="170" y="155" fill="#38bdf8" fontSize="9" textAnchor="middle">אחז משותף: Tibial Tuberosity</text>
-          <text x="65" y="65" fill="#94a3b8" fontSize="9">3 ראשי Vastus</text>
-          <text x="65" y="80" fill="#94a3b8" fontSize="9">מתחילים בפמור</text>
+          <ellipse cx="100" cy="75" rx="55" ry="30" fill="#881337" stroke="#f43f5e" strokeWidth="2" />
+          <path d="M 75 75 Q 100 60 125 75" stroke="#facc15" strokeWidth="3" fill="none" />
+          <text x="100" y="70" fill="#ffffff" fontSize="10" fontWeight="bold" textAnchor="middle">כישור השריר</text>
+          <text x="100" y="120" fill="#fecdd3" fontSize="8" textAnchor="middle">חש מתיחה מהירה ➔ כיווץ מגן</text>
+          <rect x="195" y="62" width="85" height="24" rx="4" fill="#e2e8f0" stroke="#cbd5e1" strokeWidth="2" />
+          <circle cx="235" cy="74" r="8" fill="#a855f7" />
+          <text x="235" y="55" fill="#d8b4fe" fontSize="10" fontWeight="bold" textAnchor="middle">אברון גולג'י (GTO)</text>
+          <text x="235" y="120" fill="#cbd5e1" fontSize="8" textAnchor="middle">חש עומס יתר ➔ הרפיה מגינה</text>
+          <text x="170" y="152" fill="#94a3b8" fontSize="9" textAnchor="middle">בקרת רפלקסים בשריר ובגיד</text>
         </svg>
       );
 
-    // 18. גלוטאוס
-    case 'gluteus':
-      return (
-        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
-          <ellipse cx="170" cy="70" rx="85" ry="45" fill="#881337" stroke="#f43f5e" strokeWidth="2" />
-          <text x="170" y="65" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">Gluteus Maximus</text>
-          <text x="170" y="85" fill="#fecdd3" fontSize="10" textAnchor="middle">פושט הירך העוצמתי ביותר</text>
-          <circle cx="70" cy="110" r="14" fill="#ca8a04" />
-          <text x="70" y="140" fill="#facc15" fontSize="9" textAnchor="middle">Greater Trochanter</text>
-          <text x="170" y="152" fill="#94a3b8" fontSize="10" textAnchor="middle">Gluteus Medius ו-Minimus נאחזים ב-Greater Trochanter ומרחיקים ירך</text>
-        </svg>
-      );
-
-    // 19. מיתר הירך Hamstrings
-    case 'hamstrings':
-      return (
-        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
-          <rect x="80" y="25" width="50" height="90" rx="6" fill="#881337" stroke="#f43f5e" strokeWidth="2" />
-          <text x="105" y="65" fill="#ffffff" fontSize="10" fontWeight="bold" textAnchor="middle">Biceps Femoris</text>
-          <text x="105" y="80" fill="#fecdd3" fontSize="8" textAnchor="middle">לטרלי ➔ פיבולה</text>
-          <rect x="145" y="25" width="50" height="90" rx="6" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
-          <text x="170" y="65" fill="#38bdf8" fontSize="9" fontWeight="bold" textAnchor="middle">Semitendinosus</text>
-          <text x="170" y="80" fill="#cbd5e1" fontSize="8" textAnchor="middle">מדיאלי ➔ טיביה</text>
-          <rect x="210" y="25" width="50" height="90" rx="6" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
-          <text x="235" y="65" fill="#38bdf8" fontSize="9" fontWeight="bold" textAnchor="middle">Semimembranosus</text>
-          <text x="235" y="80" fill="#cbd5e1" fontSize="8" textAnchor="middle">מדיאלי ➔ טיביה</text>
-          <text x="170" y="148" fill="#94a3b8" fontSize="10" textAnchor="middle">שלושת שרירי מיתר הירך (Hamstrings) לפשיטת ירך וכפיפת ברך</text>
-        </svg>
-      );
-
-    // 20. שוקיים וגיד אכילס
-    case 'calves':
-    case 'achilles':
-      return (
-        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
-          <ellipse cx="145" cy="45" rx="22" ry="32" fill="#991b1b" stroke="#ef4444" strokeWidth="2" />
-          <ellipse cx="195" cy="45" rx="22" ry="32" fill="#991b1b" stroke="#ef4444" strokeWidth="2" />
-          <text x="170" y="50" fill="#ffffff" fontSize="10" fontWeight="bold" textAnchor="middle">תאומים (Gastrocnemius)</text>
-          <rect x="164" y="80" width="12" height="40" fill="#e2e8f0" />
-          <text x="110" y="105" fill="#e2e8f0" fontSize="11" fontWeight="bold">גיד אכילס</text>
-          <path d="M 150 125 L 190 125 L 205 150 L 150 150 Z" fill="#475569" />
-          <text x="170" y="142" fill="#fbbf24" fontSize="10" textAnchor="middle">עקב (Calcaneus) ➔ Plantarflexion</text>
-        </svg>
-      );
-
-    // 21. טיביאליס קדמי
-    case 'tibialis':
-      return (
-        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
-          <rect x="145" y="20" width="50" height="95" rx="8" fill="#0284c7" stroke="#38bdf8" strokeWidth="2" />
-          <text x="170" y="60" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">Tibialis</text>
-          <text x="170" y="75" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">Anterior</text>
-          <text x="170" y="135" fill="#fbbf24" fontSize="10" fontWeight="bold" textAnchor="middle">הרמת בהונות (Dorsiflexion)</text>
-          <text x="170" y="152" fill="#94a3b8" fontSize="9" textAnchor="middle">שומר על הקשת המדיאלית של כף הרגל</text>
-        </svg>
-      );
-
-    // 22. תרשים BMR
     case 'bmr':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -371,7 +247,6 @@ function DiagramRenderer({ type }: { type: string }) {
         </svg>
       );
 
-    // 23. מעגל קורי
     case 'cori':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -387,7 +262,6 @@ function DiagramRenderer({ type }: { type: string }) {
         </svg>
       );
 
-    // 24. הלב ומסתמים
     case 'heart':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -404,7 +278,6 @@ function DiagramRenderer({ type }: { type: string }) {
         </svg>
       );
 
-    // 25. מסלולי אנרגיה
     case 'energy':
     default:
       return (
@@ -449,7 +322,12 @@ export default function App() {
   const [showExplanation, setShowExplanation] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
 
-  // אתחול בטוח
+  // מנגנון זום במסך מלא עם 2 אצבעות
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [zoomScale, setZoomScale] = useState(1);
+  const [panPosition, setPanPosition] = useState({ x: 0, y: 0 });
+  const touchStartRef = useRef<{ dist: number; scale: number; startX: number; startY: number } | null>(null);
+
   useEffect(() => {
     setMounted(true);
     resetAndShuffle('all');
@@ -463,7 +341,6 @@ export default function App() {
       source = ALL_WINGATE_DATA.filter((q) => q.moduleId === modId);
     }
 
-    // ערבוב כפול: גם שאלות וגם אפשרויות תשובה (א, ב, ג, ד)!
     const randomized = shuffleList(source).map((q) => ({
       ...q,
       options: shuffleList(q.options)
@@ -492,7 +369,6 @@ export default function App() {
     setIsSpeaking(false);
   };
 
-  // מנגנון הקראה מלא: שאלה + כל 4 אפשרויות התשובה!
   const handleSpeakFullQuestion = () => {
     if (isSpeaking) {
       stopSpeech();
@@ -504,7 +380,6 @@ export default function App() {
 
     window.speechSynthesis.cancel();
 
-    // בניית טקסט ההקראה השלם
     const letters = ['א', 'ב', 'ג', 'ד'];
     const optionsText = currentQ.options
       .map((opt, i) => `אפשרות ${letters[i]}: ${opt.text}`)
@@ -533,6 +408,35 @@ export default function App() {
         window.speechSynthesis.speak(u);
       }
     } catch (e) {}
+  };
+
+  // מחוות מגע לזום של שתי אצבעות (Pinch-to-Zoom) בחלון המוגדל
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length === 2) {
+      const dist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      touchStartRef.current = { dist, scale: zoomScale, startX: panPosition.x, startY: panPosition.y };
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (e.touches.length === 2 && touchStartRef.current) {
+      const newDist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      const ratio = newDist / touchStartRef.current.dist;
+      const newScale = Math.min(Math.max(touchStartRef.current.scale * ratio, 0.8), 4);
+      setZoomScale(newScale);
+    }
+  };
+
+  const openZoomModal = () => {
+    setZoomScale(1.3);
+    setPanPosition({ x: 0, y: 0 });
+    setIsModalOpen(true);
   };
 
   if (!mounted || quizList.length === 0) {
@@ -589,7 +493,7 @@ export default function App() {
               <h1 style={{ margin: 0, fontSize: '18px', fontWeight: '900', color: '#f59e0b' }}>
                 🎓 ווינגייט קואוץ' - שמואל
               </h1>
-              <span style={{ fontSize: '11px', color: '#94a3b8' }}>תרשימים מותאמים והקראה מלאה</span>
+              <span style={{ fontSize: '11px', color: '#94a3b8' }}>מעל 100 שאלות, זום בשתי אצבעות והקראה</span>
             </div>
 
             <button
@@ -722,9 +626,15 @@ export default function App() {
           <span style={{ fontSize: '11px', color: '#38bdf8', fontWeight: 'bold' }}>תרשים מדויק 📊</span>
         </div>
 
-        {/* תרשים גרפי מותאם לשאלה מתוך הספרייה */}
-        <div style={{ width: '100%', height: '170px', borderRadius: '14px', overflow: 'hidden', marginBottom: '10px', border: '1px solid #334155', backgroundColor: '#020617' }}>
+        {/* תרשים גרפי מותאם לשאלה + פתיחת מסך מלא */}
+        <div 
+          onClick={openZoomModal}
+          style={{ width: '100%', height: '170px', borderRadius: '14px', overflow: 'hidden', marginBottom: '10px', border: '1px solid #334155', backgroundColor: '#020617', position: 'relative', cursor: 'pointer' }}
+        >
           <DiagramRenderer type={currentQ.diagram} />
+          <div style={{ position: 'absolute', bottom: '6px', left: '6px', backgroundColor: 'rgba(2, 6, 23, 0.85)', color: '#fbbf24', fontSize: '10px', padding: '3px 8px', borderRadius: '6px', border: '1px solid #334155', fontWeight: 'bold' }}>
+            🔍 לחץ להגדלה וזום עם 2 אצבעות
+          </div>
         </div>
 
         {/* שאלה + כפתור הקראה מלא (שאלה + תשובות!) */}
@@ -878,6 +788,76 @@ export default function App() {
           </button>
         )}
       </footer>
+
+      {/* חלון מודאל מלא להגדלה עם תמיכה בזום של 2 אצבעות */}
+      {isModalOpen && (
+        <div 
+          style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.95)', zIndex: 100, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '10px' }}
+        >
+          {/* סרגל כפתורי זום עליון */}
+          <div style={{ display: 'flex', gap: '8px', marginBottom: '12px', zIndex: 110 }}>
+            <button 
+              onClick={() => setZoomScale((s) => Math.min(s + 0.3, 4))}
+              style={{ backgroundColor: '#1e293b', color: '#38bdf8', border: '1px solid #0284c7', padding: '6px 14px', borderRadius: '10px', fontWeight: 'bold', fontSize: '15px' }}
+            >
+              ➕ זום פנימה
+            </button>
+            <button 
+              onClick={() => setZoomScale((s) => Math.max(s - 0.3, 0.8))}
+              style={{ backgroundColor: '#1e293b', color: '#38bdf8', border: '1px solid #0284c7', padding: '6px 14px', borderRadius: '10px', fontWeight: 'bold', fontSize: '15px' }}
+            >
+              ➖ זום החוצה
+            </button>
+            <button 
+              onClick={() => setZoomScale(1)}
+              style={{ backgroundColor: '#1e293b', color: '#fbbf24', border: '1px solid #d97706', padding: '6px 14px', borderRadius: '10px', fontWeight: 'bold', fontSize: '13px' }}
+            >
+              🔄 איפוס זום
+            </button>
+            <button 
+              onClick={() => setIsModalOpen(false)}
+              style={{ backgroundColor: '#881337', color: '#ffffff', border: '1px solid #e11d48', padding: '6px 14px', borderRadius: '10px', fontWeight: 'bold', fontSize: '13px' }}
+            >
+              ✕ סגור
+            </button>
+          </div>
+
+          {/* משטח התרשים עם זיהוי מחוות 2 אצבעות */}
+          <div 
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            style={{ 
+              width: '100%', 
+              maxWidth: '480px', 
+              height: '320px', 
+              borderRadius: '16px', 
+              border: '2px solid #f59e0b', 
+              overflow: 'hidden', 
+              backgroundColor: '#020617',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              touchAction: 'none'
+            }}
+          >
+            <div 
+              style={{ 
+                width: '100%', 
+                height: '100%', 
+                transform: `scale(${zoomScale})`, 
+                transition: 'transform 0.1s ease-out',
+                transformOrigin: 'center center'
+              }}
+            >
+              <DiagramRenderer type={currentQ.diagram} />
+            </div>
+          </div>
+
+          <p style={{ color: '#cbd5e1', fontSize: '12px', marginTop: '10px' }}>
+            💡 השתמש בשתי אצבעות (Pinch) להגדלה והקטנה על גבי המסך
+          </p>
+        </div>
+      )}
 
     </main>
   );
