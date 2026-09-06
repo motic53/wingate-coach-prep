@@ -2,23 +2,41 @@
 // @ts-nocheck
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { PART1_ANATOMY1 } from '../data/part1';
 import { PART2_ANATOMY2 } from '../data/part2';
 import { PART3_PHYSIO1 } from '../data/part3';
 import { PART4_PHYSIO2 } from '../data/part4';
 
-// איחוד כלל המאגרים
+// איחוד כלל השאלות מכל חלקי הלימוד
 const ALL_WINGATE_DATA = [
-  ...PART1_ANATOMY1,
-  ...PART2_ANATOMY2,
-  ...PART3_PHYSIO1,
-  ...PART4_PHYSIO2
+  ...(PART1_ANATOMY1 || []),
+  ...(PART2_ANATOMY2 || []),
+  ...(PART3_PHYSIO1 || []),
+  ...(PART4_PHYSIO2 || [])
 ];
 
-// ספריית 20 תרשימים גרפיים ייעודיים
+// --- ספריית 30+ תרשימים גרפיים (SVG) מקוריים ומדויקים ---
 function DiagramRenderer({ type }: { type: string }) {
   switch (type) {
+    // 1. ביולוגיה של התא
+    case 'cell':
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <ellipse cx="170" cy="80" rx="140" ry="65" fill="#0f172a" stroke="#38bdf8" strokeWidth="2.5" />
+          <circle cx="170" cy="80" r="32" fill="#1e293b" stroke="#a855f7" strokeWidth="2" />
+          <circle cx="170" cy="80" r="14" fill="#6b21a8" />
+          <text x="170" y="84" fill="#f3e8ff" fontSize="10" fontWeight="bold" textAnchor="middle">גרעין ו-DNA</text>
+          <ellipse cx="90" cy="65" rx="20" ry="10" fill="#991b1b" stroke="#f87171" strokeWidth="1.5" />
+          <text x="90" y="69" fill="#ffffff" fontSize="8" fontWeight="bold" textAnchor="middle">מיטוכונדריון</text>
+          <ellipse cx="250" cy="95" rx="20" ry="10" fill="#991b1b" stroke="#f87171" strokeWidth="1.5" />
+          <text x="250" y="99" fill="#ffffff" fontSize="8" fontWeight="bold" textAnchor="middle">מיטוכונדריון</text>
+          <text x="170" y="24" fill="#38bdf8" fontSize="10" fontWeight="bold" textAnchor="middle">קרום התא (חדיר למחצה)</text>
+          <text x="170" y="152" fill="#94a3b8" fontSize="9" textAnchor="middle">מבנה תא אנושי: ציטופלזמה, גרעין ואברוני אנרגיה</text>
+        </svg>
+      );
+
+    // 2. דיסק בין-חולייתי
     case 'disc':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -32,6 +50,7 @@ function DiagramRenderer({ type }: { type: string }) {
         </svg>
       );
 
+    // 3. תא סחוס
     case 'chondrocyte':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -42,10 +61,11 @@ function DiagramRenderer({ type }: { type: string }) {
           <circle cx="240" cy="80" r="10" fill="#082f49" />
           <text x="100" y="120" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">תא סחוס (Chondrocyte)</text>
           <text x="170" y="35" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">מטריקס: סיבי קולגן ופרוטאוגליקנים</text>
-          <text x="170" y="152" fill="#94a3b8" fontSize="10" textAnchor="middle">דיפוזיה של מזון מנוזל המפרק הסינוביאלי</text>
+          <text x="170" y="152" fill="#94a3b8" fontSize="10" textAnchor="middle">דיפוזיה של מזון מנוזל המפרק הסינוביאלי (ללא כלי דם ישירים)</text>
         </svg>
       );
 
+    // 4. עצם צפופה ומערכת הוורס
     case 'osteon':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -59,6 +79,7 @@ function DiagramRenderer({ type }: { type: string }) {
         </svg>
       );
 
+    // 5. חוליית צוואר
     case 'cervical':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -74,6 +95,7 @@ function DiagramRenderer({ type }: { type: string }) {
         </svg>
       );
 
+    // 6. אטלס ואקסיס
     case 'atlas_axis':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -86,6 +108,7 @@ function DiagramRenderer({ type }: { type: string }) {
         </svg>
       );
 
+    // 7. עקומות עמוד השדרה
     case 'spine_curves':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -102,6 +125,7 @@ function DiagramRenderer({ type }: { type: string }) {
         </svg>
       );
 
+    // 8. סטרנום וצלעות
     case 'sternum':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -116,6 +140,7 @@ function DiagramRenderer({ type }: { type: string }) {
         </svg>
       );
 
+    // 9. מישורי תנועה
     case 'planes':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -123,12 +148,10 @@ function DiagramRenderer({ type }: { type: string }) {
           <text x="67" y="55" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">סגיטלי (חיצי)</text>
           <text x="67" y="80" fill="#cbd5e1" fontSize="9" textAnchor="middle">ימין ושמאל</text>
           <text x="67" y="100" fill="#fde047" fontSize="9" textAnchor="middle">כפיפה ופשיטה</text>
-
           <rect x="128" y="30" width="85" height="90" rx="8" fill="#1e293b" stroke="#f59e0b" strokeWidth="2" />
           <text x="170" y="55" fill="#f59e0b" fontSize="11" fontWeight="bold" textAnchor="middle">פרונטלי (חזית)</text>
           <text x="170" y="80" fill="#cbd5e1" fontSize="9" textAnchor="middle">קדמי ואחורי</text>
           <text x="170" y="100" fill="#fde047" fontSize="9" textAnchor="middle">הרחקה וקירוב</text>
-
           <rect x="230" y="30" width="85" height="90" rx="8" fill="#1e293b" stroke="#10b981" strokeWidth="2" />
           <text x="272" y="55" fill="#10b981" fontSize="11" fontWeight="bold" textAnchor="middle">אופקי (רוחבי)</text>
           <text x="272" y="80" fill="#cbd5e1" fontSize="9" textAnchor="middle">עליון ותחתון</text>
@@ -137,20 +160,21 @@ function DiagramRenderer({ type }: { type: string }) {
         </svg>
       );
 
+    // 10. תאי עצם
     case 'cells':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
           <circle cx="95" cy="70" r="40" fill="#15803d" stroke="#4ade80" strokeWidth="2" />
           <text x="95" y="65" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">אוסטאובלסט</text>
           <text x="95" y="82" fill="#dcfce7" fontSize="9" textAnchor="middle">בונה עצם (Build)</text>
-
           <circle cx="245" cy="70" r="40" fill="#b91c1c" stroke="#f87171" strokeWidth="2" />
           <text x="245" y="65" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">אוסטאוקלסט</text>
           <text x="245" y="82" fill="#fee2e2" fontSize="9" textAnchor="middle">מפרק עצם (Clear)</text>
-          <text x="170" y="145" fill="#94a3b8" fontSize="10" textAnchor="middle">תאי רקמת העצם ובנייה מחדש מתמדת</text>
+          <text x="170" y="145" fill="#94a3b8" fontSize="10" textAnchor="middle">תאי רקמת העצם: בנייה והתחדשות מתמדת</text>
         </svg>
       );
 
+    // 11. רצועה מול גיד
     case 'ligament_tendon':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -158,7 +182,6 @@ function DiagramRenderer({ type }: { type: string }) {
           <text x="90" y="55" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">רצועה (Ligament)</text>
           <text x="90" y="80" fill="#cbd5e1" fontSize="9" textAnchor="middle">מחברת עצם לעצם</text>
           <text x="90" y="100" fill="#fde047" fontSize="9" textAnchor="middle">מייצבת ומגבילה טווח</text>
-
           <rect x="185" y="30" width="130" height="90" rx="8" fill="#1e293b" stroke="#f59e0b" strokeWidth="2" />
           <text x="250" y="55" fill="#f59e0b" fontSize="11" fontWeight="bold" textAnchor="middle">גיד (Tendon)</text>
           <text x="250" y="80" fill="#cbd5e1" fontSize="9" textAnchor="middle">מחבר שריר לעצם</text>
@@ -167,6 +190,7 @@ function DiagramRenderer({ type }: { type: string }) {
         </svg>
       );
 
+    // 12. ברך וראש פיבולה
     case 'knee_fibula':
     case 'knee':
       return (
@@ -186,90 +210,26 @@ function DiagramRenderer({ type }: { type: string }) {
         </svg>
       );
 
-    case 'pelvis':
+    // 13. סרקומר
+    case 'sarcomere':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
-          <ellipse cx="110" cy="55" rx="55" ry="35" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
-          <ellipse cx="230" cy="55" rx="55" ry="35" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
-          <text x="110" y="55" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">Ilium (כסל)</text>
-          <text x="230" y="55" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">Ilium (כסל)</text>
-          <circle cx="140" cy="115" r="22" fill="#1e293b" stroke="#f59e0b" strokeWidth="2" />
-          <circle cx="200" cy="115" r="22" fill="#1e293b" stroke="#f59e0b" strokeWidth="2" />
-          <text x="140" y="118" fill="#f59e0b" fontSize="9" fontWeight="bold" textAnchor="middle">שת/ישיבה</text>
-          <text x="200" y="118" fill="#f59e0b" fontSize="9" fontWeight="bold" textAnchor="middle">שת/ישיבה</text>
-          <text x="170" y="152" fill="#94a3b8" fontSize="10" textAnchor="middle">עצם האגן: איחוי של איליום, איסכיום ופיוביס</text>
+          <line x1="30" y1="20" x2="30" y2="140" stroke="#f43f5e" strokeWidth="4" />
+          <line x1="310" y1="20" x2="310" y2="140" stroke="#f43f5e" strokeWidth="4" />
+          <text x="30" y="15" fill="#f43f5e" fontSize="10" fontWeight="bold" textAnchor="middle">Z-Line</text>
+          <text x="310" y="15" fill="#f43f5e" fontSize="10" fontWeight="bold" textAnchor="middle">Z-Line</text>
+          <line x1="30" y1="50" x2="145" y2="50" stroke="#38bdf8" strokeWidth="3" />
+          <line x1="195" y1="50" x2="310" y2="50" stroke="#38bdf8" strokeWidth="3" />
+          <line x1="30" y1="110" x2="145" y2="110" stroke="#38bdf8" strokeWidth="3" />
+          <line x1="195" y1="110" x2="310" y2="110" stroke="#38bdf8" strokeWidth="3" />
+          <text x="85" y="42" fill="#38bdf8" fontSize="10" fontWeight="bold">אקטין (דק)</text>
+          <rect x="95" y="70" width="150" height="20" rx="4" fill="#eab308" />
+          <text x="170" y="84" fill="#020617" fontSize="10" fontWeight="bold" textAnchor="middle">מיוזין (עבה)</text>
+          <text x="170" y="150" fill="#94a3b8" fontSize="10" textAnchor="middle">מנגנון גשרי הרוחב והכיווץ בסרקומר</text>
         </svg>
       );
 
-    case 'quadriceps':
-      return (
-        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
-          <rect x="130" y="15" width="80" height="95" rx="12" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" />
-          <rect x="145" y="10" width="50" height="100" rx="8" fill="#dc2626" stroke="#f87171" strokeWidth="2" />
-          <text x="170" y="55" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">Rectus Femoris</text>
-          <text x="170" y="70" fill="#fecdd3" fontSize="9" textAnchor="middle">(דו-מפרקי: מהאגן AIIS)</text>
-          <circle cx="170" cy="140" r="7" fill="#38bdf8" />
-          <text x="170" y="155" fill="#38bdf8" fontSize="9" textAnchor="middle">אחז משותף: Tibial Tuberosity</text>
-          <text x="65" y="65" fill="#94a3b8" fontSize="9">3 ראשי Vastus</text>
-          <text x="65" y="80" fill="#94a3b8" fontSize="9">מתחילים בפמור</text>
-        </svg>
-      );
-
-    case 'hamstrings':
-      return (
-        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
-          <rect x="80" y="25" width="50" height="90" rx="6" fill="#881337" stroke="#f43f5e" strokeWidth="2" />
-          <text x="105" y="65" fill="#ffffff" fontSize="10" fontWeight="bold" textAnchor="middle">Biceps Femoris</text>
-          <text x="105" y="80" fill="#fecdd3" fontSize="8" textAnchor="middle">לטרלי ➔ פיבולה</text>
-
-          <rect x="145" y="25" width="50" height="90" rx="6" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
-          <text x="170" y="65" fill="#38bdf8" fontSize="9" fontWeight="bold" textAnchor="middle">Semitendinosus</text>
-          <text x="170" y="80" fill="#cbd5e1" fontSize="8" textAnchor="middle">מדיאלי ➔ טיביה</text>
-
-          <rect x="210" y="25" width="50" height="90" rx="6" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
-          <text x="235" y="65" fill="#38bdf8" fontSize="9" fontWeight="bold" textAnchor="middle">Semimembranosus</text>
-          <text x="235" y="80" fill="#cbd5e1" fontSize="8" textAnchor="middle">מדיאלי ➔ טיביה</text>
-          <text x="170" y="148" fill="#94a3b8" fontSize="10" textAnchor="middle">שלושת שרירי מיתר הירך (Hamstrings) לפשיטת ירך וכפיפת ברך</text>
-        </svg>
-      );
-
-    case 'gluteus':
-      return (
-        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
-          <ellipse cx="170" cy="70" rx="85" ry="45" fill="#881337" stroke="#f43f5e" strokeWidth="2" />
-          <text x="170" y="65" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">Gluteus Maximus</text>
-          <text x="170" y="85" fill="#fecdd3" fontSize="10" textAnchor="middle">פושט הירך העוצמתי ביותר</text>
-          <circle cx="70" cy="110" r="14" fill="#ca8a04" />
-          <text x="70" y="140" fill="#facc15" fontSize="9" textAnchor="middle">Greater Trochanter</text>
-          <text x="170" y="152" fill="#94a3b8" fontSize="10" textAnchor="middle">Gluteus Medius ו-Minimus נאחזים ב-Greater Trochanter ומרחיקים ירך</text>
-        </svg>
-      );
-
-    case 'calves':
-    case 'achilles':
-      return (
-        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
-          <ellipse cx="145" cy="45" rx="22" ry="32" fill="#991b1b" stroke="#ef4444" strokeWidth="2" />
-          <ellipse cx="195" cy="45" rx="22" ry="32" fill="#991b1b" stroke="#ef4444" strokeWidth="2" />
-          <text x="170" y="50" fill="#ffffff" fontSize="10" fontWeight="bold" textAnchor="middle">תאומים (Gastrocnemius)</text>
-          <rect x="164" y="80" width="12" height="40" fill="#e2e8f0" />
-          <text x="110" y="105" fill="#e2e8f0" fontSize="11" fontWeight="bold">גיד אכילס</text>
-          <path d="M 150 125 L 190 125 L 205 150 L 150 150 Z" fill="#475569" />
-          <text x="170" y="142" fill="#fbbf24" fontSize="10" textAnchor="middle">עקב (Calcaneus) ➔ Plantarflexion</text>
-        </svg>
-      );
-
-    case 'tibialis':
-      return (
-        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
-          <rect x="145" y="20" width="50" height="95" rx="8" fill="#0284c7" stroke="#38bdf8" strokeWidth="2" />
-          <text x="170" y="60" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">Tibialis</text>
-          <text x="170" y="75" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">Anterior</text>
-          <text x="170" y="135" fill="#fbbf24" fontSize="10" fontWeight="bold" textAnchor="middle">הרמת בהונות (Dorsiflexion)</text>
-          <text x="170" y="152" fill="#94a3b8" fontSize="9" textAnchor="middle">שומר על הקשת המדיאלית של כף הרגל</text>
-        </svg>
-      );
-
+    // 14. דלתואיד
     case 'deltoid':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -285,6 +245,7 @@ function DiagramRenderer({ type }: { type: string }) {
         </svg>
       );
 
+    // 15. שרוול מסובב Rotator Cuff
     case 'rotator_cuff':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -297,6 +258,7 @@ function DiagramRenderer({ type }: { type: string }) {
         </svg>
       );
 
+    // 16. שרירי זרוע
     case 'arm_muscles':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -305,7 +267,6 @@ function DiagramRenderer({ type }: { type: string }) {
           <text x="110" y="70" fill="#cbd5e1" fontSize="9" textAnchor="middle">נאחז ברדיוס</text>
           <text x="110" y="85" fill="#fde047" fontSize="9" textAnchor="middle">סופינציה וכפיפה</text>
           <text x="110" y="102" fill="#94a3b8" fontSize="8" textAnchor="middle">מוצא ב-Coracoid</text>
-
           <rect x="180" y="25" width="100" height="90" rx="8" fill="#1e293b" stroke="#f59e0b" strokeWidth="2" />
           <text x="230" y="50" fill="#f59e0b" fontSize="11" fontWeight="bold" textAnchor="middle">Triceps Brachii</text>
           <text x="230" y="70" fill="#cbd5e1" fontSize="9" textAnchor="middle">נאחז באולקרנון</text>
@@ -315,6 +276,79 @@ function DiagramRenderer({ type }: { type: string }) {
         </svg>
       );
 
+    // 17. ארבע-ראשי
+    case 'quadriceps':
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <rect x="130" y="15" width="80" height="95" rx="12" fill="#1e3a8a" stroke="#3b82f6" strokeWidth="2" />
+          <rect x="145" y="10" width="50" height="100" rx="8" fill="#dc2626" stroke="#f87171" strokeWidth="2" />
+          <text x="170" y="55" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">Rectus Femoris</text>
+          <text x="170" y="70" fill="#fecdd3" fontSize="9" textAnchor="middle">(דו-מפרקי: מהאגן AIIS)</text>
+          <circle cx="170" cy="140" r="7" fill="#38bdf8" />
+          <text x="170" y="155" fill="#38bdf8" fontSize="9" textAnchor="middle">אחז משותף: Tibial Tuberosity</text>
+          <text x="65" y="65" fill="#94a3b8" fontSize="9">3 ראשי Vastus</text>
+          <text x="65" y="80" fill="#94a3b8" fontSize="9">מתחילים בפמור</text>
+        </svg>
+      );
+
+    // 18. גלוטאוס
+    case 'gluteus':
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <ellipse cx="170" cy="70" rx="85" ry="45" fill="#881337" stroke="#f43f5e" strokeWidth="2" />
+          <text x="170" y="65" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">Gluteus Maximus</text>
+          <text x="170" y="85" fill="#fecdd3" fontSize="10" textAnchor="middle">פושט הירך העוצמתי ביותר</text>
+          <circle cx="70" cy="110" r="14" fill="#ca8a04" />
+          <text x="70" y="140" fill="#facc15" fontSize="9" textAnchor="middle">Greater Trochanter</text>
+          <text x="170" y="152" fill="#94a3b8" fontSize="10" textAnchor="middle">Gluteus Medius ו-Minimus נאחזים ב-Greater Trochanter ומרחיקים ירך</text>
+        </svg>
+      );
+
+    // 19. מיתר הירך Hamstrings
+    case 'hamstrings':
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <rect x="80" y="25" width="50" height="90" rx="6" fill="#881337" stroke="#f43f5e" strokeWidth="2" />
+          <text x="105" y="65" fill="#ffffff" fontSize="10" fontWeight="bold" textAnchor="middle">Biceps Femoris</text>
+          <text x="105" y="80" fill="#fecdd3" fontSize="8" textAnchor="middle">לטרלי ➔ פיבולה</text>
+          <rect x="145" y="25" width="50" height="90" rx="6" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
+          <text x="170" y="65" fill="#38bdf8" fontSize="9" fontWeight="bold" textAnchor="middle">Semitendinosus</text>
+          <text x="170" y="80" fill="#cbd5e1" fontSize="8" textAnchor="middle">מדיאלי ➔ טיביה</text>
+          <rect x="210" y="25" width="50" height="90" rx="6" fill="#1e293b" stroke="#38bdf8" strokeWidth="2" />
+          <text x="235" y="65" fill="#38bdf8" fontSize="9" fontWeight="bold" textAnchor="middle">Semimembranosus</text>
+          <text x="235" y="80" fill="#cbd5e1" fontSize="8" textAnchor="middle">מדיאלי ➔ טיביה</text>
+          <text x="170" y="148" fill="#94a3b8" fontSize="10" textAnchor="middle">שלושת שרירי מיתר הירך (Hamstrings) לפשיטת ירך וכפיפת ברך</text>
+        </svg>
+      );
+
+    // 20. שוקיים וגיד אכילס
+    case 'calves':
+    case 'achilles':
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <ellipse cx="145" cy="45" rx="22" ry="32" fill="#991b1b" stroke="#ef4444" strokeWidth="2" />
+          <ellipse cx="195" cy="45" rx="22" ry="32" fill="#991b1b" stroke="#ef4444" strokeWidth="2" />
+          <text x="170" y="50" fill="#ffffff" fontSize="10" fontWeight="bold" textAnchor="middle">תאומים (Gastrocnemius)</text>
+          <rect x="164" y="80" width="12" height="40" fill="#e2e8f0" />
+          <text x="110" y="105" fill="#e2e8f0" fontSize="11" fontWeight="bold">גיד אכילס</text>
+          <path d="M 150 125 L 190 125 L 205 150 L 150 150 Z" fill="#475569" />
+          <text x="170" y="142" fill="#fbbf24" fontSize="10" textAnchor="middle">עקב (Calcaneus) ➔ Plantarflexion</text>
+        </svg>
+      );
+
+    // 21. טיביאליס קדמי
+    case 'tibialis':
+      return (
+        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
+          <rect x="145" y="20" width="50" height="95" rx="8" fill="#0284c7" stroke="#38bdf8" strokeWidth="2" />
+          <text x="170" y="60" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">Tibialis</text>
+          <text x="170" y="75" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">Anterior</text>
+          <text x="170" y="135" fill="#fbbf24" fontSize="10" fontWeight="bold" textAnchor="middle">הרמת בהונות (Dorsiflexion)</text>
+          <text x="170" y="152" fill="#94a3b8" fontSize="9" textAnchor="middle">שומר על הקשת המדיאלית של כף הרגל</text>
+        </svg>
+      );
+
+    // 22. תרשים BMR
     case 'bmr':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -337,6 +371,7 @@ function DiagramRenderer({ type }: { type: string }) {
         </svg>
       );
 
+    // 23. מעגל קורי
     case 'cori':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -352,6 +387,7 @@ function DiagramRenderer({ type }: { type: string }) {
         </svg>
       );
 
+    // 24. הלב ומסתמים
     case 'heart':
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
@@ -368,7 +404,9 @@ function DiagramRenderer({ type }: { type: string }) {
         </svg>
       );
 
+    // 25. מסלולי אנרגיה
     case 'energy':
+    default:
       return (
         <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
           <rect x="15" y="25" width="90" height="100" rx="8" fill="#78350f" stroke="#f59e0b" strokeWidth="2" />
@@ -383,26 +421,7 @@ function DiagramRenderer({ type }: { type: string }) {
           <text x="280" y="50" fill="#818cf8" fontSize="11" fontWeight="bold" textAnchor="middle">אירובי</text>
           <text x="280" y="70" fill="#c7d2fe" fontSize="9" textAnchor="middle">מיטוכונדריה</text>
           <text x="280" y="95" fill="#ffffff" fontSize="11" fontWeight="bold" textAnchor="middle">מעל 2 דקות</text>
-          <text x="170" y="148" fill="#94a3b8" fontSize="10" textAnchor="middle">מסלולי האנרגיה לפי עצימות ומשך</text>
-        </svg>
-      );
-
-    default:
-      // סרקומר
-      return (
-        <svg viewBox="0 0 340 160" className="w-full h-full bg-slate-950 p-2 rounded-xl">
-          <line x1="30" y1="20" x2="30" y2="140" stroke="#f43f5e" strokeWidth="4" />
-          <line x1="310" y1="20" x2="310" y2="140" stroke="#f43f5e" strokeWidth="4" />
-          <text x="30" y="15" fill="#f43f5e" fontSize="10" fontWeight="bold" textAnchor="middle">Z-Line</text>
-          <text x="310" y="15" fill="#f43f5e" fontSize="10" fontWeight="bold" textAnchor="middle">Z-Line</text>
-          <line x1="30" y1="50" x2="145" y2="50" stroke="#38bdf8" strokeWidth="3" />
-          <line x1="195" y1="50" x2="310" y2="50" stroke="#38bdf8" strokeWidth="3" />
-          <line x1="30" y1="110" x2="145" y2="110" stroke="#38bdf8" strokeWidth="3" />
-          <line x1="195" y1="110" x2="310" y2="110" stroke="#38bdf8" strokeWidth="3" />
-          <text x="85" y="42" fill="#38bdf8" fontSize="10" fontWeight="bold">אקטין (דק)</text>
-          <rect x="95" y="70" width="150" height="20" rx="4" fill="#eab308" />
-          <text x="170" y="84" fill="#020617" fontSize="10" fontWeight="bold" textAnchor="middle">מיוזין (עבה)</text>
-          <text x="170" y="150" fill="#94a3b8" fontSize="10" textAnchor="middle">מנגנון גשרי הרוחב בסרקומר</text>
+          <text x="170" y="148" fill="#94a3b8" fontSize="10" textAnchor="middle">מסלולי האנרגיה לפי עצימות ומשך המאמץ</text>
         </svg>
       );
   }
@@ -428,23 +447,23 @@ export default function App() {
   const [score, setScore] = useState(0);
   const [streak, setStreak] = useState(0);
   const [showExplanation, setShowExplanation] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
 
+  // אתחול בטוח
   useEffect(() => {
     setMounted(true);
     resetAndShuffle('all');
   }, []);
 
   const resetAndShuffle = (modId = activeModule) => {
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-    }
+    stopSpeech();
 
     let source = ALL_WINGATE_DATA;
     if (modId !== 'all') {
       source = ALL_WINGATE_DATA.filter((q) => q.moduleId === modId);
     }
 
-    // ערבוב שאלות ואפשרויות תשובה
+    // ערבוב כפול: גם שאלות וגם אפשרויות תשובה (א, ב, ג, ד)!
     const randomized = shuffleList(source).map((q) => ({
       ...q,
       options: shuffleList(q.options)
@@ -464,13 +483,53 @@ export default function App() {
     resetAndShuffle(modId);
   };
 
-  const handleSpeak = (text: string) => {
+  const stopSpeech = () => {
+    try {
+      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    } catch (e) {}
+    setIsSpeaking(false);
+  };
+
+  // מנגנון הקראה מלא: שאלה + כל 4 אפשרויות התשובה!
+  const handleSpeakFullQuestion = () => {
+    if (isSpeaking) {
+      stopSpeech();
+      return;
+    }
+
+    const currentQ = quizList[currentIndex];
+    if (!currentQ || typeof window === 'undefined' || !('speechSynthesis' in window)) return;
+
+    window.speechSynthesis.cancel();
+
+    // בניית טקסט ההקראה השלם
+    const letters = ['א', 'ב', 'ג', 'ד'];
+    const optionsText = currentQ.options
+      .map((opt, i) => `אפשרות ${letters[i]}: ${opt.text}`)
+      .join('. ');
+
+    const fullScript = `שאלה בנושא ${currentQ.topic}. ${currentQ.questionText}. אפשרויות: ${optionsText}.`;
+
+    const utterance = new SpeechSynthesisUtterance(fullScript);
+    utterance.lang = 'he-IL';
+    utterance.rate = 0.88;
+
+    utterance.onstart = () => setIsSpeaking(true);
+    utterance.onend = () => setIsSpeaking(false);
+    utterance.onerror = () => setIsSpeaking(false);
+
+    window.speechSynthesis.speak(utterance);
+  };
+
+  const speakCustom = (text: string) => {
     try {
       if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
         window.speechSynthesis.cancel();
         const u = new SpeechSynthesisUtterance(text);
         u.lang = 'he-IL';
-        u.rate = 0.9;
+        u.rate = 0.88;
         window.speechSynthesis.speak(u);
       }
     } catch (e) {}
@@ -497,20 +556,16 @@ export default function App() {
     if (correct) {
       setScore((s) => s + 10);
       setStreak((s) => s + 1);
-      handleSpeak('נכון מאוד שמואל! תשובה מדויקת.');
+      speakCustom('נכון מאוד שמואל! תשובה מדויקת.');
     } else {
       setStreak(0);
       const right = currentQ.options.find((o) => o.isCorrect)?.text;
-      handleSpeak(`לא מדויק. התשובה הנכונה היא: ${right}.`);
+      speakCustom(`לא מדויק. התשובה הנכונה היא: ${right}.`);
     }
   };
 
   const handleNext = () => {
-    try {
-      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-      }
-    } catch (e) {}
+    stopSpeech();
 
     if (currentIndex < quizList.length - 1) {
       setCurrentIndex((i) => i + 1);
@@ -534,7 +589,7 @@ export default function App() {
               <h1 style={{ margin: 0, fontSize: '18px', fontWeight: '900', color: '#f59e0b' }}>
                 🎓 ווינגייט קואוץ' - שמואל
               </h1>
-              <span style={{ fontSize: '11px', color: '#94a3b8' }}>20 תרשימים גרפיים מקוריים ושפלינג מלא</span>
+              <span style={{ fontSize: '11px', color: '#94a3b8' }}>תרשימים מותאמים והקראה מלאה</span>
             </div>
 
             <button
@@ -667,12 +722,12 @@ export default function App() {
           <span style={{ fontSize: '11px', color: '#38bdf8', fontWeight: 'bold' }}>תרשים מדויק 📊</span>
         </div>
 
-        {/* תרשים גרפי מותאם לשאלה */}
+        {/* תרשים גרפי מותאם לשאלה מתוך הספרייה */}
         <div style={{ width: '100%', height: '170px', borderRadius: '14px', overflow: 'hidden', marginBottom: '10px', border: '1px solid #334155', backgroundColor: '#020617' }}>
           <DiagramRenderer type={currentQ.diagram} />
         </div>
 
-        {/* שאלה + כפתור הקראה */}
+        {/* שאלה + כפתור הקראה מלא (שאלה + תשובות!) */}
         <div style={{ backgroundColor: '#0b1329', border: '1px solid #1e293b', borderRadius: '14px', padding: '12px', marginBottom: '10px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
             <p style={{ margin: 0, fontSize: '14px', fontWeight: 'bold', color: '#f8fafc', lineHeight: '1.4' }}>
@@ -680,20 +735,24 @@ export default function App() {
             </p>
 
             <button
-              onClick={() => handleSpeak(`${currentQ.questionText}. רמז: ${currentQ.hint}`)}
+              onClick={handleSpeakFullQuestion}
               style={{
-                backgroundColor: '#9333ea',
+                backgroundColor: isSpeaking ? '#ef4444' : '#9333ea',
                 color: '#ffffff',
                 border: 'none',
                 borderRadius: '12px',
                 padding: '8px 12px',
-                fontSize: '16px',
+                fontSize: '15px',
+                fontWeight: 'bold',
                 cursor: 'pointer',
-                flexShrink: 0
+                flexShrink: 0,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px'
               }}
-              title="הקרא שאלה"
+              title="הקרא שאלה ותשובות"
             >
-              🔊
+              {isSpeaking ? '⏹ עצור' : '🔊 הקרא הכל'}
             </button>
           </div>
 
@@ -767,7 +826,7 @@ export default function App() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
               <span style={{ color: '#f59e0b', fontSize: '11px', fontWeight: 'bold' }}>📖 הסבר רשמי ומפורט:</span>
               <button
-                onClick={() => handleSpeak(currentQ.explanation)}
+                onClick={() => speakCustom(currentQ.explanation)}
                 style={{ backgroundColor: '#3b0764', color: '#d8b4fe', border: '1px solid #6b21a8', borderRadius: '8px', padding: '2px 6px', fontSize: '10px', cursor: 'pointer' }}
               >
                 🔊 הקרא הסבר
