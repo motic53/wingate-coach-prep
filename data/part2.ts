@@ -37,6 +37,40 @@ export const PART2_ANATOMY2 = [
     explanation: 'עמ׳ 96, 124: שריר הרחב הבטני (Transversus Abdominis) סיביו אופקיים לחלוטין ולכן תפקידו לייצב ולהעלות לחץ תוך-בטני.'
   },
   {
+    id: 'a2_2b',
+    moduleId: 'anat2',
+    topic: 'שרירי הבטן',
+    title: 'שרירי הבטן האלכסוניים (עמ׳ 94-95)',
+    diagram: 'sarcomere',
+    imageUrl: '/images/external_oblique.png',
+    questionText: 'שריר ה-External Oblique (האלכסון החיצוני) ושריר ה-Internal Oblique בכיווץ חד-צדדי משתתפים בעיקר ב:',
+    hint: 'התבונן בסיבי השריר הירוקים באלכסון: הם אחראים על רוטציה (פיתול) וכפיפה צידית של הגו.',
+    options: [
+      { id: 'a', text: 'רוטציה וכפיפה צידית של עמוד השדרה', isCorrect: true },
+      { id: 'b', text: 'פשיטת גב מלאה לאחור', isCorrect: false },
+      { id: 'c', text: 'כפיפת ברכיים', isCorrect: false },
+      { id: 'd', text: 'הרחקה אופקית של הכתף', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 94-95: האלכסונים הבטניים פועלים יחד לביצוע תנועות פיתול וכפיפה צידית ומייצבים את קיר הבטן.'
+  },
+  {
+    id: 'a2_2c',
+    moduleId: 'anat2',
+    topic: 'שרירי הבטן',
+    title: 'שריר הבטן האלכסוני הפנימי (עמ׳ 95)',
+    diagram: 'sarcomere',
+    imageUrl: '/images/internal_oblique.jpeg',
+    questionText: 'שריר ה-Internal Abdominal Oblique (האלכסון הפנימי) ממוקם עמוק לאלכסון החיצוני וסיביו פונים:',
+    hint: 'התבונן בתמונה: הסיבים הירוקים עולים מלמטה למעלה באלכסון (כמו ידיים בכיסים הפוכים).',
+    options: [
+      { id: 'a', text: 'מלמטה למעלה ובאלכסון לעבר הצלעות וה-Linea Alba', isCorrect: true },
+      { id: 'b', text: 'אופקית לחלוטין כמו חגורה', isCorrect: false },
+      { id: 'c', text: 'אנכית ישרה כמו הרקטוס', isCorrect: false },
+      { id: 'd', text: 'סביב עצם הירך בלבד', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 95: סיבי ה-Internal Oblique יוצאים מה-Iliac crest ומהפאשיה המותנית ועולים מעלה ומדיאלית.'
+  },
+  {
     id: 'a2_3',
     moduleId: 'anat2',
     topic: 'שרירי הכתף',
@@ -44,7 +78,7 @@ export const PART2_ANATOMY2 = [
     diagram: 'deltoid',
     imageUrl: '/images/deltoid.jpeg',
     questionText: 'התנועות קירוב אופקי (Horizontal Adduction) ורוטציה מדיאלית של הכתף מבוצעות ע״י:',
-    hint: 'התבונן בתמונה: החץ העליון מצביע על הסיבים הקדמיים היוצאים מעצם הבריח (Clavicle).',
+    hint: 'התבונן בתמונה: החץ העליון מצביע על הסיבים הקדמיים של הדלתואיד היוצאים מעצם הבריח.',
     options: [
       { id: 'a', text: 'Anterior deltoid (הדלתואיד הקדמי)', isCorrect: true },
       { id: 'b', text: 'Posterior deltoid', isCorrect: false },
@@ -69,6 +103,40 @@ export const PART2_ANATOMY2 = [
       { id: 'd', text: 'Teres minor', isCorrect: false }
     ],
     explanation: 'עמ׳ 85, 125: ה-Subscapularis יושב בחלק הקדמי של השכמה ונאחז ב-Lesser Tubercle מקדימה, ולכן הוא היחיד שמסובב פנימה.'
+  },
+  {
+    id: 'a2_4b',
+    moduleId: 'anat2',
+    topic: 'שרירי הכתף',
+    title: 'שריר ה-Supraspinatus (עמ׳ 83-85)',
+    diagram: 'rotator_cuff',
+    imageUrl: '/images/supraspinatus.jpeg',
+    questionText: 'שריר ה-Supraspinatus משרוול המסובבים אחראי בעיקר על:',
+    hint: 'התבונן בתמונה: השריר יושב מעל הספיין של השכמה ונאחז ב-Greater Tubercle, ומסייע לפתוח את תנועת ההרחקה (Abduction).',
+    options: [
+      { id: 'a', text: 'סיוע לדלתואיד בהרחקת הזרוע (30 מעלות ראשונות) וקיבוע ראש ההומרוס', isCorrect: true },
+      { id: 'b', text: 'קירוב אופקי חזק של הזרוע', isCorrect: false },
+      { id: 'c', text: 'פשיטת מרפק', isCorrect: false },
+      { id: 'd', text: 'סופינציה של האמה', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 83-85: הסופראספינטוס מתחיל ב-Supraspinous fossa ויוזם את הרחקת הזרוע לצד קיבוע ראש ההומרוס בשקע הגלנואיד.'
+  },
+  {
+    id: 'a2_4c',
+    moduleId: 'anat2',
+    topic: 'שרירי הכתף',
+    title: 'שריר ה-Infraspinatus (עמ׳ 84-85)',
+    diagram: 'rotator_cuff',
+    imageUrl: '/images/infraspinatus.jpeg',
+    questionText: 'שריר ה-Infraspinatus (הצבוע בירוק בתמונה) מבצע במפרק הכתף:',
+    hint: 'התבונן בתמונה: השריר ממלא את החלק האחורי של השכמה ומסובב את הזרוע החוצה (רוטציה חיצונית).',
+    options: [
+      { id: 'a', text: 'רוטציה לטרלית (חיצונית) של הכתף וייצוב המפרק', isCorrect: true },
+      { id: 'b', text: 'רוטציה מדיאלית (פנימית) בלבד', isCorrect: false },
+      { id: 'c', text: 'כפיפת מרפק מלאה', isCorrect: false },
+      { id: 'd', text: 'הורדת השכמה בלבד', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 84-85: האינפראספינטוס ממלא את ה-Infraspinous fossa ונאחז ב-Greater Tubercle לסיבוב חיצוני של הזרוע.'
   },
   {
     id: 'a2_5',
@@ -121,6 +189,23 @@ export const PART2_ANATOMY2 = [
     explanation: 'עמ׳ 107: הרקטוס פמוריס הוא היחיד מהארבעה שיוצא מעצם האגן ולכן משתתף בכפיפת ירך בנוסף לפשיטת ברך.'
   },
   {
+    id: 'a2_7b',
+    moduleId: 'anat2',
+    topic: 'שרירי הירך',
+    title: 'קבוצת הארבע-ראשי Quadriceps (עמ׳ 107-108)',
+    diagram: 'quadriceps',
+    imageUrl: '/images/quadriceps.jpeg',
+    questionText: 'מהו התפקיד המשותף של כל ארבעת ראשי ה-Quadriceps Femoris?',
+    hint: 'התבונן בתמונה: ארבעת הראשים מתאחדים לגיד משותף העובר מעל הפיקה ונאחז ב-Tibial Tuberosity.',
+    options: [
+      { id: 'a', text: 'פשיטת מפרק הברך (Knee Extension)', isCorrect: true },
+      { id: 'b', text: 'כפיפת מפרק הברך', isCorrect: false },
+      { id: 'c', text: 'סיבוב חיצוני של כף הרגל', isCorrect: false },
+      { id: 'd', text: 'קירוב ירך בלבד', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 107-108: כל ארבעת הראשים (רקטוס ושלושת הוואסטוסים) פושטים בעוצמה את מפרק הברך.'
+  },
+  {
     id: 'a2_8',
     moduleId: 'anat2',
     topic: 'שרירי הגב העמוקים',
@@ -153,6 +238,23 @@ export const PART2_ANATOMY2 = [
       { id: 'd', text: 'Latissimus dorsi', isCorrect: false }
     ],
     explanation: 'עמ׳ 85, 124: ה-Teres Minor ממוקם מאחור ונאחז בחלק האחורי של ה-Greater Tubercle ולכן מושך את הזרוע לרוטציה לטרלית.'
+  },
+  {
+    id: 'a2_9b',
+    moduleId: 'anat2',
+    topic: 'שרירי הכתף',
+    title: 'שריר ה-Teres Major (עמ׳ 86)',
+    diagram: 'deltoid',
+    imageUrl: '/images/teres_major.jpeg',
+    questionText: 'בניגוד ל-Teres Minor, שריר ה-Teres Major (הצבוע בירוק בתמונה) מבצע בזרוע:',
+    hint: 'התבונן בתמונה: השריר יוצא מה-Inferior Angle של השכמה ונאחז בקדמת ההומרוס, ולכן מבצע רוטציה פנימית וקירוב.',
+    options: [
+      { id: 'a', text: 'רוטציה מדיאלית (פנימית), קירוב ופשיטה של הזרוע', isCorrect: true },
+      { id: 'b', text: 'רוטציה לטרלית (חיצונית) בלבד', isCorrect: false },
+      { id: 'c', text: 'הרחקת זרוע מעל הראש', isCorrect: false },
+      { id: 'd', text: 'כפיפת מרפק', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 86: ה-Teres Major פועל יחד עם ה-Latissimus Dorsi ומבצע קירוב, פשיטה ורוטציה פנימית של הכתף.'
   },
   {
     id: 'a2_10',
@@ -239,6 +341,23 @@ export const PART2_ANATOMY2 = [
     explanation: 'מכיוון שהברכיאליס נאחז באולנה הקבועה, הוא מכופף מרפק טהור שפועל במלוא העוצמה בכל מנח אחיזה.'
   },
   {
+    id: 'a2_14b',
+    moduleId: 'anat2',
+    topic: 'שרירי האמה',
+    title: 'שריר ה-Brachioradialis (עמ׳ 91)',
+    diagram: 'arm_muscles',
+    imageUrl: '/images/brachioradialis.jpeg',
+    questionText: 'שריר ה-Brachioradialis (הצבוע בירוק בתמונה) פועל בעוצמה מרבית בכפיפת מרפק כאשר מנח כף היד הוא:',
+    hint: 'התבונן בתמונה: השריר רץ לאורך הצד החיצוני של האמה, ופועל בעיקר באחיזת אמצע (Mid-position / פטישים).',
+    options: [
+      { id: 'a', text: 'מצב אמצע (Mid-position / אחיזת פטישים בין סופינציה לפרונציה)', isCorrect: true },
+      { id: 'b', text: 'סופינציה מלאה בלבד', isCorrect: false },
+      { id: 'c', text: 'פרונציה מלאה בלבד', isCorrect: false },
+      { id: 'd', text: 'בפשיטת מרפק בלבד', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 91: הברכיורדיאליס יוצא מה-Lateral supracondylar ridge של ההומרוס ונאחז בקצה הרדיוס, ומכופף מרפק במנח ניטרלי.'
+  },
+  {
     id: 'a2_15',
     moduleId: 'anat2',
     topic: 'שרירי הזרוע',
@@ -288,6 +407,23 @@ export const PART2_ANATOMY2 = [
       { id: 'd', text: 'Anterior deltoid', isCorrect: false }
     ],
     explanation: 'עמ׳ 90, 127: הראש הארוך של הטריספס מתחיל בשכמה (Infraglenoid tubercle) וחוצה את הכתף ולכן מבצע פשיטת כתף.'
+  },
+  {
+    id: 'a2_17b',
+    moduleId: 'anat2',
+    topic: 'שרירי הזרוע והמרפק',
+    title: 'האחז של שריר הטריספס באולקרנון (עמ׳ 73, 90)',
+    diagram: 'arm_muscles',
+    imageUrl: '/images/olecranon.png',
+    questionText: 'באיזה מבנה גרמי באולנה נאחז שריר ה-Triceps Brachii (שפגיעתו נראית בכחול בתמונה)?',
+    hint: 'התבונן בחץ הכחול שבתמונה: בליטת המרפק האחורית של האולנה (Olecranon).',
+    options: [
+      { id: 'a', text: 'Olecranon process של עצם ה-Ulna', isCorrect: true },
+      { id: 'b', text: 'Radial Tuberosity של הרדיוס', isCorrect: false },
+      { id: 'c', text: 'Lesser Trochanter', isCorrect: false },
+      { id: 'd', text: 'Acromion של השכמה', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 73, 90: שריר הטריספס נאחז ישירות באולקרנון של האולנה ומהווה את הפושט הראשי של המרפק.'
   },
   {
     id: 'a2_18',
@@ -440,6 +576,23 @@ export const PART2_ANATOMY2 = [
     explanation: 'עמ׳ 95: שריר מפנה הראש (SCM) מתחיל בסטרנום ובבריח ונאחז במסטואיד של הגולגולת; כיווץ של צד אחד מסובב את הראש לצד הנגדי.'
   },
   {
+    id: 'a2_26b',
+    moduleId: 'anat2',
+    topic: 'שרירי הצוואר',
+    title: 'שרירי הסקלנים Scalenes (עמ׳ 95)',
+    diagram: 'cervical',
+    imageUrl: '/images/scalenes.png',
+    questionText: 'שרירי ה-Scalenes (הסולמות) בצוואר נאחזים בצלעות 1 ו-2 ומשמשים בין היתר בתור:',
+    hint: 'התבונן בתמונה: שלושת השרירים (Anterior, Medius, Posterior) מרימים את הצלעות העליונות בשאיפה מאומצת.',
+    options: [
+      { id: 'a', text: 'שרירי עזר לשאיפה (הרמת צלעות 1 ו-2) וכפיפה צידית של הצוואר', isCorrect: true },
+      { id: 'b', text: 'כופפי ברך ראשיים', isCorrect: false },
+      { id: 'c', text: 'מסובבי ירך החוצה', isCorrect: false },
+      { id: 'd', text: 'מייצבי מפרק כף היד בלבד', isCorrect: false }
+    ],
+    explanation: 'שרירי הסקלנים מחברים את חוליות הצוואר לצלעות 1 ו-2 ומסייעים בנשימה עמוקה ומאומצת.'
+  },
+  {
     id: 'a2_27',
     moduleId: 'anat2',
     topic: 'שרירי הגב התחתון',
@@ -506,6 +659,23 @@ export const PART2_ANATOMY2 = [
       { id: 'd', text: 'חוליות הצוואר', isCorrect: false }
     ],
     explanation: 'עמ׳ 114: שרירי המקרבים יוצאים מאזור הפיוביס והאיסכיום ונאחזים לאורך החלק המדיאלי של הפמור כדי לקרב את הירכיים.'
+  },
+  {
+    id: 'a2_30b',
+    moduleId: 'anat2',
+    topic: 'שרירי הירך המקרבים',
+    title: 'שריר ה-Gracilis (עמ׳ 113)',
+    diagram: 'knee',
+    imageUrl: '/images/gracilis.jpeg',
+    questionText: 'בניגוד לשאר מקרבי הירך, שריר ה-Gracilis (הצבוע בירוק) חוצה גם את הברך ונאחז ב:',
+    hint: 'התבונן בתמונה: השריר הירוק הדק יורד עד ל-Pes Anserinus בחלק הפנימי העליון של הטיביה.',
+    options: [
+      { id: 'a', text: 'Pes Anserinus בחלק הפנימי-עליון של עצם השוקה (Tibia)', isCorrect: true },
+      { id: 'b', text: 'בעצם הפיבולה בלבד', isCorrect: false },
+      { id: 'c', text: 'בעצם הירך בלבד ללא חציית הברך', isCorrect: false },
+      { id: 'd', text: 'בעצם העקב', isCorrect: false }
+    ],
+    explanation: 'עמ׳ 113: הגרציליס הוא השריר היחיד ממקרבי הירך שחוצה את הברך ולכן משתתף גם בכפיפת ברך וסיבוב פנימי שלה.'
   },
   {
     id: 'a2_31',
