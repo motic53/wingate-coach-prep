@@ -168,8 +168,9 @@ export const PART1_ANATOMY1 = [
     topic: 'עמוד השדרה',
     title: 'נקב בזיזים רוחביים (עמ׳ 65)',
     diagram: 'cervical',
+    imageUrl: '/images/vertebra_bone.jpeg',
     questionText: 'נקב בזיזים הרוחביים (Transverse Foramen) מאפיין את חוליות:',
-    hint: 'באיזה אזור בעמוד השדרה עורקי הדם צריכים מנהרה מוגנת בתוך העצם בדרכם למוח?',
+    hint: 'התבונן בתמונה: בזיזים הצדדיים (Transverse Process) קיים חור מיוחד למעבר עורק הצוואר אל המוח.',
     options: [
       { id: 'a', text: 'הצוואר (Cervical vertebrae)', isCorrect: true },
       { id: 'b', text: 'החזה (Thoracic)', isCorrect: false },
@@ -184,8 +185,9 @@ export const PART1_ANATOMY1 = [
     topic: 'עמוד השדרה',
     title: 'תפקיד הזיז הרוחבי (עמ׳ 65)',
     diagram: 'cervical',
+    imageUrl: '/images/vertebra_bone.jpeg',
     questionText: 'תפקידו העיקרי של הזיז הרוחבי (Transverse Process) בחוליה הוא:',
-    hint: 'כשקושרים חבל למוט ארוך שבולט הצידה – המנוף להזזת המשקל גדול וחזק בהרבה.',
+    hint: 'התבונן בזיזים הבולטים לצדדים בתצלום החוליה: הם משמשים כמנוף מכני ארוך לשרירים ורצועות.',
     options: [
       { id: 'a', text: 'לשמש מנוף ואחז לשרירים ורצועות המניעים ומייצבים את החוליה', isCorrect: true },
       { id: 'b', text: 'לשאת ישירות את כל משקל הגוף', isCorrect: false },
@@ -472,8 +474,9 @@ export const PART1_ANATOMY1 = [
     topic: 'סוגי מפרקים',
     title: 'מפרק כדורי Ball and Socket (עמ׳ 41)',
     diagram: 'deltoid',
+    imageUrl: '/images/scapula_bones.jpeg',
     questionText: 'אילו מפרקים בגוף שייכים לסוג "מפרק כדורי ומכתש" (Ball and Socket) בעל מספר דרגות החופש הגבוה ביותר?',
-    hint: 'המפרקים שמאפשרים תנועה מעגלית של 360 מעלות בכתף ובירך.',
+    hint: 'התבונן בתצלום מפרק הכתף: ראש עצם הזרוע (Humerus) מונח בתוך שקע ה-Glenoid של השכמה.',
     options: [
       { id: 'a', text: 'מפרק הכתף (Glenohumeral) ומפרק הירך (Acetabulofemoral)', isCorrect: true },
       { id: 'b', text: 'מפרק המרפק והברך בלבד', isCorrect: false },
@@ -568,8 +571,9 @@ export const PART1_ANATOMY1 = [
     topic: 'עצמות הגפה העליונה',
     title: 'האנטומיה של עצם הבריח Clavicle (עמ׳ 69)',
     diagram: 'deltoid',
+    imageUrl: '/images/scapula_bones.jpeg',
     questionText: 'עצם הבריח (Clavicle) מהווה את החיבור הגרמי היחיד בין:',
-    hint: 'איך היד וכל חגורת הכתף מחוברות פיזית לעצמות בית החזה (שלד הציר)?',
+    hint: 'התבונן בתמונה: עצם הבריח (Clavicle) למעלה מחברת את השכמה אל עצם החזה.',
     options: [
       { id: 'a', text: 'חגורת הכתף (השכמה) אל שלד בית החזה (עצם הסטרנום במפרק SC)', isCorrect: true },
       { id: 'b', text: 'עצם הזרוע לעצם הירך', isCorrect: false },
@@ -584,8 +588,9 @@ export const PART1_ANATOMY1 = [
     topic: 'שלד הגפה התחתונה',
     title: 'מבנה האצטבולום Acetabulum (עמ׳ 104)',
     diagram: 'knee',
+    imageUrl: '/images/pectineus.jpeg',
     questionText: 'האצטבולום (Acetabulum), שקע המפרק של הירך, נוצר מחיבור של שלוש העצמות:',
-    hint: 'שלוש העצמות שמתאחות בבגרות לעצם האגן: כסל, שת וחיק.',
+    hint: 'התבונן בעצמות האגן שבתצלום: שלוש העצמות שמתאחות סביב שקע מפרק הירך.',
     options: [
       { id: 'a', text: 'Ilium, Ischium, Pubis', isCorrect: true },
       { id: 'b', text: 'Femur, Patella, Tibia', isCorrect: false },
@@ -600,6 +605,7 @@ export const PART1_ANATOMY1 = [
     topic: 'מפרק הברך',
     title: 'רצועות צולבות ACL ו-PCL (עמ׳ 106)',
     diagram: 'knee',
+    imageUrl: '/images/tensor_fasciae_latae.jpeg',
     questionText: 'מהו התפקיד הביומכני העיקרי של הרצועה הצולבת הקדמית (ACL) בברך?',
     hint: 'היא מונעת מעצם השוק (Tibia) להחליק קדימה ביחס לעצם הירך.',
     options: [
