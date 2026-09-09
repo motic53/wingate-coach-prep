@@ -16,20 +16,19 @@ const ALL_WINGATE_DATA = [
 ];
 
 function DiagramRenderer({ type, imageUrl }: { type: string; imageUrl?: string }) {
-  // אם מוגדרת תמונה, נציג אותה בצורה ברורה
   if (imageUrl) {
     return (
       <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#020617', padding: '4px' }}>
         <img 
           src={imageUrl} 
           alt="איור אנטומי" 
-          style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', borderRadius: '8px' }}
+          draggable={false}
+          style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', borderRadius: '8px', userSelect: 'none', pointerEvents: 'none' }}
         />
       </div>
     );
   }
 
-  // תרשימי גיבוי (SVG)
   switch (type) {
     case 'cell':
       return (
@@ -103,10 +102,13 @@ export default function App() {
   const [showExplanation, setShowExplanation] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
 
-  // זום
+  // זום + גרירה (Pan & Zoom)
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [zoomScale, setZoomScale] = useState(1);
-  const touchStartRef = useRef<{ dist: number; scale: number } | null>(null);
+  const [panOffset, setPanOffset] = useState({ x: 0, y: 0 });
+  const touchStartRef = useRef<{ dist: number; scale: number; x: number; y: number; originPan: { x: number; y: number } } | null>(null);
+  const isDraggingRef = useRef(false);
+  const mouseStartRef = useRef<{ x: number; y: number; originPan: { x: number; y: number } } | null>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -190,31 +192,80 @@ export default function App() {
     } catch (e) {}
   };
 
+  // מחוות מגע: אצבע אחת לגרירה, 2 אצבעות לזום
   const handleTouchStart = (e: React.TouchEvent) => {
     if (e.touches.length === 2) {
       const dist = Math.hypot(
         e.touches[0].clientX - e.touches[1].clientX,
         e.touches[0].clientY - e.touches[1].clientY
       );
-      touchStartRef.current = { dist, scale: zoomScale };
+      touchStartRef.current = { dist, scale: zoomScale, x: 0, y: 0, originPan: { ...panOffset } };
+    } else if (e.touches.length === 1) {
+      touchStartRef.current = {
+        dist: 0,
+        scale: zoomScale,
+        x: e.touches[0].clientX,
+        y: e.touches[0].clientY,
+        originPan: { ...panOffset }
+      };
     }
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    if (e.touches.length === 2 && touchStartRef.current) {
+    if (!touchStartRef.current) return;
+
+    if (e.touches.length === 2 && touchStartRef.current.dist > 0) {
       const newDist = Math.hypot(
         e.touches[0].clientX - e.touches[1].clientX,
         e.touches[0].clientY - e.touches[1].clientY
       );
       const ratio = newDist / touchStartRef.current.dist;
-      const newScale = Math.min(Math.max(touchStartRef.current.scale * ratio, 0.8), 4);
+      const newScale = Math.min(Math.max(touchStartRef.current.scale * ratio, 0.8), 5);
       setZoomScale(newScale);
+    } else if (e.touches.length === 1 && touchStartRef.current.dist === 0) {
+      const deltaX = e.touches[0].clientX - touchStartRef.current.x;
+      const deltaY = e.touches[0].clientY - touchStartRef.current.y;
+      setPanOffset({
+        x: touchStartRef.current.originPan.x + deltaX,
+        y: touchStartRef.current.originPan.y + deltaY
+      });
     }
   };
 
+  const handleTouchEnd = () => {
+    touchStartRef.current = null;
+  };
+
+  // תמיכה בגרירה עם עכבר למחשב
+  const handleMouseDown = (e: React.MouseEvent) => {
+    isDraggingRef.current = true;
+    mouseStartRef.current = { x: e.clientX, y: e.clientY, originPan: { ...panOffset } };
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDraggingRef.current || !mouseStartRef.current) return;
+    const deltaX = e.clientX - mouseStartRef.current.x;
+    const deltaY = e.clientY - mouseStartRef.current.y;
+    setPanOffset({
+      x: mouseStartRef.current.originPan.x + deltaX,
+      y: mouseStartRef.current.originPan.y + deltaY
+    });
+  };
+
+  const handleMouseUp = () => {
+    isDraggingRef.current = false;
+    mouseStartRef.current = null;
+  };
+
   const openZoomModal = () => {
-    setZoomScale(1.3);
+    setZoomScale(1.4);
+    setPanOffset({ x: 0, y: 0 });
     setIsModalOpen(true);
+  };
+
+  const resetZoomAndPan = () => {
+    setZoomScale(1);
+    setPanOffset({ x: 0, y: 0 });
   };
 
   if (!mounted || quizList.length === 0) {
@@ -270,7 +321,7 @@ export default function App() {
               <h1 style={{ margin: 0, fontSize: '18px', fontWeight: '900', color: '#f59e0b' }}>
                 🎓 ווינגייט קואוץ' - שמואל
               </h1>
-              <span style={{ fontSize: '11px', color: '#94a3b8' }}>איורים מקוריים מהחוברת, זום בשתי אצבעות והקראה</span>
+              <span style={{ fontSize: '11px', color: '#94a3b8' }}>איורים מקוריים מהחוברת, גרירה וזום והקראה</span>
             </div>
 
             <button
@@ -400,14 +451,14 @@ export default function App() {
           <span style={{ fontSize: '11px', color: '#38bdf8', fontWeight: 'bold' }}>איור מקורי 📸</span>
         </div>
 
-        {/* שטח התמונה/תרשים */}
+        {/* שטח התמונה במסך הראשי */}
         <div 
           onClick={openZoomModal}
           style={{ width: '100%', height: '180px', borderRadius: '14px', overflow: 'hidden', marginBottom: '10px', border: '1px solid #334155', backgroundColor: '#020617', position: 'relative', cursor: 'pointer' }}
         >
           <DiagramRenderer type={currentQ.diagram} imageUrl={currentQ.imageUrl} />
           <div style={{ position: 'absolute', bottom: '6px', left: '6px', backgroundColor: 'rgba(2, 6, 23, 0.85)', color: '#fbbf24', fontSize: '10px', padding: '3px 8px', borderRadius: '6px', border: '1px solid #334155', fontWeight: 'bold' }}>
-            🔍 לחץ להגדלה וזום
+            🔍 לחץ להגדלה, זום והזזה
           </div>
         </div>
 
@@ -561,29 +612,29 @@ export default function App() {
         )}
       </footer>
 
-      {/* חלון מודאל זום */}
+      {/* חלון מודאל זום עם גרירה חופשית (Pan & Zoom) */}
       {isModalOpen && (
         <div 
           style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.95)', zIndex: 100, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '10px' }}
         >
-          <div style={{ display: 'flex', gap: '8px', marginBottom: '12px', zIndex: 110 }}>
+          <div style={{ display: 'flex', gap: '8px', marginBottom: '12px', zIndex: 110, flexWrap: 'wrap', justifyContent: 'center' }}>
             <button 
-              onClick={() => setZoomScale((s) => Math.min(s + 0.3, 4))}
+              onClick={() => setZoomScale((s) => Math.min(s + 0.3, 5))}
               style={{ backgroundColor: '#1e293b', color: '#38bdf8', border: '1px solid #0284c7', padding: '6px 14px', borderRadius: '10px', fontWeight: 'bold', fontSize: '15px' }}
             >
-              ➕ זום פנימה
+              ➕ זום
             </button>
             <button 
               onClick={() => setZoomScale((s) => Math.max(s - 0.3, 0.8))}
               style={{ backgroundColor: '#1e293b', color: '#38bdf8', border: '1px solid #0284c7', padding: '6px 14px', borderRadius: '10px', fontWeight: 'bold', fontSize: '15px' }}
             >
-              ➖ זום החוצה
+              ➖ הקטן
             </button>
             <button 
-              onClick={() => setZoomScale(1)}
+              onClick={resetZoomAndPan}
               style={{ backgroundColor: '#1e293b', color: '#fbbf24', border: '1px solid #d97706', padding: '6px 14px', borderRadius: '10px', fontWeight: 'bold', fontSize: '13px' }}
             >
-              🔄 איפוס
+              🔄 איפוס ומרכוז
             </button>
             <button 
               onClick={() => setIsModalOpen(false)}
@@ -596,10 +647,15 @@ export default function App() {
           <div 
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
             style={{ 
               width: '100%', 
               maxWidth: '480px', 
-              height: '340px', 
+              height: '380px', 
               borderRadius: '16px', 
               border: '2px solid #f59e0b', 
               overflow: 'hidden', 
@@ -607,16 +663,21 @@ export default function App() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              touchAction: 'none'
+              touchAction: 'none',
+              cursor: isDraggingRef.current ? 'grabbing' : 'grab',
+              position: 'relative'
             }}
           >
             <div 
               style={{ 
                 width: '100%', 
                 height: '100%', 
-                transform: `scale(${zoomScale})`, 
-                transition: 'transform 0.1s ease-out',
-                transformOrigin: 'center center'
+                transform: `translate(${panOffset.x}px, ${panOffset.y}px) scale(${zoomScale})`, 
+                transition: isDraggingRef.current ? 'none' : 'transform 0.08s ease-out',
+                transformOrigin: 'center center',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
               }}
             >
               <DiagramRenderer type={currentQ.diagram} imageUrl={currentQ.imageUrl} />
@@ -624,7 +685,7 @@ export default function App() {
           </div>
 
           <p style={{ color: '#cbd5e1', fontSize: '12px', marginTop: '10px' }}>
-            💡 השתמש בשתי אצבעות (Pinch) להגדלה והקטנה
+            🖐️ גרור עם האצבע להזזת התמונה לכל כיוון | 2 אצבעות לזום
           </p>
         </div>
       )}
