@@ -7,12 +7,14 @@ import { PART1_ANATOMY1 } from '../data/part1';
 import { PART2_ANATOMY2 } from '../data/part2';
 import { PART3_PHYSIO1 } from '../data/part3';
 import { PART4_PHYSIO2 } from '../data/part4';
+import { PART5_TRAINING_PLAN } from '../data/trainingPlan';
 
 const ALL_WINGATE_DATA = [
   ...(PART1_ANATOMY1 || []),
   ...(PART2_ANATOMY2 || []),
   ...(PART3_PHYSIO1 || []),
-  ...(PART4_PHYSIO2 || [])
+  ...(PART4_PHYSIO2 || []),
+  ...(PART5_TRAINING_PLAN || [])
 ];
 
 function DiagramRenderer({ type, imageUrl }: { type: string; imageUrl?: string }) {
@@ -192,7 +194,6 @@ export default function App() {
     } catch (e) {}
   };
 
-  // מחוות מגע: אצבע אחת לגרירה, 2 אצבעות לזום
   const handleTouchStart = (e: React.TouchEvent) => {
     if (e.touches.length === 2) {
       const dist = Math.hypot(
@@ -236,7 +237,6 @@ export default function App() {
     touchStartRef.current = null;
   };
 
-  // תמיכה בגרירה עם עכבר למחשב
   const handleMouseDown = (e: React.MouseEvent) => {
     isDraggingRef.current = true;
     mouseStartRef.current = { x: e.clientX, y: e.clientY, originPan: { ...panOffset } };
@@ -321,7 +321,7 @@ export default function App() {
               <h1 style={{ margin: 0, fontSize: '18px', fontWeight: '900', color: '#f59e0b' }}>
                 🎓 ווינגייט קואוץ' - שמואל
               </h1>
-              <span style={{ fontSize: '11px', color: '#94a3b8' }}>איורים מקוריים מהחוברת, גרירה וזום והקראה</span>
+              <span style={{ fontSize: '11px', color: '#94a3b8' }}>מבחני אנטומיה, פיזיולוגיה ותכנון אימון (כולל הקראה וזום)</span>
             </div>
 
             <button
@@ -332,6 +332,7 @@ export default function App() {
             </button>
           </div>
 
+          {/* שורת בחירת נושאים כולל תכנון אימון */}
           <div style={{ display: 'flex', gap: '6px', overflowX: 'auto', paddingBottom: '6px', marginBottom: '8px' }}>
             <button
               onClick={() => handleModuleClick('all')}
@@ -347,7 +348,24 @@ export default function App() {
                 cursor: 'pointer'
               }}
             >
-              🎯 כל המבחן ({ALL_WINGATE_DATA.length})
+              🎯 הכל ({ALL_WINGATE_DATA.length})
+            </button>
+
+            <button
+              onClick={() => handleModuleClick('train_plan')}
+              style={{
+                backgroundColor: activeModule === 'train_plan' ? '#10b981' : '#0f172a',
+                color: activeModule === 'train_plan' ? '#020617' : '#34d399',
+                border: activeModule === 'train_plan' ? '1px solid #10b981' : '1px solid #059669',
+                padding: '6px 10px',
+                borderRadius: '10px',
+                fontSize: '11px',
+                fontWeight: 'bold',
+                whiteSpace: 'nowrap',
+                cursor: 'pointer'
+              }}
+            >
+              📋 תכנון אימון ({PART5_TRAINING_PLAN.length})
             </button>
 
             <button
@@ -448,7 +466,7 @@ export default function App() {
             <span style={{ color: '#f59e0b', fontSize: '10px', fontWeight: 'bold', display: 'block' }}>{currentQ.topic}</span>
             <span style={{ color: '#ffffff', fontSize: '13px', fontWeight: '900' }}>{currentQ.title}</span>
           </div>
-          <span style={{ fontSize: '11px', color: '#38bdf8', fontWeight: 'bold' }}>איור מקורי 📸</span>
+          <span style={{ fontSize: '11px', color: '#38bdf8', fontWeight: 'bold' }}>איור / תרשים 📸</span>
         </div>
 
         {/* שטח התמונה במסך הראשי */}
@@ -492,7 +510,7 @@ export default function App() {
           </div>
 
           <div style={{ marginTop: '8px', backgroundColor: 'rgba(2, 6, 23, 0.6)', padding: '6px 10px', borderRadius: '8px', fontSize: '11px', color: '#94a3b8' }}>
-            💡 <strong>רמז אסוציאטיבי:</strong> {currentQ.hint}
+            💡 <strong>רמז:</strong> {currentQ.hint}
           </div>
         </div>
 
