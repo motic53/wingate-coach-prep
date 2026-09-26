@@ -17,7 +17,21 @@ const ALL_WINGATE_DATA = [
   ...(PART5_TRAINING_PLAN || [])
 ];
 
-function DiagramRenderer({ type, imageUrl }: { type: string; imageUrl?: string }) {
+function DiagramRenderer({ type, imageUrl, moduleId, topic, title, qNum, totalQ }: any) {
+  // אם זו שאלת תכנון אימון - מציגים כרטיס מידע ממוקד במקום תרשים אנטומי מבלבל
+  if (moduleId === 'train_plan') {
+    return (
+      <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backgroundColor: '#090d16', padding: '16px', borderRadius: '12px', border: '1px solid #1e293b', textAlign: 'center' }}>
+        <span style={{ fontSize: '32px', marginBottom: '6px' }}>📋</span>
+        <span style={{ color: '#10b981', fontSize: '13px', fontWeight: 'bold' }}>תכנון אימון והדרכה</span>
+        <span style={{ color: '#f8fafc', fontSize: '15px', fontWeight: '900', marginTop: '2px' }}>{title || topic}</span>
+        <span style={{ color: '#94a3b8', fontSize: '11px', marginTop: '6px', backgroundColor: '#020617', padding: '4px 10px', borderRadius: '8px', border: '1px solid #1e293b' }}>
+          שאלה {qNum} מתוך {totalQ}
+        </span>
+      </div>
+    );
+  }
+
   if (imageUrl) {
     return (
       <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#020617', padding: '4px' }}>
@@ -169,7 +183,8 @@ export default function App() {
       .map((opt, i) => `אפשרות ${letters[i]}: ${opt.text}`)
       .join('. ');
 
-    const fullScript = `שאלה בנושא ${currentQ.topic}. ${currentQ.questionText}. אפשרויות: ${optionsText}.`;
+    const hintPart = currentQ.hint ? `רמז: ${currentQ.hint}. ` : '';
+    const fullScript = `שאלה בנושא ${currentQ.topic}. ${currentQ.questionText}. ${hintPart}אפשרויות: ${optionsText}.`;
 
     const utterance = new SpeechSynthesisUtterance(fullScript);
     utterance.lang = 'he-IL';
@@ -258,6 +273,7 @@ export default function App() {
   };
 
   const openZoomModal = () => {
+    if (currentQ?.moduleId === 'train_plan') return; // אין צורך בזום בתכנון אימון
     setZoomScale(1.4);
     setPanOffset({ x: 0, y: 0 });
     setIsModalOpen(true);
@@ -321,7 +337,7 @@ export default function App() {
               <h1 style={{ margin: 0, fontSize: '18px', fontWeight: '900', color: '#f59e0b' }}>
                 🎓 ווינגייט קואוץ' - שמואל
               </h1>
-              <span style={{ fontSize: '11px', color: '#94a3b8' }}>מבחני אנטומיה, פיזיולוגיה ותכנון אימון (כולל הקראה וזום)</span>
+              <span style={{ fontSize: '11px', color: '#94a3b8' }}>מבחני אנטומיה, פיזיולוגיה ותכנון אימון עם הקראה מלאה</span>
             </div>
 
             <button
@@ -332,7 +348,7 @@ export default function App() {
             </button>
           </div>
 
-          {/* שורת בחירת נושאים כולל תכנון אימון */}
+          {/* שורת בחירת נושאים */}
           <div style={{ display: 'flex', gap: '6px', overflowX: 'auto', paddingBottom: '6px', marginBottom: '8px' }}>
             <button
               onClick={() => handleModuleClick('all')}
@@ -461,23 +477,35 @@ export default function App() {
           </div>
         </header>
 
-        <div style={{ backgroundColor: '#0f172a', border: '1px solid #1e293b', borderRadius: '14px', padding: '8px 12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-          <div>
-            <span style={{ color: '#f59e0b', fontSize: '10px', fontWeight: 'bold', display: 'block' }}>{currentQ.topic}</span>
-            <span style={{ color: '#ffffff', fontSize: '13px', fontWeight: '900' }}>{currentQ.title}</span>
-          </div>
-          <span style={{ fontSize: '11px', color: '#38bdf8', fontWeight: 'bold' }}>איור / תרשים 📸</span>
-        </div>
-
-        {/* שטח התמונה במסך הראשי */}
+        {/* שטח תמונה / כרטיס תכנון אימון מותאם */}
         <div 
           onClick={openZoomModal}
-          style={{ width: '100%', height: '180px', borderRadius: '14px', overflow: 'hidden', marginBottom: '10px', border: '1px solid #334155', backgroundColor: '#020617', position: 'relative', cursor: 'pointer' }}
+          style={{ 
+            width: '100%', 
+            height: currentQ.moduleId === 'train_plan' ? '120px' : '180px', 
+            borderRadius: '14px', 
+            overflow: 'hidden', 
+            marginBottom: '10px', 
+            border: '1px solid #334155', 
+            backgroundColor: '#020617', 
+            position: 'relative', 
+            cursor: currentQ.moduleId === 'train_plan' ? 'default' : 'pointer' 
+          }}
         >
-          <DiagramRenderer type={currentQ.diagram} imageUrl={currentQ.imageUrl} />
-          <div style={{ position: 'absolute', bottom: '6px', left: '6px', backgroundColor: 'rgba(2, 6, 23, 0.85)', color: '#fbbf24', fontSize: '10px', padding: '3px 8px', borderRadius: '6px', border: '1px solid #334155', fontWeight: 'bold' }}>
-            🔍 לחץ להגדלה, זום והזזה
-          </div>
+          <DiagramRenderer 
+            type={currentQ.diagram} 
+            imageUrl={currentQ.imageUrl} 
+            moduleId={currentQ.moduleId}
+            topic={currentQ.topic}
+            title={currentQ.title}
+            qNum={currentIndex + 1}
+            totalQ={quizList.length}
+          />
+          {currentQ.moduleId !== 'train_plan' && (
+            <div style={{ position: 'absolute', bottom: '6px', left: '6px', backgroundColor: 'rgba(2, 6, 23, 0.85)', color: '#fbbf24', fontSize: '10px', padding: '3px 8px', borderRadius: '6px', border: '1px solid #334155', fontWeight: 'bold' }}>
+              🔍 לחץ להגדלה, זום והזזה
+            </div>
+          )}
         </div>
 
         {/* שאלה + כפתור הקראה */}
@@ -503,14 +531,24 @@ export default function App() {
                 alignItems: 'center',
                 gap: '4px'
               }}
-              title="הקרא שאלה ותשובות"
+              title="הקרא שאלה, רמז ותשובות"
             >
               {isSpeaking ? '⏹ עצור' : '🔊 הקרא הכל'}
             </button>
           </div>
 
-          <div style={{ marginTop: '8px', backgroundColor: 'rgba(2, 6, 23, 0.6)', padding: '6px 10px', borderRadius: '8px', fontSize: '11px', color: '#94a3b8' }}>
-            💡 <strong>רמז:</strong> {currentQ.hint}
+          {/* כרטיס הרמז עם כפתור הקראה ייעודי */}
+          <div style={{ marginTop: '8px', backgroundColor: 'rgba(2, 6, 23, 0.7)', padding: '7px 10px', borderRadius: '8px', fontSize: '11px', color: '#cbd5e1', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '6px', border: '1px solid #1e293b' }}>
+            <div>
+              💡 <strong style={{ color: '#fbbf24' }}>רמז:</strong> {currentQ.hint}
+            </div>
+            <button
+              onClick={() => speakCustom(`רמז: ${currentQ.hint}`)}
+              style={{ backgroundColor: '#1e293b', color: '#fbbf24', border: '1px solid #d97706', borderRadius: '6px', padding: '2px 6px', fontSize: '10px', cursor: 'pointer', flexShrink: 0 }}
+              title="הקרא רמז בלבד"
+            >
+              🔊
+            </button>
           </div>
         </div>
 
@@ -630,7 +668,7 @@ export default function App() {
         )}
       </footer>
 
-      {/* חלון מודאל זום עם גרירה חופשית (Pan & Zoom) */}
+      {/* חלון מודאל זום עם גרירה חופשית (מופעל רק באנטומיה ופיזיולוגיה שיש בהן איור) */}
       {isModalOpen && (
         <div 
           style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.95)', zIndex: 100, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '10px' }}
@@ -677,13 +715,13 @@ export default function App() {
               borderRadius: '16px', 
               border: '2px solid #f59e0b', 
               overflow: 'hidden', 
-              backgroundColor: '#020617',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              touchAction: 'none',
-              cursor: isDraggingRef.current ? 'grabbing' : 'grab',
-              position: 'relative'
+              backgroundColor: '#020617', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center', 
+              touchAction: 'none', 
+              cursor: isDraggingRef.current ? 'grabbing' : 'grab', 
+              position: 'relative' 
             }}
           >
             <div 
@@ -691,11 +729,11 @@ export default function App() {
                 width: '100%', 
                 height: '100%', 
                 transform: `translate(${panOffset.x}px, ${panOffset.y}px) scale(${zoomScale})`, 
-                transition: isDraggingRef.current ? 'none' : 'transform 0.08s ease-out',
-                transformOrigin: 'center center',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
+                transition: isDraggingRef.current ? 'none' : 'transform 0.08s ease-out', 
+                transformOrigin: 'center center', 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center' 
               }}
             >
               <DiagramRenderer type={currentQ.diagram} imageUrl={currentQ.imageUrl} />
