@@ -17,15 +17,92 @@ const ALL_WINGATE_DATA = [
   ...(PART5_TRAINING_PLAN || [])
 ];
 
+// רכיב איורים גרפיים עשירים להסברים פדגוגיים
+function VisualExplainingChart({ topic, title }: { topic: string; title: string }) {
+  const isRepTopic = topic?.includes('חזרות') || title?.includes('חזרות') || title?.includes('עומס');
+  const isVolumeTopic = topic?.includes('נפח') || title?.includes('סטים');
+  const isSplitTopic = topic?.includes('חלוקת') || title?.includes('ABC') || title?.includes('AB') || title?.includes('FBW');
+
+  if (isRepTopic) {
+    return (
+      <div style={{ backgroundColor: '#020617', padding: '10px', borderRadius: '10px', border: '1px solid #1e293b', marginBottom: '8px' }}>
+        <span style={{ fontSize: '11px', fontWeight: 'bold', color: '#38bdf8', display: 'block', marginBottom: '4px' }}>📊 ספקטרום החזרות והמטרות (ווינגייט):</span>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '4px', textAlign: 'center', fontSize: '10px' }}>
+          <div style={{ backgroundColor: '#1e1b4b', padding: '6px', borderRadius: '6px', border: '1px solid #4338ca' }}>
+            <strong style={{ color: '#818cf8', display: 'block' }}>1-5 חזרות</strong>
+            <span style={{ color: '#c7d2fe' }}>כוח מרבי (ATP-CP)</span>
+            <span style={{ display: 'block', fontSize: '9px', color: '#94a3b8' }}>מנוחה 3-5 דק'</span>
+          </div>
+          <div style={{ backgroundColor: '#064e3b', padding: '6px', borderRadius: '6px', border: '1px solid #059669' }}>
+            <strong style={{ color: '#34d399', display: 'block' }}>6-12 חזרות</strong>
+            <span style={{ color: '#a7f3d0' }}>היפרטרופיה מיטבית</span>
+            <span style={{ display: 'block', fontSize: '9px', color: '#94a3b8' }}>מנוחה 60-90 שניות</span>
+          </div>
+          <div style={{ backgroundColor: '#701a75', padding: '6px', borderRadius: '6px', border: '1px solid #c026d3' }}>
+            <strong style={{ color: '#f472b6', display: 'block' }}>15+ חזרות</strong>
+            <span style={{ color: '#fbcfe8' }}>סבולת שריר / מטבולי</span>
+            <span style={{ display: 'block', fontSize: '9px', color: '#94a3b8' }}>מנוחה קצרה 30-45 שניות</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (isVolumeTopic) {
+    return (
+      <div style={{ backgroundColor: '#020617', padding: '10px', borderRadius: '10px', border: '1px solid #1e293b', marginBottom: '8px' }}>
+        <span style={{ fontSize: '11px', fontWeight: 'bold', color: '#fbbf24', display: 'block', marginBottom: '4px' }}>📈 פירמידת נפח שבועי מומלץ לקבוצת שריר:</span>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '3px', fontSize: '10px' }}>
+          <div style={{ backgroundColor: '#1e293b', padding: '4px 8px', borderRadius: '4px', display: 'flex', justifyContent: 'space-between', borderRight: '3px solid #10b981' }}>
+            <span style={{ color: '#f1f5f9' }}>מתחיל (עד 6 חודשים):</span>
+            <strong style={{ color: '#34d399' }}>8-10 סטים בשבוע (1-4 באימון)</strong>
+          </div>
+          <div style={{ backgroundColor: '#1e293b', padding: '4px 8px', borderRadius: '4px', display: 'flex', justifyContent: 'space-between', borderRight: '3px solid #3b82f6' }}>
+            <span style={{ color: '#f1f5f9' }}>בינוני (6 חודשים - שנתיים):</span>
+            <strong style={{ color: '#60a5fa' }}>10-20 סטים בשבוע (5-10 באימון)</strong>
+          </div>
+          <div style={{ backgroundColor: '#1e293b', padding: '4px 8px', borderRadius: '4px', display: 'flex', justifyContent: 'space-between', borderRight: '3px solid #ef4444' }}>
+            <span style={{ color: '#f1f5f9' }}>מתקדם (מעל שנתיים):</span>
+            <strong style={{ color: '#f87171' }}>20-40 סטים בשבוע (קרוב לכשל RIR 0)</strong>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (isSplitTopic) {
+    return (
+      <div style={{ backgroundColor: '#020617', padding: '10px', borderRadius: '10px', border: '1px solid #1e293b', marginBottom: '8px' }}>
+        <span style={{ fontSize: '11px', fontWeight: 'bold', color: '#a855f7', display: 'block', marginBottom: '4px' }}>🗺️ מפת חלוקת תוכניות (Splits) לפי תדירות שבועית:</span>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '4px', textAlign: 'center', fontSize: '10px' }}>
+          <div style={{ backgroundColor: '#0f172a', padding: '4px', borderRadius: '4px', border: '1px solid #334155' }}>
+            <strong style={{ color: '#e2e8f0', display: 'block' }}>2-3 אימונים</strong>
+            <span style={{ color: '#38bdf8' }}>FBW (גוף מלא)</span>
+          </div>
+          <div style={{ backgroundColor: '#0f172a', padding: '4px', borderRadius: '4px', border: '1px solid #334155' }}>
+            <strong style={{ color: '#e2e8f0', display: 'block' }}>3-4 אימונים</strong>
+            <span style={{ color: '#38bdf8' }}>AB (עליון/תחתון)</span>
+          </div>
+          <div style={{ backgroundColor: '#0f172a', padding: '4px', borderRadius: '4px', border: '1px solid #334155' }}>
+            <strong style={{ color: '#e2e8f0', display: 'block' }}>5-6 אימונים</strong>
+            <span style={{ color: '#38bdf8' }}>ABC / PPL</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return null;
+}
+
 function DiagramRenderer({ type, imageUrl, moduleId, topic, title, qNum, totalQ }: any) {
-  // אם זו שאלת תכנון אימון - מציגים כרטיס מידע ממוקד במקום תרשים אנטומי מבלבל
   if (moduleId === 'train_plan') {
     return (
-      <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backgroundColor: '#090d16', padding: '16px', borderRadius: '12px', border: '1px solid #1e293b', textAlign: 'center' }}>
-        <span style={{ fontSize: '32px', marginBottom: '6px' }}>📋</span>
-        <span style={{ color: '#10b981', fontSize: '13px', fontWeight: 'bold' }}>תכנון אימון והדרכה</span>
-        <span style={{ color: '#f8fafc', fontSize: '15px', fontWeight: '900', marginTop: '2px' }}>{title || topic}</span>
-        <span style={{ color: '#94a3b8', fontSize: '11px', marginTop: '6px', backgroundColor: '#020617', padding: '4px 10px', borderRadius: '8px', border: '1px solid #1e293b' }}>
+      <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backgroundColor: '#090d16', padding: '14px', borderRadius: '12px', border: '1px solid #1e293b', textAlign: 'center' }}>
+        <span style={{ fontSize: '28px', marginBottom: '4px' }}>📋</span>
+        <span style={{ color: '#10b981', fontSize: '12px', fontWeight: 'bold' }}>תכנון אימון והדרכה</span>
+        <span style={{ color: '#f8fafc', fontSize: '14px', fontWeight: '900', marginTop: '2px' }}>{title || topic}</span>
+        <span style={{ color: '#94a3b8', fontSize: '11px', marginTop: '6px', backgroundColor: '#020617', padding: '3px 8px', borderRadius: '6px', border: '1px solid #1e293b' }}>
           שאלה {qNum} מתוך {totalQ}
         </span>
       </div>
@@ -118,20 +195,45 @@ export default function App() {
   const [showExplanation, setShowExplanation] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
 
+  // הגדרות מצב מבחן וטיימר אקטיבי
+  const [examMode, setExamMode] = useState<'practice' | 'real'>('practice');
+  const [paceSecondsPerQ, setPaceSecondsPerQ] = useState(90); // 90 שניות למתחיל, 60 לבינוני, 45 למתקדם
+  const [timeLeft, setTimeLeft] = useState(0);
+  const [isExamCompleted, setIsExamCompleted] = useState(false);
+  const [userAnswers, setUserAnswers] = useState<{ [qId: string]: string }>({});
+
   // זום + גרירה (Pan & Zoom)
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [zoomScale, setZoomScale] = useState(1);
   const [panOffset, setPanOffset] = useState({ x: 0, y: 0 });
-  const touchStartRef = useRef<{ dist: number; scale: number; x: number; y: number; originPan: { x: number; y: number } } | null>(null);
+  const touchStartRef = useRef<any>(null);
   const isDraggingRef = useRef(false);
-  const mouseStartRef = useRef<{ x: number; y: number; originPan: { x: number; y: number } } | null>(null);
+  const mouseStartRef = useRef<any>(null);
 
   useEffect(() => {
     setMounted(true);
-    resetAndShuffle('all');
+    resetAndShuffle('all', 'practice', paceSecondsPerQ);
   }, []);
 
-  const resetAndShuffle = (modId = activeModule) => {
+  // ניהול טיימר רץ במצב מבחן אמת
+  useEffect(() => {
+    if (examMode !== 'real' || isExamCompleted || timeLeft <= 0) return;
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          finishRealExam();
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [examMode, isExamCompleted, timeLeft]);
+
+  const resetAndShuffle = (modId = activeModule, mode = examMode, paceSec = paceSecondsPerQ) => {
     stopSpeech();
 
     let source = ALL_WINGATE_DATA;
@@ -151,11 +253,37 @@ export default function App() {
     setShowExplanation(false);
     setScore(0);
     setStreak(0);
+    setUserAnswers({});
+    setIsExamCompleted(false);
+
+    if (mode === 'real') {
+      setTimeLeft(randomized.length * paceSec);
+    } else {
+      setTimeLeft(0);
+    }
   };
 
   const handleModuleClick = (modId: string) => {
     setActiveModule(modId);
-    resetAndShuffle(modId);
+    resetAndShuffle(modId, examMode, paceSecondsPerQ);
+  };
+
+  const handleModeChange = (newMode: 'practice' | 'real') => {
+    setExamMode(newMode);
+    resetAndShuffle(activeModule, newMode, paceSecondsPerQ);
+  };
+
+  const handlePaceChange = (sec: number) => {
+    setPaceSecondsPerQ(sec);
+    if (examMode === 'real') {
+      resetAndShuffle(activeModule, 'real', sec);
+    }
+  };
+
+  const formatTimer = (totalSeconds: number) => {
+    const mins = Math.floor(totalSeconds / 60);
+    const secs = totalSeconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
   const stopSpeech = () => {
@@ -183,7 +311,7 @@ export default function App() {
       .map((opt, i) => `אפשרות ${letters[i]}: ${opt.text}`)
       .join('. ');
 
-    const hintPart = currentQ.hint ? `רמז: ${currentQ.hint}. ` : '';
+    const hintPart = (examMode === 'practice' && currentQ.hint) ? `רמז: ${currentQ.hint}. ` : '';
     const fullScript = `שאלה בנושא ${currentQ.topic}. ${currentQ.questionText}. ${hintPart}אפשרויות: ${optionsText}.`;
 
     const utterance = new SpeechSynthesisUtterance(fullScript);
@@ -209,48 +337,31 @@ export default function App() {
     } catch (e) {}
   };
 
+  // מחוות מגע וזום
   const handleTouchStart = (e: React.TouchEvent) => {
     if (e.touches.length === 2) {
-      const dist = Math.hypot(
-        e.touches[0].clientX - e.touches[1].clientX,
-        e.touches[0].clientY - e.touches[1].clientY
-      );
+      const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
       touchStartRef.current = { dist, scale: zoomScale, x: 0, y: 0, originPan: { ...panOffset } };
     } else if (e.touches.length === 1) {
-      touchStartRef.current = {
-        dist: 0,
-        scale: zoomScale,
-        x: e.touches[0].clientX,
-        y: e.touches[0].clientY,
-        originPan: { ...panOffset }
-      };
+      touchStartRef.current = { dist: 0, scale: zoomScale, x: e.touches[0].clientX, y: e.touches[0].clientY, originPan: { ...panOffset } };
     }
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
     if (!touchStartRef.current) return;
-
     if (e.touches.length === 2 && touchStartRef.current.dist > 0) {
-      const newDist = Math.hypot(
-        e.touches[0].clientX - e.touches[1].clientX,
-        e.touches[0].clientY - e.touches[1].clientY
-      );
+      const newDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
       const ratio = newDist / touchStartRef.current.dist;
-      const newScale = Math.min(Math.max(touchStartRef.current.scale * ratio, 0.8), 5);
-      setZoomScale(newScale);
+      setZoomScale(Math.min(Math.max(touchStartRef.current.scale * ratio, 0.8), 5));
     } else if (e.touches.length === 1 && touchStartRef.current.dist === 0) {
-      const deltaX = e.touches[0].clientX - touchStartRef.current.x;
-      const deltaY = e.touches[0].clientY - touchStartRef.current.y;
       setPanOffset({
-        x: touchStartRef.current.originPan.x + deltaX,
-        y: touchStartRef.current.originPan.y + deltaY
+        x: touchStartRef.current.originPan.x + (e.touches[0].clientX - touchStartRef.current.x),
+        y: touchStartRef.current.originPan.y + (e.touches[0].clientY - touchStartRef.current.y)
       });
     }
   };
 
-  const handleTouchEnd = () => {
-    touchStartRef.current = null;
-  };
+  const handleTouchEnd = () => { touchStartRef.current = null; };
 
   const handleMouseDown = (e: React.MouseEvent) => {
     isDraggingRef.current = true;
@@ -259,11 +370,9 @@ export default function App() {
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!isDraggingRef.current || !mouseStartRef.current) return;
-    const deltaX = e.clientX - mouseStartRef.current.x;
-    const deltaY = e.clientY - mouseStartRef.current.y;
     setPanOffset({
-      x: mouseStartRef.current.originPan.x + deltaX,
-      y: mouseStartRef.current.originPan.y + deltaY
+      x: mouseStartRef.current.originPan.x + (e.clientX - mouseStartRef.current.x),
+      y: mouseStartRef.current.originPan.y + (e.clientY - mouseStartRef.current.y)
     });
   };
 
@@ -273,7 +382,7 @@ export default function App() {
   };
 
   const openZoomModal = () => {
-    if (currentQ?.moduleId === 'train_plan') return; // אין צורך בזום בתכנון אימון
+    if (quizList[currentIndex]?.moduleId === 'train_plan') return;
     setZoomScale(1.4);
     setPanOffset({ x: 0, y: 0 });
     setIsModalOpen(true);
@@ -287,14 +396,20 @@ export default function App() {
   if (!mounted || quizList.length === 0) {
     return (
       <div style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#f59e0b', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px', fontWeight: 'bold' }}>
-        טוען את אפליקציית וינגייט לשמואל...
+        טוען את סימולטור וינגייט לשמואל...
       </div>
     );
   }
 
   const currentQ = quizList[currentIndex];
 
-  const handleCheck = () => {
+  const finishRealExam = () => {
+    stopSpeech();
+    setIsExamCompleted(true);
+  };
+
+  // בדיקת תשובה (במצב תרגול)
+  const handleCheckPractice = () => {
     if (!selectedOption || isAnswerChecked) return;
     const chosen = currentQ.options.find((o) => o.id === selectedOption);
     const correct = chosen?.isCorrect;
@@ -313,19 +428,120 @@ export default function App() {
     }
   };
 
-  const handleNext = () => {
+  // מעבר לשאלה הבאה (במצב תרגול)
+  const handleNextPractice = () => {
     stopSpeech();
-
     if (currentIndex < quizList.length - 1) {
       setCurrentIndex((i) => i + 1);
       setSelectedOption(null);
       setIsAnswerChecked(false);
       setShowExplanation(false);
     } else {
-      alert(`כל הכבוד שמואל!\nסיימת את המודול בהצלחה!\nצברת ${score} נקודות!`);
-      resetAndShuffle(activeModule);
+      alert(`כל הכבוד שמואל!\nסיימת את התרגול בהצלחה!\nצברת ${score} נקודות!`);
+      resetAndShuffle(activeModule, 'practice');
     }
   };
+
+  // מעבר שאלה במצב מבחן אמת
+  const handleNextReal = () => {
+    stopSpeech();
+    if (selectedOption) {
+      setUserAnswers(prev => ({ ...prev, [currentQ.id]: selectedOption }));
+    }
+
+    if (currentIndex < quizList.length - 1) {
+      const nextIdx = currentIndex + 1;
+      setCurrentIndex(nextIdx);
+      setSelectedOption(userAnswers[quizList[nextIdx]?.id] || null);
+    } else {
+      finishRealExam();
+    }
+  };
+
+  // חישוב תוצאות במצב מבחן אמת
+  const realScoreResults = (() => {
+    if (!isExamCompleted) return { correct: 0, total: 0, percentage: 0 };
+    let correctCount = 0;
+    quizList.forEach((q) => {
+      const chosenId = userAnswers[q.id];
+      const correctOpt = q.options.find((o) => o.isCorrect);
+      if (chosenId && correctOpt && chosenId === correctOpt.id) {
+        correctCount++;
+      }
+    });
+    const percentage = Math.round((correctCount / quizList.length) * 100);
+    return { correct: correctCount, total: quizList.length, percentage };
+  })();
+
+  // מסך סיכום מבחן אמת
+  if (isExamCompleted) {
+    const isPassed = realScoreResults.percentage >= 70;
+    return (
+      <main style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#f8fafc', padding: '16px', maxWidth: '540px', margin: '0 auto' }} dir="rtl">
+        <div style={{ backgroundColor: '#0f172a', border: '2px solid #334155', borderRadius: '18px', padding: '20px', textAlign: 'center', marginBottom: '16px' }}>
+          <span style={{ fontSize: '46px' }}>{isPassed ? '🏆' : '⚠️'}</span>
+          <h2 style={{ fontSize: '20px', fontWeight: '900', color: isPassed ? '#10b981' : '#f43f5e', margin: '8px 0' }}>
+            {isPassed ? 'כל הכבוד שמואל! עברת את המבחן!' : 'לא עברת הפעם - תרגול נוסף יביא אותך לשם!'}
+          </h2>
+          <div style={{ fontSize: '32px', fontWeight: '900', color: '#fbbf24', margin: '12px 0' }}>
+            ציון: {realScoreResults.percentage}
+          </div>
+          <p style={{ color: '#94a3b8', fontSize: '13px', margin: 0 }}>
+            ענית נכון על {realScoreResults.correct} מתוך {realScoreResults.total} שאלות (ציון עובר: 70)
+          </p>
+
+          <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
+            <button
+              onClick={() => resetAndShuffle(activeModule, 'real', paceSecondsPerQ)}
+              style={{ flex: 1, backgroundColor: '#f59e0b', color: '#020617', border: 'none', padding: '12px', borderRadius: '12px', fontWeight: '900', fontSize: '14px', cursor: 'pointer' }}
+            >
+              🔄 מבחן חוזר באותו קצב
+            </button>
+            <button
+              onClick={() => handleModeChange('practice')}
+              style={{ flex: 1, backgroundColor: '#1e293b', color: '#38bdf8', border: '1px solid #0284c7', padding: '12px', borderRadius: '12px', fontWeight: 'bold', fontSize: '13px', cursor: 'pointer' }}
+            >
+              💡 חזרה לתרגול עם רמזים
+            </button>
+          </div>
+        </div>
+
+        {/* תחקור שאלות שנכשלו */}
+        <h3 style={{ fontSize: '15px', fontWeight: 'bold', color: '#f59e0b', marginBottom: '10px' }}>🔍 תחקור תשובות והסברים גרפיים:</h3>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          {quizList.map((q, idx) => {
+            const userChoice = userAnswers[q.id];
+            const correctOpt = q.options.find((o) => o.isCorrect);
+            const isUserRight = userChoice === correctOpt?.id;
+            const chosenText = q.options.find((o) => o.id === userChoice)?.text || 'לא נענה';
+
+            return (
+              <div key={q.id} style={{ backgroundColor: '#0b1329', border: `1px solid ${isUserRight ? '#065f46' : '#991b1b'}`, borderRadius: '14px', padding: '12px', fontSize: '12px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
+                  <span style={{ fontWeight: 'bold', color: isUserRight ? '#34d399' : '#f87171' }}>
+                    שאלה {idx + 1}: {isUserRight ? '✔ נכון' : '✖ שגוי'}
+                  </span>
+                  <span style={{ color: '#64748b', fontSize: '10px' }}>{q.topic}</span>
+                </div>
+                <p style={{ fontWeight: 'bold', color: '#f8fafc', margin: '0 0 6px 0' }}>{q.questionText}</p>
+                
+                <div style={{ backgroundColor: '#020617', padding: '6px 8px', borderRadius: '6px', marginBottom: '6px' }}>
+                  {!isUserRight && <div style={{ color: '#fb7185' }}>התשובה שלך: {chosenText}</div>}
+                  <div style={{ color: '#34d399', fontWeight: 'bold' }}>התשובה הנכונה: {correctOpt?.text}</div>
+                </div>
+
+                <VisualExplainingChart topic={q.topic} title={q.title} />
+
+                <div style={{ color: '#94a3b8', fontSize: '11px', lineHeight: '1.4' }}>
+                  💡 <strong>הסבר:</strong> {q.explanation}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#f8fafc', padding: '14px', maxWidth: '520px', margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }} dir="rtl">
@@ -337,16 +553,74 @@ export default function App() {
               <h1 style={{ margin: 0, fontSize: '18px', fontWeight: '900', color: '#f59e0b' }}>
                 🎓 ווינגייט קואוץ' - שמואל
               </h1>
-              <span style={{ fontSize: '11px', color: '#94a3b8' }}>מבחני אנטומיה, פיזיולוגיה ותכנון אימון עם הקראה מלאה</span>
+              <span style={{ fontSize: '11px', color: '#94a3b8' }}>סימולציית מבחן אמיתי עם שעון עצר והסברים גרפיים</span>
             </div>
 
             <button
-              onClick={() => resetAndShuffle(activeModule)}
+              onClick={() => resetAndShuffle(activeModule, examMode, paceSecondsPerQ)}
               style={{ backgroundColor: '#1e293b', color: '#fbbf24', border: '1px solid #d97706', padding: '6px 12px', borderRadius: '12px', fontSize: '12px', fontWeight: 'bold', cursor: 'pointer' }}
             >
-              🔄 איפוס וערבוב
+              🔄 איפוס
             </button>
           </div>
+
+          {/* מתג בחירת מצב: תרגול מול מבחן אמת */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px', marginBottom: '8px', backgroundColor: '#0f172a', padding: '4px', borderRadius: '12px', border: '1px solid #1e293b' }}>
+            <button
+              onClick={() => handleModeChange('practice')}
+              style={{
+                backgroundColor: examMode === 'practice' ? '#f59e0b' : 'transparent',
+                color: examMode === 'practice' ? '#020617' : '#94a3b8',
+                border: 'none',
+                padding: '7px',
+                borderRadius: '8px',
+                fontSize: '12px',
+                fontWeight: '900',
+                cursor: 'pointer',
+                transition: 'all 0.2s'
+              }}
+            >
+              💡 מצב תרגול (עם רמזים)
+            </button>
+
+            <button
+              onClick={() => handleModeChange('real')}
+              style={{
+                backgroundColor: examMode === 'real' ? '#ef4444' : 'transparent',
+                color: examMode === 'real' ? '#ffffff' : '#94a3b8',
+                border: 'none',
+                padding: '7px',
+                borderRadius: '8px',
+                fontSize: '12px',
+                fontWeight: '900',
+                cursor: 'pointer',
+                transition: 'all 0.2s'
+              }}
+            >
+              ⏱️ מבחן אמת (טיימר בלי רמזים)
+            </button>
+          </div>
+
+          {/* במצב מבחן אמת: בורר קצב אקטיבי + שעון חי */}
+          {examMode === 'real' && (
+            <div style={{ backgroundColor: '#1e1b4b', border: '1px solid #4338ca', padding: '8px 12px', borderRadius: '12px', marginBottom: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '6px' }}>
+              <div>
+                <span style={{ fontSize: '10px', color: '#c7d2fe', display: 'block' }}>קצב והקצבת זמן לשאלה:</span>
+                <div style={{ display: 'flex', gap: '4px', marginTop: '2px' }}>
+                  <button onClick={() => handlePaceChange(90)} style={{ backgroundColor: paceSecondsPerQ === 90 ? '#38bdf8' : '#0f172a', color: paceSecondsPerQ === 90 ? '#020617' : '#94a3b8', border: '1px solid #334155', borderRadius: '6px', fontSize: '10px', padding: '2px 6px', fontWeight: 'bold' }}>90 שניות (הסתגלות)</button>
+                  <button onClick={() => handlePaceChange(60)} style={{ backgroundColor: paceSecondsPerQ === 60 ? '#38bdf8' : '#0f172a', color: paceSecondsPerQ === 60 ? '#020617' : '#94a3b8', border: '1px solid #334155', borderRadius: '6px', fontSize: '10px', padding: '2px 6px', fontWeight: 'bold' }}>60 שניות (תקן)</button>
+                  <button onClick={() => handlePaceChange(45)} style={{ backgroundColor: paceSecondsPerQ === 45 ? '#38bdf8' : '#0f172a', color: paceSecondsPerQ === 45 ? '#020617' : '#94a3b8', border: '1px solid #334155', borderRadius: '6px', fontSize: '10px', padding: '2px 6px', fontWeight: 'bold' }}>45 שניות (לחץ)</button>
+                </div>
+              </div>
+
+              <div style={{ textAlign: 'left' }}>
+                <span style={{ fontSize: '10px', color: '#cbd5e1', display: 'block' }}>זמן נותר למבחן:</span>
+                <span style={{ fontSize: '18px', fontWeight: '900', color: timeLeft <= 300 ? '#f43f5e' : '#34d399', fontFamily: 'monospace' }}>
+                  ⏳ {formatTimer(timeLeft)}
+                </span>
+              </div>
+            </div>
+          )}
 
           {/* שורת בחירת נושאים */}
           <div style={{ display: 'flex', gap: '6px', overflowX: 'auto', paddingBottom: '6px', marginBottom: '8px' }}>
@@ -477,7 +751,7 @@ export default function App() {
           </div>
         </header>
 
-        {/* שטח תמונה / כרטיס תכנון אימון מותאם */}
+        {/* שטח תמונה / כרטיס תכנון אימון */}
         <div 
           onClick={openZoomModal}
           style={{ 
@@ -531,25 +805,27 @@ export default function App() {
                 alignItems: 'center',
                 gap: '4px'
               }}
-              title="הקרא שאלה, רמז ותשובות"
+              title="הקרא שאלה ותשובות"
             >
-              {isSpeaking ? '⏹ עצור' : '🔊 הקרא הכל'}
+              {isSpeaking ? '⏹ עצור' : '🔊 הקרא'}
             </button>
           </div>
 
-          {/* כרטיס הרמז עם כפתור הקראה ייעודי */}
-          <div style={{ marginTop: '8px', backgroundColor: 'rgba(2, 6, 23, 0.7)', padding: '7px 10px', borderRadius: '8px', fontSize: '11px', color: '#cbd5e1', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '6px', border: '1px solid #1e293b' }}>
-            <div>
-              💡 <strong style={{ color: '#fbbf24' }}>רמז:</strong> {currentQ.hint}
+          {/* כרטיס הרמז - מוצג רק במצב תרגול, מבוטל במצב מבחן אמת */}
+          {examMode === 'practice' && (
+            <div style={{ marginTop: '8px', backgroundColor: 'rgba(2, 6, 23, 0.7)', padding: '7px 10px', borderRadius: '8px', fontSize: '11px', color: '#cbd5e1', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '6px', border: '1px solid #1e293b' }}>
+              <div>
+                💡 <strong style={{ color: '#fbbf24' }}>רמז אסוציאטיבי:</strong> {currentQ.hint}
+              </div>
+              <button
+                onClick={() => speakCustom(`רמז: ${currentQ.hint}`)}
+                style={{ backgroundColor: '#1e293b', color: '#fbbf24', border: '1px solid #d97706', borderRadius: '6px', padding: '2px 6px', fontSize: '10px', cursor: 'pointer', flexShrink: 0 }}
+                title="הקרא רמז"
+              >
+                🔊
+              </button>
             </div>
-            <button
-              onClick={() => speakCustom(`רמז: ${currentQ.hint}`)}
-              style={{ backgroundColor: '#1e293b', color: '#fbbf24', border: '1px solid #d97706', borderRadius: '6px', padding: '2px 6px', fontSize: '10px', cursor: 'pointer', flexShrink: 0 }}
-              title="הקרא רמז בלבד"
-            >
-              🔊
-            </button>
-          </div>
+          )}
         </div>
 
         {/* אפשרויות בחירה */}
@@ -560,19 +836,28 @@ export default function App() {
             let borderColor = '#1e293b';
             let textColor = '#e2e8f0';
 
-            if (isSelected && !isAnswerChecked) {
-              bgColor = 'rgba(245, 158, 11, 0.2)';
-              borderColor = '#f59e0b';
-              textColor = '#fbbf24';
-            } else if (isAnswerChecked) {
-              if (opt.isCorrect) {
-                bgColor = 'rgba(16, 185, 129, 0.25)';
-                borderColor = '#10b981';
-                textColor = '#34d399';
-              } else if (isSelected && !opt.isCorrect) {
-                bgColor = 'rgba(244, 63, 94, 0.25)';
-                borderColor = '#f43f5e';
-                textColor = '#fb7185';
+            if (examMode === 'practice') {
+              if (isSelected && !isAnswerChecked) {
+                bgColor = 'rgba(245, 158, 11, 0.2)';
+                borderColor = '#f59e0b';
+                textColor = '#fbbf24';
+              } else if (isAnswerChecked) {
+                if (opt.isCorrect) {
+                  bgColor = 'rgba(16, 185, 129, 0.25)';
+                  borderColor = '#10b981';
+                  textColor = '#34d399';
+                } else if (isSelected && !opt.isCorrect) {
+                  bgColor = 'rgba(244, 63, 94, 0.25)';
+                  borderColor = '#f43f5e';
+                  textColor = '#fb7185';
+                }
+              }
+            } else {
+              // במצב מבחן אמת: רק צבע בחירה ללא חשיפת תשובה נכונה
+              if (isSelected) {
+                bgColor = 'rgba(56, 189, 248, 0.2)';
+                borderColor = '#38bdf8';
+                textColor = '#38bdf8';
               }
             }
 
@@ -581,7 +866,13 @@ export default function App() {
             return (
               <button
                 key={opt.id}
-                onClick={() => !isAnswerChecked && setSelectedOption(opt.id)}
+                onClick={() => {
+                  if (examMode === 'practice' && isAnswerChecked) return;
+                  setSelectedOption(opt.id);
+                  if (examMode === 'real') {
+                    setUserAnswers(prev => ({ ...prev, [currentQ.id]: opt.id }));
+                  }
+                }}
                 style={{
                   backgroundColor: bgColor,
                   border: `2px solid ${borderColor}`,
@@ -590,11 +881,11 @@ export default function App() {
                   textAlign: 'right',
                   color: textColor,
                   fontSize: '13px',
-                  fontWeight: isSelected || (isAnswerChecked && opt.isCorrect) ? 'bold' : 'normal',
+                  fontWeight: isSelected || (examMode === 'practice' && isAnswerChecked && opt.isCorrect) ? 'bold' : 'normal',
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
-                  cursor: isAnswerChecked ? 'default' : 'pointer'
+                  cursor: (examMode === 'practice' && isAnswerChecked) ? 'default' : 'pointer'
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -604,17 +895,18 @@ export default function App() {
                   <span>{opt.text}</span>
                 </div>
 
-                {isAnswerChecked && opt.isCorrect && <span style={{ color: '#34d399', fontWeight: 'bold' }}>✔ נכון</span>}
-                {isAnswerChecked && isSelected && !opt.isCorrect && <span style={{ color: '#fb7185', fontWeight: 'bold' }}>✖ שגוי</span>}
+                {examMode === 'practice' && isAnswerChecked && opt.isCorrect && <span style={{ color: '#34d399', fontWeight: 'bold' }}>✔ נכון</span>}
+                {examMode === 'practice' && isAnswerChecked && isSelected && !opt.isCorrect && <span style={{ color: '#fb7185', fontWeight: 'bold' }}>✖ שגוי</span>}
               </button>
             );
           })}
         </div>
 
-        {showExplanation && (
+        {/* הסברים מורחבים וגרפיים (מוצג במצב תרגול לאחר בדיקה) */}
+        {examMode === 'practice' && showExplanation && (
           <div style={{ backgroundColor: '#0f172a', border: '1px solid #334155', borderRadius: '14px', padding: '10px', marginBottom: '10px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-              <span style={{ color: '#f59e0b', fontSize: '11px', fontWeight: 'bold' }}>📖 הסבר רשמי ומפורט:</span>
+              <span style={{ color: '#f59e0b', fontSize: '11px', fontWeight: 'bold' }}>📖 הסבר רשמי והמחשה גרפית:</span>
               <button
                 onClick={() => speakCustom(currentQ.explanation)}
                 style={{ backgroundColor: '#3b0764', color: '#d8b4fe', border: '1px solid #6b21a8', borderRadius: '8px', padding: '2px 6px', fontSize: '10px', cursor: 'pointer' }}
@@ -622,6 +914,9 @@ export default function App() {
                 🔊 הקרא הסבר
               </button>
             </div>
+
+            <VisualExplainingChart topic={currentQ.topic} title={currentQ.title} />
+
             <p style={{ margin: 0, fontSize: '11px', color: '#cbd5e1', lineHeight: '1.4', backgroundColor: '#020617', padding: '8px', borderRadius: '8px' }}>
               {currentQ.explanation}
             </p>
@@ -629,46 +924,83 @@ export default function App() {
         )}
       </div>
 
+      {/* אזור הפעולה בתחתית המסך */}
       <footer style={{ paddingTop: '6px', paddingBottom: '6px' }}>
-        {!isAnswerChecked ? (
-          <button
-            onClick={handleCheck}
-            disabled={!selectedOption}
-            style={{
-              width: '100%',
-              backgroundColor: selectedOption ? '#f59e0b' : '#334155',
-              color: selectedOption ? '#020617' : '#94a3b8',
-              border: 'none',
-              borderRadius: '14px',
-              padding: '14px',
-              fontSize: '15px',
-              fontWeight: '900',
-              cursor: selectedOption ? 'pointer' : 'not-allowed'
-            }}
-          >
-            בדוק תשובה
-          </button>
+        {examMode === 'practice' ? (
+          !isAnswerChecked ? (
+            <button
+              onClick={handleCheckPractice}
+              disabled={!selectedOption}
+              style={{
+                width: '100%',
+                backgroundColor: selectedOption ? '#f59e0b' : '#334155',
+                color: selectedOption ? '#020617' : '#94a3b8',
+                border: 'none',
+                borderRadius: '14px',
+                padding: '14px',
+                fontSize: '15px',
+                fontWeight: '900',
+                cursor: selectedOption ? 'pointer' : 'not-allowed'
+              }}
+            >
+              בדוק תשובה
+            </button>
+          ) : (
+            <button
+              onClick={handleNextPractice}
+              style={{
+                width: '100%',
+                backgroundColor: '#10b981',
+                color: '#020617',
+                border: 'none',
+                borderRadius: '14px',
+                padding: '14px',
+                fontSize: '15px',
+                fontWeight: '900',
+                cursor: 'pointer'
+              }}
+            >
+              {currentIndex === quizList.length - 1 ? '🎉 סיום מודול ואיפוס' : 'שאלה הבאה ➜'}
+            </button>
+          )
         ) : (
-          <button
-            onClick={handleNext}
-            style={{
-              width: '100%',
-              backgroundColor: '#10b981',
-              color: '#020617',
-              border: 'none',
-              borderRadius: '14px',
-              padding: '14px',
-              fontSize: '15px',
-              fontWeight: '900',
-              cursor: 'pointer'
-            }}
-          >
-            {currentIndex === quizList.length - 1 ? '🎉 סיום מודול ואיפוס' : 'שאלה הבאה ➜'}
-          </button>
+          /* כפתור מעבר במצב מבחן אמת */
+          <div style={{ display: 'flex', gap: '8px' }}>
+            {currentIndex > 0 && (
+              <button
+                onClick={() => {
+                  stopSpeech();
+                  const prevIdx = currentIndex - 1;
+                  setCurrentIndex(prevIdx);
+                  setSelectedOption(userAnswers[quizList[prevIdx]?.id] || null);
+                }}
+                style={{ backgroundColor: '#1e293b', color: '#cbd5e1', border: '1px solid #334155', padding: '12px 16px', borderRadius: '14px', fontSize: '13px', fontWeight: 'bold' }}
+              >
+                ⮌ קודמת
+              </button>
+            )}
+
+            <button
+              onClick={handleNextReal}
+              style={{
+                flex: 1,
+                backgroundColor: '#f59e0b',
+                color: '#020617',
+                border: 'none',
+                borderRadius: '14px',
+                padding: '14px',
+                fontSize: '15px',
+                fontWeight: '900',
+                cursor: 'pointer'
+              }}
+            >
+              {currentIndex === quizList.length - 1 ? '🏁 סיים מבחן והגש' : 'שאלה הבאה ➜'}
+            </button>
+          </div>
         )}
       </footer>
 
-      {/* חלון מודאל זום עם גרירה חופשית (מופעל רק באנטומיה ופיזיולוגיה שיש בהן איור) */}
+      {/* חלון מודאל זום וגרירה (פעיל עבור אנטומיה ופיזיולוגיה שיש בהן איור) */}
       {isModalOpen && (
         <div 
           style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.95)', zIndex: 100, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '10px' }}
@@ -690,7 +1022,7 @@ export default function App() {
               onClick={resetZoomAndPan}
               style={{ backgroundColor: '#1e293b', color: '#fbbf24', border: '1px solid #d97706', padding: '6px 14px', borderRadius: '10px', fontWeight: 'bold', fontSize: '13px' }}
             >
-              🔄 איפוס ומרכוז
+              🔄 איפוס
             </button>
             <button 
               onClick={() => setIsModalOpen(false)}
@@ -739,10 +1071,6 @@ export default function App() {
               <DiagramRenderer type={currentQ.diagram} imageUrl={currentQ.imageUrl} />
             </div>
           </div>
-
-          <p style={{ color: '#cbd5e1', fontSize: '12px', marginTop: '10px' }}>
-            🖐️ גרור עם האצבע להזזת התמונה לכל כיוון | 2 אצבעות לזום
-          </p>
         </div>
       )}
 
