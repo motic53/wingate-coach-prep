@@ -3,13 +3,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { PART1_ANATOMY1 } from '../data/part1';
-import { PART2_ANATOMY2 } from '../data/part2';
-import { PART3_PHYSIO1 } from '../data/part3';
-import { PART4_PHYSIO2 } from '../data/part4';
-import { PART5_TRAINING_PLAN } from '../data/trainingPlan';
 
-// בנק שאלות מזו אקדמי - מוטמע ישירות למניעת שגיאות ייבוא וקריסת Build
+// ==========================================
+// 1. בנק שאלות מזו אקדמי (Meso Academy)
+// ==========================================
 const MESO_ACADEMY_DATA = [
   {
     id: 'meso_1',
@@ -69,7 +66,7 @@ const MESO_ACADEMY_DATA = [
       { id: 'm4_4', text: 'גרעין התא', isCorrect: false }
     ],
     hint: 'מייצר את חלבוני הגוף והשריר.',
-    explanation: 'הריבוזומים הם האברונים בתא שבהם מיוצרים ומורכבים החלבונים הנחוצים לפעילות הגוף.'
+    explanation: 'הריבוזומים הם האברונים בתא שבהם מיוצרים ומורכבים החלבונים הנחוצים לקיום ולתפקוד.'
   },
   {
     id: 'meso_5',
@@ -253,7 +250,74 @@ const MESO_ACADEMY_DATA = [
   }
 ];
 
-function MesoIllustrationRenderer({ q }: { q: any }) {
+// ==========================================
+// 2. בנק שאלות מכללת וינגייט (Wingate)
+// ==========================================
+const WINGATE_ACADEMY_DATA = [
+  {
+    id: 'win_1',
+    moduleId: 'wingate',
+    topic: 'תכנון אימון',
+    title: 'עקרון עומס יסף',
+    questionText: 'מהו עקרון עומס יסף (Overload Principle) באימון התנגדות?',
+    options: [
+      { id: 'w1_1', text: 'אימון של אותה קבוצת שרירים בכל יום ללא מנוחה', isCorrect: false },
+      { id: 'w1_2', text: 'חשיפת מערכות הגוף לעומס הגבוה מזה שהן מורגלות אליו כדי לעורר הסתגלות', isCorrect: true },
+      { id: 'w1_3', text: 'ביצוע של לפחות 20 חזרות בכל סט', isCorrect: false },
+      { id: 'w1_4', text: 'הרמת משקל מקסימלי 1RM בלבד', isCorrect: false }
+    ],
+    hint: 'כדי שהשריר יתפתח, יש לחשוף אותו לגירוי גבוה ממה שהוא מכיר כיום.',
+    explanation: 'עקרון עומס יסף קובע שכדי לגרום לשיפור בכוח או במסת השריר, יש להעמיס על המערכת מעבר ליכולת הנוכחית שלה.'
+  },
+  {
+    id: 'win_2',
+    moduleId: 'wingate',
+    topic: 'פיזיולוגיה',
+    title: 'מערכות אנרגיה',
+    questionText: 'איזו מערכת אנרגיה היא הדומיננטית במאמץ מרבי הנמשך עד 10 שניות (כגון ספרינט 60 מטר)?',
+    options: [
+      { id: 'w2_1', text: 'המערכת האירובית', isCorrect: false },
+      { id: 'w2_2', text: 'מערכת ה-ATP-CP (פוספוגנית אנאירובית)', isCorrect: true },
+      { id: 'w2_3', text: 'גליקוליזה אירובית', isCorrect: false },
+      { id: 'w2_4', text: 'חמצון שומנים', isCorrect: false }
+    ],
+    hint: 'קריאטין פוספט ואנרגיה זמינה מיידית ללא צורך בחמצן.',
+    explanation: 'מערכת הפוספוגנים (ATP-CP) מספקת אנרגיה מיידית בעצימות מקסימלית למשך עד כ-10 שניות ראשונות.'
+  },
+  {
+    id: 'win_3',
+    moduleId: 'wingate',
+    topic: 'אנטומיה',
+    title: 'מישורי תנועה',
+    questionText: 'באיזה מישור תנועה מתבצע תרגיל הסקוואט (Squat)?',
+    options: [
+      { id: 'w3_1', text: 'במישור החזיתי (Frontal)', isCorrect: false },
+      { id: 'w3_2', text: 'במישור החצי / סגיטלי (Sagittal)', isCorrect: true },
+      { id: 'w3_3', text: 'במישור האופקי / טרנסברסלי (Transverse)', isCorrect: false },
+      { id: 'w3_4', text: 'במישור האלכסוני בלבד', isCorrect: false }
+    ],
+    hint: 'תנועות כיפוף ופשיטה (קדימה-אחורה) מבוצעות במישור זה.',
+    explanation: 'סקוואט מורכב מכפיפה ופשיטה במפרקי הירך, הברך והקרסול – תנועות המתרחשות במישור הסגיטלי.'
+  },
+  {
+    id: 'win_4',
+    moduleId: 'wingate',
+    topic: 'אנטומיה',
+    title: 'תפקידי השריר בתנועה',
+    questionText: 'בתרגיל לחיצת חזה בשכיבה (Bench Press), איזה שריר פועל כאגוניסט הראשי במפרק הכתף?',
+    options: [
+      { id: 'w4_1', text: 'Triceps brachii (פושט המרפק)', isCorrect: false },
+      { id: 'w4_2', text: 'Pectoralis major (חזה גדול)', isCorrect: true },
+      { id: 'w4_3', text: 'Latissimus dorsi (רחב גבי)', isCorrect: false },
+      { id: 'w4_4', text: 'Biceps brachii', isCorrect: false }
+    ],
+    hint: 'השריר הגדול של בית החזה המבצע קירוב אופקי בזרוע.',
+    explanation: 'השריר האגוניסט הראשי במפרק הכתף בלחיצת חזה הוא Pectoralis major (מבצע קירוב אופקי).'
+  }
+];
+
+// מנוע תרשימים ואיורים חזותיים מחוברות מזו ווינגייט
+function IllustrationRenderer({ q }: { q: any }) {
   const text = `${q.topic || ''} ${q.title || ''} ${q.questionText || ''} ${q.explanation || ''}`.toLowerCase();
 
   if (text.includes('צירי') || text.includes('תוספי') || text.includes('sternum') || text.includes('axial')) {
@@ -301,7 +365,7 @@ function MesoIllustrationRenderer({ q }: { q: any }) {
   return (
     <div style={{ backgroundColor: '#020617', padding: '10px', borderRadius: '12px', border: '1px solid #1e293b', marginBottom: '10px' }}>
       <span style={{ fontSize: '11px', fontWeight: 'bold', color: '#38bdf8', display: 'block', marginBottom: '6px' }}>
-        📊 רמות ארגון, תאים וסחוסים (מזו אקדמי):
+        📊 מפתח עקרונות אנטומיים ופיזיולוגיים:
       </span>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '6px', textAlign: 'center', fontSize: '9px' }}>
         <div style={{ backgroundColor: '#0f172a', padding: '6px', borderRadius: '6px', border: '1px solid #3b82f6' }}>
@@ -332,10 +396,8 @@ function shuffleList(list) {
 
 export default function App() {
   const [mounted, setMounted] = useState(false);
-  // בורר מוסד לימודים ראשי: 'meso' או 'wingate'
   const [institution, setInstitution] = useState<'meso' | 'wingate'>('meso');
 
-  const [activeModule, setActiveModule] = useState('all');
   const [quizList, setQuizList] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -353,7 +415,7 @@ export default function App() {
 
   useEffect(() => {
     setMounted(true);
-    resetAndShuffle('meso', 'all', 'practice', paceSecondsPerQ);
+    resetAndShuffle('meso', 'practice', paceSecondsPerQ);
   }, []);
 
   useEffect(() => {
@@ -373,15 +435,10 @@ export default function App() {
     return () => clearInterval(timer);
   }, [examMode, isExamCompleted, timeLeft]);
 
-  const resetAndShuffle = (inst = institution, modId = activeModule, mode = examMode, paceSec = paceSecondsPerQ) => {
+  const resetAndShuffle = (inst = institution, mode = examMode, paceSec = paceSecondsPerQ) => {
     stopSpeech();
 
-    const baseSource = inst === 'meso' ? MESO_ACADEMY_DATA : WINGATE_DATA;
-    let source = baseSource;
-
-    if (modId !== 'all') {
-      source = baseSource.filter((q) => q.moduleId === modId);
-    }
+    const source = inst === 'meso' ? MESO_ACADEMY_DATA : WINGATE_ACADEMY_DATA;
 
     const randomized = shuffleList(source).map((q) => ({
       ...q,
@@ -407,18 +464,19 @@ export default function App() {
 
   const handleInstitutionSwitch = (newInst: 'meso' | 'wingate') => {
     setInstitution(newInst);
-    setActiveModule('all');
-    resetAndShuffle(newInst, 'all', examMode, paceSecondsPerQ);
-  };
-
-  const handleModuleClick = (modId: string) => {
-    setActiveModule(modId);
-    resetAndShuffle(institution, modId, examMode, paceSecondsPerQ);
+    resetAndShuffle(newInst, examMode, paceSecondsPerQ);
   };
 
   const handleModeChange = (newMode: 'practice' | 'real') => {
     setExamMode(newMode);
-    resetAndShuffle(institution, activeModule, newMode, paceSecondsPerQ);
+    resetAndShuffle(institution, newMode, paceSecondsPerQ);
+  };
+
+  const handlePaceChange = (sec: number) => {
+    setPaceSecondsPerQ(sec);
+    if (examMode === 'real') {
+      resetAndShuffle(institution, 'real', sec);
+    }
   };
 
   const formatTimer = (totalSeconds: number) => {
@@ -520,7 +578,7 @@ export default function App() {
       setIsDeepStudyOpen(false);
     } else {
       alert(`כל הכבוד שמואל!\nסיימת את תרגול ${institution === 'meso' ? 'מזו אקדמי' : 'וינגייט'} בהצלחה!\nצברת ${score} נקודות!`);
-      resetAndShuffle(institution, activeModule, 'practice');
+      resetAndShuffle(institution, 'practice');
     }
   };
 
@@ -571,7 +629,7 @@ export default function App() {
 
           <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
             <button
-              onClick={() => resetAndShuffle(institution, activeModule, 'real', paceSecondsPerQ)}
+              onClick={() => resetAndShuffle(institution, 'real', paceSecondsPerQ)}
               style={{ flex: 1, backgroundColor: institution === 'meso' ? '#0284c7' : '#f59e0b', color: '#ffffff', border: 'none', padding: '12px', borderRadius: '12px', fontWeight: '900', fontSize: '14px', cursor: 'pointer' }}
             >
               🔄 מבחן חוזר
@@ -608,7 +666,7 @@ export default function App() {
                   <div style={{ color: '#34d399', fontWeight: 'bold' }}>התשובה הנכונה: {correctOpt?.text}</div>
                 </div>
 
-                <MesoIllustrationRenderer q={q} />
+                <IllustrationRenderer q={q} />
 
                 <div style={{ color: '#cbd5e1', fontSize: '11px', lineHeight: '1.4', backgroundColor: '#0f172a', padding: '8px', borderRadius: '8px' }}>
                   💡 <strong>הסבר פדגוגי מורחב:</strong> {q.explanation}
@@ -637,7 +695,7 @@ export default function App() {
             </div>
 
             <button
-              onClick={() => resetAndShuffle(institution, activeModule, examMode, paceSecondsPerQ)}
+              onClick={() => resetAndShuffle(institution, examMode, paceSecondsPerQ)}
               style={{ backgroundColor: '#1e293b', color: '#fbbf24', border: '1px solid #d97706', padding: '6px 12px', borderRadius: '12px', fontSize: '12px', fontWeight: 'bold', cursor: 'pointer' }}
             >
               🔄 איפוס
@@ -685,7 +743,7 @@ export default function App() {
               }}
             >
               <span>🦁 מכללת וינגייט</span>
-              <span style={{ fontSize: '10px', opacity: 0.85 }}>תכנון אימון, אנטומיה ({WINGATE_DATA.length})</span>
+              <span style={{ fontSize: '10px', opacity: 0.85 }}>תכנון אימון, אנטומיה ({WINGATE_ACADEMY_DATA.length})</span>
             </button>
           </div>
 
@@ -724,15 +782,23 @@ export default function App() {
             </button>
           </div>
 
-          {/* סינון נושאים בווינגייט */}
-          {institution === 'wingate' && (
-            <div style={{ display: 'flex', gap: '6px', overflowX: 'auto', paddingBottom: '6px', marginBottom: '8px' }}>
-              <button onClick={() => handleModuleClick('all')} style={{ backgroundColor: activeModule === 'all' ? '#f59e0b' : '#0f172a', color: activeModule === 'all' ? '#020617' : '#94a3b8', border: '1px solid #334155', padding: '5px 9px', borderRadius: '8px', fontSize: '10px', fontWeight: 'bold' }}>הכל</button>
-              <button onClick={() => handleModuleClick('train_plan')} style={{ backgroundColor: activeModule === 'train_plan' ? '#10b981' : '#0f172a', color: activeModule === 'train_plan' ? '#020617' : '#34d399', border: '1px solid #059669', padding: '5px 9px', borderRadius: '8px', fontSize: '10px', fontWeight: 'bold' }}>תכנון אימון</button>
-              <button onClick={() => handleModuleClick('anat1')} style={{ backgroundColor: activeModule === 'anat1' ? '#f59e0b' : '#0f172a', color: activeModule === 'anat1' ? '#020617' : '#94a3b8', border: '1px solid #334155', padding: '5px 9px', borderRadius: '8px', fontSize: '10px', fontWeight: 'bold' }}>אנטומיה א'</button>
-              <button onClick={() => handleModuleClick('anat2')} style={{ backgroundColor: activeModule === 'anat2' ? '#f59e0b' : '#0f172a', color: activeModule === 'anat2' ? '#020617' : '#94a3b8', border: '1px solid #334155', padding: '5px 9px', borderRadius: '8px', fontSize: '10px', fontWeight: 'bold' }}>אנטומיה ב'</button>
-              <button onClick={() => handleModuleClick('phys1')} style={{ backgroundColor: activeModule === 'phys1' ? '#f59e0b' : '#0f172a', color: activeModule === 'phys1' ? '#020617' : '#94a3b8', border: '1px solid #334155', padding: '5px 9px', borderRadius: '8px', fontSize: '10px', fontWeight: 'bold' }}>פיזיולוגיה א'</button>
-              <button onClick={() => handleModuleClick('phys2')} style={{ backgroundColor: activeModule === 'phys2' ? '#f59e0b' : '#0f172a', color: activeModule === 'phys2' ? '#020617' : '#94a3b8', border: '1px solid #334155', padding: '5px 9px', borderRadius: '8px', fontSize: '10px', fontWeight: 'bold' }}>פיזיולוגיה ב'</button>
+          {examMode === 'real' && (
+            <div style={{ backgroundColor: '#1e1b4b', border: '1px solid #4338ca', padding: '8px 12px', borderRadius: '12px', marginBottom: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '6px' }}>
+              <div>
+                <span style={{ fontSize: '10px', color: '#c7d2fe', display: 'block' }}>קצב והקצבת זמן לשאלה:</span>
+                <div style={{ display: 'flex', gap: '4px', marginTop: '2px' }}>
+                  <button onClick={() => handlePaceChange(90)} style={{ backgroundColor: paceSecondsPerQ === 90 ? '#38bdf8' : '#0f172a', color: paceSecondsPerQ === 90 ? '#020617' : '#94a3b8', border: '1px solid #334155', borderRadius: '6px', fontSize: '10px', padding: '2px 6px', fontWeight: 'bold' }}>90 ש'</button>
+                  <button onClick={() => handlePaceChange(60)} style={{ backgroundColor: paceSecondsPerQ === 60 ? '#38bdf8' : '#0f172a', color: paceSecondsPerQ === 60 ? '#020617' : '#94a3b8', border: '1px solid #334155', borderRadius: '6px', fontSize: '10px', padding: '2px 6px', fontWeight: 'bold' }}>60 ש'</button>
+                  <button onClick={() => handlePaceChange(45)} style={{ backgroundColor: paceSecondsPerQ === 45 ? '#38bdf8' : '#0f172a', color: paceSecondsPerQ === 45 ? '#020617' : '#94a3b8', border: '1px solid #334155', borderRadius: '6px', fontSize: '10px', padding: '2px 6px', fontWeight: 'bold' }}>45 ש'</button>
+                </div>
+              </div>
+
+              <div style={{ textAlign: 'left' }}>
+                <span style={{ fontSize: '10px', color: '#cbd5e1', display: 'block' }}>זמן נותר:</span>
+                <span style={{ fontSize: '18px', fontWeight: '900', color: timeLeft <= 300 ? '#f43f5e' : '#34d399', fontFamily: 'monospace' }}>
+                  ⏳ {formatTimer(timeLeft)}
+                </span>
+              </div>
             </div>
           )}
 
@@ -749,10 +815,10 @@ export default function App() {
           </div>
         </header>
 
-        {/* איור ותרשים מותאם מתוך מזו אקדמי */}
-        <MesoIllustrationRenderer q={currentQ} />
+        {/* איור ותרשים מותאם */}
+        <IllustrationRenderer q={currentQ} />
 
-        {/* כפתור פדגוגי זמין תמיד */}
+        {/* כפתור חלון לימוד פדגוגי */}
         {examMode === 'practice' && (
           <button
             onClick={() => setIsDeepStudyOpen(true)}
@@ -828,133 +894,4 @@ export default function App() {
               }
             } else {
               if (isSelected) {
-                bgColor = 'rgba(56, 189, 248, 0.2)';
-                borderColor = '#38bdf8';
-                textColor = '#38bdf8';
-              }
-            }
-
-            const letter = ['א', 'ב', 'ג', 'ד'][idx] || '';
-
-            return (
-              <button
-                key={opt.id}
-                onClick={() => {
-                  if (examMode === 'practice' && isAnswerChecked) return;
-                  setSelectedOption(opt.id);
-                  if (examMode === 'real') {
-                    setUserAnswers(prev => ({ ...prev, [currentQ.id]: opt.id }));
-                  }
-                }}
-                style={{
-                  backgroundColor: bgColor,
-                  border: `2px solid ${borderColor}`,
-                  borderRadius: '14px',
-                  padding: '10px 12px',
-                  textAlign: 'right',
-                  color: textColor,
-                  fontSize: '13px',
-                  fontWeight: isSelected || (examMode === 'practice' && isAnswerChecked && opt.isCorrect) ? 'bold' : 'normal',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  cursor: (examMode === 'practice' && isAnswerChecked) ? 'default' : 'pointer'
-                }}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ backgroundColor: '#020617', width: '22px', height: '22px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 'bold', border: '1px solid #334155' }}>
-                    {letter}
-                  </span>
-                  <span>{opt.text}</span>
-                </div>
-
-                {examMode === 'practice' && isAnswerChecked && opt.isCorrect && <span style={{ color: '#34d399', fontWeight: 'bold' }}>✔ נכון</span>}
-                {examMode === 'practice' && isAnswerChecked && isSelected && !opt.isCorrect && <span style={{ color: '#fb7185', fontWeight: 'bold' }}>✖ שגוי</span>}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* אזור פעולה תחתון */}
-      <footer style={{ paddingTop: '6px', paddingBottom: '6px' }}>
-        {examMode === 'practice' ? (
-          !isAnswerChecked ? (
-            <button
-              onClick={handleCheckPractice}
-              disabled={!selectedOption}
-              style={{
-                width: '100%',
-                backgroundColor: selectedOption ? (institution === 'meso' ? '#0284c7' : '#f59e0b') : '#334155',
-                color: selectedOption ? '#ffffff' : '#94a3b8',
-                border: 'none',
-                borderRadius: '14px',
-                padding: '14px',
-                fontSize: '15px',
-                fontWeight: '900',
-                cursor: selectedOption ? 'pointer' : 'not-allowed'
-              }}
-            >
-              בדוק תשובה
-            </button>
-          ) : (
-            <button
-              onClick={handleNextPractice}
-              style={{ width: '100%', backgroundColor: '#10b981', color: '#020617', border: 'none', borderRadius: '14px', padding: '14px', fontSize: '15px', fontWeight: '900', cursor: 'pointer' }}
-            >
-              {currentIndex === quizList.length - 1 ? '🎉 סיום תרגול ואיפוס' : 'שאלה הבאה ➜'}
-            </button>
-          )
-        ) : (
-          <div style={{ display: 'flex', gap: '8px' }}>
-            {currentIndex > 0 && (
-              <button
-                onClick={() => {
-                  stopSpeech();
-                  const prevIdx = currentIndex - 1;
-                  setCurrentIndex(prevIdx);
-                  setSelectedOption(userAnswers[quizList[prevIdx]?.id] || null);
-                }}
-                style={{ backgroundColor: '#1e293b', color: '#cbd5e1', border: '1px solid #334155', padding: '12px 16px', borderRadius: '14px', fontSize: '13px', fontWeight: 'bold' }}
-              >
-                ⮌ קודמת
-              </button>
-            )}
-
-            <button
-              onClick={handleNextReal}
-              style={{ flex: 1, backgroundColor: institution === 'meso' ? '#0284c7' : '#f59e0b', color: '#ffffff', border: 'none', borderRadius: '14px', padding: '14px', fontSize: '15px', fontWeight: '900', cursor: 'pointer' }}
-            >
-              {currentIndex === quizList.length - 1 ? '🏁 סיים מבחן והגש' : 'שאלה הבאה ➜'}
-            </button>
-          </div>
-        )}
-      </footer>
-
-      {/* חלון מודאל לימודי מעמיק */}
-      {isDeepStudyOpen && (
-        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.92)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '14px' }}>
-          <div style={{ backgroundColor: '#0b1329', border: '2px solid #38bdf8', borderRadius: '20px', maxWidth: '500px', width: '100%', maxHeight: '88vh', overflowY: 'auto', padding: '18px', display: 'flex', flexDirection: 'column', gap: '12px', boxShadow: '0 10px 30px rgba(0,0,0,0.8)' }}>
-            
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #1e293b', paddingBottom: '10px' }}>
-              <div>
-                <span style={{ color: '#38bdf8', fontSize: '11px', fontWeight: 'bold' }}>{currentQ.topic}</span>
-                <h3 style={{ margin: 0, fontSize: '15px', color: '#fbbf24', fontWeight: '900' }}>🎓 ניתוח פדגוגי מעמיק ושלילת מסיחים</h3>
-              </div>
-              <button onClick={() => setIsDeepStudyOpen(false)} style={{ backgroundColor: '#881337', color: '#ffffff', border: 'none', width: '32px', height: '32px', borderRadius: '50%', fontWeight: 'bold', fontSize: '15px', cursor: 'pointer' }}>✕</button>
-            </div>
-
-            <MesoIllustrationRenderer q={currentQ} />
-
-            <div style={{ backgroundColor: '#020617', padding: '10px 12px', borderRadius: '12px', border: '1px solid #10b981' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-                <span style={{ color: '#34d399', fontSize: '12px', fontWeight: '900' }}>✔ התשובה הנכונה והעיקרון המדעי:</span>
-                <button onClick={() => speakCustom(currentQ.explanation)} style={{ backgroundColor: '#064e3b', color: '#34d399', border: '1px solid #059669', borderRadius: '6px', padding: '2px 6px', fontSize: '10px', cursor: 'pointer' }}>🔊 הקרא</button>
-              </div>
-              <p style={{ margin: 0, fontSize: '12px', color: '#e2e8f0', lineHeight: '1.4' }}>
-                {currentQ.explanation}
-              </p>
-            </div>
-
-            <div style={{ backgroundColor: '#020617', padding: '10px 12px', borderRadius: '12px', border: '1px solid #334155' }}>
-              <span style={{ color: '#f43f5e', fontSize: '12px', fontWeight: '900', display: 'block', marginBottom: '6px' }}>
+                bgColor
