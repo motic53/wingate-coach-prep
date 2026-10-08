@@ -8,120 +8,313 @@ import { PART2_ANATOMY2 } from '../data/part2';
 import { PART3_PHYSIO1 } from '../data/part3';
 import { PART4_PHYSIO2 } from '../data/part4';
 import { PART5_TRAINING_PLAN } from '../data/trainingPlan';
-import { MESO_INTRO_DATA } from '../data/mesoIntro';
 
-const WINGATE_DATA = [
-  ...(PART5_TRAINING_PLAN || []),
-  ...(PART1_ANATOMY1 || []),
-  ...(PART2_ANATOMY2 || []),
-  ...(PART3_PHYSIO1 || []),
-  ...(PART4_PHYSIO2 || [])
+// בנק שאלות מזו אקדמי - מוטמע ישירות למניעת שגיאות ייבוא וקריסת Build
+const MESO_ACADEMY_DATA = [
+  {
+    id: 'meso_1',
+    moduleId: 'meso',
+    topic: 'מבוא לאנטומיה',
+    title: 'מקור המילה אנטומיה',
+    questionText: 'המילה "אנטומיה" מורכבת מהמילים Ana ו-Tome. מה פירושן?',
+    options: [
+      { id: 'm1_1', text: 'מבנה + גוף', isCorrect: false },
+      { id: 'm1_2', text: 'מחדש + לחתוך (Ana = מחדש, Tome = לחתוך)', isCorrect: true },
+      { id: 'm1_3', text: 'חקר + תנועה', isCorrect: false },
+      { id: 'm1_4', text: 'תא + רקמה', isCorrect: false }
+    ],
+    hint: 'דיסקציה: לחתוך שוב ושוב מחדש כדי לחקור את מבנה הגוף.',
+    explanation: 'המילה אנטומיה מגיעה מיוונית: Ana פירושה "מחדש" ו-Tome פירושה "לחתוך" (חיתוך ובחינה של הגוף).'
+  },
+  {
+    id: 'meso_2',
+    moduleId: 'meso',
+    topic: 'מבוא לאנטומיה',
+    title: 'אנטומיה מול פיזיולוגיה',
+    questionText: 'מה ההבדל בין אנטומיה לפיזיולוגיה?',
+    options: [
+      { id: 'm2_1', text: 'אנטומיה עוסקת בתפקוד, פיזיולוגיה במבנה', isCorrect: false },
+      { id: 'm2_2', text: 'אין הבדל, אלו שמות נרדפים', isCorrect: false },
+      { id: 'm2_3', text: 'אנטומיה עוסקת במבנה ובמיקום; פיזיולוגיה עוסקת באופן הפעולה של המערכות', isCorrect: true },
+      { id: 'm2_4', text: 'אנטומיה עוסקת רק בשרירים, פיזיולוגיה רק באיברים פנימיים', isCorrect: false }
+    ],
+    hint: 'אנטומיה היא המבנה, פיזיולוגיה היא התפקוד.',
+    explanation: 'אנטומיה חוקרת את מבנה ומיקום איברי הגוף; פיזיולוגיה חוקרת את תפקוד המערכות וכיצד הן פועלות.'
+  },
+  {
+    id: 'meso_3',
+    moduleId: 'meso',
+    topic: 'ארגון הגוף',
+    title: 'רמות הארגון של הגוף החי',
+    questionText: 'מהו הסדר הנכון של רמות הארגון בגוף, מהקטן לגדול?',
+    options: [
+      { id: 'm3_1', text: 'רקמה ← תא ← מערכת ← איבר', isCorrect: false },
+      { id: 'm3_2', text: 'תא ← רקמה ← איבר ← מערכת', isCorrect: true },
+      { id: 'm3_3', text: 'תא ← איבר ← רקמה ← מערכת', isCorrect: false },
+      { id: 'm3_4', text: 'איבר ← תא ← רקמה ← מערכת', isCorrect: false }
+    ],
+    hint: 'תאים יוצרים רקמה, רקמות יוצרות איבר, ואיברים יוצרים מערכת.',
+    explanation: 'הסדר מהפשוט למורכב: תא (היחידה הבסיסית) ← רקמה ← איבר ← מערכת (כמו מערכת השלד או הנשימה).'
+  },
+  {
+    id: 'meso_4',
+    moduleId: 'meso',
+    topic: 'התא ואברוניו',
+    title: 'בית החרושת של החלבונים',
+    questionText: 'איזה אברון מכונה "בית החרושת של החלבונים"?',
+    options: [
+      { id: 'm4_1', text: 'מיטוכונדריה', isCorrect: false },
+      { id: 'm4_2', text: 'ציטופלזמה', isCorrect: false },
+      { id: 'm4_3', text: 'ריבוזום (Ribosome)', isCorrect: true },
+      { id: 'm4_4', text: 'גרעין התא', isCorrect: false }
+    ],
+    hint: 'מייצר את חלבוני הגוף והשריר.',
+    explanation: 'הריבוזומים הם האברונים בתא שבהם מיוצרים ומורכבים החלבונים הנחוצים לפעילות הגוף.'
+  },
+  {
+    id: 'meso_5',
+    moduleId: 'meso',
+    topic: 'התא ואברוניו',
+    title: 'תפקיד המיטוכונדריה',
+    questionText: 'מה התפקיד העיקרי של המיטוכונדריה?',
+    options: [
+      { id: 'm5_1', text: 'אספקת אנרגיה לתא (אברון הנשימה האירובית)', isCorrect: true },
+      { id: 'm5_2', text: 'ייצור חלבונים', isCorrect: false },
+      { id: 'm5_3', text: 'הגנה על התא מבחוץ', isCorrect: false },
+      { id: 'm5_4', text: 'העברת אותות עצביים', isCorrect: false }
+    ],
+    hint: 'תחנת הכוח של התא - מספקת ATP בנוכחות חמצן.',
+    explanation: 'המיטוכונדריה היא אברון הנשימה של התא וספקית האנרגיה העיקרית שלו במסלול האירובי.'
+  },
+  {
+    id: 'meso_6',
+    moduleId: 'meso',
+    topic: 'הומיאוסטזיס',
+    title: 'שמירה על סביבה פנימית',
+    questionText: 'הומיאוסטזיס (Homeostasis) הוא:',
+    options: [
+      { id: 'm6_1', text: 'תהליך חלוקת התא', isCorrect: false },
+      { id: 'm6_2', text: 'שמירה על מצב וסביבה פנימית קבועה ויציבה לתפקוד תקין', isCorrect: true },
+      { id: 'm6_3', text: 'סוג מיוחד של רקמת חיבור', isCorrect: false },
+      { id: 'm6_4', text: 'התכווצות שריר רצונית', isCorrect: false }
+    ],
+    hint: 'איזון פנימי קבוע (חום גוף, חומציות, נוזלים).',
+    explanation: 'הומיאוסטזיס הוא האיזון הפנימי של הגוף הפועל באופן אקטיבי לשמור על תנאים קבועים.'
+  },
+  {
+    id: 'meso_7',
+    moduleId: 'meso',
+    topic: 'רקמת אפיתל',
+    title: 'הזנת האפיתל',
+    questionText: 'כיצד מקבלת רקמת האפיתל חומרי מזון וחמצן?',
+    options: [
+      { id: 'm7_1', text: 'מכלי דם רבים שעוברים בתוכה', isCorrect: false },
+      { id: 'm7_2', text: 'מהאוויר החיצוני', isCorrect: false },
+      { id: 'm7_3', text: 'מרקמת החיבור הצמודה אליה בדיפוזיה, כי היא חסרת כלי דם', isCorrect: true },
+      { id: 'm7_4', text: 'מרקמת העצב', isCorrect: false }
+    ],
+    hint: 'לאפיתל אין כלי דם משלו.',
+    explanation: 'רקמת האפיתל חסרת כלי דם (Avascular) וניזונה מרקמת החיבור הצמודה אליה מתחתיה.'
+  },
+  {
+    id: 'meso_8',
+    moduleId: 'meso',
+    topic: 'רקמת חיבור',
+    title: 'סיבים אלסטיים',
+    questionText: 'איזה סוג סיבים ברקמת חיבור אינו חזק אך בעל יכולת להימתח ולחזור לאורכו?',
+    options: [
+      { id: 'm8_1', text: 'קולגניים (חזקים וקשיחים)', isCorrect: false },
+      { id: 'm8_2', text: 'רטיקולריים (סיבי רשת עדינים)', isCorrect: false },
+      { id: 'm8_3', text: 'אלסטיים (Elastic fibers)', isCorrect: true },
+      { id: 'm8_4', text: 'שריריים', isCorrect: false }
+    ],
+    hint: 'פועלים כמו גומייה – נמתחים וחוזרים.',
+    explanation: 'סיבים אלסטיים מקנים לרקמה גמישות ויכולת להימתח ולשוב לאורכם המקורי.'
+  },
+  {
+    id: 'meso_9',
+    moduleId: 'meso',
+    topic: 'רקמת חיבור',
+    title: 'סיווג גיד ורצועה',
+    questionText: 'גיד ורצועה שייכים לאיזה סוג של רקמת חיבור?',
+    options: [
+      { id: 'm9_1', text: 'רקמת חיבור אמיתית (סיבית צפופה)', isCorrect: true },
+      { id: 'm9_2', text: 'רקמת חיבור תומכת (שלדית - עצם וסחוס)', isCorrect: false },
+      { id: 'm9_3', text: 'רקמת חיבור מיוחדת (שומן ודם)', isCorrect: false },
+      { id: 'm9_4', text: 'רקמת אפיתל', isCorrect: false }
+    ],
+    hint: 'רקמות חיבור: אמיתית (גידים/רצועות), תומכת (עצם/סחוס), מיוחדת (שומן/דם).',
+    explanation: 'גידים ורצועות שייכים לרקמת חיבור אמיתית, שבה סיבי הקולגן מסודרים במקביל להעברת כוח משיכה.'
+  },
+  {
+    id: 'meso_10',
+    moduleId: 'meso',
+    topic: 'מערכת השלד',
+    title: 'השלד הצירי',
+    questionText: 'איזו מהעצמות הבאות שייכת לשלד הצירי (Axial skeleton)?',
+    options: [
+      { id: 'm10_1', text: 'עצם הבריח (Clavicula)', isCorrect: false },
+      { id: 'm10_2', text: 'עצם החזה (Sternum)', isCorrect: true },
+      { id: 'm10_3', text: 'השכמה (Scapula)', isCorrect: false },
+      { id: 'm10_4', text: 'עצמות האגן (Pelvis)', isCorrect: false }
+    ],
+    hint: 'השלד הצירי מורכב מגולגולת, עמוד שדרה, צלעות ועצם החזה.',
+    explanation: 'עצם החזה (Sternum), הגולגולת, עמוד השדרה והצלעות מרכיבים את השלד הצירי. השכמה, הבריח והאגן שייכים לשלד התוספי.'
+  },
+  {
+    id: 'meso_11',
+    moduleId: 'meso',
+    topic: 'תפקידי העצם',
+    title: 'תפקיד שאינו של העצם',
+    questionText: 'איזה מהבאים אינו תפקיד של מערכת העצמות?',
+    options: [
+      { id: 'm11_1', text: 'הגנה על איברים חיוניים', isCorrect: false },
+      { id: 'm11_2', text: 'מאגר מינרלים וייצור תאי דם', isCorrect: false },
+      { id: 'm11_3', text: 'התכווצות אקטיבית ליצירת כוח', isCorrect: true },
+      { id: 'm11_4', text: 'בסיס מכני ומנוף לתנועה', isCorrect: false }
+    ],
+    hint: 'התכווצות היא תפקידו של השריר בלבד!',
+    explanation: 'התכווצות אקטיבית ליצירת כוח מבוצעת על ידי תאי השריר, בעוד העצם מהווה מנוף מכני פסיבי.'
+  },
+  {
+    id: 'meso_12',
+    moduleId: 'meso',
+    topic: 'מבנה העצם',
+    title: 'עצם צפופה (Compact)',
+    questionText: 'מה מאפיין עצם צפופה (Compact bone)?',
+    options: [
+      { id: 'm12_1', text: 'מכילה חללים רבים ומשמשת בעיקר לבלימת זעזועים', isCorrect: false },
+      { id: 'm12_2', text: 'נמצאת רק בחוליות עמוד השדרה', isCorrect: false },
+      { id: 'm12_3', text: 'נמצאת בעיקר במעטפת החיצונית ומספקת חוזק ועמידות', isCorrect: true },
+      { id: 'm12_4', text: 'בנויה מסחוס היאליני', isCorrect: false }
+    ],
+    hint: 'המעטפת הקשה החיצונית של העצם.',
+    explanation: 'עצם קומפקטית נמצאת במעטפת החיצונית של העצמות ומספקת להן חוזק ועמידות מול עומסים.'
+  },
+  {
+    id: 'meso_13',
+    moduleId: 'meso',
+    topic: 'צורות עצמות',
+    title: 'סיווג הפיקה והחוליה',
+    questionText: 'הפיקה (Patella) וחוליה בעמוד השדרה הן דוגמאות לעצמות מאיזה סוג?',
+    options: [
+      { id: 'm13_1', text: 'עצם ארוכה; עצם שטוחה', isCorrect: false },
+      { id: 'm13_2', text: 'עצם שטוחה; עצם קצרה', isCorrect: false },
+      { id: 'm13_3', text: 'ססמואידית (שומשומית); בלתי-סדירה (Irregular)', isCorrect: true },
+      { id: 'm13_4', text: 'עצם קצרה; עצם ססמואידית', isCorrect: false }
+    ],
+    hint: 'הפיקה גדלה בתוך גיד (ססמואידית), ולחוליה יש בליטות וזיזים מורכבים (בלתי-סדירה).',
+    explanation: 'הפיקה היא עצם ססמואידית (בתוך גיד הארבע-ראשי); חוליה בעמוד השדרה היא עצם בלתי-סדירה.'
+  },
+  {
+    id: 'meso_14',
+    moduleId: 'meso',
+    topic: 'תאי העצם',
+    title: 'התא המפרק עצם',
+    questionText: 'איזה תא אחראי על פירוק והמסה של רקמת עצם בתהליך השחלוף?',
+    options: [
+      { id: 'm14_1', text: 'אוסטאוציט (תא בוגר שמנטר עומס)', isCorrect: false },
+      { id: 'm14_2', text: 'אוסטאובלסט (תא שבונה עצם)', isCorrect: false },
+      { id: 'm14_3', text: 'אוסטאוקלסט (Osteoclast - תא הורס ומפרק עצם)', isCorrect: true },
+      { id: 'm14_4', text: 'כונדרוציט', isCorrect: false }
+    ],
+    hint: 'B בונה (Blast), C קורע ומפרק (Clast).',
+    explanation: 'האוסטאוקלסט מפרק וממיס עצם; האוסטאובלסט בונה עצם חדשה; והאוסטאוציט שומר עליה.'
+  },
+  {
+    id: 'meso_15',
+    moduleId: 'meso',
+    topic: 'עומס והסתגלות',
+    title: 'חוק וולף (Wolff\'s Law)',
+    questionText: 'לפי חוק וולף (Wolff\'s Law):',
+    options: [
+      { id: 'm15_1', text: 'מסת העצם קבועה מגיל 20 ואינה משתנה עוד', isCorrect: false },
+      { id: 'm15_2', text: 'רק תזונה משפיעה על חוזק העצם', isCorrect: false },
+      { id: 'm15_3', text: 'עצם מסתגלת לעומס: עומס מוגבר מחזק אותה, וירידה בעומס מחלישה אותה', isCorrect: true },
+      { id: 'm15_4', text: 'עומס מכני מחליש את העצמות תמיד', isCorrect: false }
+    ],
+    hint: 'העצם מתחזקת בתגובה למשקולות ונחלשת בשכיבה ללא תנועה.',
+    explanation: 'חוק וולף קובע שעצם היא רקמה חיה המסתגלת לעומס מכני – עומס מבוקר מעודד בנייה וצפיפות, והיעדר עומס מנוון אותה.'
+  },
+  {
+    id: 'meso_16',
+    moduleId: 'meso',
+    topic: 'סחוסים ומפרקים',
+    title: 'סחוס היאליני ומפרקים',
+    questionText: 'איזה סוג סחוס מרפד את קצות העצמות במפרקים תנועתיים, ואיזה מפרק הוא היציב ביותר?',
+    options: [
+      { id: 'm16_1', text: 'סחוס סיבי; מפרק סינוביאלי', isCorrect: false },
+      { id: 'm16_2', text: 'סחוס אלסטי; מפרק סחוסי', isCorrect: false },
+      { id: 'm16_3', text: 'סחוס היאליני (השכיח ביותר); מפרק סיבי (היציב ביותר, ללא תנועה)', isCorrect: true },
+      { id: 'm16_4', text: 'סחוס רטיקולרי; מפרק רב-צירי', isCorrect: false }
+    ],
+    hint: 'היאליני מרפד מפרקים תנועתיים, ומפרק סיבי (כמו תפרי הגולגולת) הוא ללא תנועה ויציב ביותר.',
+    explanation: 'סחוס היאליני הוא הנפוץ ביותר ומרפד קצות עצמות למניעת חיכוך; מפרק סיבי מחבר עצמות ללא תנועה והוא היציב ביותר.'
+  }
 ];
 
-const MESO_DATA = [
-  ...(MESO_INTRO_DATA || [])
-];
-
-// מנוע תרשימים ואיורים חזותיים מחוברות מזו ווינגייט
 function MesoIllustrationRenderer({ q }: { q: any }) {
   const text = `${q.topic || ''} ${q.title || ''} ${q.questionText || ''} ${q.explanation || ''}`.toLowerCase();
 
-  // 1. שלד צירי מול שלד תוספי (איור 2.1 במזו)
   if (text.includes('צירי') || text.includes('תוספי') || text.includes('sternum') || text.includes('axial')) {
     return (
       <div style={{ backgroundColor: '#020617', padding: '10px', borderRadius: '12px', border: '1px solid #1e293b', marginBottom: '10px' }}>
         <span style={{ fontSize: '11px', fontWeight: 'bold', color: '#38bdf8', display: 'block', marginBottom: '6px' }}>
-          🦴 איור שלד צירי (בז׳) מול שלד תוספי (תכלת) - מזו אקדמי:
+          🦴 תרשים שלד צירי מול שלד תוספי (מזו אקדמי):
         </span>
-        <svg viewBox="0 0 340 100" style={{ width: '100%', height: 'auto', maxHeight: '110px' }}>
-          {/* שלד צירי */}
-          <rect x="20" y="10" width="140" height="80" rx="8" fill="#1e1b4b" stroke="#6366f1" strokeWidth="1.5" />
-          <text x="90" y="30" fill="#a5b4fc" fontSize="11" fontWeight="bold" textAnchor="middle">שלד צירי (Axial)</text>
-          <text x="90" y="50" fill="#f8fafc" fontSize="9" textAnchor="middle">גולגולת, עמוד שדרה,</text>
-          <text x="90" y="65" fill="#f8fafc" fontSize="9" textAnchor="middle">עצם החזה (Sternum) וצלעות</text>
-          <text x="90" y="80" fill="#38bdf8" fontSize="8" fontWeight="bold" textAnchor="middle">תפקיד: הגנה על איברים חיוניים</text>
+        <svg viewBox="0 0 340 95" style={{ width: '100%', height: 'auto', maxHeight: '105px' }}>
+          <rect x="15" y="10" width="145" height="75" rx="8" fill="#1e1b4b" stroke="#6366f1" strokeWidth="1.5" />
+          <text x="87" y="30" fill="#a5b4fc" fontSize="11" fontWeight="bold" textAnchor="middle">שלד צירי (Axial)</text>
+          <text x="87" y="48" fill="#f8fafc" fontSize="9" textAnchor="middle">גולגולת, עמוד שדרה,</text>
+          <text x="87" y="62" fill="#f8fafc" fontSize="9" textAnchor="middle">עצם החזה (Sternum) וצלעות</text>
+          <text x="87" y="76" fill="#38bdf8" fontSize="8" fontWeight="bold" textAnchor="middle">הגנה על איברים חיוניים</text>
 
-          {/* שלד תוספי */}
-          <rect x="180" y="10" width="140" height="80" rx="8" fill="#064e3b" stroke="#10b981" strokeWidth="1.5" />
-          <text x="250" y="30" fill="#6ee7b7" fontSize="11" fontWeight="bold" textAnchor="middle">שלד תוספי (Appendicular)</text>
-          <text x="250" y="50" fill="#f8fafc" fontSize="9" textAnchor="middle">עצמות הגפיים, עצם הבריח,</text>
-          <text x="250" y="65" fill="#f8fafc" fontSize="9" textAnchor="middle">השכמות ועצמות האגן</text>
-          <text x="250" y="80" fill="#34d399" fontSize="8" fontWeight="bold" textAnchor="middle">תפקיד: הפקת תנועה ומנופים</text>
+          <rect x="180" y="10" width="145" height="75" rx="8" fill="#064e3b" stroke="#10b981" strokeWidth="1.5" />
+          <text x="252" y="30" fill="#6ee7b7" fontSize="11" fontWeight="bold" textAnchor="middle">שלד תוספי (Appendicular)</text>
+          <text x="252" y="48" fill="#f8fafc" fontSize="9" textAnchor="middle">עצמות הגפיים, עצם הבריח,</text>
+          <text x="252" y="62" fill="#f8fafc" fontSize="9" textAnchor="middle">השכמות ועצמות האגן</text>
+          <text x="252" y="76" fill="#34d399" fontSize="8" fontWeight="bold" textAnchor="middle">הפקת תנועה ומנופים</text>
         </svg>
       </div>
     );
   }
 
-  // 2. מבנה עצם: קומפקטית מול ספוגית (איור 2.3 במזו)
   if (text.includes('צפופה') || text.includes('ספוגית') || text.includes('compact') || text.includes('spongy')) {
     return (
       <div style={{ backgroundColor: '#020617', padding: '10px', borderRadius: '12px', border: '1px solid #1e293b', marginBottom: '10px' }}>
         <span style={{ fontSize: '11px', fontWeight: 'bold', color: '#fbbf24', display: 'block', marginBottom: '6px' }}>
-          🔬 חתך עצם: מעטפת קומפקטית מול ליבה ספוגית - מזו אקדמי:
+          🔬 חתך עצם: מעטפת קומפקטית מול ליבה ספוגית (מזו אקדמי):
         </span>
-        <svg viewBox="0 0 340 100" style={{ width: '100%', height: 'auto', maxHeight: '110px' }}>
-          <rect x="25" y="15" width="290" height="70" rx="10" fill="#0f172a" stroke="#d97706" strokeWidth="2" />
-          {/* קומפקטית עליונה */}
-          <rect x="25" y="15" width="290" height="16" fill="#b45309" />
-          <text x="170" y="27" fill="#ffffff" fontSize="9" fontWeight="bold" textAnchor="middle">מעטפת קומפקטית (Compact) - מספקת חוזק ועמידות בדחיסה</text>
-          {/* ספוגית מרכזית */}
-          <rect x="25" y="31" width="290" height="38" fill="#1e293b" strokeDasharray="3 3" />
-          <text x="170" y="53" fill="#fde68a" fontSize="10" fontWeight="bold" textAnchor="middle">ליבה ספוגית (Spongy) - רשת חללים לבלימת זעזועים ומשקל קל</text>
-          {/* קומפקטית תחתונה */}
-          <rect x="25" y="69" width="290" height="16" fill="#b45309" />
-          <text x="170" y="81" fill="#ffffff" fontSize="8" textAnchor="middle">פריאוסט (קרום העצם) עוטף מבחוץ עם כלי דם ועצבים</text>
+        <svg viewBox="0 0 340 95" style={{ width: '100%', height: 'auto', maxHeight: '105px' }}>
+          <rect x="25" y="15" width="290" height="65" rx="10" fill="#0f172a" stroke="#d97706" strokeWidth="2" />
+          <rect x="25" y="15" width="290" height="15" fill="#b45309" />
+          <text x="170" y="26" fill="#ffffff" fontSize="9" fontWeight="bold" textAnchor="middle">מעטפת קומפקטית (Compact) - מספקת חוזק ועמידות בדחיסה</text>
+          <rect x="25" y="30" width="290" height="35" fill="#1e293b" strokeDasharray="3 3" />
+          <text x="170" y="52" fill="#fde68a" fontSize="10" fontWeight="bold" textAnchor="middle">ליבה ספוגית (Spongy) - רשת חללים לבלימת זעזועים ומשקל קל</text>
+          <rect x="25" y="65" width="290" height="15" fill="#b45309" />
+          <text x="170" y="76" fill="#ffffff" fontSize="8" textAnchor="middle">פריאוסט (קרום העצם) עוטף מבחוץ עם כלי דם ועצבים</text>
         </svg>
       </div>
     );
   }
 
-  // 3. רמות ארגון הגוף (איור 1.2 במזו)
-  if (text.includes('רמות ארגון') || text.includes('תא') || text.includes('איבר') || text.includes('מערכת')) {
-    return (
-      <div style={{ backgroundColor: '#020617', padding: '10px', borderRadius: '12px', border: '1px solid #1e293b', marginBottom: '10px' }}>
-        <span style={{ fontSize: '11px', fontWeight: 'bold', color: '#34d399', display: 'block', marginBottom: '6px' }}>
-          📊 פירמידת רמות הארגון של הגוף החי - מזו אקדמי:
-        </span>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '4px', textAlign: 'center', fontSize: '9px' }}>
-          <div style={{ backgroundColor: '#0f172a', padding: '6px', borderRadius: '6px', border: '1px solid #3b82f6' }}>
-            <strong style={{ color: '#60a5fa', display: 'block' }}>1. תא (Cell)</strong>
-            <span style={{ color: '#cbd5e1' }}>אבן הבניין הבסיסית</span>
-          </div>
-          <div style={{ backgroundColor: '#0f172a', padding: '6px', borderRadius: '6px', border: '1px solid #a855f7' }}>
-            <strong style={{ color: '#c084fc', display: 'block' }}>2. רקמה (Tissue)</strong>
-            <span style={{ color: '#cbd5e1' }}>מצבור תאים לפעולה</span>
-          </div>
-          <div style={{ backgroundColor: '#0f172a', padding: '6px', borderRadius: '6px', border: '1px solid #f59e0b' }}>
-            <strong style={{ color: '#fbbf24', display: 'block' }}>3. איבר (Organ)</strong>
-            <span style={{ color: '#cbd5e1' }}>מספר רקמות יחדיו</span>
-          </div>
-          <div style={{ backgroundColor: '#0f172a', padding: '6px', borderRadius: '6px', border: '1px solid #10b981' }}>
-            <strong style={{ color: '#34d399', display: 'block' }}>4. מערכת (System)</strong>
-            <span style={{ color: '#cbd5e1' }}>איברים למטרה אחת</span>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // 4. סחוסים ומפרקים (איור 2.10 במזו)
   return (
     <div style={{ backgroundColor: '#020617', padding: '10px', borderRadius: '12px', border: '1px solid #1e293b', marginBottom: '10px' }}>
-      <span style={{ fontSize: '11px', fontWeight: 'bold', color: '#a855f7', display: 'block', marginBottom: '6px' }}>
-        🔍 מפרק סינוביאלי וסחוסים - מזו אקדמי:
+      <span style={{ fontSize: '11px', fontWeight: 'bold', color: '#38bdf8', display: 'block', marginBottom: '6px' }}>
+        📊 רמות ארגון, תאים וסחוסים (מזו אקדמי):
       </span>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '6px', textAlign: 'center', fontSize: '9px' }}>
-        <div style={{ backgroundColor: '#0f172a', padding: '6px', borderRadius: '6px', border: '1px solid #334155' }}>
-          <strong style={{ color: '#38bdf8', display: 'block' }}>סחוס היאליני</strong>
-          <span style={{ color: '#cbd5e1' }}>דק, חלק, מונע חיכוך בקצות עצמות</span>
+        <div style={{ backgroundColor: '#0f172a', padding: '6px', borderRadius: '6px', border: '1px solid #3b82f6' }}>
+          <strong style={{ color: '#60a5fa', display: 'block' }}>רמות הארגון</strong>
+          <span style={{ color: '#cbd5e1' }}>תא ← רקמה ← איבר ← מערכת</span>
         </div>
-        <div style={{ backgroundColor: '#0f172a', padding: '6px', borderRadius: '6px', border: '1px solid #334155' }}>
-          <strong style={{ color: '#ef4444', display: 'block' }}>סחוס סיבי</strong>
-          <span style={{ color: '#cbd5e1' }}>עבה ועמיד בדחיסה (דיסק, מניסקוס)</span>
+        <div style={{ backgroundColor: '#0f172a', padding: '6px', borderRadius: '6px', border: '1px solid #a855f7' }}>
+          <strong style={{ color: '#c084fc', display: 'block' }}>4 רקמות היסוד</strong>
+          <span style={{ color: '#cbd5e1' }}>אפיתל, חיבור, שריר, עצב</span>
         </div>
-        <div style={{ backgroundColor: '#0f172a', padding: '6px', borderRadius: '6px', border: '1px solid #334155' }}>
-          <strong style={{ color: '#10b981', display: 'block' }}>נוזל סינוביאלי</strong>
-          <span style={{ color: '#cbd5e1' }}>שמן המפרק, מופרש בתנועה</span>
+        <div style={{ backgroundColor: '#0f172a', padding: '6px', borderRadius: '6px', border: '1px solid #10b981' }}>
+          <strong style={{ color: '#34d399', display: 'block' }}>חוק וולף</strong>
+          <span style={{ color: '#cbd5e1' }}>עומס בונה עצם, חוסר מחליש</span>
         </div>
       </div>
     </div>
@@ -139,7 +332,7 @@ function shuffleList(list) {
 
 export default function App() {
   const [mounted, setMounted] = useState(false);
-  // בורר מקור ראשי: 'meso' או 'wingate'
+  // בורר מוסד לימודים ראשי: 'meso' או 'wingate'
   const [institution, setInstitution] = useState<'meso' | 'wingate'>('meso');
 
   const [activeModule, setActiveModule] = useState('all');
@@ -149,7 +342,6 @@ export default function App() {
   const [isAnswerChecked, setIsAnswerChecked] = useState(false);
   const [score, setScore] = useState(0);
   const [streak, setStreak] = useState(0);
-  const [showExplanation, setShowExplanation] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
 
   const [isDeepStudyOpen, setIsDeepStudyOpen] = useState(false);
@@ -184,7 +376,7 @@ export default function App() {
   const resetAndShuffle = (inst = institution, modId = activeModule, mode = examMode, paceSec = paceSecondsPerQ) => {
     stopSpeech();
 
-    let baseSource = inst === 'meso' ? MESO_DATA : WINGATE_DATA;
+    const baseSource = inst === 'meso' ? MESO_ACADEMY_DATA : WINGATE_DATA;
     let source = baseSource;
 
     if (modId !== 'all') {
@@ -200,7 +392,6 @@ export default function App() {
     setCurrentIndex(0);
     setSelectedOption(null);
     setIsAnswerChecked(false);
-    setShowExplanation(false);
     setIsDeepStudyOpen(false);
     setScore(0);
     setStreak(0);
@@ -228,13 +419,6 @@ export default function App() {
   const handleModeChange = (newMode: 'practice' | 'real') => {
     setExamMode(newMode);
     resetAndShuffle(institution, activeModule, newMode, paceSecondsPerQ);
-  };
-
-  const handlePaceChange = (sec: number) => {
-    setPaceSecondsPerQ(sec);
-    if (examMode === 'real') {
-      resetAndShuffle(institution, activeModule, 'real', sec);
-    }
   };
 
   const formatTimer = (totalSeconds: number) => {
@@ -297,7 +481,7 @@ export default function App() {
   if (!mounted || quizList.length === 0) {
     return (
       <div style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#38bdf8', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px', fontWeight: 'bold' }}>
-        טוען שאלות ותרשימים עבור שמואל...
+        טוען את המערכת לשמואל...
       </div>
     );
   }
@@ -315,7 +499,6 @@ export default function App() {
     const correct = chosen?.isCorrect;
 
     setIsAnswerChecked(true);
-    setShowExplanation(true);
 
     if (correct) {
       setScore((s) => s + 10);
@@ -334,7 +517,6 @@ export default function App() {
       setCurrentIndex((i) => i + 1);
       setSelectedOption(null);
       setIsAnswerChecked(false);
-      setShowExplanation(false);
       setIsDeepStudyOpen(false);
     } else {
       alert(`כל הכבוד שמואל!\nסיימת את תרגול ${institution === 'meso' ? 'מזו אקדמי' : 'וינגייט'} בהצלחה!\nצברת ${score} נקודות!`);
@@ -390,7 +572,7 @@ export default function App() {
           <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
             <button
               onClick={() => resetAndShuffle(institution, activeModule, 'real', paceSecondsPerQ)}
-              style={{ flex: 1, backgroundColor: '#0284c7', color: '#ffffff', border: 'none', padding: '12px', borderRadius: '12px', fontWeight: '900', fontSize: '14px', cursor: 'pointer' }}
+              style={{ flex: 1, backgroundColor: institution === 'meso' ? '#0284c7' : '#f59e0b', color: '#ffffff', border: 'none', padding: '12px', borderRadius: '12px', fontWeight: '900', fontSize: '14px', cursor: 'pointer' }}
             >
               🔄 מבחן חוזר
             </button>
@@ -447,10 +629,10 @@ export default function App() {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
             <div>
               <h1 style={{ margin: 0, fontSize: '18px', fontWeight: '900', color: institution === 'meso' ? '#38bdf8' : '#fbbf24' }}>
-                {institution === 'meso' ? '🏛️ מזו אקדמי - שמואל' : '🦁 וינגייט קואוץ\' - שמואל'}
+                {institution === 'meso' ? '🏛️ מזו אקדמי (Meso)' : '🦁 מכללת וינגייט (Wingate)'}
               </h1>
               <span style={{ fontSize: '11px', color: '#94a3b8' }}>
-                {institution === 'meso' ? 'מאגר השאלות, הסחוסים, העצמות והרקמות ממצגות 1+2' : 'מאגר תכנון אימון, אנטומיה ופיזיולוגיה'}
+                {institution === 'meso' ? 'מבוא לאנטומיה, רקמות, הומיאוסטזיס ושלד' : 'תכנון אימון, אנטומיה ופיזיולוגיה'}
               </span>
             </div>
 
@@ -462,7 +644,7 @@ export default function App() {
             </button>
           </div>
 
-          {/* 2 כפתורים מופרדים לבחירת המוסד: מזו אקדמי מול וינגייט */}
+          {/* 2 כפתורים מופרדים לבחירת המוסד */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginBottom: '10px' }}>
             <button
               onClick={() => handleInstitutionSwitch('meso')}
@@ -481,8 +663,8 @@ export default function App() {
                 boxShadow: institution === 'meso' ? '0 4px 14px rgba(2, 132, 199, 0.3)' : 'none'
               }}
             >
-              <span>🏛️ מזו אקדמי (Meso)</span>
-              <span style={{ fontSize: '10px', opacity: 0.85 }}>מבוא, רקמות, שלד ({MESO_DATA.length})</span>
+              <span>🏛️ מזו אקדמי</span>
+              <span style={{ fontSize: '10px', opacity: 0.85 }}>מבוא, רקמות, שלד ({MESO_ACADEMY_DATA.length})</span>
             </button>
 
             <button
@@ -502,12 +684,12 @@ export default function App() {
                 boxShadow: institution === 'wingate' ? '0 4px 14px rgba(180, 83, 9, 0.3)' : 'none'
               }}
             >
-              <span>🦁 מכללת וינגייט (Wingate)</span>
+              <span>🦁 מכללת וינגייט</span>
               <span style={{ fontSize: '10px', opacity: 0.85 }}>תכנון אימון, אנטומיה ({WINGATE_DATA.length})</span>
             </button>
           </div>
 
-          {/* מתג בחירת מצב: תרגול מול מבחן אמת */}
+          {/* מתג מצב תרגול / מבחן */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px', marginBottom: '8px', backgroundColor: '#0f172a', padding: '4px', borderRadius: '12px', border: '1px solid #1e293b' }}>
             <button
               onClick={() => handleModeChange('practice')}
@@ -519,8 +701,7 @@ export default function App() {
                 borderRadius: '8px',
                 fontSize: '12px',
                 fontWeight: '900',
-                cursor: 'pointer',
-                transition: 'all 0.2s'
+                cursor: 'pointer'
               }}
             >
               💡 מצב תרגול (הסברים ואיורים)
@@ -536,43 +717,22 @@ export default function App() {
                 borderRadius: '8px',
                 fontSize: '12px',
                 fontWeight: '900',
-                cursor: 'pointer',
-                transition: 'all 0.2s'
+                cursor: 'pointer'
               }}
             >
               ⏱️ מבחן אמת (טיימר בלי רמזים)
             </button>
           </div>
 
-          {examMode === 'real' && (
-            <div style={{ backgroundColor: '#1e1b4b', border: '1px solid #4338ca', padding: '8px 12px', borderRadius: '12px', marginBottom: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '6px' }}>
-              <div>
-                <span style={{ fontSize: '10px', color: '#c7d2fe', display: 'block' }}>קצב והקצבת זמן לשאלה:</span>
-                <div style={{ display: 'flex', gap: '4px', marginTop: '2px' }}>
-                  <button onClick={() => handlePaceChange(90)} style={{ backgroundColor: paceSecondsPerQ === 90 ? '#38bdf8' : '#0f172a', color: paceSecondsPerQ === 90 ? '#020617' : '#94a3b8', border: '1px solid #334155', borderRadius: '6px', fontSize: '10px', padding: '2px 6px', fontWeight: 'bold' }}>90 ש'</button>
-                  <button onClick={() => handlePaceChange(60)} style={{ backgroundColor: paceSecondsPerQ === 60 ? '#38bdf8' : '#0f172a', color: paceSecondsPerQ === 60 ? '#020617' : '#94a3b8', border: '1px solid #334155', borderRadius: '6px', fontSize: '10px', padding: '2px 6px', fontWeight: 'bold' }}>60 ש'</button>
-                  <button onClick={() => handlePaceChange(45)} style={{ backgroundColor: paceSecondsPerQ === 45 ? '#38bdf8' : '#0f172a', color: paceSecondsPerQ === 45 ? '#020617' : '#94a3b8', border: '1px solid #334155', borderRadius: '6px', fontSize: '10px', padding: '2px 6px', fontWeight: 'bold' }}>45 ש'</button>
-                </div>
-              </div>
-
-              <div style={{ textAlign: 'left' }}>
-                <span style={{ fontSize: '10px', color: '#cbd5e1', display: 'block' }}>זמן נותר:</span>
-                <span style={{ fontSize: '18px', fontWeight: '900', color: timeLeft <= 300 ? '#f43f5e' : '#34d399', fontFamily: 'monospace' }}>
-                  ⏳ {formatTimer(timeLeft)}
-                </span>
-              </div>
-            </div>
-          )}
-
-          {/* שורת סינון משנית לפי נושאים במכללת וינגייט */}
+          {/* סינון נושאים בווינגייט */}
           {institution === 'wingate' && (
             <div style={{ display: 'flex', gap: '6px', overflowX: 'auto', paddingBottom: '6px', marginBottom: '8px' }}>
-              <button onClick={() => handleModuleClick('all')} style={{ backgroundColor: activeModule === 'all' ? '#f59e0b' : '#0f172a', color: activeModule === 'all' ? '#020617' : '#94a3b8', border: '1px solid #334155', padding: '5px 9px', borderRadius: '8px', fontSize: '10px', fontWeight: 'bold', whiteSpace: 'nowrap' }}>הכל</button>
-              <button onClick={() => handleModuleClick('train_plan')} style={{ backgroundColor: activeModule === 'train_plan' ? '#10b981' : '#0f172a', color: activeModule === 'train_plan' ? '#020617' : '#34d399', border: '1px solid #059669', padding: '5px 9px', borderRadius: '8px', fontSize: '10px', fontWeight: 'bold', whiteSpace: 'nowrap' }}>תכנון אימון</button>
-              <button onClick={() => handleModuleClick('anat1')} style={{ backgroundColor: activeModule === 'anat1' ? '#f59e0b' : '#0f172a', color: activeModule === 'anat1' ? '#020617' : '#94a3b8', border: '1px solid #334155', padding: '5px 9px', borderRadius: '8px', fontSize: '10px', fontWeight: 'bold', whiteSpace: 'nowrap' }}>אנטומיה א'</button>
-              <button onClick={() => handleModuleClick('anat2')} style={{ backgroundColor: activeModule === 'anat2' ? '#f59e0b' : '#0f172a', color: activeModule === 'anat2' ? '#020617' : '#94a3b8', border: '1px solid #334155', padding: '5px 9px', borderRadius: '8px', fontSize: '10px', fontWeight: 'bold', whiteSpace: 'nowrap' }}>אנטומיה ב'</button>
-              <button onClick={() => handleModuleClick('phys1')} style={{ backgroundColor: activeModule === 'phys1' ? '#f59e0b' : '#0f172a', color: activeModule === 'phys1' ? '#020617' : '#94a3b8', border: '1px solid #334155', padding: '5px 9px', borderRadius: '8px', fontSize: '10px', fontWeight: 'bold', whiteSpace: 'nowrap' }}>פיזיולוגיה א'</button>
-              <button onClick={() => handleModuleClick('phys2')} style={{ backgroundColor: activeModule === 'phys2' ? '#f59e0b' : '#0f172a', color: activeModule === 'phys2' ? '#020617' : '#94a3b8', border: '1px solid #334155', padding: '5px 9px', borderRadius: '8px', fontSize: '10px', fontWeight: 'bold', whiteSpace: 'nowrap' }}>פיזיולוגיה ב'</button>
+              <button onClick={() => handleModuleClick('all')} style={{ backgroundColor: activeModule === 'all' ? '#f59e0b' : '#0f172a', color: activeModule === 'all' ? '#020617' : '#94a3b8', border: '1px solid #334155', padding: '5px 9px', borderRadius: '8px', fontSize: '10px', fontWeight: 'bold' }}>הכל</button>
+              <button onClick={() => handleModuleClick('train_plan')} style={{ backgroundColor: activeModule === 'train_plan' ? '#10b981' : '#0f172a', color: activeModule === 'train_plan' ? '#020617' : '#34d399', border: '1px solid #059669', padding: '5px 9px', borderRadius: '8px', fontSize: '10px', fontWeight: 'bold' }}>תכנון אימון</button>
+              <button onClick={() => handleModuleClick('anat1')} style={{ backgroundColor: activeModule === 'anat1' ? '#f59e0b' : '#0f172a', color: activeModule === 'anat1' ? '#020617' : '#94a3b8', border: '1px solid #334155', padding: '5px 9px', borderRadius: '8px', fontSize: '10px', fontWeight: 'bold' }}>אנטומיה א'</button>
+              <button onClick={() => handleModuleClick('anat2')} style={{ backgroundColor: activeModule === 'anat2' ? '#f59e0b' : '#0f172a', color: activeModule === 'anat2' ? '#020617' : '#94a3b8', border: '1px solid #334155', padding: '5px 9px', borderRadius: '8px', fontSize: '10px', fontWeight: 'bold' }}>אנטומיה ב'</button>
+              <button onClick={() => handleModuleClick('phys1')} style={{ backgroundColor: activeModule === 'phys1' ? '#f59e0b' : '#0f172a', color: activeModule === 'phys1' ? '#020617' : '#94a3b8', border: '1px solid #334155', padding: '5px 9px', borderRadius: '8px', fontSize: '10px', fontWeight: 'bold' }}>פיזיולוגיה א'</button>
+              <button onClick={() => handleModuleClick('phys2')} style={{ backgroundColor: activeModule === 'phys2' ? '#f59e0b' : '#0f172a', color: activeModule === 'phys2' ? '#020617' : '#94a3b8', border: '1px solid #334155', padding: '5px 9px', borderRadius: '8px', fontSize: '10px', fontWeight: 'bold' }}>פיזיולוגיה ב'</button>
             </div>
           )}
 
@@ -589,7 +749,7 @@ export default function App() {
           </div>
         </header>
 
-        {/* איור ותרשים גרפי מותאם מחוברת הלימוד של מזו/וינגייט */}
+        {/* איור ותרשים מותאם מתוך מזו אקדמי */}
         <MesoIllustrationRenderer q={currentQ} />
 
         {/* כפתור פדגוגי זמין תמיד */}
@@ -627,7 +787,7 @@ export default function App() {
 
             <button
               onClick={handleSpeakFullQuestion}
-              style={{ backgroundColor: isSpeaking ? '#ef4444' : '#0284c7', color: '#ffffff', border: 'none', borderRadius: '12px', padding: '8px 12px', fontSize: '15px', fontWeight: 'bold', cursor: 'pointer', flexShrink: 0, display: 'flex', alignItems: 'center', gap: '4px' }}
+              style={{ backgroundColor: isSpeaking ? '#ef4444' : (institution === 'meso' ? '#0284c7' : '#f59e0b'), color: '#ffffff', border: 'none', borderRadius: '12px', padding: '8px 12px', fontSize: '15px', fontWeight: 'bold', cursor: 'pointer', flexShrink: 0, display: 'flex', alignItems: 'center', gap: '4px' }}
               title="הקרא שאלה"
             >
               {isSpeaking ? '⏹ עצור' : '🔊 הקרא'}
@@ -725,7 +885,7 @@ export default function App() {
               disabled={!selectedOption}
               style={{
                 width: '100%',
-                backgroundColor: selectedOption ? '#0284c7' : '#334155',
+                backgroundColor: selectedOption ? (institution === 'meso' ? '#0284c7' : '#f59e0b') : '#334155',
                 color: selectedOption ? '#ffffff' : '#94a3b8',
                 border: 'none',
                 borderRadius: '14px',
@@ -763,7 +923,7 @@ export default function App() {
 
             <button
               onClick={handleNextReal}
-              style={{ flex: 1, backgroundColor: '#f59e0b', color: '#020617', border: 'none', borderRadius: '14px', padding: '14px', fontSize: '15px', fontWeight: '900', cursor: 'pointer' }}
+              style={{ flex: 1, backgroundColor: institution === 'meso' ? '#0284c7' : '#f59e0b', color: '#ffffff', border: 'none', borderRadius: '14px', padding: '14px', fontSize: '15px', fontWeight: '900', cursor: 'pointer' }}
             >
               {currentIndex === quizList.length - 1 ? '🏁 סיים מבחן והגש' : 'שאלה הבאה ➜'}
             </button>
@@ -776,7 +936,7 @@ export default function App() {
         <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.92)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '14px' }}>
           <div style={{ backgroundColor: '#0b1329', border: '2px solid #38bdf8', borderRadius: '20px', maxWidth: '500px', width: '100%', maxHeight: '88vh', overflowY: 'auto', padding: '18px', display: 'flex', flexDirection: 'column', gap: '12px', boxShadow: '0 10px 30px rgba(0,0,0,0.8)' }}>
             
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #1e293b', pb: '10px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #1e293b', paddingBottom: '10px' }}>
               <div>
                 <span style={{ color: '#38bdf8', fontSize: '11px', fontWeight: 'bold' }}>{currentQ.topic}</span>
                 <h3 style={{ margin: 0, fontSize: '15px', color: '#fbbf24', fontWeight: '900' }}>🎓 ניתוח פדגוגי מעמיק ושלילת מסיחים</h3>
@@ -798,34 +958,3 @@ export default function App() {
 
             <div style={{ backgroundColor: '#020617', padding: '10px 12px', borderRadius: '12px', border: '1px solid #334155' }}>
               <span style={{ color: '#f43f5e', fontSize: '12px', fontWeight: '900', display: 'block', marginBottom: '6px' }}>
-                ❌ למה שאר המסיחים שגויים?
-              </span>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                {currentQ.options.map((opt, idx) => {
-                  const letter = ['א', 'ב', 'ג', 'ד'][idx] || '';
-                  if (opt.isCorrect) return null;
-                  return (
-                    <div key={opt.id} style={{ fontSize: '11px', color: '#cbd5e1', backgroundColor: '#0f172a', padding: '6px 8px', borderRadius: '6px', borderRight: '3px solid #f43f5e' }}>
-                      <strong style={{ color: '#f87171' }}>אפשרות {letter} ({opt.text}):</strong>
-                      <span style={{ color: '#94a3b8', display: 'block', marginTop: '2px' }}>
-                        נפסלת לפי הדרישות המדעיות (בלבול נפוץ במבחן בין שלד צירי לתוספי, בין סחוס היאליני לסיבי, או בין אוסטאובלסט לאוסטאוקלסט).
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            <button
-              onClick={() => setIsDeepStudyOpen(false)}
-              style={{ width: '100%', backgroundColor: '#0284c7', color: '#ffffff', border: 'none', padding: '12px', borderRadius: '12px', fontWeight: '900', fontSize: '14px', cursor: 'pointer', marginTop: '4px' }}
-            >
-              ✓ הבנתי, חזרה לשאלה
-            </button>
-          </div>
-        </div>
-      )}
-
-    </main>
-  );
-}
