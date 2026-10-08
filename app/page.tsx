@@ -894,4 +894,164 @@ export default function App() {
               }
             } else {
               if (isSelected) {
-                bgColor
+                bgColor = 'rgba(56, 189, 248, 0.2)';
+                borderColor = '#38bdf8';
+                textColor = '#38bdf8';
+              }
+            }
+
+            const letter = ['א', 'ב', 'ג', 'ד'][idx] || '';
+
+            return (
+              <button
+                key={opt.id}
+                onClick={() => {
+                  if (examMode === 'practice' && isAnswerChecked) return;
+                  setSelectedOption(opt.id);
+                  if (examMode === 'real') {
+                    setUserAnswers(prev => ({ ...prev, [currentQ.id]: opt.id }));
+                  }
+                }}
+                style={{
+                  backgroundColor: bgColor,
+                  border: `2px solid ${borderColor}`,
+                  borderRadius: '14px',
+                  padding: '10px 12px',
+                  textAlign: 'right',
+                  color: textColor,
+                  fontSize: '13px',
+                  fontWeight: isSelected || (examMode === 'practice' && isAnswerChecked && opt.isCorrect) ? 'bold' : 'normal',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  cursor: (examMode === 'practice' && isAnswerChecked) ? 'default' : 'pointer'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ backgroundColor: '#020617', width: '22px', height: '22px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 'bold', border: '1px solid #334155' }}>
+                    {letter}
+                  </span>
+                  <span>{opt.text}</span>
+                </div>
+
+                {examMode === 'practice' && isAnswerChecked && opt.isCorrect && <span style={{ color: '#34d399', fontWeight: 'bold' }}>✔ נכון</span>}
+                {examMode === 'practice' && isAnswerChecked && isSelected && !opt.isCorrect && <span style={{ color: '#fb7185', fontWeight: 'bold' }}>✖ שגוי</span>}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* אזור פעולה תחתון */}
+      <footer style={{ paddingTop: '6px', paddingBottom: '6px' }}>
+        {examMode === 'practice' ? (
+          !isAnswerChecked ? (
+            <button
+              onClick={handleCheckPractice}
+              disabled={!selectedOption}
+              style={{
+                width: '100%',
+                backgroundColor: selectedOption ? (institution === 'meso' ? '#0284c7' : '#f59e0b') : '#334155',
+                color: selectedOption ? '#ffffff' : '#94a3b8',
+                border: 'none',
+                borderRadius: '14px',
+                padding: '14px',
+                fontSize: '15px',
+                fontWeight: '900',
+                cursor: selectedOption ? 'pointer' : 'not-allowed'
+              }}
+            >
+              בדוק תשובה
+            </button>
+          ) : (
+            <button
+              onClick={handleNextPractice}
+              style={{ width: '100%', backgroundColor: '#10b981', color: '#020617', border: 'none', borderRadius: '14px', padding: '14px', fontSize: '15px', fontWeight: '900', cursor: 'pointer' }}
+            >
+              {currentIndex === quizList.length - 1 ? '🎉 סיום תרגול ואיפוס' : 'שאלה הבאה ➜'}
+            </button>
+          )
+        ) : (
+          <div style={{ display: 'flex', gap: '8px' }}>
+            {currentIndex > 0 && (
+              <button
+                onClick={() => {
+                  stopSpeech();
+                  const prevIdx = currentIndex - 1;
+                  setCurrentIndex(prevIdx);
+                  setSelectedOption(userAnswers[quizList[prevIdx]?.id] || null);
+                }}
+                style={{ backgroundColor: '#1e293b', color: '#cbd5e1', border: '1px solid #334155', padding: '12px 16px', borderRadius: '14px', fontSize: '13px', fontWeight: 'bold' }}
+              >
+                ⮌ קודמת
+              </button>
+            )}
+
+            <button
+              onClick={handleNextReal}
+              style={{ flex: 1, backgroundColor: institution === 'meso' ? '#0284c7' : '#f59e0b', color: '#ffffff', border: 'none', borderRadius: '14px', padding: '14px', fontSize: '15px', fontWeight: '900', cursor: 'pointer' }}
+            >
+              {currentIndex === quizList.length - 1 ? '🏁 סיים מבחן והגש' : 'שאלה הבאה ➜'}
+            </button>
+          </div>
+        )}
+      </footer>
+
+      {/* חלון מודאל לימודי מעמיק */}
+      {isDeepStudyOpen && (
+        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.92)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '14px' }}>
+          <div style={{ backgroundColor: '#0b1329', border: '2px solid #38bdf8', borderRadius: '20px', maxWidth: '500px', width: '100%', maxHeight: '88vh', overflowY: 'auto', padding: '18px', display: 'flex', flexDirection: 'column', gap: '12px', boxShadow: '0 10px 30px rgba(0,0,0,0.8)' }}>
+            
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #1e293b', paddingBottom: '10px' }}>
+              <div>
+                <span style={{ color: '#38bdf8', fontSize: '11px', fontWeight: 'bold' }}>{currentQ.topic}</span>
+                <h3 style={{ margin: 0, fontSize: '15px', color: '#fbbf24', fontWeight: '900' }}>🎓 ניתוח פדגוגי מעמיק ושלילת מסיחים</h3>
+              </div>
+              <button onClick={() => setIsDeepStudyOpen(false)} style={{ backgroundColor: '#881337', color: '#ffffff', border: 'none', width: '32px', height: '32px', borderRadius: '50%', fontWeight: 'bold', fontSize: '15px', cursor: 'pointer' }}>✕</button>
+            </div>
+
+            <IllustrationRenderer q={currentQ} />
+
+            <div style={{ backgroundColor: '#020617', padding: '10px 12px', borderRadius: '12px', border: '1px solid #10b981' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+                <span style={{ color: '#34d399', fontSize: '12px', fontWeight: '900' }}>✔ התשובה הנכונה והעיקרון המדעי:</span>
+                <button onClick={() => speakCustom(currentQ.explanation)} style={{ backgroundColor: '#064e3b', color: '#34d399', border: '1px solid #059669', borderRadius: '6px', padding: '2px 6px', fontSize: '10px', cursor: 'pointer' }}>🔊 הקרא</button>
+              </div>
+              <p style={{ margin: 0, fontSize: '12px', color: '#e2e8f0', lineHeight: '1.4' }}>
+                {currentQ.explanation}
+              </p>
+            </div>
+
+            <div style={{ backgroundColor: '#020617', padding: '10px 12px', borderRadius: '12px', border: '1px solid #334155' }}>
+              <span style={{ color: '#f43f5e', fontSize: '12px', fontWeight: '900', display: 'block', marginBottom: '6px' }}>
+                ❌ למה שאר המסיחים שגויים?
+              </span>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                {currentQ.options.map((opt, idx) => {
+                  const letter = ['א', 'ב', 'ג', 'ד'][idx] || '';
+                  if (opt.isCorrect) return null;
+                  return (
+                    <div key={opt.id} style={{ fontSize: '11px', color: '#cbd5e1', backgroundColor: '#0f172a', padding: '6px 8px', borderRadius: '6px', borderRight: '3px solid #f43f5e' }}>
+                      <strong style={{ color: '#f87171' }}>אפשרות {letter} ({opt.text}):</strong>
+                      <span style={{ color: '#94a3b8', display: 'block', marginTop: '2px' }}>
+                        נפסלת לפי הדרישות המדעיות (בלבול נפוץ במבחן בין שלד צירי לתוספי, בין סחוס היאליני לסיבי, או בין אוסטאובלסט לאוסטאוקלסט).
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <button
+              onClick={() => setIsDeepStudyOpen(false)}
+              style={{ width: '100%', backgroundColor: institution === 'meso' ? '#0284c7' : '#f59e0b', color: '#ffffff', border: 'none', padding: '12px', borderRadius: '12px', fontWeight: '900', fontSize: '14px', cursor: 'pointer', marginTop: '4px' }}
+            >
+              ✓ הבנתי, חזרה לשאלה
+            </button>
+          </div>
+        </div>
+      )}
+
+    </main>
+  );
+}
