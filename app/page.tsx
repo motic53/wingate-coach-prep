@@ -772,7 +772,7 @@ export default function App() {
           </div>
         </header>
 
-        {/* איור ותרשים מותאם מתוך החוברת */}
+        {/* איור ותרשים מותאם */}
         <DiagramRenderer diagram={currentQ.diagram} />
 
         {/* כפתור חלון לימוד פדגוגי */}
