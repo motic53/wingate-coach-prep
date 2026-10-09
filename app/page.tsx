@@ -31,14 +31,15 @@ class SafeBoundary extends Component {
   }
 }
 
-// 1. בנק שאלות מזו אקדמי
+// ==========================================
+// 1. בנק שאלות מזו אקדמי (Meso Academy)
+// ==========================================
 const MESO_FULL_DATA = [
   {
     id: 'm_1',
     topic: 'מבוא לאנטומיה',
     title: 'מקור המונח אנטומיה',
-    diagramType: 'anatomy_intro',
-    imageSrc: '/images/anatomy_intro.png',
+    imageSrc: '/images/phys2_p53_muscle_anatomy.jpg',
     questionText: 'המילה "אנטומיה" מורכבת מהמילים Ana ו-Tome ביוונית. מה פירושן?',
     options: [
       { id: '1', text: 'מבנה + גוף', isCorrect: false, whyWrong: 'מבנה הגוף הוא מושא המחקר, אך המילים המקוריות אינן "מבנה" ו"גוף".' },
@@ -53,8 +54,7 @@ const MESO_FULL_DATA = [
     id: 'm_2',
     topic: 'מבוא לאנטומיה',
     title: 'אנטומיה מול פיזיולוגיה',
-    diagramType: 'anatomy_intro',
-    imageSrc: '/images/anatomy_intro.png',
+    imageSrc: '/images/phys2_p53_muscle_anatomy.jpg',
     questionText: 'מה ההבדל העקרוני בין אנטומיה לבין פיזיולוגיה?',
     options: [
       { id: '1', text: 'אנטומיה עוסקת בתפקוד, פיזיולוגיה במבנה', isCorrect: false, whyWrong: 'ההגדרות הפוכות: אנטומיה היא המבנה, ופיזיולוגיה היא התפקוד.' },
@@ -69,8 +69,7 @@ const MESO_FULL_DATA = [
     id: 'm_3',
     topic: 'ארגון הגוף',
     title: 'רמות הארגון של הגוף החי',
-    diagramType: 'levels',
-    imageSrc: '/images/levels.png',
+    imageSrc: '/images/phys2_p53_muscle_anatomy.jpg',
     questionText: 'מהו הסדר הנכון של רמות הארגון בגוף האדם, מהקטן לגדול?',
     options: [
       { id: '1', text: 'רקמה ← תא ← מערכת ← איבר', isCorrect: false, whyWrong: 'התא הוא היחידה הבסיסית הבונה את הרקמה, והאיבר מקדים את המערכת.' },
@@ -78,34 +77,17 @@ const MESO_FULL_DATA = [
       { id: '3', text: 'תא ← איבר ← רקמה ← מערכת', isCorrect: false, whyWrong: 'רקמה מקדימה איבר, שכן איבר מורכב ממספר רקמות.' },
       { id: '4', text: 'איבר ← תא ← רקמה ← מערכת', isCorrect: false, whyWrong: 'האיבר אינו נקודת ההתחלה, אלא התא.' }
     ],
-    hint: 'איור 1.2: תאים יוצרים רקמה, רקמות בונות איבר, ואיברים חוברים למערכת.',
+    hint: 'תאים יוצרים רקמה, רקמות בונות איבר, ואיברים חוברים למערכת.',
     explanation: 'הסדר ההיררכי: תא (Cell) ← רקמה (Tissue) ← איבר (Organ) ← מערכת (System).'
   },
   {
     id: 'm_4',
     topic: 'התא ואברוניו',
-    title: 'בית החרושת של החלבונים',
-    diagramType: 'cell',
-    imageSrc: '/images/cell.png',
-    questionText: 'איזה אברון בתא מכונה "בית החרושת של החלבונים"?',
+    title: 'תפקיד המיטוכונדריה ו-ATP',
+    imageSrc: '/images/phys1_p12_atp.jpg',
+    questionText: 'מה התפקיד העיקרי של המיטוכונדריה בתא לפי תהליכי הפקת האנרגיה?',
     options: [
-      { id: '1', text: 'מיטוכונדריה', isCorrect: false, whyWrong: 'המיטוכונדריה אחראית על הפקת אנרגיה (ATP).' },
-      { id: '2', text: 'ציטופלזמה', isCorrect: false, whyWrong: 'הציטופלזמה היא הנוזל התוך-תאי הצמיגי.' },
-      { id: '3', text: 'ריבוזום (Ribosome)', isCorrect: true },
-      { id: '4', text: 'גרעין התא', isCorrect: false, whyWrong: 'הגרעין מנהל את התא ומכיל DNA, אך החלבונים מורכבים בריבוזומים.' }
-    ],
-    hint: 'עליו מורכבות חומצות האמינו לבניית חלבוני הגוף והשריר.',
-    explanation: 'הריבוזומים אחראים על הרכבת חלבונים מחומצות אמינו.'
-  },
-  {
-    id: 'm_5',
-    topic: 'התא ואברוניו',
-    title: 'תפקיד המיטוכונדריה',
-    diagramType: 'cell',
-    imageSrc: '/images/cell.png',
-    questionText: 'מה התפקיד העיקרי של המיטוכונדריה בתא?',
-    options: [
-      { id: '1', text: 'אספקת אנרגיה לתא (אברון הנשימה התאית האירובית)', isCorrect: true },
+      { id: '1', text: 'אספקת אנרגיה לתא (אברון הנשימה התאית האירובית וייצור ATP)', isCorrect: true },
       { id: '2', text: 'ייצור חלבונים מתמשך', isCorrect: false, whyWrong: 'ייצור חלבונים מתבצע בריבוזומים.' },
       { id: '3', text: 'הגנה מכנית על התא מבחוץ', isCorrect: false, whyWrong: 'ההגנה וההפרדה נעשות על ידי קרום התא.' },
       { id: '4', text: 'העברת אותות עצביים חשמליים', isCorrect: false, whyWrong: 'העברת פולסים חשמליים נעשית על ידי תאי נוירון ברקמת העצב.' }
@@ -114,15 +96,14 @@ const MESO_FULL_DATA = [
     explanation: 'המיטוכונדריה היא אברון הנשימה שבו מופקת אנרגיה אירובית (ATP).'
   },
   {
-    id: 'm_6',
+    id: 'm_5',
     topic: 'הומיאוסטזיס',
     title: 'שמירה על סביבה פנימית',
-    diagramType: 'anatomy_intro',
-    imageSrc: '/images/anatomy_intro.png',
+    imageSrc: '/images/phys2_p113_thermoregulation.jpg',
     questionText: 'הומיאוסטזיס (Homeostasis) מוגדר כ:',
     options: [
       { id: '1', text: 'תהליך התחלקות והתרבות התא', isCorrect: false, whyWrong: 'חלוקת תאים מוגדרת כמיטוזה או מיוזה.' },
-      { id: '2', text: 'שמירה על מצב וסביבה פנימית קבועה ויציבה לתפקוד תקין', isCorrect: true },
+      { id: '2', text: 'שמירה על מצב וסביבה פנימית קבועה ויציבה לתפקוד תקין של הגוף', isCorrect: true },
       { id: '3', text: 'סוג מיוחד של רקמת חיבור צפופה', isCorrect: false, whyWrong: 'זהו מנגנון ויסות ביולוגי, לא רקמה.' },
       { id: '4', text: 'התכווצות שריר רצונית בזמן אימון', isCorrect: false, whyWrong: 'התכווצות שריר מפרה זמנית את ההומיאוסטזיס.' }
     ],
@@ -130,27 +111,10 @@ const MESO_FULL_DATA = [
     explanation: 'הומיאוסטזיס הוא כושר הגוף לשמור על סביבה פנימית יציבה.'
   },
   {
-    id: 'm_7',
-    topic: 'רקמת אפיתל',
-    title: 'הזנת רקמת האפיתל',
-    diagramType: 'artery',
-    imageSrc: '/images/artery.png',
-    questionText: 'כיצד מקבלת רקמת האפיתל חומרי מזון וחמצן?',
-    options: [
-      { id: '1', text: 'מרשת כלי דם עשירה העוברת בתוכה', isCorrect: false, whyWrong: 'רקמת האפיתל היא Avascular (חסרת כלי דם).' },
-      { id: '2', text: 'ישירות מהאוויר החיצוני', isCorrect: false, whyWrong: 'רוב רקמות האפיתל מרפדות איברים פנימיים ואינן באות במגע עם אוויר.' },
-      { id: '3', text: 'מרקמת החיבור הצמודה אליה בדיפוזיה, כי היא חסרת כלי דם', isCorrect: true },
-      { id: '4', text: 'מנוזל מערכת העצבים', isCorrect: false, whyWrong: 'מערכת העצבים אינה מזינה רקמות אפיתל.' }
-    ],
-    hint: 'לאפיתל אין כלי דם משלו והוא יושב על רקמת חיבור.',
-    explanation: 'האפיתל חסר כלי דם וניזון בדיפוזיה מרקמת החיבור שמתחתיו.'
-  },
-  {
-    id: 'm_8',
-    topic: 'רקמת אפיתל',
+    id: 'm_6',
+    topic: 'רקמת אפיתל וכלי דם',
     title: 'אנדותל כלי הדם וטרשת',
-    diagramType: 'artery',
-    imageSrc: '/images/artery.png',
+    imageSrc: '/images/phys2_p35_circulation.jpg',
     questionText: 'כיצד נקרא האפיתל המרפד את פנים כלי הדם, ומה משמעות הפגיעה בו?',
     options: [
       { id: '1', text: 'פריאוסט; גורם להחלשת קליפת העצם', isCorrect: false, whyWrong: 'פריאוסט הוא קרום העצם החיצוני.' },
@@ -158,79 +122,59 @@ const MESO_FULL_DATA = [
       { id: '3', text: 'אפידרמיס; גורם ליובש בעור', isCorrect: false, whyWrong: 'אפידרמיס הוא שכבת העור החיצונית.' },
       { id: '4', text: 'מזותל; גורם לפגיעה בסחוס המפרקי', isCorrect: false, whyWrong: 'מזותל מרפד את החללים הפנימיים הסגורים של הגוף.' }
     ],
-    hint: 'איור 1.6: הציפוי הפנימי של העורק שפגיעה בו מאפשרת שקיעת שומנים.',
+    hint: 'הציפוי הפנימי של העורק שפגיעה בו מאפשרת שקיעת שומנים.',
     explanation: 'האנדותל מצפה את פנים כלי הדם. פגיעה בו מאפשרת היווצרות טרשת עורקים.'
   },
   {
-    id: 'm_9',
-    topic: 'רקמת חיבור',
-    title: 'סיבים אלסטיים',
-    diagramType: 'bone',
-    imageSrc: '/images/bone.png',
-    questionText: 'איזה סוג סיבים ברקמת חיבור אינו חזק אך בעל יכולת להימתח ולחזור לאורכו המקורי?',
-    options: [
-      { id: '1', text: 'סיבים קולגניים', isCorrect: false, whyWrong: 'קולגן חזק וקשיח מאוד וכמעט אינו נמתח.' },
-      { id: '2', text: 'סיבים רטיקולריים', isCorrect: false, whyWrong: 'סיבים רטיקולריים הם סיבי קולגן דקים היוצרים רשת תומכת.' },
-      { id: '3', text: 'סיבים אלסטיים (Elastic fibers)', isCorrect: true },
-      { id: '4', text: 'סיבים שריריים', isCorrect: false, whyWrong: 'סיבי שריר הם תאי כיווץ פעילים, לא סיבי חומר בין-תאי.' }
-    ],
-    hint: 'פועלים כמו גומייה – נמתחים וחוזרים.',
-    explanation: 'סיבים אלסטיים מקנים לרקמה יכולת מתיחה וחזרה לצורתה המקורית.'
-  },
-  {
-    id: 'm_10',
-    topic: 'רקמת חיבור',
-    title: 'סיווג גיד ורצועה',
-    diagramType: 'joint',
-    imageSrc: '/images/joint.png',
-    questionText: 'גיד (Tendon) ורצועה (Ligament) שייכים לאיזו קבוצה של רקמת חיבור?',
-    options: [
-      { id: '1', text: 'רקמת חיבור אמיתית (סיבית צפופה)', isCorrect: true },
-      { id: '2', text: 'רקמת חיבור תומכת (שלדית)', isCorrect: false, whyWrong: 'רקמת חיבור תומכת כוללת עצם וסחוס בלבד.' },
-      { id: '3', text: 'רקמת חיבור מיוחדת', isCorrect: false, whyWrong: 'רקמת חיבור מיוחדת כוללת שומן ודם.' },
-      { id: '4', text: 'רקמת אפיתל', isCorrect: false, whyWrong: 'אפיתל היא רקמת ציפוי ומרפדת, לא גידים.' }
-    ],
-    hint: 'אמיתית = גידים/רצועות; תומכת = עצם/סחוס; מיוחדת = שומן/דם.',
-    explanation: 'גידים ורצועות הם רקמת חיבור אמיתית סיבית המיועדת להעברת כוחות משיכה.'
-  },
-  {
-    id: 'm_11',
+    id: 'm_7',
     topic: 'מערכת השלד',
     title: 'השלד הצירי מול השלד התוספי',
-    diagramType: 'skeleton',
-    imageSrc: '/images/skeleton.png',
+    imageSrc: '/images/vertebra_bone.jpeg',
     questionText: 'איזו מהעצמות הבאות שייכת לשלד הצירי (Axial skeleton)?',
     options: [
       { id: '1', text: 'עצם הבריח (Clavicula)', isCorrect: false, whyWrong: 'הבריח שייך לחגורת הכתף (שלד תוספי).' },
-      { id: '2', text: 'עצם החזה (Sternum)', isCorrect: true },
+      { id: '2', text: 'עצם החזה (Sternum) וחוליות עמוד השדרה', isCorrect: true },
       { id: '3', text: 'השכמה (Scapula)', isCorrect: false, whyWrong: 'השכמה שייכת לשלד התוספי.' },
       { id: '4', text: 'עצמות האגן (Pelvis)', isCorrect: false, whyWrong: 'עצמות האגן שייכות לשלד התוספי.' }
     ],
-    hint: 'איור 2.1: גולגולת, עמוד שדרה, צלעות ועצם החזה (סטרנום).',
+    hint: 'גולגולת, עמוד שדרה, צלעות ועצם החזה (סטרנום).',
     explanation: 'עצם החזה, הגולגולת, עמוד השדרה והצלעות מרכיבים את השלד הצירי.'
   },
   {
-    id: 'm_12',
-    topic: 'מבנה העצם',
-    title: 'עצם צפופה מול עצם ספוגית',
-    diagramType: 'bone',
-    imageSrc: '/images/bone.png',
-    questionText: 'מה מאפיין עצם צפופה (Compact bone) לפי איור 2.3 בחוברת?',
+    id: 'm_8',
+    topic: 'עמוד השדרה וחוליות',
+    title: 'מבנה החוליה',
+    imageSrc: '/images/vertebra_bone.jpeg',
+    questionText: 'חוליה בעמוד השדרה מסווגת כאיזה סוג של עצם?',
     options: [
-      { id: '1', text: 'מכילה חללים רבים ומשמשת כליבה קלת משקל', isCorrect: false, whyWrong: 'זהו מאפיין של העצם הספוגית (Spongy bone).' },
-      { id: '2', text: 'נמצאת אך ורק בחוליות עמוד השדרה', isCorrect: false, whyWrong: 'עצם קומפקטית עוטפת את כל העצמות בגוף.' },
-      { id: '3', text: 'נמצאת בעיקר במעטפת החיצונית ומספקת חוזק ועמידות בדחיסה', isCorrect: true },
-      { id: '4', text: 'בנויה מסחוס היאליני גמיש', isCorrect: false, whyWrong: 'עצם צפופה היא רקמת עצם מינרלית קשה, לא סחוס.' }
+      { id: '1', text: 'עצם ארוכה', isCorrect: false, whyWrong: 'עצם ארוכה היא כמו עצם הירך או הזרוע.' },
+      { id: '2', text: 'עצם שטוחה', isCorrect: false, whyWrong: 'עצמות שטוחות הן עצמות הגולגולת והשכמה.' },
+      { id: '3', text: 'עצם בלתי-סדירה (Irregular bone)', isCorrect: true },
+      { id: '4', text: 'עצם ססמואידית', isCorrect: false, whyWrong: 'עצם ססמואידית גדלה בתוך גיד (כמו הפיקה).' }
     ],
-    hint: 'המעטפת החיצונית הקשה של העצם.',
-    explanation: 'עצם צפופה בנויה אוסטאונים דחוסים במעטפת החיצונית ומספקת חוזק ועמידות.'
+    hint: 'בעלת צורה מורכבת עם זיזים (זיז קוצי, זיזים רוחביים) וגוף חוליה.',
+    explanation: 'חוליה היא עצם בלתי-סדירה (Irregular) בעלת מבנה מורכב שנועד לתמוך במשקל ולהגן על חוט השדרה.'
   },
   {
-    id: 'm_13',
+    id: 'm_9',
+    topic: 'עצמות חגורת הכתף',
+    title: 'השכמה (Scapula)',
+    imageSrc: '/images/scapula_bones.jpeg',
+    questionText: 'איזה מפרק נוצר בין עצם השכמה (Scapula) לבין עצם הזרוע (Humerus)?',
+    options: [
+      { id: '1', text: 'מפרק הכתף (Glenohumeral joint) - מפרק כדורי רב-צירי', isCorrect: true },
+      { id: '2', text: 'מפרק ציר חד-צירי', isCorrect: false, whyWrong: 'מפרק הכתף הוא רב-צירי ומאפשר תנועה בכל המישורים.' },
+      { id: '3', text: 'מפרק סיבי ללא תנועה', isCorrect: false, whyWrong: 'מפרק הכתף הוא התנועתי ביותר בגוף.' },
+      { id: '4', text: 'מפרק סחוסי', isCorrect: false, whyWrong: 'מפרק הכתף הוא מפרק סינוביאלי עם קפסולה ונוזל.' }
+    ],
+    hint: 'מכתש הגלנואיד בשכמה מתחבר לראש הזרוע.',
+    explanation: 'המפרק הגלנו-הומורלי הוא מפרק כדור ומכתש רב-צירי המאפשר טווח תנועה מקסימלי.'
+  },
+  {
+    id: 'm_10',
     topic: 'תאי העצם',
     title: 'שלושת התאים המנהלים את העצם',
-    diagramType: 'bone',
-    imageSrc: '/images/bone.png',
+    imageSrc: '/images/vertebra_bone.jpeg',
     questionText: 'איזה תא אחראי על פירוק והמסה של רקמת עצם בתהליך השחלוף (Remodeling)?',
     options: [
       { id: '1', text: 'אוסטאוציט (Osteocyte)', isCorrect: false, whyWrong: 'אוסטאוציט הוא תא עצם בוגר המנטר עומסים.' },
@@ -242,11 +186,10 @@ const MESO_FULL_DATA = [
     explanation: 'האוסטאוקלסט מפרק וממיס עצם בתהליך השחלוף המתמיד.'
   },
   {
-    id: 'm_14',
+    id: 'm_11',
     topic: 'עומס והסתגלות',
     title: 'חוק וולף בעבודת המאמן',
-    diagramType: 'bone',
-    imageSrc: '/images/bone.png',
+    imageSrc: '/images/vertebra_bone.jpeg',
     questionText: 'מה קובע חוק וולף (Wolff\'s Law) בנוגע לעצמות מתאמנים?',
     options: [
       { id: '1', text: 'מסת העצם קבועה מראש מגיל 20 ואינה משתנה', isCorrect: false, whyWrong: 'העצם היא רקמה דינמית המשתנה לאורך כל החיים בתגובה לגירויים.' },
@@ -258,11 +201,10 @@ const MESO_FULL_DATA = [
     explanation: 'חוק וולף קובע שעצם מתחזקת בהעמסה מכנית ונחלשת בחוסר תנועה.'
   },
   {
-    id: 'm_15',
-    topic: 'סחוסים',
+    id: 'm_12',
+    topic: 'סחוסים ומפרקים',
     title: 'סחוס היאליני',
-    diagramType: 'joint',
-    imageSrc: '/images/joint.png',
+    imageSrc: '/images/scapula_bones.jpeg',
     questionText: 'איזה סוג סחוס מרפד את קצות העצמות במפרקים תנועתיים להפחתת חיכוך?',
     options: [
       { id: '1', text: 'סחוס היאליני (Hyaline cartilage)', isCorrect: true },
@@ -275,75 +217,133 @@ const MESO_FULL_DATA = [
   }
 ];
 
+// ==========================================
 // 2. בנק שאלות מכללת וינגייט (Wingate Academy)
+// ==========================================
 const WINGATE_FULL_DATA = [
   {
     id: 'w_1',
-    topic: 'תכנון אימון',
-    title: 'עקרון עומס יסף',
-    diagramType: 'muscles',
-    imageSrc: '/images/muscles.png',
-    questionText: 'מהו עקרון עומס יסף (Overload Principle) באימון התנגדות?',
+    topic: 'שרירי החזה',
+    title: 'חזה גדול (Pectoralis Major)',
+    imageSrc: '/images/pectoralis_major.jpeg',
+    questionText: 'מהי הפעולה המרכזית שמבצע שריר החזה הגדול (Pectoralis Major) במפרק הכתף בתרגיל לחיצת חזה?',
     options: [
-      { id: '1', text: 'אימון של אותה קבוצת שרירים בכל יום ברציפות ללא מנוחה', isCorrect: false, whyWrong: 'אימון יומיומי ללא התאוששות מוביל לאימון יתר (Overtraining).' },
-      { id: '2', text: 'חשיפת מערכות הגוף לעומס הגבוה מזה שהן מורגלות אליו כדי לעורר הסתגלות', isCorrect: true },
-      { id: '3', text: 'ביצוע של לפחות 25 חזרות בכל סט', isCorrect: false, whyWrong: 'טווח חזרות של 25 מפתח סבולת שריר, אך אינו הגדרת עומס יסף.' },
-      { id: '4', text: 'הרמת משקל 1RM בכל אימון', isCorrect: false, whyWrong: 'הרמת 1RM קבועה גורמת לעומס עצבי חריג ופציעות.' }
+      { id: '1', text: 'קירוב אופקי (Horizontal Adduction) וקירוב הזרוע', isCorrect: true },
+      { id: '2', text: 'הרחקה אופקית של הזרוע', isCorrect: false, whyWrong: 'הרחקה אופקית מבוצעת על ידי הדלתא האחורית והרחב גבי.' },
+      { id: '3', text: 'פשיטת מרפק', isCorrect: false, whyWrong: 'פשיטת מרפק מבוצעת על ידי שריר הטרייספס.' },
+      { id: '4', text: 'הרמת השכמה (Elevation)', isCorrect: false, whyWrong: 'הרמת שכמה מבוצעת על ידי הטרפז העליון וה-Levator Scapulae.' }
     ],
-    hint: 'כדי להתקדם, יש לחשוף את השריר לגירוי מעבר ליכולתו הנוכחית.',
-    explanation: 'עקרון עומס יסף קובע שחשיפה לגירוי גבוה מהרגיל הכרחית ליצירת הסתגלות.'
+    hint: 'מקרב את הזרועות זו לקראת זו בקדמת בית החזה.',
+    explanation: 'Pectoralis Major הוא האגוניסט בקירוב וקירוב אופקי של הזרוע במפרק הכתף.'
   },
   {
     id: 'w_2',
-    topic: 'פיזיולוגיה של המאמץ',
-    title: 'מערכות אנרגיה',
-    diagramType: 'cell',
-    imageSrc: '/images/cell.png',
-    questionText: 'איזו מערכת אנרגיה היא הדומיננטית במאמץ מרבי הנמשך עד 10 שניות (כגון ספרינט 60 מטר)?',
+    topic: 'שרירי הגב',
+    title: 'רחב גבי (Latissimus Dorsi)',
+    imageSrc: '/images/latissimus_dorsi.jpeg',
+    questionText: 'איזו תנועה במפרק הכתף מבצע שריר הרחב גבי (Latissimus Dorsi) בתרגיל משיכת פולי עליון?',
     options: [
-      { id: '1', text: 'המערכת האירובית', isCorrect: false, whyWrong: 'המערכת האירובית מספקת אנרגיה במאמצים ארוכים וקצבה איטי.' },
-      { id: '2', text: 'מערכת ה-ATP-CP (פוספוגנית אנאירובית)', isCorrect: true },
-      { id: '3', text: 'גליקוליזה אירובית', isCorrect: false, whyWrong: 'גליקוליזה אירובית פועלת בנוכחות חמצן ומתאימה למאמצים תת-מרביים ממושכים.' },
-      { id: '4', text: 'חמצון שומנים', isCorrect: false, whyWrong: 'חמצון שומנים הוא מסלול איטי מאוד המשרת עצימות נמוכה ומנוחה.' }
+      { id: '1', text: 'קירוב (Adduction) ופשיטה (Extension) של הזרוע', isCorrect: true },
+      { id: '2', text: 'כפיפה (Flexion) של הזרוע קדימה', isCorrect: false, whyWrong: 'כפיפת כתף מבוצעת על ידי הדלתא הקדמית והחזה העליון.' },
+      { id: '3', text: 'הרחקת הזרוע לצדדים', isCorrect: false, whyWrong: 'הרחקת זרוע מבוצעת על ידי הדלתא האמצעית וה-Supraspinatus.' },
+      { id: '4', text: 'סיבוב חיצוני (External Rotation)', isCorrect: false, whyWrong: 'הרחב גבי מבצע סיבוב פנימי (Internal Rotation).' }
     ],
-    hint: 'קריאטין פוספט ואנרגיה זמינה מיידית ללא צורך בחמצן.',
-    explanation: 'מערכת ה-ATP-CP מספקת אנרגיה מיידית בעצימות מקסימלית ל-10 השניות הראשונות.'
+    hint: 'מושך את הזרוע מלמעלה למטה ומאחורי הגב.',
+    explanation: 'Latissimus Dorsi הוא הפושט והמקרב הראשי של הזרוע במפרק הכתף.'
   },
   {
     id: 'w_3',
-    topic: 'אנטומיה וניתוח תנועה',
-    title: 'מישורי תנועה בסקוואט',
-    diagramType: 'skeleton',
-    imageSrc: '/images/skeleton.png',
-    questionText: 'באיזה מישור תנועה מתבצע תרגיל הסקוואט (Squat)?',
+    topic: 'שרירי הכתף',
+    title: 'דלתא (Deltoid)',
+    imageSrc: '/images/deltoid.jpeg',
+    questionText: 'איזה חלק של שריר הדלתא (Deltoid) הוא האגוניסט הראשי בהרחקת הזרוע (Abduction) עד 90 מעלות?',
     options: [
-      { id: '1', text: 'במישור החזיתי (Frontal)', isCorrect: false, whyWrong: 'במישור החזיתי מתבצעות תנועות הרחקה וקירוב לצדדים.' },
-      { id: '2', text: 'במישור החצי / סגיטלי (Sagittal)', isCorrect: true },
-      { id: '3', text: 'במישור האופקי / טרנסברסלי (Transverse)', isCorrect: false, whyWrong: 'במישור האופקי מתבצעות רוטציות וקירוב/הרחקה אופקית.' },
-      { id: '4', text: 'במישור האלכסוני בלבד', isCorrect: false, whyWrong: 'הסקוואט מתבצע בציר ישר קדימה-אחורה.' }
+      { id: '1', text: 'הדלתא האמצעית (Lateral / Middle Deltoid)', isCorrect: true },
+      { id: '2', text: 'הדלתא הקדמית', isCorrect: false, whyWrong: 'הדלתא הקדמית פועלת בעיקר בכפיפה ובקירוב אופקי.' },
+      { id: '3', text: 'הדלתא האחורית', isCorrect: false, whyWrong: 'הדלתא האחורית פועלת בפשיטה ובהרחקה אופקית.' },
+      { id: '4', text: 'שריר הטרפז התחתון', isCorrect: false, whyWrong: 'הטרפז פועל על השכמה ולא מרחיק ישירות את הזרוע.' }
     ],
-    hint: 'תנועות כיפוף ופשיטה (קדימה-אחורה) מבוצעות במישור זה.',
-    explanation: 'סקוואט מורכב מכפיפה ופשיטה במפרקי הירך, הברך והקרסול – תנועות במישור הסגיטלי.'
+    hint: 'החלק הצדי של הכתף.',
+    explanation: 'הדלתא האמצעית אחראית על הרחקת הזרוע במישור החזיתי.'
   },
   {
     id: 'w_4',
-    topic: 'אנטומיה של השריר',
-    title: 'תפקידי השריר בלחיצת חזה',
-    diagramType: 'muscles',
-    imageSrc: '/images/muscles.png',
-    questionText: 'בתרגיל לחיצת חזה בשכיבה (Bench Press), איזה שריר פועל כאגוניסט הראשי במפרק הכתף?',
+    topic: 'שרירי הרגליים',
+    title: 'ארבע-ראשי (Quadriceps)',
+    imageSrc: '/images/quadriceps.jpeg',
+    questionText: 'איזה ראש של שריר הארבע-ראשי (Quadriceps) חוצה שני מפרקים ומבצע גם כפיפה בירך?',
     options: [
-      { id: '1', text: 'Triceps brachii', isCorrect: false, whyWrong: 'התלת-ראשי הוא האגוניסט במפרק המרפק (פשיטת מרפק), לא בכתף.' },
-      { id: '2', text: 'Pectoralis major (חזה גדול)', isCorrect: true },
-      { id: '3', text: 'Latissimus dorsi (רחב גבי)', isCorrect: false, whyWrong: 'הרחב גבי הוא אנטגוניסט לקירוב האופקי בלחיצת חזה.' },
-      { id: '4', text: 'Biceps brachii', isCorrect: false, whyWrong: 'הדו-ראשי פועל כמכופף מרפק ומייצב קל, ואינו אגוניסט בלחיצה.' }
+      { id: '1', text: 'הישר הירכי (Rectus Femoris)', isCorrect: true },
+      { id: '2', text: 'הנרחב הצדי (Vastus Lateralis)', isCorrect: false, whyWrong: 'שלושת ראשי ה-Vastus חוצים את הברך בלבד ופושטים אותה.' },
+      { id: '3', text: 'הנרחב התיכון (Vastus Medialis)', isCorrect: false, whyWrong: 'חוצה את הברך בלבד.' },
+      { id: '4', text: 'הנרחב הביניימי (Vastus Intermedius)', isCorrect: false, whyWrong: 'חוצה את הברך בלבד.' }
     ],
-    hint: 'השריר הגדול של בית החזה המבצע קירוב אופקי בזרוע.',
-    explanation: 'האגוניסט הראשי במפרק הכתף בלחיצת חזה הוא Pectoralis major (מבצע קירוב אופקי).'
+    hint: 'מתחיל בעצם האגן (AIIS) ומסתיים דרך הפיקה בשוקה.',
+    explanation: 'Rectus Femoris הוא שריר דו-מפרקי (Bi-articular) הפושט את הברך ומכופף את הירך.'
+  },
+  {
+    id: 'w_5',
+    topic: 'שרירי הירך האחורית',
+    title: 'פושטי הירך / המסטרינגס (Hamstrings)',
+    imageSrc: '/images/hamstrings.png',
+    questionText: 'אילו תנועות מבצעת קבוצת פושטי הירך (Hamstrings)?',
+    options: [
+      { id: '1', text: 'פשיטה במפרק הירך וכפיפה במפרק הברך', isCorrect: true },
+      { id: '2', text: 'כפיפה בירך ופשיטה בברך', isCorrect: false, whyWrong: 'זו פעולתו של ה-Rectus Femoris.' },
+      { id: '3', text: 'הרחקת ירך ונעילת ברך', isCorrect: false, whyWrong: 'הרחקת ירך מבוצעת על ידי ה-Gluteus Medius.' },
+      { id: '4', text: 'פשיטת קרסול בלבד', isCorrect: false, whyWrong: 'ההמסטרינגס אינם חוצים את הקרסול.' }
+    ],
+    hint: 'פועלים בספרינט ובדדליפט לפשיטת ירך וכפיפת ברך.',
+    explanation: 'ההמסטרינגס פושטים את מפרק הירך ומכופפים את מפרק הברך.'
+  },
+  {
+    id: 'w_6',
+    topic: 'מערכות אנרגיה',
+    title: 'מערכת ATP-CP וקריאטין פוספט',
+    imageSrc: '/images/phys1_p15_crp.jpg',
+    questionText: 'מה מאפיין את מערכת ה-ATP-CP (פוספוגנית) במאמץ מרבי?',
+    options: [
+      { id: '1', text: 'אספקת אנרגיה מיידית בעצימות מקסימלית למשך עד כ-10 שניות ראשונות ללא חומצת חלב', isCorrect: true },
+      { id: '2', text: 'פעילות ממושכת מעל שעתיים בנוכחות חמצן', isCorrect: false, whyWrong: 'זו המערכת האירובית.' },
+      { id: '3', text: 'פירוק גלוקוז ליצירת חומצת חלב', isCorrect: false, whyWrong: 'זו גליקוליזה אנאירובית.' },
+      { id: '4', text: 'חמצון שומנים תוך-תאיים', isCorrect: false, whyWrong: 'חמצון שומנים פועל במנוחה ובמאמץ קל.' }
+    ],
+    hint: 'מקור האנרגיה המהיר ביותר הזמין בשריר לספרינטים קצרים והרמות כבדות.',
+    explanation: 'מערכת ה-ATP-CP מספקת אנרגיה מיידית ללא צורך בחמצן ומתמצה בתוך שניות בודדות.'
+  },
+  {
+    id: 'w_7',
+    topic: 'מערכות אנרגיה',
+    title: 'השוואת שלוש מערכות האנרגיה',
+    imageSrc: '/images/phys1_p32_energy_systems.jpg',
+    questionText: 'במאמץ מרבי הנמשך בין 30 שניות לשתי דקות (כמו ריצת 400 מטר), איזו מערכת אנרגיה היא הדומיננטית ביותר?',
+    options: [
+      { id: '1', text: 'גליקוליזה אנאירובית (מערכת חומצת החלב / לקטאט)', isCorrect: true },
+      { id: '2', text: 'מערכת ה-ATP-CP בלבד', isCorrect: false, whyWrong: 'ה-CP מתרוקן כמעט לחלוטין לאחר 10-15 שניות ראשונות.' },
+      { id: '3', text: 'חמצון שומנים אירובי', isCorrect: false, whyWrong: 'חמצון שומנים דורש זמן רב ואינו תומך בעצימות מרבית קצרה.' },
+      { id: '4', text: 'מעגל קרבס הבלעדי', isCorrect: false, whyWrong: 'המסלול האירובי טרם הגיע להספק מלא בזמן קצר כזה.' }
+    ],
+    hint: 'מפרקת גליקוגן ללא חמצן ויוצרת לקטאט וירידה ב-pH.',
+    explanation: 'גליקוליזה אנאירובית היא המערכת הדומיננטית במאמצים עצימים שנמשכים בין חצי דקה לשתי דקות.'
+  },
+  {
+    id: 'w_8',
+    topic: 'פיזיולוגיה של השריר',
+    title: 'כישור השריר מול אברון גולג\'י',
+    imageSrc: '/images/phys2_p62_spindle_gto.jpg',
+    questionText: 'מה ההבדל בתפקיד בין כישור השריר (Muscle Spindle) לאברון הגיד על שם גולג\'י (GTO)?',
+    options: [
+      { id: '1', text: 'כישור השריר מזהה שינוי באורך השריר ומעורר כיווץ מגן; ה-GTO מזהה עומס ומתח בגיד וגורם להרפיה', isCorrect: true },
+      { id: '2', text: 'ה-GTO מעורר כיווץ מיידי והכישור גורם לקריעה', isCorrect: false, whyWrong: 'ה-GTO הוא מנגנון מגן המרפה את השריר בעומס יתר.' },
+      { id: '3', text: 'שניהם מזהים רק טמפרטורה בשריר', isCorrect: false, whyWrong: 'אלו פרופריוספטורים מכניים של מתיחה ומתח.' },
+      { id: '4', text: 'כישור השריר נמצא בעצם וה-GTO במוח', isCorrect: false, whyWrong: 'הכישור בתוך בטן השריר וה-GTO בחיבור הגיד-שריר.' }
+    ],
+    hint: 'כישור השריר = רפלקס מתיחה (כיווץ); GTO = רפלקס הפוך (הרפיה מפני עומס יתר).',
+    explanation: 'כישור השריר מגן ממתיחת יתר מהירה על ידי כיווץ; ה-GTO מגן מקריעת גיד על ידי הרפיית השריר.'
   }
 ];
 
-// מנוע תרשימים ותמונות אינטראקטיבי עם זום וגרירה (Pan & Zoom)
+// מנוע תצוגת תמונות אינטראקטיבי (Pan & Zoom)
 function InteractiveImageViewer({ currentQ }: { currentQ: any }) {
   const [scale, setScale] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -374,117 +374,11 @@ function InteractiveImageViewer({ currentQ }: { currentQ: any }) {
     setPosition({ x: 0, y: 0 });
   };
 
-  const d = currentQ?.diagramType || 'cell';
-
-  const renderFallbackSvg = () => {
-    if (d === 'skeleton') {
-      return (
-        <svg viewBox="0 0 340 90" style={{ width: '100%', height: '100%' }}>
-          <rect x="15" y="8" width="145" height="74" rx="8" fill="#1e1b4b" stroke="#6366f1" strokeWidth="1.5" />
-          <text x="87" y="28" fill="#a5b4fc" fontSize="11" fontWeight="bold" textAnchor="middle">שלד צירי (Axial)</text>
-          <text x="87" y="46" fill="#f8fafc" fontSize="8.5" textAnchor="middle">גולגולת, עמוד שדרה,</text>
-          <text x="87" y="58" fill="#f8fafc" fontSize="8.5" textAnchor="middle">עצם החזה (Sternum) וצלעות</text>
-          <text x="87" y="72" fill="#38bdf8" fontSize="8" fontWeight="bold" textAnchor="middle">הגנה על איברים חיוניים</text>
-
-          <rect x="180" y="8" width="145" height="74" rx="8" fill="#064e3b" stroke="#10b981" strokeWidth="1.5" />
-          <text x="252" y="28" fill="#6ee7b7" fontSize="11" fontWeight="bold" textAnchor="middle">שלד תוספי (Appendicular)</text>
-          <text x="252" y="46" fill="#f8fafc" fontSize="8.5" textAnchor="middle">עצמות הגפיים, עצם הבריח,</text>
-          <text x="252" y="58" fill="#f8fafc" fontSize="8.5" textAnchor="middle">השכמות ועצמות האגן</text>
-          <text x="252" y="72" fill="#34d399" fontSize="8" fontWeight="bold" textAnchor="middle">הפקת תנועה ומנופים</text>
-        </svg>
-      );
-    }
-
-    if (d === 'bone') {
-      return (
-        <svg viewBox="0 0 340 90" style={{ width: '100%', height: '100%' }}>
-          <rect x="25" y="10" width="290" height="70" rx="8" fill="#0f172a" stroke="#d97706" strokeWidth="2" />
-          <rect x="25" y="10" width="290" height="16" fill="#b45309" />
-          <text x="170" y="22" fill="#ffffff" fontSize="8.5" fontWeight="bold" textAnchor="middle">מעטפת קומפקטית (Compact) - מספקת חוזק ועמידות בדחיסה</text>
-          <rect x="25" y="26" width="290" height="38" fill="#1e293b" strokeDasharray="3 3" />
-          <text x="170" y="48" fill="#fde68a" fontSize="9.5" fontWeight="bold" textAnchor="middle">ליבה ספוגית (Spongy) - רשת חללים לבלימת זעזועים ומשקל קל</text>
-          <rect x="25" y="64" width="290" height="16" fill="#b45309" />
-          <text x="170" y="76" fill="#ffffff" fontSize="8" textAnchor="middle">פריאוסט (קרום העצם) עוטף מבחוץ עם כלי דם ועצבים</text>
-        </svg>
-      );
-    }
-
-    if (d === 'artery') {
-      return (
-        <svg viewBox="0 0 340 85" style={{ width: '100%', height: '100%' }}>
-          <rect x="20" y="12" width="140" height="60" rx="8" fill="#1e293b" stroke="#10b981" strokeWidth="1.5" />
-          <text x="90" y="30" fill="#34d399" fontSize="10" fontWeight="bold" textAnchor="middle">עורק תקין</text>
-          <text x="90" y="48" fill="#cbd5e1" fontSize="8" textAnchor="middle">אנדותל שלם וחלק</text>
-          <text x="90" y="62" fill="#6ee7b7" fontSize="8" textAnchor="middle">זרימת דם חופשית</text>
-
-          <rect x="180" y="12" width="140" height="60" rx="8" fill="#1e293b" stroke="#ef4444" strokeWidth="1.5" />
-          <text x="250" y="30" fill="#f87171" fontSize="10" fontWeight="bold" textAnchor="middle">טרשת עורקים</text>
-          <text x="250" y="48" fill="#fca5a5" fontSize="8" textAnchor="middle">פגיעה באנדותל</text>
-          <text x="250" y="62" fill="#f87171" fontSize="8" fontWeight="bold" textAnchor="middle">הצטברות רובד שומני (פלאק)</text>
-        </svg>
-      );
-    }
-
-    if (d === 'joint') {
-      return (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '6px', textAlign: 'center', fontSize: '9px', width: '100%', padding: '6px' }}>
-          <div style={{ backgroundColor: '#0f172a', padding: '6px', borderRadius: '6px', border: '1px solid #3b82f6' }}>
-            <strong style={{ color: '#60a5fa', display: 'block' }}>סחוס היאליני</strong>
-            <span style={{ color: '#cbd5e1' }}>דק, חלק, מונע חיכוך בקצות עצמות</span>
-          </div>
-          <div style={{ backgroundColor: '#0f172a', padding: '6px', borderRadius: '6px', border: '1px solid #a855f7' }}>
-            <strong style={{ color: '#c084fc', display: 'block' }}>סחוס סיבי</strong>
-            <span style={{ color: '#cbd5e1' }}>עבה ועמיד בדחיסה (דיסק, מניסקוס)</span>
-          </div>
-          <div style={{ backgroundColor: '#0f172a', padding: '6px', borderRadius: '6px', border: '1px solid #10b981' }}>
-            <strong style={{ color: '#34d399', display: 'block' }}>נוזל סינוביאלי</strong>
-            <span style={{ color: '#cbd5e1' }}>שמן המפרק, מופרש בתנועה</span>
-          </div>
-        </div>
-      );
-    }
-
-    if (d === 'muscles') {
-      return (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '6px', textAlign: 'center', fontSize: '9px', width: '100%', padding: '6px' }}>
-          <div style={{ backgroundColor: '#0f172a', padding: '6px', borderRadius: '6px', border: '1px solid #3b82f6' }}>
-            <strong style={{ color: '#60a5fa', display: 'block' }}>שריר שלד</strong>
-            <span style={{ color: '#cbd5e1' }}>משורטט, רצוני, מהיר מאוד</span>
-          </div>
-          <div style={{ backgroundColor: '#0f172a', padding: '6px', borderRadius: '6px', border: '1px solid #a855f7' }}>
-            <strong style={{ color: '#c084fc', display: 'block' }}>שריר חלק</strong>
-            <span style={{ color: '#cbd5e1' }}>לא רצוני, איטי וממושך</span>
-          </div>
-          <div style={{ backgroundColor: '#0f172a', padding: '6px', borderRadius: '6px', border: '1px solid #ef4444' }}>
-            <strong style={{ color: '#f87171', display: 'block' }}>שריר הלב</strong>
-            <span style={{ color: '#cbd5e1' }}>משורטט מסתעף, לא רצוני</span>
-          </div>
-        </div>
-      );
-    }
-
-    return (
-      <svg viewBox="0 0 340 85" style={{ width: '100%', height: '100%' }}>
-        <ellipse cx="170" cy="42" rx="145" ry="36" fill="#0f172a" stroke="#38bdf8" strokeWidth="2" />
-        <circle cx="170" cy="42" r="18" fill="#581c87" stroke="#c084fc" strokeWidth="1.5" />
-        <text x="170" y="46" fill="#ffffff" fontSize="8.5" fontWeight="bold" textAnchor="middle">גרעין</text>
-        <ellipse cx="85" cy="35" rx="16" ry="8" fill="#991b1b" stroke="#f87171" strokeWidth="1.5" />
-        <text x="85" y="38" fill="#ffffff" fontSize="7.5" fontWeight="bold" textAnchor="middle">מיטוכונדריון</text>
-        <ellipse cx="255" cy="50" rx="16" ry="8" fill="#991b1b" stroke="#f87171" strokeWidth="1.5" />
-        <text x="255" y="53" fill="#ffffff" fontSize="7.5" fontWeight="bold" textAnchor="middle">מיטוכונדריון</text>
-        <circle cx="120" cy="55" r="3.5" fill="#fbbf24" />
-        <circle cx="220" cy="30" r="3.5" fill="#fbbf24" />
-        <text x="120" y="66" fill="#fde68a" fontSize="7" textAnchor="middle">ריבוזום</text>
-        <text x="220" y="23" fill="#fde68a" fontSize="7" textAnchor="middle">ריבוזום</text>
-      </svg>
-    );
-  };
-
   return (
     <div style={{ backgroundColor: '#020617', padding: '8px', borderRadius: '14px', border: '1.5px solid #1e293b', marginBottom: '10px', position: 'relative' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px', borderBottom: '1px solid #1e293b', paddingBottom: '4px' }}>
         <span style={{ fontSize: '11px', fontWeight: 'bold', color: '#38bdf8' }}>
-          🔍 תמונה / תרשים (ניתן להגדלה וגרירה):
+          🔍 תמונה רפואית / אנטומית (ניתן להגדלה וגרירה):
         </span>
         <div style={{ display: 'flex', gap: '4px' }}>
           <button onClick={() => setScale(s => Math.min(s + 0.3, 3.0))} style={{ backgroundColor: '#0f172a', color: '#38bdf8', border: '1px solid #334155', borderRadius: '6px', padding: '2px 7px', fontSize: '11px', fontWeight: 'bold', cursor: 'pointer' }} title="הגדל">➕</button>
@@ -500,7 +394,7 @@ function InteractiveImageViewer({ currentQ }: { currentQ: any }) {
         onMouseLeave={handleMouseUp}
         style={{
           width: '100%',
-          height: '115px',
+          height: '140px',
           overflow: 'hidden',
           cursor: isDragging ? 'grabbing' : 'grab',
           position: 'relative',
@@ -531,7 +425,9 @@ function InteractiveImageViewer({ currentQ }: { currentQ: any }) {
               style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain', pointerEvents: 'none' }}
             />
           ) : (
-            renderFallbackSvg()
+            <div style={{ color: '#64748b', fontSize: '12px', textAlign: 'center' }}>
+              🦴 תרשים אנטומי: {currentQ?.title || currentQ?.topic}
+            </div>
           )}
         </div>
       </div>
@@ -769,7 +665,7 @@ function MainApp() {
                 {institution === 'meso' ? '🏛️ מזו אקדמי (Meso)' : '🦁 מכללת וינגייט (Wingate)'}
               </h1>
               <span style={{ fontSize: '11px', color: '#94a3b8' }}>
-                {institution === 'meso' ? 'מבוא לאנטומיה, רקמות, הומיאוסטזיס ושלד' : 'תכנון אימון, אנטומיה ופיזיולוגיה'}
+                {institution === 'meso' ? 'מבוא לאנטומיה, רקמות, הומיאוסטזיס ושלד' : 'אנטומיה, קינזיולוגיה, שרירים ופיזיולוגיה'}
               </span>
             </div>
 
@@ -816,7 +712,7 @@ function MainApp() {
               }}
             >
               <span>🦁 מכללת וינגייט</span>
-              <span style={{ fontSize: '10px', opacity: 0.85 }}>תכנון אימון, אנטומיה ({WINGATE_FULL_DATA.length})</span>
+              <span style={{ fontSize: '10px', opacity: 0.85 }}>שרירים, מפרקים, פיזיולוגיה ({WINGATE_FULL_DATA.length})</span>
             </button>
           </div>
 
@@ -876,7 +772,7 @@ function MainApp() {
           </div>
         </header>
 
-        {/* מנוע התצוגה של התמונות והתרשימים עם זום והזזה */}
+        {/* מנוע התצוגה של התמונות עם זום והזזה */}
         <InteractiveImageViewer currentQ={currentQ} />
 
         {examMode === 'practice' && (
