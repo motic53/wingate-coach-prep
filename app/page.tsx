@@ -2,11 +2,37 @@
 // @ts-nocheck
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Component } from 'react';
 
-// ==========================================
-// 1. בנק שאלות מזו אקדמי (Meso Academy)
-// ==========================================
+// Error Boundary מקומי שמגן על האפליקציה מקריסות צד-לקוח
+class SafeBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+  componentDidCatch(err) {
+    console.error('Client exception caught:', err);
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#f8fafc', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px', textAlign: 'center' }} dir="rtl">
+          <h2 style={{ color: '#f43f5e', fontSize: '18px', fontWeight: 'bold' }}>אירעה תקלה קלה בטעינת הרכיב</h2>
+          <p style={{ color: '#94a3b8', fontSize: '12px' }}>הנתונים אותחלו בצורה תקינה. לחץ לרענון מהיר:</p>
+          <button onClick={() => { this.setState({ hasError: false }); window.location.reload(); }} style={{ backgroundColor: '#0284c7', color: '#fff', border: 'none', padding: '10px 18px', borderRadius: '10px', fontWeight: 'bold', cursor: 'pointer' }}>
+            🔄 רענן עמוד
+          </button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+// 1. בנק שאלות מזו אקדמי
 const MESO_QUESTIONS = [
   {
     id: 'm1',
@@ -205,9 +231,7 @@ const MESO_QUESTIONS = [
   }
 ];
 
-// ==========================================
-// 2. בנק שאלות מכללת וינגייט (Wingate)
-// ==========================================
+// 2. בנק שאלות מכללת וינגייט
 const WINGATE_QUESTIONS = [
   {
     id: 'w1',
@@ -271,9 +295,9 @@ const WINGATE_QUESTIONS = [
   }
 ];
 
-// מנוע תרשימים גרפיים (SVG)
-function DiagramRenderer({ diagram }: { diagram: string }) {
-  if (diagram === 'skeleton') {
+function SafeDiagram({ diagram }: { diagram?: string }) {
+  const d = diagram || 'cell';
+  if (d === 'skeleton') {
     return (
       <div style={{ backgroundColor: '#020617', padding: '10px', borderRadius: '12px', border: '1.5px solid #0284c7', marginBottom: '10px' }}>
         <span style={{ fontSize: '11px', fontWeight: 'bold', color: '#38bdf8', display: 'block', marginBottom: '6px' }}>
@@ -296,7 +320,7 @@ function DiagramRenderer({ diagram }: { diagram: string }) {
     );
   }
 
-  if (diagram === 'bone') {
+  if (d === 'bone') {
     return (
       <div style={{ backgroundColor: '#020617', padding: '10px', borderRadius: '12px', border: '1.5px solid #d97706', marginBottom: '10px' }}>
         <span style={{ fontSize: '11px', fontWeight: 'bold', color: '#fbbf24', display: 'block', marginBottom: '6px' }}>
@@ -315,48 +339,24 @@ function DiagramRenderer({ diagram }: { diagram: string }) {
     );
   }
 
-  if (diagram === 'cell') {
-    return (
-      <div style={{ backgroundColor: '#020617', padding: '10px', borderRadius: '12px', border: '1.5px solid #0284c7', marginBottom: '10px' }}>
-        <span style={{ fontSize: '11px', fontWeight: 'bold', color: '#38bdf8', display: 'block', marginBottom: '6px' }}>
-          🧬 מבנה התא: גרעין, מיטוכונדריון וריבוזומים:
-        </span>
-        <svg viewBox="0 0 340 85" style={{ width: '100%', height: 'auto', maxHeight: '95px' }}>
-          <ellipse cx="170" cy="42" rx="145" ry="36" fill="#0f172a" stroke="#38bdf8" strokeWidth="2" />
-          <circle cx="170" cy="42" r="18" fill="#581c87" stroke="#c084fc" strokeWidth="1.5" />
-          <text x="170" y="46" fill="#ffffff" fontSize="8.5" fontWeight="bold" textAnchor="middle">גרעין</text>
-          <ellipse cx="85" cy="35" rx="16" ry="8" fill="#991b1b" stroke="#f87171" strokeWidth="1.5" />
-          <text x="85" y="38" fill="#ffffff" fontSize="7.5" fontWeight="bold" textAnchor="middle">מיטוכונדריון</text>
-          <ellipse cx="255" cy="50" rx="16" ry="8" fill="#991b1b" stroke="#f87171" strokeWidth="1.5" />
-          <text x="255" y="53" fill="#ffffff" fontSize="7.5" fontWeight="bold" textAnchor="middle">מיטוכונדריון</text>
-          <circle cx="120" cy="55" r="3.5" fill="#fbbf24" />
-          <circle cx="220" cy="30" r="3.5" fill="#fbbf24" />
-          <text x="120" y="66" fill="#fde68a" fontSize="7" textAnchor="middle">ריבוזום</text>
-          <text x="220" y="23" fill="#fde68a" fontSize="7" textAnchor="middle">ריבוזום</text>
-        </svg>
-      </div>
-    );
-  }
-
   return (
-    <div style={{ backgroundColor: '#020617', padding: '10px', borderRadius: '12px', border: '1.5px solid #a855f7', marginBottom: '10px' }}>
-      <span style={{ fontSize: '11px', fontWeight: 'bold', color: '#c084fc', display: 'block', marginBottom: '6px' }}>
-        💪 רקמות ושרירים:
+    <div style={{ backgroundColor: '#020617', padding: '10px', borderRadius: '12px', border: '1.5px solid #0284c7', marginBottom: '10px' }}>
+      <span style={{ fontSize: '11px', fontWeight: 'bold', color: '#38bdf8', display: 'block', marginBottom: '6px' }}>
+        🧬 מבנה התא: גרעין, מיטוכונדריון וריבוזומים:
       </span>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '6px', textAlign: 'center', fontSize: '9px' }}>
-        <div style={{ backgroundColor: '#0f172a', padding: '6px', borderRadius: '6px', border: '1px solid #3b82f6' }}>
-          <strong style={{ color: '#60a5fa', display: 'block' }}>שריר שלד</strong>
-          <span style={{ color: '#cbd5e1' }}>משורטט ורצוני</span>
-        </div>
-        <div style={{ backgroundColor: '#0f172a', padding: '6px', borderRadius: '6px', border: '1px solid #a855f7' }}>
-          <strong style={{ color: '#c084fc', display: 'block' }}>שריר חלק</strong>
-          <span style={{ color: '#cbd5e1' }}>לא רצוני, איטי</span>
-        </div>
-        <div style={{ backgroundColor: '#0f172a', padding: '6px', borderRadius: '6px', border: '1px solid #ef4444' }}>
-          <strong style={{ color: '#f87171', display: 'block' }}>שריר הלב</strong>
-          <span style={{ color: '#cbd5e1' }}>משורטט מסתעף</span>
-        </div>
-      </div>
+      <svg viewBox="0 0 340 85" style={{ width: '100%', height: 'auto', maxHeight: '95px' }}>
+        <ellipse cx="170" cy="42" rx="145" ry="36" fill="#0f172a" stroke="#38bdf8" strokeWidth="2" />
+        <circle cx="170" cy="42" r="18" fill="#581c87" stroke="#c084fc" strokeWidth="1.5" />
+        <text x="170" y="46" fill="#ffffff" fontSize="8.5" fontWeight="bold" textAnchor="middle">גרעין</text>
+        <ellipse cx="85" cy="35" rx="16" ry="8" fill="#991b1b" stroke="#f87171" strokeWidth="1.5" />
+        <text x="85" y="38" fill="#ffffff" fontSize="7.5" fontWeight="bold" textAnchor="middle">מיטוכונדריון</text>
+        <ellipse cx="255" cy="50" rx="16" ry="8" fill="#991b1b" stroke="#f87171" strokeWidth="1.5" />
+        <text x="255" y="53" fill="#ffffff" fontSize="7.5" fontWeight="bold" textAnchor="middle">מיטוכונדריון</text>
+        <circle cx="120" cy="55" r="3.5" fill="#fbbf24" />
+        <circle cx="220" cy="30" r="3.5" fill="#fbbf24" />
+        <text x="120" y="66" fill="#fde68a" fontSize="7" textAnchor="middle">ריבוזום</text>
+        <text x="220" y="23" fill="#fde68a" fontSize="7" textAnchor="middle">ריבוזום</text>
+      </svg>
     </div>
   );
 }
@@ -370,7 +370,7 @@ function shuffleList(list) {
   return copy;
 }
 
-export default function App() {
+function MainApp() {
   const [mounted, setMounted] = useState(false);
   const [institution, setInstitution] = useState<'meso' | 'wingate'>('meso');
 
@@ -380,7 +380,6 @@ export default function App() {
   const [isAnswerChecked, setIsAnswerChecked] = useState(false);
   const [score, setScore] = useState(0);
   const [streak, setStreak] = useState(0);
-  const [isSpeaking, setIsSpeaking] = useState(false);
 
   const [isDeepStudyOpen, setIsDeepStudyOpen] = useState(false);
   const [examMode, setExamMode] = useState<'practice' | 'real'>('practice');
@@ -411,8 +410,6 @@ export default function App() {
   }, [examMode, isExamCompleted, timeLeft]);
 
   const resetAndShuffle = (inst = institution, mode = examMode) => {
-    stopSpeech();
-
     const source = inst === 'meso' ? MESO_QUESTIONS : WINGATE_QUESTIONS;
 
     const randomized = shuffleList(source).map((q) => ({
@@ -453,57 +450,6 @@ export default function App() {
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const stopSpeech = () => {
-    try {
-      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-      }
-    } catch (e) {}
-    setIsSpeaking(false);
-  };
-
-  const handleSpeakFullQuestion = () => {
-    if (isSpeaking) {
-      stopSpeech();
-      return;
-    }
-
-    const currentQ = quizList[currentIndex];
-    if (!currentQ || typeof window === 'undefined' || !('speechSynthesis' in window)) return;
-
-    window.speechSynthesis.cancel();
-
-    const letters = ['א', 'ב', 'ג', 'ד'];
-    const optionsText = currentQ.options
-      .map((opt, i) => `אפשרות ${letters[i]}: ${opt.text}`)
-      .join('. ');
-
-    const hintPart = (examMode === 'practice' && currentQ.hint) ? `רמז: ${currentQ.hint}. ` : '';
-    const fullScript = `שאלה בנושא ${currentQ.topic}. ${currentQ.questionText}. ${hintPart}אפשרויות: ${optionsText}.`;
-
-    const utterance = new SpeechSynthesisUtterance(fullScript);
-    utterance.lang = 'he-IL';
-    utterance.rate = 0.88;
-
-    utterance.onstart = () => setIsSpeaking(true);
-    utterance.onend = () => setIsSpeaking(false);
-    utterance.onerror = () => setIsSpeaking(false);
-
-    window.speechSynthesis.speak(utterance);
-  };
-
-  const speakCustom = (text: string) => {
-    try {
-      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const u = new SpeechSynthesisUtterance(text);
-        u.lang = 'he-IL';
-        u.rate = 0.88;
-        window.speechSynthesis.speak(u);
-      }
-    } catch (e) {}
-  };
-
   if (!mounted || quizList.length === 0) {
     return (
       <div style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#38bdf8', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px', fontWeight: 'bold' }}>
@@ -512,16 +458,15 @@ export default function App() {
     );
   }
 
-  const currentQ = quizList[currentIndex];
+  const currentQ = quizList[currentIndex] || {};
 
   const finishRealExam = () => {
-    stopSpeech();
     setIsExamCompleted(true);
   };
 
   const handleCheckPractice = () => {
     if (!selectedOption || isAnswerChecked) return;
-    const chosen = currentQ.options.find((o) => o.id === selectedOption);
+    const chosen = currentQ?.options?.find((o) => o.id === selectedOption);
     const correct = chosen?.isCorrect;
 
     setIsAnswerChecked(true);
@@ -529,16 +474,12 @@ export default function App() {
     if (correct) {
       setScore((s) => s + 10);
       setStreak((s) => s + 1);
-      speakCustom('נכון מאוד שמואל! תשובה מדויקת.');
     } else {
       setStreak(0);
-      const right = currentQ.options.find((o) => o.isCorrect)?.text;
-      speakCustom(`לא מדויק. התשובה הנכונה היא: ${right}.`);
     }
   };
 
   const handleNextPractice = () => {
-    stopSpeech();
     if (currentIndex < quizList.length - 1) {
       setCurrentIndex((i) => i + 1);
       setSelectedOption(null);
@@ -551,7 +492,6 @@ export default function App() {
   };
 
   const handleNextReal = () => {
-    stopSpeech();
     if (selectedOption) {
       setUserAnswers(prev => ({ ...prev, [currentQ.id]: selectedOption }));
     }
@@ -570,7 +510,7 @@ export default function App() {
     let correctCount = 0;
     quizList.forEach((q) => {
       const chosenId = userAnswers[q.id];
-      const correctOpt = q.options.find((o) => o.isCorrect);
+      const correctOpt = q.options?.find((o) => o.isCorrect);
       if (chosenId && correctOpt && chosenId === correctOpt.id) {
         correctCount++;
       }
@@ -596,16 +536,10 @@ export default function App() {
           </p>
 
           <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
-            <button
-              onClick={() => resetAndShuffle(institution, 'real')}
-              style={{ flex: 1, backgroundColor: institution === 'meso' ? '#0284c7' : '#f59e0b', color: '#ffffff', border: 'none', padding: '12px', borderRadius: '12px', fontWeight: '900', fontSize: '14px', cursor: 'pointer' }}
-            >
+            <button onClick={() => resetAndShuffle(institution, 'real')} style={{ flex: 1, backgroundColor: institution === 'meso' ? '#0284c7' : '#f59e0b', color: '#ffffff', border: 'none', padding: '12px', borderRadius: '12px', fontWeight: '900', fontSize: '14px', cursor: 'pointer' }}>
               🔄 מבחן חוזר
             </button>
-            <button
-              onClick={() => handleModeChange('practice')}
-              style={{ flex: 1, backgroundColor: '#1e293b', color: '#38bdf8', border: '1px solid #0284c7', padding: '12px', borderRadius: '12px', fontWeight: 'bold', fontSize: '13px', cursor: 'pointer' }}
-            >
+            <button onClick={() => handleModeChange('practice')} style={{ flex: 1, backgroundColor: '#1e293b', color: '#38bdf8', border: '1px solid #0284c7', padding: '12px', borderRadius: '12px', fontWeight: 'bold', fontSize: '13px', cursor: 'pointer' }}>
               💡 חזרה לתרגול מודרך
             </button>
           </div>
@@ -615,9 +549,9 @@ export default function App() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
           {quizList.map((q, idx) => {
             const userChoice = userAnswers[q.id];
-            const correctOpt = q.options.find((o) => o.isCorrect);
+            const correctOpt = q.options?.find((o) => o.isCorrect);
             const isUserRight = userChoice === correctOpt?.id;
-            const chosenText = q.options.find((o) => o.id === userChoice)?.text || 'לא נענה';
+            const chosenText = q.options?.find((o) => o.id === userChoice)?.text || 'לא נענה';
 
             return (
               <div key={q.id} style={{ backgroundColor: '#0b1329', border: `1px solid ${isUserRight ? '#065f46' : '#991b1b'}`, borderRadius: '14px', padding: '12px', fontSize: '12px' }}>
@@ -634,10 +568,10 @@ export default function App() {
                   <div style={{ color: '#34d399', fontWeight: 'bold' }}>התשובה הנכונה: {correctOpt?.text}</div>
                 </div>
 
-                <DiagramRenderer diagram={q.diagram} />
+                <SafeDiagram diagram={q.diagram} />
 
                 <div style={{ color: '#cbd5e1', fontSize: '11px', lineHeight: '1.4', backgroundColor: '#0f172a', padding: '8px', borderRadius: '8px' }}>
-                  💡 <strong>הסבר פדגוגי מורחב:</strong> {q.explanation}
+                  💡 <strong>הסבר פדגוגי:</strong> {q.explanation}
                 </div>
               </div>
             );
@@ -649,7 +583,6 @@ export default function App() {
 
   return (
     <main style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#f8fafc', padding: '14px', maxWidth: '520px', margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }} dir="rtl">
-      
       <div>
         <header style={{ marginBottom: '10px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
@@ -662,10 +595,7 @@ export default function App() {
               </span>
             </div>
 
-            <button
-              onClick={() => resetAndShuffle(institution, examMode)}
-              style={{ backgroundColor: '#1e293b', color: '#fbbf24', border: '1px solid #d97706', padding: '6px 12px', borderRadius: '12px', fontSize: '12px', fontWeight: 'bold', cursor: 'pointer' }}
-            >
+            <button onClick={() => resetAndShuffle(institution, examMode)} style={{ backgroundColor: '#1e293b', color: '#fbbf24', border: '1px solid #d97706', padding: '6px 12px', borderRadius: '12px', fontSize: '12px', fontWeight: 'bold', cursor: 'pointer' }}>
               🔄 איפוס
             </button>
           </div>
@@ -685,8 +615,7 @@ export default function App() {
                 cursor: 'pointer',
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center',
-                boxShadow: institution === 'meso' ? '0 4px 14px rgba(2, 132, 199, 0.3)' : 'none'
+                alignItems: 'center'
               }}
             >
               <span>🏛️ מזו אקדמי</span>
@@ -706,8 +635,7 @@ export default function App() {
                 cursor: 'pointer',
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center',
-                boxShadow: institution === 'wingate' ? '0 4px 14px rgba(180, 83, 9, 0.3)' : 'none'
+                alignItems: 'center'
               }}
             >
               <span>🦁 מכללת וינגייט</span>
@@ -773,7 +701,7 @@ export default function App() {
         </header>
 
         {/* איור ותרשים מותאם */}
-        <DiagramRenderer diagram={currentQ.diagram} />
+        <SafeDiagram diagram={currentQ?.diagram} />
 
         {/* כפתור חלון לימוד פדגוגי */}
         {examMode === 'practice' && (
@@ -801,33 +729,22 @@ export default function App() {
           </button>
         )}
 
-        {/* שאלה והקראה */}
+        {/* שאלה */}
         <div style={{ backgroundColor: '#0b1329', border: '1px solid #1e293b', borderRadius: '14px', padding: '12px', marginBottom: '10px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
-            <p style={{ margin: 0, fontSize: '14px', fontWeight: 'bold', color: '#f8fafc', lineHeight: '1.4' }}>
-              {currentQ.questionText}
-            </p>
-
-            <button
-              onClick={handleSpeakFullQuestion}
-              style={{ backgroundColor: isSpeaking ? '#ef4444' : (institution === 'meso' ? '#0284c7' : '#f59e0b'), color: '#ffffff', border: 'none', borderRadius: '12px', padding: '8px 12px', fontSize: '15px', fontWeight: 'bold', cursor: 'pointer', flexShrink: 0, display: 'flex', alignItems: 'center', gap: '4px' }}
-              title="הקרא שאלה"
-            >
-              {isSpeaking ? '⏹ עצור' : '🔊 הקרא'}
-            </button>
-          </div>
+          <p style={{ margin: 0, fontSize: '14px', fontWeight: 'bold', color: '#f8fafc', lineHeight: '1.4' }}>
+            {currentQ?.questionText}
+          </p>
 
           {examMode === 'practice' && (
-            <div style={{ marginTop: '8px', backgroundColor: 'rgba(2, 6, 23, 0.7)', padding: '7px 10px', borderRadius: '8px', fontSize: '11px', color: '#cbd5e1', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '6px', border: '1px solid #1e293b' }}>
-              <div>💡 <strong style={{ color: '#fbbf24' }}>רמז אסוציאטיבי:</strong> {currentQ.hint}</div>
-              <button onClick={() => speakCustom(`רמז: ${currentQ.hint}`)} style={{ backgroundColor: '#1e293b', color: '#fbbf24', border: '1px solid #d97706', borderRadius: '6px', padding: '2px 6px', fontSize: '10px', cursor: 'pointer', flexShrink: 0 }}>🔊</button>
+            <div style={{ marginTop: '8px', backgroundColor: 'rgba(2, 6, 23, 0.7)', padding: '7px 10px', borderRadius: '8px', fontSize: '11px', color: '#cbd5e1', border: '1px solid #1e293b' }}>
+              💡 <strong style={{ color: '#fbbf24' }}>רמז אסוציאטיבי:</strong> {currentQ?.hint}
             </div>
           )}
         </div>
 
         {/* אפשרויות בחירה */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '10px' }}>
-          {currentQ.options.map((opt, idx) => {
+          {currentQ?.options?.map((opt, idx) => {
             const isSelected = selectedOption === opt.id;
             let bgColor = '#0f172a';
             let borderColor = '#1e293b';
@@ -933,7 +850,6 @@ export default function App() {
             {currentIndex > 0 && (
               <button
                 onClick={() => {
-                  stopSpeech();
                   const prevIdx = currentIndex - 1;
                   setCurrentIndex(prevIdx);
                   setSelectedOption(userAnswers[quizList[prevIdx]?.id] || null);
@@ -957,58 +873,10 @@ export default function App() {
       {/* חלון מודאל לימודי מעמיק */}
       {isDeepStudyOpen && (
         <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.92)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '14px' }}>
-          <div style={{ backgroundColor: '#0b1329', border: '2px solid #38bdf8', borderRadius: '20px', maxWidth: '500px', width: '100%', maxHeight: '88vh', overflowY: 'auto', padding: '18px', display: 'flex', flexDirection: 'column', gap: '12px', boxShadow: '0 10px 30px rgba(0,0,0,0.8)' }}>
-            
+          <div style={{ backgroundColor: '#0b1329', border: '2px solid #38bdf8', borderRadius: '20px', maxWidth: '500px', width: '100%', maxHeight: '88vh', overflowY: 'auto', padding: '18px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #1e293b', paddingBottom: '10px' }}>
               <div>
-                <span style={{ color: '#38bdf8', fontSize: '11px', fontWeight: 'bold' }}>{currentQ.topic}</span>
+                <span style={{ color: '#38bdf8', fontSize: '11px', fontWeight: 'bold' }}>{currentQ?.topic}</span>
                 <h3 style={{ margin: 0, fontSize: '15px', color: '#fbbf24', fontWeight: '900' }}>🎓 ניתוח פדגוגי מעמיק ושלילת מסיחים</h3>
               </div>
-              <button onClick={() => setIsDeepStudyOpen(false)} style={{ backgroundColor: '#881337', color: '#ffffff', border: 'none', width: '32px', height: '32px', borderRadius: '50%', fontWeight: 'bold', fontSize: '15px', cursor: 'pointer' }}>✕</button>
-            </div>
-
-            <DiagramRenderer diagram={currentQ.diagram} />
-
-            <div style={{ backgroundColor: '#020617', padding: '10px 12px', borderRadius: '12px', border: '1px solid #10b981' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-                <span style={{ color: '#34d399', fontSize: '12px', fontWeight: '900' }}>✔ התשובה הנכונה והעיקרון המדעי:</span>
-                <button onClick={() => speakCustom(currentQ.explanation)} style={{ backgroundColor: '#064e3b', color: '#34d399', border: '1px solid #059669', borderRadius: '6px', padding: '2px 6px', fontSize: '10px', cursor: 'pointer' }}>🔊 הקרא</button>
-              </div>
-              <p style={{ margin: 0, fontSize: '12px', color: '#e2e8f0', lineHeight: '1.4' }}>
-                {currentQ.explanation}
-              </p>
-            </div>
-
-            <div style={{ backgroundColor: '#020617', padding: '10px 12px', borderRadius: '12px', border: '1px solid #334155' }}>
-              <span style={{ color: '#f43f5e', fontSize: '12px', fontWeight: '900', display: 'block', marginBottom: '6px' }}>
-                ❌ למה שאר המסיחים שגויים?
-              </span>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                {currentQ.options.map((opt, idx) => {
-                  const letter = ['א', 'ב', 'ג', 'ד'][idx] || '';
-                  if (opt.isCorrect) return null;
-                  return (
-                    <div key={opt.id} style={{ fontSize: '11px', color: '#cbd5e1', backgroundColor: '#0f172a', padding: '6px 8px', borderRadius: '6px', borderRight: '3px solid #f43f5e' }}>
-                      <strong style={{ color: '#f87171' }}>אפשרות {letter} ({opt.text}):</strong>
-                      <span style={{ color: '#94a3b8', display: 'block', marginTop: '2px' }}>
-                        נפסלת לפי הדרישות המדעיות (בלבול נפוץ במבחן בין שלד צירי לתוספי, בין סחוס היאליני לסיבי, או בין אוסטאובלסט לאוסטאוקלסט).
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            <button
-              onClick={() => setIsDeepStudyOpen(false)}
-              style={{ width: '100%', backgroundColor: institution === 'meso' ? '#0284c7' : '#f59e0b', color: '#ffffff', border: 'none', padding: '12px', borderRadius: '12px', fontWeight: '900', fontSize: '14px', cursor: 'pointer', marginTop: '4px' }}
-            >
-              ✓ הבנתי, חזרה לשאלה
-            </button>
-          </div>
-        </div>
-      )}
-
-    </main>
-  );
-}
+              <button onClick={() => setIsDeepStudyOpen(false)} style={{ backgroundColor: '#8813
