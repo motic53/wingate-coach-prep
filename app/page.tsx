@@ -4,7 +4,7 @@
 
 import React, { useState, useEffect, Component } from 'react';
 
-// Error Boundary מקומי שמגן על האפליקציה מקריסות צד-לקוח
+// Error Boundary למניעת קריסות צד-לקוח
 class SafeBoundary extends Component {
   constructor(props) {
     super(props);
@@ -20,8 +20,8 @@ class SafeBoundary extends Component {
     if (this.state.hasError) {
       return (
         <div style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#f8fafc', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px', textAlign: 'center' }} dir="rtl">
-          <h2 style={{ color: '#f43f5e', fontSize: '18px', fontWeight: 'bold' }}>אירעה תקלה קלה בטעינת הרכיב</h2>
-          <p style={{ color: '#94a3b8', fontSize: '12px' }}>הנתונים אותחלו בצורה תקינה. לחץ לרענון מהיר:</p>
+          <h2 style={{ color: '#f43f5e', fontSize: '18px', fontWeight: 'bold' }}>אירעה תקלה בטעינת הרכיב</h2>
+          <p style={{ color: '#94a3b8', fontSize: '12px' }}>הנתונים אותחלו. לחץ לרענון:</p>
           <button onClick={() => { this.setState({ hasError: false }); window.location.reload(); }} style={{ backgroundColor: '#0284c7', color: '#fff', border: 'none', padding: '10px 18px', borderRadius: '10px', fontWeight: 'bold', cursor: 'pointer' }}>
             🔄 רענן עמוד
           </button>
@@ -32,7 +32,7 @@ class SafeBoundary extends Component {
   }
 }
 
-// 1. בנק שאלות מזו אקדמי
+// 1. בנק שאלות מזו אקדמי (Meso Academy)
 const MESO_QUESTIONS = [
   {
     id: 'm1',
@@ -231,7 +231,7 @@ const MESO_QUESTIONS = [
   }
 ];
 
-// 2. בנק שאלות מכללת וינגייט
+// 2. בנק שאלות מכללת וינגייט (Wingate)
 const WINGATE_QUESTIONS = [
   {
     id: 'w1',
@@ -295,6 +295,7 @@ const WINGATE_QUESTIONS = [
   }
 ];
 
+// מנוע תרשימים גרפיים (SVG)
 function SafeDiagram({ diagram }: { diagram?: string }) {
   const d = diagram || 'cell';
   if (d === 'skeleton') {
@@ -802,81 +803,4 @@ function MainApp() {
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ backgroundColor: '#020617', width: '22px', height: '22px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 'bold', border: '1px solid #334155' }}>
-                    {letter}
-                  </span>
-                  <span>{opt.text}</span>
-                </div>
-
-                {examMode === 'practice' && isAnswerChecked && opt.isCorrect && <span style={{ color: '#34d399', fontWeight: 'bold' }}>✔ נכון</span>}
-                {examMode === 'practice' && isAnswerChecked && isSelected && !opt.isCorrect && <span style={{ color: '#fb7185', fontWeight: 'bold' }}>✖ שגוי</span>}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* אזור פעולה תחתון */}
-      <footer style={{ paddingTop: '6px', paddingBottom: '6px' }}>
-        {examMode === 'practice' ? (
-          !isAnswerChecked ? (
-            <button
-              onClick={handleCheckPractice}
-              disabled={!selectedOption}
-              style={{
-                width: '100%',
-                backgroundColor: selectedOption ? (institution === 'meso' ? '#0284c7' : '#f59e0b') : '#334155',
-                color: selectedOption ? '#ffffff' : '#94a3b8',
-                border: 'none',
-                borderRadius: '14px',
-                padding: '14px',
-                fontSize: '15px',
-                fontWeight: '900',
-                cursor: selectedOption ? 'pointer' : 'not-allowed'
-              }}
-            >
-              בדוק תשובה
-            </button>
-          ) : (
-            <button
-              onClick={handleNextPractice}
-              style={{ width: '100%', backgroundColor: '#10b981', color: '#020617', border: 'none', borderRadius: '14px', padding: '14px', fontSize: '15px', fontWeight: '900', cursor: 'pointer' }}
-            >
-              {currentIndex === quizList.length - 1 ? '🎉 סיום תרגול ואיפוס' : 'שאלה הבאה ➜'}
-            </button>
-          )
-        ) : (
-          <div style={{ display: 'flex', gap: '8px' }}>
-            {currentIndex > 0 && (
-              <button
-                onClick={() => {
-                  const prevIdx = currentIndex - 1;
-                  setCurrentIndex(prevIdx);
-                  setSelectedOption(userAnswers[quizList[prevIdx]?.id] || null);
-                }}
-                style={{ backgroundColor: '#1e293b', color: '#cbd5e1', border: '1px solid #334155', padding: '12px 16px', borderRadius: '14px', fontSize: '13px', fontWeight: 'bold' }}
-              >
-                ⮌ קודמת
-              </button>
-            )}
-
-            <button
-              onClick={handleNextReal}
-              style={{ flex: 1, backgroundColor: institution === 'meso' ? '#0284c7' : '#f59e0b', color: '#ffffff', border: 'none', borderRadius: '14px', padding: '14px', fontSize: '15px', fontWeight: '900', cursor: 'pointer' }}
-            >
-              {currentIndex === quizList.length - 1 ? '🏁 סיים מבחן והגש' : 'שאלה הבאה ➜'}
-            </button>
-          </div>
-        )}
-      </footer>
-
-      {/* חלון מודאל לימודי מעמיק */}
-      {isDeepStudyOpen && (
-        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.92)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '14px' }}>
-          <div style={{ backgroundColor: '#0b1329', border: '2px solid #38bdf8', borderRadius: '20px', maxWidth: '500px', width: '100%', maxHeight: '88vh', overflowY: 'auto', padding: '18px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #1e293b', paddingBottom: '10px' }}>
-              <div>
-                <span style={{ color: '#38bdf8', fontSize: '11px', fontWeight: 'bold' }}>{currentQ?.topic}</span>
-                <h3 style={{ margin: 0, fontSize: '15px', color: '#fbbf24', fontWeight: '900' }}>🎓 ניתוח פדגוגי מעמיק ושלילת מסיחים</h3>
-              </div>
-              <button onClick={() => setIsDeepStudyOpen(false)} style={{ backgroundColor: '#8813
+                  <span style={{ backgroundColor: '#020617', width: '22px', height: '22px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11
