@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 
 interface Question {
   id: string;
@@ -14,7 +14,7 @@ interface Question {
 }
 
 // ==========================================
-// 1. בנק שאלות מלא - מזו אקדמי (32 שאלות ל-32 תמונות)
+// 1. בנק השאלות המלא - מזו אקדמי (32 שאלות)
 // ==========================================
 const mesoQuestions: Question[] = [
   {
@@ -660,7 +660,7 @@ const mesoQuestions: Question[] = [
 ];
 
 // ==========================================
-// 2. בנק שאלות - וינגייט (Wingate)
+// 2. בנק השאלות - וינגייט (Wingate)
 // ==========================================
 const wingateQuestions: Question[] = [
   {
@@ -744,140 +744,153 @@ const wingateQuestions: Question[] = [
 const allQuestions: Question[] = [...mesoQuestions, ...wingateQuestions];
 
 // ==========================================
-// 3. רכיב זום וגרירה משודרג (Smooth Pan & Zoom לנייד ולעכבר)
+// 3. רכיב תמונה עם צביטה ב-2 אצבעות (Pinch-to-Zoom)
 // ==========================================
-function ZoomPanImage({ src, alt }: { src: string; alt: string }) {
+function PinchZoomImage({ src, alt }: { src: string; alt: string }) {
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const [scale, setScale] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isDragging, setIsDragging] = useState(false);
-  const startPos = useRef({ x: 0, y: 0 });
 
-  // איפוס זום ומיקום בהחלפת תמונה
+  // מעקב אחרי מרחק התחלתי בצביטה וגרירה
+  const initialDistance = useRef<number | null>(null);
+  const initialScale = useRef(1);
+  const isDragging = useRef(false);
+  const dragStart = useRef({ x: 0, y: 0 });
+  const lastTouchTime = useRef(0);
+
+  // איפוס בעת החלפת תמונה
   useEffect(() => {
     setScale(1);
     setPosition({ x: 0, y: 0 });
-    setIsDragging(false);
+    initialDistance.current = null;
+    isDragging.current = false;
   }, [src]);
 
-  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (scale <= 1) return;
-    setIsDragging(true);
-    startPos.current = {
-      x: e.clientX - position.x,
-      y: e.clientY - position.y
-    };
-    e.currentTarget.setPointerCapture(e.pointerId);
+  // חישוב מרחק פיתגורס בין 2 אצבעות
+  const getPinchDistance = (touches: React.TouchList) => {
+    const dx = touches[0].clientX - touches[1].clientX;
+    const dy = touches[0].clientY - touches[1].clientY;
+    return Math.sqrt(dx * dx + dy * dy);
   };
 
-  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!isDragging || scale <= 1) return;
-    
-    // גבולות גרירה גמישים ומותאמים לרמת הזום
-    const maxOffset = (scale - 1) * 250;
-    const newX = e.clientX - startPos.current.x;
-    const newY = e.clientY - startPos.current.y;
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (e.touches.length === 2) {
+      // התחלת צביטה עם 2 אצבעות
+      initialDistance.current = getPinchDistance(e.touches);
+      initialScale.current = scale;
+      isDragging.current = false;
+    } else if (e.touches.length === 1) {
+      // בדיקת דאבל-טאפ מהיר לאיפוס / הגדלה מהירה
+      const now = Date.now();
+      if (now - lastTouchTime.current < 300) {
+        if (scale > 1) {
+          setScale(1);
+          setPosition({ x: 0, y: 0 });
+        } else {
+          setScale(2.5);
+        }
+      }
+      lastTouchTime.current = now;
 
-    setPosition({
-      x: Math.max(-maxOffset, Math.min(maxOffset, newX)),
-      y: Math.max(-maxOffset, Math.min(maxOffset, newY))
-    });
-  };
-
-  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
-    setIsDragging(false);
-    try {
-      e.currentTarget.releasePointerCapture(e.pointerId);
-    } catch {
-      // הגנה
+      // גרירה באצבע אחת אם התמונה כבר מוגדלת
+      if (scale > 1) {
+        isDragging.current = true;
+        dragStart.current = {
+          x: e.touches[0].clientX - position.x,
+          y: e.touches[0].clientY - position.y
+        };
+      }
     }
   };
 
-  const zoomIn = () => setScale((s) => Math.min(s + 0.5, 4.0));
-  const zoomOut = () => {
-    setScale((s) => {
-      const next = Math.max(s - 0.5, 1);
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (e.touches.length === 2 && initialDistance.current !== null) {
+      // תנועת צביטה
+      const currentDistance = getPinchDistance(e.touches);
+      const ratio = currentDistance / initialDistance.current;
+      const nextScale = Math.min(Math.max(initialScale.current * ratio, 1), 4.5);
+      setScale(nextScale);
+      if (nextScale === 1) {
+        setPosition({ x: 0, y: 0 });
+      }
+    } else if (e.touches.length === 1 && isDragging.current && scale > 1) {
+      // תנועת גרירה באצבע אחת כשיש זום
+      const maxOffset = (scale - 1) * 220;
+      const nextX = e.touches[0].clientX - dragStart.current.x;
+      const nextY = e.touches[0].clientY - dragStart.current.y;
+      setPosition({
+        x: Math.max(-maxOffset, Math.min(maxOffset, nextX)),
+        y: Math.max(-maxOffset, Math.min(maxOffset, nextY))
+      });
+    }
+  };
+
+  const handleTouchEnd = () => {
+    initialDistance.current = null;
+    isDragging.current = false;
+  };
+
+  // תמיכה נוספת בגלגלת עכבר במחשב (Wheel Zoom)
+  const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    const zoomFactor = e.deltaY < 0 ? 0.3 : -0.3;
+    setScale((prev) => {
+      const next = Math.min(Math.max(prev + zoomFactor, 1), 4.5);
       if (next === 1) setPosition({ x: 0, y: 0 });
       return next;
     });
   };
-  const resetZoom = () => {
-    setScale(1);
-    setPosition({ x: 0, y: 0 });
-  };
 
   return (
-    <div className="relative w-full overflow-hidden rounded-xl border border-slate-700 bg-slate-950 select-none touch-none">
+    <div
+      ref={containerRef}
+      onWheel={handleWheel}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      onTouchCancel={handleTouchEnd}
+      className="relative w-full h-72 sm:h-96 overflow-hidden rounded-xl border border-slate-700 bg-slate-950 select-none touch-none flex items-center justify-center cursor-crosshair"
+    >
       <div
-        className={`relative h-72 sm:h-96 w-full overflow-hidden flex items-center justify-center ${
-          scale > 1 ? "cursor-grab active:cursor-grabbing" : "cursor-zoom-in"
-        }`}
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={handlePointerUp}
-        onPointerCancel={handlePointerUp}
-        onClick={() => {
-          if (scale === 1) zoomIn();
+        className="w-full h-full relative transition-transform duration-75 flex items-center justify-center pointer-events-none"
+        style={{
+          transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
+          transformOrigin: "center center"
         }}
       >
-        <div
-          className="w-full h-full relative transition-transform duration-100 ease-out flex items-center justify-center"
-          style={{
-            transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
-            transformOrigin: "center center"
-          }}
-        >
-          {/* תגית img טבעית וישירה מבטיחה תאימות וטעינה מיידית מ-public */}
-          <img
-            src={src}
-            alt={alt}
-            className="w-full h-full object-contain pointer-events-none"
-            loading="eager"
-          />
-        </div>
+        <img
+          src={src}
+          alt={alt}
+          className="w-full h-full object-contain pointer-events-none"
+          loading="eager"
+        />
       </div>
 
-      {/* פקדי זום צפים */}
-      <div className="absolute bottom-3 left-3 flex gap-2 bg-slate-900/90 p-1.5 rounded-lg border border-slate-700 shadow-xl backdrop-blur z-20">
+      {/* מד חיווי זום עדין ואיפוס בלחיצה */}
+      {scale > 1 && (
         <button
           type="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            zoomIn();
+          onClick={() => {
+            setScale(1);
+            setPosition({ x: 0, y: 0 });
           }}
-          aria-label="הגדל"
-          className="w-9 h-9 flex items-center justify-center rounded bg-slate-800 text-white font-bold hover:bg-slate-700 active:scale-95 transition text-lg"
+          className="absolute bottom-3 left-3 bg-slate-900/90 text-xs text-indigo-300 font-bold px-3 py-1.5 rounded-full border border-indigo-500/40 shadow-lg backdrop-blur"
         >
-          +
+          איפוס זום ({Math.round(scale * 100)}%)
         </button>
-        <button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            zoomOut();
-          }}
-          aria-label="הקטן"
-          className="w-9 h-9 flex items-center justify-center rounded bg-slate-800 text-white font-bold hover:bg-slate-700 active:scale-95 transition text-lg"
-        >
-          -
-        </button>
-        <button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            resetZoom();
-          }}
-          aria-label="איפוס"
-          className="px-3 h-9 flex items-center justify-center rounded bg-slate-800 text-xs text-slate-200 hover:bg-slate-700 active:scale-95 transition font-semibold"
-        >
-          איפוס ({Math.round(scale * 100)}%)
-        </button>
-      </div>
+      )}
+
+      {scale === 1 && (
+        <div className="absolute bottom-2 right-3 pointer-events-none text-[11px] text-slate-400/80 bg-slate-900/70 px-2 py-0.5 rounded backdrop-blur">
+          צבוט ב-2 אצבעות להגדלה 🔍
+        </div>
+      )}
     </div>
   );
 }
 
 // ==========================================
-// 4. הרכיב הראשי של האפליקציה (Quiz Engine)
+// 4. הרכיב הראשי של האפליקציה + הקראה קולית
 // ==========================================
 export default function QuizPage() {
   const [selectedInst, setSelectedInst] = useState<"all" | "meso" | "wingate">("meso");
@@ -885,6 +898,7 @@ export default function QuizPage() {
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
   const [score, setScore] = useState(0);
+  const [isSpeaking, setIsSpeaking] = useState(false);
 
   const filteredQuestions = allQuestions.filter((q) => {
     if (selectedInst === "all") return true;
@@ -892,6 +906,66 @@ export default function QuizPage() {
   });
 
   const currentQ = filteredQuestions[currentIndex] || filteredQuestions[0];
+
+  // פונקציית הקראה בעברית דרך מנוע הדיבור של הדפדפן
+  const stopSpeech = useCallback(() => {
+    if (typeof window !== "undefined" && "speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
+    }
+  }, []);
+
+  const speakText = useCallback(
+    (textToRead: string) => {
+      if (typeof window === "undefined" || !("speechSynthesis" in window)) {
+        alert("הדפדפן שלך אינו תומך בהקראה קולית.");
+        return;
+      }
+
+      if (isSpeaking) {
+        stopSpeech();
+        return;
+      }
+
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(textToRead);
+      utterance.lang = "he-IL";
+      utterance.rate = 0.95; // מהירות טבעית וברורה
+      utterance.pitch = 1.0;
+
+      utterance.onstart = () => setIsSpeaking(true);
+      utterance.onend = () => setIsSpeaking(false);
+      utterance.onerror = () => setIsSpeaking(false);
+
+      window.speechSynthesis.speak(utterance);
+    },
+    [isSpeaking, stopSpeech]
+  );
+
+  // הקראת השאלה והאפשרויות ברצף
+  const handleSpeakQuestion = () => {
+    if (!currentQ) return;
+    const optionsText = currentQ.options
+      .map((opt, i) => `אפשרות ${i + 1}: ${opt}`)
+      .join(". ");
+    const fullText = `שאלה: ${currentQ.question}. ${optionsText}`;
+    speakText(fullText);
+  };
+
+  // הקראת ההסבר המדעי
+  const handleSpeakExplanation = () => {
+    if (!currentQ) return;
+    let text = `הסבר מדעי: ${currentQ.explanation}. `;
+    if (currentQ.distractorAnalysis) {
+      text += `ניתוח מסיחים: ` + currentQ.distractorAnalysis.join(". ");
+    }
+    speakText(text);
+  };
+
+  // עצירת הקראה ואיפוס במעבר שאלות או מוסד
+  useEffect(() => {
+    stopSpeech();
+  }, [currentIndex, selectedInst, stopSpeech]);
 
   useEffect(() => {
     setCurrentIndex(0);
@@ -992,20 +1066,35 @@ export default function QuizPage() {
         {/* גוף השאלה */}
         {currentQ ? (
           <div className="space-y-6 bg-slate-900/40 p-5 sm:p-6 rounded-2xl border border-slate-800 shadow-xl">
-            {/* רכיב תמונה וזום */}
+            {/* רכיב תמונה וזום בצביטה */}
             {currentQ.image && (
               <div className="space-y-2">
                 <span className="text-xs font-semibold text-slate-400 block">
-                  תרשים אנטומי (לחץ להגדלה או השתמש בפקדים לזום וגרירה):
+                  תרשים עזר אנטומי (הגדל בצביטה עם 2 אצבעות):
                 </span>
-                <ZoomPanImage src={currentQ.image} alt={currentQ.question} />
+                <PinchZoomImage src={currentQ.image} alt={currentQ.question} />
               </div>
             )}
 
-            {/* ניסוח השאלה */}
-            <h2 className="text-lg sm:text-xl font-bold leading-relaxed text-slate-100">
-              {currentQ.question}
-            </h2>
+            {/* ניסוח השאלה + כפתור הקראה */}
+            <div className="flex items-start justify-between gap-3">
+              <h2 className="text-lg sm:text-xl font-bold leading-relaxed text-slate-100 flex-1">
+                {currentQ.question}
+              </h2>
+              <button
+                type="button"
+                onClick={handleSpeakQuestion}
+                className={`flex-shrink-0 p-2.5 rounded-xl border transition ${
+                  isSpeaking
+                    ? "bg-rose-950/80 border-rose-500 text-rose-300 animate-pulse"
+                    : "bg-slate-800/80 border-slate-700 text-slate-300 hover:bg-slate-700 hover:text-white"
+                }`}
+                title={isSpeaking ? "עצור הקראה" : "הקרא שאלה ותשובות"}
+                aria-label="הקראה קולית"
+              >
+                {isSpeaking ? "⏹️ עצור" : "🔊 הקרא"}
+              </button>
+            </div>
 
             {/* אפשרויות בחירה */}
             <div className="space-y-3">
@@ -1082,17 +1171,25 @@ export default function QuizPage() {
               </button>
             </div>
 
-            {/* הסבר פדגוגי */}
+            {/* הסבר פדגוגי והקראת הסבר */}
             {isAnswerSubmitted && (
               <div className="mt-6 p-5 rounded-xl bg-slate-900 border border-slate-700/80 space-y-4">
-                <div>
+                <div className="flex items-center justify-between gap-2">
                   <h3 className="text-sm font-bold text-indigo-400 uppercase tracking-wider">
                     הסבר מדעי:
                   </h3>
-                  <p className="mt-1 text-sm text-slate-300 leading-relaxed">
-                    {currentQ.explanation}
-                  </p>
+                  <button
+                    type="button"
+                    onClick={handleSpeakExplanation}
+                    className="text-xs px-2.5 py-1 rounded bg-slate-800 border border-slate-700 text-slate-300 hover:text-white hover:bg-slate-700 transition"
+                  >
+                    🔊 הקרא הסבר
+                  </button>
                 </div>
+
+                <p className="mt-1 text-sm text-slate-300 leading-relaxed">
+                  {currentQ.explanation}
+                </p>
 
                 {currentQ.distractorAnalysis && (
                   <div className="pt-3 border-t border-slate-800/80">
