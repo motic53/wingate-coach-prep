@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import { allQuestions, Question } from "@/data/questions";
+import { allQuestions, Question } from "../data/questions";
 
 // ==========================================
 // רכיב זום בצביטה עם 2 אצבעות וגרירה (Pinch-to-Zoom)
