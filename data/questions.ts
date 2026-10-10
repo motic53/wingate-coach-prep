@@ -1497,8 +1497,7 @@ export const allQuestions: Question[] = [
       "שגוי: ההורמונים מווסתים את חילוף החומרים לכל אורך הפעילות."
     ]
   },
-
-  // ========================================================
+// ========================================================
   // ג. מזו אקדמי - כל 32 התמונות מחוברת מזו (Meso Academy)
   // ========================================================
   {
@@ -1584,7 +1583,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-5",
     institution: "meso",
-    image: "/images/meso_axial_vs_appendicular_skeleton.jpg.jpg",
+    image: "/images/meso_axial_vs_appendicular_skeleton.jpg",
     question: "כיצד מחולק שלד האדם לשני חלקיו הראשיים (צירי ותוספי)?",
     options: [
       "שלד ימני ושלד שמאלי בלבד",
@@ -2141,4 +2140,4 @@ export const allQuestions: Question[] = [
       "שגוי: חוליה היא עצם אי-רגולרית גרמית וקשיחה."
     ]
   }
-];
+  
