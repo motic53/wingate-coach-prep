@@ -1497,14 +1497,13 @@ export const allQuestions: Question[] = [
       "שגוי: ההורמונים מווסתים את חילוף החומרים לכל אורך הפעילות."
     ]
   },
-
-  // ========================================================
+// ========================================================
   // ג. מזו אקדמי - כל 32 התמונות מחוברת מזו (Meso Academy)
   // ========================================================
   {
     id: "m-1",
     institution: "meso",
-    image: "/images/meso_Introduction_summary.jpg",
+    image: "/images/meso/meso_Introduction_summary.jpg",
     question: "על פי עקרונות המבוא האנטומי והפיזיולוגי, מהו הומאוסטזיס (Homeostasis)?",
     options: [
       "מצב של מנוחה מוחלטת ללא חילוף חומרים",
@@ -1524,7 +1523,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-2",
     institution: "meso",
-    image: "/images/meso_apithelum.jpg",
+    image: "/images/meso/meso_apithelum.jpg",
     question: "מהו אחד המאפיינים המרכזיים של רקמת האפיתל (Epithelial Tissue)?",
     options: [
       "שפע של כלי דם וסיבי קולגן עבים",
@@ -1544,7 +1543,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-3",
     institution: "meso",
-    image: "/images/meso_atherosclerosis_artery.jpg",
+    image: "/images/meso/meso_atherosclerosis_artery.jpg",
     question: "כיצד מתפתחת טרשת עורקים (Atherosclerosis) וכיצד היא פוגעת בזרימת הדם?",
     options: [
       "הצטברות רובד שומני, כולסטרול ותאי דלקת (פלאק) בדופן הפנימית של העורק, הגורמת להיצרות החלל ולירידה בזרימת הדם",
@@ -1564,7 +1563,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-4",
     institution: "meso",
-    image: "/images/meso_axial_skeleton_spine.jpg",
+    image: "/images/meso/meso_axial_skeleton_spine.jpg",
     question: "מהו התפקיד המרכזי של עמוד השדרה כחלק מהשלד הצירי?",
     options: [
       "הגנה על חוט השדרה, נשיאת משקל הראש ופלג הגוף העליון, והענקת גמישות לתנועת הגו",
@@ -1584,7 +1583,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-5",
     institution: "meso",
-    image: "/images/meso_axial_vs_appendicular_skeleton.jpg",
+    image: "/images/meso/meso_axial_vs_appendicular_skeleton.jpg",
     question: "כיצד מחולק שלד האדם לשני חלקיו הראשיים (צירי ותוספי)?",
     options: [
       "שלד ימני ושלד שמאלי בלבד",
@@ -1604,7 +1603,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-6",
     institution: "meso",
-    image: "/images/meso_bone_Growth.jpg",
+    image: "/images/meso/meso_bone_Growth.jpg",
     question: "באמצעות איזה מבנה מתארכות עצמות ארוכות במהלך הילדות וההתבגרות?",
     options: [
       "רקמת הפריאוסט המעבה את העצם מבחוץ בלבד",
@@ -1624,7 +1623,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-7",
     institution: "meso",
-    image: "/images/meso_bone_cell_stricture.jpg",
+    image: "/images/meso/meso_bone_cell_stricture.jpg",
     question: "מהו תפקידם של האוסטאובלסטים (Osteoblasts) לעומת האוסטאוקלסטים (Osteoclasts) ברקמת העצם?",
     options: [
       "אוסטאוקלסטים בונים עצם; אוסטאובלסטים מפרקים עצם",
@@ -1644,7 +1643,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-8",
     institution: "meso",
-    image: "/images/meso_bone_classification_by_shape.jpg",
+    image: "/images/meso/meso_bone_classification_by_shape.jpg",
     question: "כיצד מסווגות עצמות השלד לפי צורתן המורפולוגית?",
     options: [
       "עצמות חזקות, עצמות חלשות ועצמות אלסטיות",
@@ -1664,7 +1663,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-9",
     institution: "meso",
-    image: "/images/meso_bone_density_gym.jpg",
+    image: "/images/meso/meso_bone_density_gym.jpg",
     question: "כיצד אימון התנגדות משפיע על צפיפות העצם על פי 'חוק וולף' (Wolff's Law)?",
     options: [
       "עומסים מכניים וכוחות כיווץ של שרירים מייצרים גירוי עיוותי המעודד אוסטאובלסטים להשקיע מטריקס עצם ולהעלות צפיפות מינרלית",
@@ -1684,7 +1683,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-10",
     institution: "meso",
-    image: "/images/meso_bone_lose.jpg",
+    image: "/images/meso/meso_bone_lose.jpg",
     question: "מהו התהליך הפתולוגי המתרחש בירידה בצפיפות העצם (Osteoporosis)?",
     options: [
       "שקיעת יתר של סידן הגורמת לחסימת כלי הדם",
@@ -1704,7 +1703,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-11",
     institution: "meso",
-    image: "/images/meso_cartilage_locations_in_body.jpg",
+    image: "/images/meso/meso_cartilage_locations_in_body.jpg",
     question: "איזה סוג סחוס מצוי במשטחים המפרקיים של עצמות ארוכות (Articular Cartilage)?",
     options: [
       "סחוס היאליני (Hyaline cartilage)",
@@ -1724,7 +1723,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-12",
     institution: "meso",
-    image: "/images/meso_compact_bone_structure.jpg",
+    image: "/images/meso/meso_compact_bone_structure.jpg",
     question: "כיצד בנויה היחידה המבנית הבסיסית של העצם הדחוסה (Compact Bone)?",
     options: [
       "מערכת אוסטאון (Osteon / Haversian system) המורכבת מלמלות קונצנטריות סביב תעלה מרכזית המכילה כלי דם ועצבים",
@@ -1744,7 +1743,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-13",
     institution: "meso",
-    image: "/images/meso_fibers.jpg",
+    image: "/images/meso/meso_fibers.jpg",
     question: "מהו ההבדל העיקרי בין סיבי קולגן (Collagen) לסיבים אלסטיים (Elastin) ברקמת החיבור?",
     options: [
       "קולגן מעניק חוזק מתיחה גבוה ועמידות; סיבים אלסטיים מאפשרים גמישות וחזרה לצורה המקורית",
@@ -1764,7 +1763,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-14",
     institution: "meso",
-    image: "/images/meso_four_basic_tissues.jpg",
+    image: "/images/meso/meso_four_basic_tissues.jpg",
     question: "מהן ארבע רקמות היסוד (Basic Tissues) המרכיבות את כל איברי גוף האדם?",
     options: [
       "רקמת עצם, רקמת סחוס, רקמת דם ורקמת שומן",
@@ -1784,7 +1783,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-15",
     institution: "meso",
-    image: "/images/meso_joints_classification_by_movement_axes.jpg",
+    image: "/images/meso/meso_joints_classification_by_movement_axes.jpg",
     question: "כיצד מסווגים מפרקים סינוביאליים לפי מספר צירי התנועה שלהם (Movement Axes)?",
     options: [
       "מפרק חד-צירי (Uni-axial, כגון ציר/מרפק), דו-צירי (Bi-axial, כגון אוכף/אליפטי), ורב-צירי (Multi-axial, כגון כדורי/כתף)",
@@ -1804,7 +1803,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-16",
     institution: "meso",
-    image: "/images/meso_loose_connective_tissue_fibers.jpg",
+    image: "/images/meso/meso_loose_connective_tissue_fibers.jpg",
     question: "אילו שלושה סוגי סיבים עיקריים מצויים במטריקס של רקמת חיבור רופפת (Loose Connective Tissue)?",
     options: [
       "סיבי אקטין, מיוזין וטרופונין",
@@ -1824,7 +1823,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-17",
     institution: "meso",
-    image: "/images/meso_mobility_vs_stability.jpg",
+    image: "/images/meso/meso_mobility_vs_stability.jpg",
     question: "מהו הקשר הביומכני הבסיסי בין תנועתיות (Mobility) ליציבות (Stability) במפרקי הגוף?",
     options: [
       "ככל שמפרק ניחן בטווחי תנועה וחופש גדולים יותר (Mobility), כך יציבותו המבנית הטבעית פוחתת והוא מועד יותר לפריקות",
@@ -1844,7 +1843,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-18",
     institution: "meso",
-    image: "/images/meso_muscle_tissues_table.jpg",
+    image: "/images/meso/meso_muscle_tissues_table.jpg",
     question: "כיצד נבדלים שלושת סוגי השרירים בגוף (שלד, חלק, לב) במבנה ובשליטה העצבית?",
     options: [
       "שלד: משורטט ורצוני; חלק: אינו משורטט ובלתי רצוני; לב: משורטט ובלתי רצוני (אוטונומי)",
@@ -1864,7 +1863,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-19",
     institution: "meso",
-    image: "/images/meso_neuron_structure_and_function.jpg",
+    image: "/images/meso/meso_neuron_structure_and_function.jpg",
     question: "מהו כיוון מעבר האות העצבי בנוירון טיפוסי?",
     options: [
       "מדנדריטים (קליטת מידע) -> גוף התא (עיבוד) -> אקסון (הולכה מבודדת) -> כפתורים סופיים (העברה בסינפסה)",
@@ -1884,7 +1883,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-20",
     institution: "meso",
-    image: "/images/meso_peak_bone_mass.jpg",
+    image: "/images/meso/meso_peak_bone_mass.jpg",
     question: "באיזה עשור לחיים מגיע האדם בדרך כלל לשיא מסת העצם (Peak Bone Mass)?",
     options: [
       "בגיל הילדות המוקדמת (גיל 5–10)",
@@ -1904,7 +1903,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-21",
     institution: "meso",
-    image: "/images/meso_posture_defects_gym_floor.jpg",
+    image: "/images/meso/meso_posture_defects_gym_floor.jpg",
     question: "מהו ההבדל המרכזי בין ליקוי יציבה מבני (Structural) לתפקודי (Functional)?",
     options: [
       "ליקוי תפקודי נובע מאי-איזון שרירי וניתן לשיפור באימון; ליקוי מבני נובע משינוי בגרמי העצם ואינו בר-תיקון מלא באימון",
@@ -1924,7 +1923,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-22",
     institution: "meso",
-    image: "/images/meso_skeleton_summary_key_points.jpg",
+    image: "/images/meso/meso_skeleton_summary_key_points.jpg",
     question: "מהם שלושת סוגי המפרקים העיקריים בגוף לפי יכולת התנועה שלהם?",
     options: [
       "מפרק סיבי (ללא תנועה - Synarthrosis), סחוסי (תנועה מועטה - Amphiarthrosis), וסינוביאלי (תנועה חופשית - Diarthrosis)",
@@ -1944,7 +1943,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-23",
     institution: "meso",
-    image: "/images/meso_spinal_curves.jpg",
+    image: "/images/meso/meso_spinal_curves.jpg",
     question: "מהן ארבע העקומות הפיזיולוגיות של עמוד השדרה במבט מהצד (Sagittal View)?",
     options: [
       "לורדוזה צווארית ומותנית (קעירות אחורית), קיפוזה חזית וסקראלית (קמירות אחורית)",
@@ -1964,7 +1963,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-24",
     institution: "meso",
-    image: "/images/meso_spine_structure_and_regions.jpg",
+    image: "/images/meso/meso_spine_structure_and_regions.jpg",
     question: "מכמה חוליות מורכב כל אזור בעמוד השדרה מלמעלה למטה?",
     options: [
       "7 צוואריות (Cervical), 12 חזיות (Thoracic), 5 מותניות (Lumbar), 5 מאוחות בסקרום ו-3-5 בקוקסיקס",
@@ -1984,7 +1983,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-25",
     institution: "meso",
-    image: "/images/meso_spongi_compact_bone.jpg",
+    image: "/images/meso/meso_spongi_compact_bone.jpg",
     question: "מה ההבדל בין עצם דחוסה (Compact) לעצם ספוגית (Spongy/Trabecular)?",
     options: [
       "עצם דחוסה בנויה מאוסטאונים צפופים ומצויה בקליפה; עצם ספוגית בנויה מטרבקולות ומצויה בחלל הפנימי ובאפיפיזות",
@@ -2004,7 +2003,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-26",
     institution: "meso",
-    image: "/images/meso_synovial_joint_structure.jpg",
+    image: "/images/meso/meso_synovial_joint_structure.jpg",
     question: "אילו רכיבים אנטומיים מגדירים מפרק סינוביאלי (Diarthrosis) טיפוסי?",
     options: [
       "משטחים סחוסיים היאליניים, חלל מפרק עם נוזל סינוביאלי, ממברנה סינוביאלית וקפסולה ליגמנטרית",
@@ -2024,7 +2023,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-27",
     institution: "meso",
-    image: "/images/meso_three_connected_vertebrae.jpg",
+    image: "/images/meso/meso_three_connected_vertebrae.jpg",
     question: "מה תפקידו של הדיסק הבין-חולייתי (Intervertebral Disc) הממוקם בין גופי החוליות?",
     options: [
       "בלימת זעזועים, פיזור עומסי לחץ ואפשרות תנועה מבוקרת בין חוליה לחוליה",
@@ -2044,7 +2043,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-28",
     institution: "meso",
-    image: "/images/meso_three_connected_vertebrae_2.jpg",
+    image: "/images/meso/meso_three_connected_vertebrae_2.jpg",
     question: "איזה מפרק נוצר בין הזיזים המפרקיים של חוליות סמוכות ומה תפקידו?",
     options: [
       "מפרקי הפאסט (Facet joints / Zygapophysial joints) המכוונים ומגבילים את כיווני התנועה בעמוד השדרה",
@@ -2064,7 +2063,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-29",
     institution: "meso",
-    image: "/images/meso_tissues_to_organ_stomach.jpg",
+    image: "/images/meso/meso_tissues_to_organ_stomach.jpg",
     question: "כיצד מומחש המדרג הביולוגי מרקמה לאיבר במבנה הקיבה (Stomach)?",
     options: [
       "הקיבה בנויה משילוב של ארבע רקמות היסוד הפועלות יחד: אפיתל (ריפוד פנימי), שריר חלק (ערבול), חיבור (הזנה ותמיכה) ועצב (בקרה)",
@@ -2084,7 +2083,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-30",
     institution: "meso",
-    image: "/images/meso_typical_posture_defects.jpg",
+    image: "/images/meso/meso_typical_posture_defects.jpg",
     question: "כיצד מאופיין ליקוי יציבה מסוג 'היפר-קיפוזיס' (Hyper-kyphosis)?",
     options: [
       "הקשתה מוגברת של עמוד השדרה החזי לאחור, מלווה לעיתים קרובות בכתפיים שמוטות לפנים וראש קדמי",
@@ -2104,7 +2103,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-31",
     institution: "meso",
-    image: "/images/meso_typical_posture_defects_2.jpg",
+    image: "/images/meso/meso_typical_posture_defects_2.jpg",
     question: "כיצד משפיע ליקוי היפר-לורדוזה מותנית (Hyper-lordosis) על מנח האגן ועבודת השרירים סביבו?",
     options: [
       "הטיית אגן לפנים (Anterior Pelvic Tilt) הנובעת מקיצור כופפי הירך וזוקפי הגב המותניים, מול חולשת שרירי הבטן והישבן",
@@ -2124,7 +2123,7 @@ export const allQuestions: Question[] = [
   {
     id: "m-32",
     institution: "meso",
-    image: "/images/meso_vertebra_structure.jpg",
+    image: "/images/meso/meso_vertebra_structure.jpg",
     question: "אילו רכיבים מרכזיים מרכיבים חוליה טיפוסית בעמוד השדרה?",
     options: [
       "גוף החוליה (Vertebral Body) מלפנים, קשת החוליה (Vertebral Arch) מאחור, והנקב החולייתי שדרכו עובר חוט השדרה",
@@ -2140,5 +2139,4 @@ export const allQuestions: Question[] = [
       "שגוי: בחוליה יש תעלה עצבית מרכזית חיונית.",
       "שגוי: חוליה היא עצם אי-רגולרית גרמית וקשיחה."
     ]
-  }
-];
+  }];
