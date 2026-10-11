@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { allQuestions, Question } from "../data/questions";
+
 // ==========================================
 // רכיב זום בצביטה עם 2 אצבעות וגרירה (Pinch-to-Zoom)
 // ==========================================
@@ -147,6 +148,9 @@ export default function QuizPage() {
   const [score, setScore] = useState(0);
   const [isSpeaking, setIsSpeaking] = useState(false);
 
+  // מצביע (Ref) לאזור ההסבר לגלילה חלקה
+  const explanationRef = useRef<HTMLDivElement | null>(null);
+
   const filteredQuestions = allQuestions.filter((q) => {
     if (selectedInst === "all") return true;
     return q.institution === selectedInst;
@@ -228,6 +232,16 @@ export default function QuizPage() {
     if (selectedAnswer === currentQ.correctAnswer) {
       setScore((s) => s + 1);
     }
+
+    // גלילה חלקה ישירות אל ההסבר המדעי
+    setTimeout(() => {
+      if (explanationRef.current) {
+        explanationRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }
+    }, 100);
   };
 
   const handleNext = () => {
@@ -235,6 +249,8 @@ export default function QuizPage() {
       setCurrentIndex((i) => i + 1);
       setSelectedAnswer(null);
       setIsAnswerSubmitted(false);
+      // גלילה חזרה לחלק העליון של השאלה החדשה
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
@@ -243,6 +259,7 @@ export default function QuizPage() {
       setCurrentIndex((i) => i - 1);
       setSelectedAnswer(null);
       setIsAnswerSubmitted(false);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
@@ -346,9 +363,9 @@ export default function QuizPage() {
                 
                 if (isAnswerSubmitted) {
                   if (idx === currentQ.correctAnswer) {
-                    btnStyle = "bg-emerald-950/80 border-emerald-500 text-emerald-200 font-semibold";
+                    btnStyle = "bg-emerald-950/80 border-emerald-500 text-emerald-200 font-semibold ring-1 ring-emerald-500";
                   } else if (idx === selectedAnswer) {
-                    btnStyle = "bg-rose-950/80 border-rose-500 text-rose-200";
+                    btnStyle = "bg-rose-950/80 border-rose-500 text-rose-200 ring-1 ring-rose-500";
                   } else {
                     btnStyle = "bg-slate-900/40 border-slate-800 text-slate-500 opacity-60";
                   }
@@ -399,7 +416,7 @@ export default function QuizPage() {
                   disabled={currentIndex === filteredQuestions.length - 1}
                   className="px-6 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 disabled:opacity-30 disabled:pointer-events-none text-white font-semibold text-sm transition shadow-lg shadow-emerald-600/20"
                 >
-                  לשאלה הבאה
+                  לשאלה הבאה ⬅️
                 </button>
               )}
 
@@ -413,22 +430,32 @@ export default function QuizPage() {
               </button>
             </div>
 
+            {/* בלוק הסבר מדעי עם גלילה אוטומטית אליו */}
             {isAnswerSubmitted && (
-              <div className="mt-6 p-5 rounded-xl bg-slate-900 border border-slate-700/80 space-y-4">
-                <div className="flex items-center justify-between gap-2">
-                  <h3 className="text-sm font-bold text-indigo-400 uppercase tracking-wider">
-                    הסבר מדעי:
-                  </h3>
+              <div
+                ref={explanationRef}
+                className="mt-6 p-5 sm:p-6 rounded-xl bg-slate-900 border border-indigo-500/50 shadow-2xl space-y-4 scroll-mt-6 animate-in fade-in slide-in-from-bottom-4 duration-300"
+              >
+                <div className="flex items-center justify-between gap-2 border-b border-slate-800 pb-3">
+                  <div className="flex items-center gap-2">
+                    <span className="text-lg">
+                      {selectedAnswer === currentQ.correctAnswer ? "✅" : "❌"}
+                    </span>
+                    <h3 className="text-base font-bold text-indigo-300">
+                      {selectedAnswer === currentQ.correctAnswer ? "תשובה נכונה! כל הכבוד!" : "תשובה שגויה. להלן ההסבר המדעי:"}
+                    </h3>
+                  </div>
+
                   <button
                     type="button"
                     onClick={handleSpeakExplanation}
-                    className="text-xs px-2.5 py-1 rounded bg-slate-800 border border-slate-700 text-slate-300 hover:text-white hover:bg-slate-700 transition"
+                    className="text-xs px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:text-white hover:bg-slate-700 transition"
                   >
                     🔊 הקרא הסבר
                   </button>
                 </div>
 
-                <p className="mt-1 text-sm text-slate-300 leading-relaxed">
+                <p className="text-sm sm:text-base text-slate-200 leading-relaxed">
                   {currentQ.explanation}
                 </p>
 
@@ -437,7 +464,7 @@ export default function QuizPage() {
                     <h4 className="text-xs font-semibold text-slate-400 mb-2">
                       ניתוח ושלילת מסיחים:
                     </h4>
-                    <ul className="space-y-1 text-xs text-slate-400 list-disc list-inside">
+                    <ul className="space-y-1.5 text-xs text-slate-400 list-disc list-inside">
                       {currentQ.distractorAnalysis.map((item, dIdx) => (
                         <li key={dIdx} className="leading-normal">
                           {item}
