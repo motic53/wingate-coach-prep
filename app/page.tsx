@@ -3,7 +3,6 @@
 import React, { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { allQuestions, Question } from "../data/questions";
 
-// פונקציית ערבוב מערך (Fisher-Yates Shuffle)
 function shuffleArray<T>(array: T[]): T[] {
   const arr = [...array];
   for (let i = arr.length - 1; i > 0; i--) {
@@ -13,13 +12,11 @@ function shuffleArray<T>(array: T[]): T[] {
   return arr;
 }
 
-// ממשק לשאלה שעברה ערבוב תשובות
 interface ShuffledQuestion extends Question {
   shuffledOptions: string[];
   newCorrectAnswer: number;
 }
 
-// רכיב זום בצביטה
 function PinchZoomImage({ src, alt }: { src: string; alt: string }) {
   const [scale, setScale] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -142,20 +139,17 @@ export default function App() {
   const [mode, setMode] = useState<"practice" | "exam">("practice");
   const [selectedInst, setSelectedInst] = useState<"all" | "meso" | "wingate">("meso");
 
-  // מצב שאלות וערבוב
   const [questionsList, setQuestionsList] = useState<ShuffledQuestion[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState<(number | null)[]>([]);
   const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
 
-  // נתוני מבחן אמת
-  const [examTimeLeft, setExamTimeLeft] = useState(45 * 60); // 45 דקות בשניות
+  const [examTimeLeft, setExamTimeLeft] = useState(45 * 60);
   const [examFinished, setExamFinished] = useState(false);
 
   const explanationRef = useRef<HTMLDivElement | null>(null);
 
-  // הכנת השאלות עם ערבוב תשובות אקראי
   const initQuestions = useCallback(() => {
     let base = allQuestions.filter((q) => {
       if (selectedInst === "all") return true;
@@ -163,7 +157,7 @@ export default function App() {
     });
 
     if (mode === "exam") {
-      base = shuffleArray(base).slice(0, 30); // 30 שאלות אקראיות למבחן
+      base = shuffleArray(base).slice(0, 30);
     } else {
       base = shuffleArray(base);
     }
@@ -191,7 +185,6 @@ export default function App() {
     initQuestions();
   }, [initQuestions]);
 
-  // טיימר למבחן אמת
   useEffect(() => {
     if (mode !== "exam" || examFinished) return;
 
@@ -248,7 +241,11 @@ export default function App() {
 
   const handleSpeakExplanation = () => {
     if (!currentQ) return;
-    speakText(`הסבר מדעי: ${currentQ.explanation}`);
+    let text = `הסבר מדעי: ${currentQ.explanation}. `;
+    if (currentQ.distractorAnalysis) {
+      text += `ניתוח מסיחים ותשובות שגויות: ` + currentQ.distractorAnalysis.join(". ");
+    }
+    speakText(text);
   };
 
   const handleSelectOption = (idx: number) => {
@@ -284,7 +281,6 @@ export default function App() {
     }
   };
 
-  // חישוב תוצאות מבחן אמת
   const examScore = useMemo(() => {
     if (!questionsList.length) return 0;
     let correct = 0;
@@ -394,12 +390,12 @@ export default function App() {
             </div>
 
             <div className="border-t border-slate-800 pt-4 space-y-4">
-              <h3 className="font-bold text-slate-300">סקירת תשובות והסברים מדעיים:</h3>
+              <h3 className="font-bold text-slate-300">סקירת תשובות, מסיחים והסברים מדעיים:</h3>
               {questionsList.map((q, idx) => {
                 const userChoice = userAnswers[idx];
                 const isCorrect = userChoice === q.newCorrectAnswer;
                 return (
-                  <div key={idx} className={`p-4 rounded-xl border ${isCorrect ? "bg-emerald-950/20 border-emerald-900" : "bg-rose-950/20 border-rose-900"} space-y-2`}>
+                  <div key={idx} className={`p-4 rounded-xl border ${isCorrect ? "bg-emerald-950/20 border-emerald-900" : "bg-rose-950/20 border-rose-900"} space-y-3`}>
                     <div className="flex justify-between font-semibold text-sm">
                       <span>שאלה {idx + 1}: {q.question}</span>
                       <span>{isCorrect ? "✅ נכון" : "❌ שגוי"}</span>
@@ -412,9 +408,18 @@ export default function App() {
                         תשובה נכונה: {q.shuffledOptions[q.newCorrectAnswer]}
                       </div>
                     )}
-                    <div className="text-xs text-slate-300 bg-slate-900/80 p-2.5 rounded-lg border border-slate-800 mt-2">
-                      💡 {q.explanation}
+                    <div className="text-xs text-slate-300 bg-slate-900/80 p-2.5 rounded-lg border border-slate-800">
+                      💡 <strong>הסבר מדעי:</strong> {q.explanation}
                     </div>
+
+                    {q.distractorAnalysis && (
+                      <div className="text-xs text-slate-400 bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/80 space-y-1">
+                        <strong className="text-indigo-300 block mb-1">ניתוח ושלילת התשובות השגויות:</strong>
+                        {q.distractorAnalysis.map((dist, dIdx) => (
+                          <div key={dIdx}>• {dist}</div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 );
               })}
@@ -528,7 +533,7 @@ export default function App() {
               </button>
             </div>
 
-            {/* בלוק הסבר במצב תרגול עם גלילה אוטומטית */}
+            {/* בלוק הסבר במצב תרגול עם פירוט המסיחים והתשובות הלא נכונות */}
             {mode === "practice" && isAnswerSubmitted && (
               <div
                 ref={explanationRef}
@@ -544,12 +549,31 @@ export default function App() {
                   <button
                     type="button"
                     onClick={handleSpeakExplanation}
-                    className="text-xs px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300"
+                    className="text-xs px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white"
                   >
                     🔊 הקרא הסבר
                   </button>
                 </div>
-                <p className="text-sm text-slate-200 leading-relaxed">{currentQ.explanation}</p>
+                
+                <p className="text-sm text-slate-200 leading-relaxed">
+                  {currentQ.explanation}
+                </p>
+
+                {/* פירוט מלא של המסיחים והתשובות הלא נכונות */}
+                {currentQ.distractorAnalysis && (
+                  <div className="pt-3 border-t border-slate-800/80">
+                    <h4 className="text-xs font-bold text-indigo-300 mb-2">
+                      מדוע שאר התשובות שגויות? (ניתוח מסיחים):
+                    </h4>
+                    <ul className="space-y-1.5 text-xs text-slate-400 list-disc list-inside">
+                      {currentQ.distractorAnalysis.map((item, dIdx) => (
+                        <li key={dIdx} className="leading-normal">
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             )}
           </div>
