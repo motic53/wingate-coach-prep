@@ -1,11 +1,25 @@
 "use client";
 
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { allQuestions, Question } from "../data/questions";
 
-// ==========================================
-// רכיב זום בצביטה עם 2 אצבעות וגרירה (Pinch-to-Zoom)
-// ==========================================
+// פונקציית ערבוב מערך (Fisher-Yates Shuffle)
+function shuffleArray<T>(array: T[]): T[] {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+// ממשק לשאלה שעברה ערבוב תשובות
+interface ShuffledQuestion extends Question {
+  shuffledOptions: string[];
+  newCorrectAnswer: number;
+}
+
+// רכיב זום בצביטה
 function PinchZoomImage({ src, alt }: { src: string; alt: string }) {
   const [scale, setScale] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -62,9 +76,7 @@ function PinchZoomImage({ src, alt }: { src: string; alt: string }) {
       const ratio = currentDistance / initialDistance.current;
       const nextScale = Math.min(Math.max(initialScale.current * ratio, 1), 4.5);
       setScale(nextScale);
-      if (nextScale === 1) {
-        setPosition({ x: 0, y: 0 });
-      }
+      if (nextScale === 1) setPosition({ x: 0, y: 0 });
     } else if (e.touches.length === 1 && isDragging.current && scale > 1) {
       const maxOffset = (scale - 1) * 220;
       const nextX = e.touches[0].clientX - dragStart.current.x;
@@ -81,19 +93,8 @@ function PinchZoomImage({ src, alt }: { src: string; alt: string }) {
     isDragging.current = false;
   };
 
-  const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    const zoomFactor = e.deltaY < 0 ? 0.3 : -0.3;
-    setScale((prev) => {
-      const next = Math.min(Math.max(prev + zoomFactor, 1), 4.5);
-      if (next === 1) setPosition({ x: 0, y: 0 });
-      return next;
-    });
-  };
-
   return (
     <div
-      onWheel={handleWheel}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
@@ -137,26 +138,78 @@ function PinchZoomImage({ src, alt }: { src: string; alt: string }) {
   );
 }
 
-// ==========================================
-// עמוד המבחן הראשי
-// ==========================================
-export default function QuizPage() {
+export default function App() {
+  const [mode, setMode] = useState<"practice" | "exam">("practice");
   const [selectedInst, setSelectedInst] = useState<"all" | "meso" | "wingate">("meso");
+
+  // מצב שאלות וערבוב
+  const [questionsList, setQuestionsList] = useState<ShuffledQuestion[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+  const [userAnswers, setUserAnswers] = useState<(number | null)[]>([]);
   const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
-  const [score, setScore] = useState(0);
   const [isSpeaking, setIsSpeaking] = useState(false);
 
-  // מצביע (Ref) לאזור ההסבר לגלילה חלקה
+  // נתוני מבחן אמת
+  const [examTimeLeft, setExamTimeLeft] = useState(45 * 60); // 45 דקות בשניות
+  const [examFinished, setExamFinished] = useState(false);
+
   const explanationRef = useRef<HTMLDivElement | null>(null);
 
-  const filteredQuestions = allQuestions.filter((q) => {
-    if (selectedInst === "all") return true;
-    return q.institution === selectedInst;
-  });
+  // הכנת השאלות עם ערבוב תשובות אקראי
+  const initQuestions = useCallback(() => {
+    let base = allQuestions.filter((q) => {
+      if (selectedInst === "all") return true;
+      return q.institution === selectedInst;
+    });
 
-  const currentQ = filteredQuestions[currentIndex] || filteredQuestions[0];
+    if (mode === "exam") {
+      base = shuffleArray(base).slice(0, 30); // 30 שאלות אקראיות למבחן
+    } else {
+      base = shuffleArray(base);
+    }
+
+    const prepared: ShuffledQuestion[] = base.map((q) => {
+      const correctText = q.options[q.correctAnswer];
+      const shuffled = shuffleArray(q.options);
+      const newIndex = shuffled.indexOf(correctText);
+      return {
+        ...q,
+        shuffledOptions: shuffled,
+        newCorrectAnswer: newIndex
+      };
+    });
+
+    setQuestionsList(prepared);
+    setCurrentIndex(0);
+    setUserAnswers(new Array(prepared.length).fill(null));
+    setIsAnswerSubmitted(false);
+    setExamFinished(false);
+    setExamTimeLeft(45 * 60);
+  }, [mode, selectedInst]);
+
+  useEffect(() => {
+    initQuestions();
+  }, [initQuestions]);
+
+  // טיימר למבחן אמת
+  useEffect(() => {
+    if (mode !== "exam" || examFinished) return;
+
+    const timer = setInterval(() => {
+      setExamTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          setExamFinished(true);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [mode, examFinished]);
+
+  const currentQ = questionsList[currentIndex];
 
   const stopSpeech = useCallback(() => {
     if (typeof window !== "undefined" && "speechSynthesis" in window) {
@@ -171,22 +224,17 @@ export default function QuizPage() {
         alert("הדפדפן אינו תומך בהקראה קולית.");
         return;
       }
-
       if (isSpeaking) {
         stopSpeech();
         return;
       }
-
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(textToRead);
       utterance.lang = "he-IL";
       utterance.rate = 0.95;
-      utterance.pitch = 1.0;
-
       utterance.onstart = () => setIsSpeaking(true);
       utterance.onend = () => setIsSpeaking(false);
       utterance.onerror = () => setIsSpeaking(false);
-
       window.speechSynthesis.speak(utterance);
     },
     [isSpeaking, stopSpeech]
@@ -194,62 +242,36 @@ export default function QuizPage() {
 
   const handleSpeakQuestion = () => {
     if (!currentQ) return;
-    const optionsText = currentQ.options
-      .map((opt, i) => `אפשרות ${i + 1}: ${opt}`)
-      .join(". ");
-    const fullText = `שאלה: ${currentQ.question}. ${optionsText}`;
-    speakText(fullText);
+    const opts = currentQ.shuffledOptions.map((opt, i) => `אפשרות ${i + 1}: ${opt}`).join(". ");
+    speakText(`שאלה: ${currentQ.question}. ${opts}`);
   };
 
   const handleSpeakExplanation = () => {
     if (!currentQ) return;
-    let text = `הסבר מדעי: ${currentQ.explanation}. `;
-    if (currentQ.distractorAnalysis) {
-      text += `ניתוח מסיחים: ` + currentQ.distractorAnalysis.join(". ");
-    }
-    speakText(text);
+    speakText(`הסבר מדעי: ${currentQ.explanation}`);
   };
-
-  useEffect(() => {
-    stopSpeech();
-  }, [currentIndex, selectedInst, stopSpeech]);
-
-  useEffect(() => {
-    setCurrentIndex(0);
-    setSelectedAnswer(null);
-    setIsAnswerSubmitted(false);
-    setScore(0);
-  }, [selectedInst]);
 
   const handleSelectOption = (idx: number) => {
-    if (isAnswerSubmitted) return;
-    setSelectedAnswer(idx);
+    if (mode === "practice" && isAnswerSubmitted) return;
+    const nextAnswers = [...userAnswers];
+    nextAnswers[currentIndex] = idx;
+    setUserAnswers(nextAnswers);
   };
 
-  const handleSubmit = () => {
-    if (selectedAnswer === null || isAnswerSubmitted) return;
+  const handlePracticeSubmit = () => {
+    if (userAnswers[currentIndex] === null || isAnswerSubmitted) return;
     setIsAnswerSubmitted(true);
-    if (selectedAnswer === currentQ.correctAnswer) {
-      setScore((s) => s + 1);
-    }
-
-    // גלילה חלקה ישירות אל ההסבר המדעי
     setTimeout(() => {
       if (explanationRef.current) {
-        explanationRef.current.scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
+        explanationRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }, 100);
   };
 
   const handleNext = () => {
-    if (currentIndex < filteredQuestions.length - 1) {
+    if (currentIndex < questionsList.length - 1) {
       setCurrentIndex((i) => i + 1);
-      setSelectedAnswer(null);
       setIsAnswerSubmitted(false);
-      // גלילה חזרה לחלק העליון של השאלה החדשה
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
@@ -257,82 +279,161 @@ export default function QuizPage() {
   const handlePrev = () => {
     if (currentIndex > 0) {
       setCurrentIndex((i) => i - 1);
-      setSelectedAnswer(null);
       setIsAnswerSubmitted(false);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
-  const mesoCount = allQuestions.filter((q) => q.institution === "meso").length;
-  const wingateCount = allQuestions.filter((q) => q.institution === "wingate").length;
+  // חישוב תוצאות מבחן אמת
+  const examScore = useMemo(() => {
+    if (!questionsList.length) return 0;
+    let correct = 0;
+    questionsList.forEach((q, idx) => {
+      if (userAnswers[idx] === q.newCorrectAnswer) correct++;
+    });
+    return Math.round((correct / questionsList.length) * 100);
+  }, [questionsList, userAnswers]);
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
+  };
 
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100 flex flex-col items-center p-3 sm:p-8" dir="rtl">
       <div className="w-full max-w-4xl space-y-6">
         
-        {/* כותרת ובחירת מוסד */}
+        {/* כותרת ומעבר מצבים */}
         <header className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-4 border-b border-slate-800">
           <div>
             <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
-              הכנה למבחני מאמני כושר
+              סימולטור הכנה למבחני מאמני כושר
             </h1>
-            <p className="text-sm text-slate-400 mt-1">
-              בנק תרגול מלא: מזו אקדמי ({mesoCount}) & וינגייט ({wingateCount}) — סה"כ {allQuestions.length} שאלות
+            <p className="text-xs sm:text-sm text-slate-400 mt-1">
+              שאלות ברמת קושי גבוהה • מסיחים קרובים • ערבוב אקראי של מיקומי התשובות
             </p>
           </div>
 
-          <div className="inline-flex rounded-lg bg-slate-900 p-1 border border-slate-800">
+          <div className="flex gap-2">
             <button
-              onClick={() => setSelectedInst("meso")}
-              className={`px-4 py-1.5 text-sm font-semibold rounded-md transition ${
-                selectedInst === "meso"
-                  ? "bg-indigo-600 text-white shadow"
-                  : "text-slate-400 hover:text-white"
+              onClick={() => { setMode("practice"); }}
+              className={`px-4 py-2 text-sm font-bold rounded-lg border transition ${
+                mode === "practice"
+                  ? "bg-indigo-600 border-indigo-500 text-white shadow-lg"
+                  : "bg-slate-900 border-slate-800 text-slate-400 hover:text-white"
               }`}
             >
-              מזו אקדמי ({mesoCount})
+              📖 תרגול לימודי
             </button>
             <button
-              onClick={() => setSelectedInst("wingate")}
-              className={`px-4 py-1.5 text-sm font-semibold rounded-md transition ${
-                selectedInst === "wingate"
-                  ? "bg-indigo-600 text-white shadow"
-                  : "text-slate-400 hover:text-white"
+              onClick={() => { setMode("exam"); }}
+              className={`px-4 py-2 text-sm font-bold rounded-lg border transition ${
+                mode === "exam"
+                  ? "bg-rose-600 border-rose-500 text-white shadow-lg shadow-rose-900/40 animate-pulse"
+                  : "bg-slate-900 border-slate-800 text-slate-400 hover:text-white"
               }`}
             >
-              וינגייט ({wingateCount})
-            </button>
-            <button
-              onClick={() => setSelectedInst("all")}
-              className={`px-4 py-1.5 text-sm font-semibold rounded-md transition ${
-                selectedInst === "all"
-                  ? "bg-indigo-600 text-white shadow"
-                  : "text-slate-400 hover:text-white"
-              }`}
-            >
-              הכל ({allQuestions.length})
+              ⏱️ מבחן אמת קצוב בזמן
             </button>
           </div>
         </header>
 
-        {/* סטטוס התקדמות */}
-        <div className="flex items-center justify-between text-sm text-slate-400 bg-slate-900/60 p-3 rounded-lg border border-slate-800">
-          <span>
-            שאלה <strong className="text-white">{currentIndex + 1}</strong> מתוך{" "}
-            <strong className="text-white">{filteredQuestions.length}</strong>
-          </span>
-          <span>
-            ציון מצטבר: <strong className="text-emerald-400">{score}</strong>
-          </span>
-        </div>
+        {/* בחירת מוסד במצב תרגול */}
+        {mode === "practice" && (
+          <div className="flex justify-center gap-2">
+            {(["meso", "wingate", "all"] as const).map((inst) => (
+              <button
+                key={inst}
+                onClick={() => setSelectedInst(inst)}
+                className={`px-3 py-1.5 text-xs font-semibold rounded-md border ${
+                  selectedInst === inst
+                    ? "bg-indigo-900/60 border-indigo-500 text-indigo-200"
+                    : "bg-slate-900 border-slate-800 text-slate-400"
+                }`}
+              >
+                {inst === "meso" ? "מזו אקדמי" : inst === "wingate" ? "וינגייט" : "הכל משולב"}
+              </button>
+            ))}
+          </div>
+        )}
 
-        {/* כרטיס שאלה */}
-        {currentQ ? (
+        {/* סרגל עליון של מבחן אמת */}
+        {mode === "exam" && !examFinished && (
+          <div className="flex items-center justify-between p-4 bg-slate-900 border border-rose-500/40 rounded-xl">
+            <div className="flex items-center gap-2">
+              <span className="text-xl">⏱️</span>
+              <div>
+                <div className="text-xs text-slate-400">זמן שנותר לבחינה:</div>
+                <div className={`text-lg font-mono font-bold ${examTimeLeft < 300 ? "text-rose-400 animate-ping" : "text-amber-400"}`}>
+                  {formatTime(examTimeLeft)}
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={() => setExamFinished(true)}
+              className="px-4 py-2 text-xs font-bold rounded-lg bg-rose-600 hover:bg-rose-500 text-white"
+            >
+              סיים והגש מבחן
+            </button>
+          </div>
+        )}
+
+        {/* מסך סיכום מבחן אמת */}
+        {mode === "exam" && examFinished ? (
+          <div className="p-6 bg-slate-900 border border-indigo-500/40 rounded-2xl space-y-6">
+            <div className="text-center space-y-2">
+              <span className="text-5xl">{examScore >= 70 ? "🏆" : "⚠️"}</span>
+              <h2 className="text-2xl font-bold">
+                {examScore >= 70 ? "עברת את מבחן האמת בהצלחה!" : "לא עברת. נדרש תרגול נוסף."}
+              </h2>
+              <div className="text-4xl font-black font-mono text-indigo-400">
+                ציון סופי: {examScore}%
+              </div>
+              <p className="text-sm text-slate-400">ציון עובר: 70% ומעלה</p>
+            </div>
+
+            <div className="border-t border-slate-800 pt-4 space-y-4">
+              <h3 className="font-bold text-slate-300">סקירת תשובות והסברים מדעיים:</h3>
+              {questionsList.map((q, idx) => {
+                const userChoice = userAnswers[idx];
+                const isCorrect = userChoice === q.newCorrectAnswer;
+                return (
+                  <div key={idx} className={`p-4 rounded-xl border ${isCorrect ? "bg-emerald-950/20 border-emerald-900" : "bg-rose-950/20 border-rose-900"} space-y-2`}>
+                    <div className="flex justify-between font-semibold text-sm">
+                      <span>שאלה {idx + 1}: {q.question}</span>
+                      <span>{isCorrect ? "✅ נכון" : "❌ שגוי"}</span>
+                    </div>
+                    <div className="text-xs text-slate-400">
+                      תשובתך: {userChoice !== null ? q.shuffledOptions[userChoice] : "לא סומן"}
+                    </div>
+                    {!isCorrect && (
+                      <div className="text-xs text-emerald-400">
+                        תשובה נכונה: {q.shuffledOptions[q.newCorrectAnswer]}
+                      </div>
+                    )}
+                    <div className="text-xs text-slate-300 bg-slate-900/80 p-2.5 rounded-lg border border-slate-800 mt-2">
+                      💡 {q.explanation}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <button
+              onClick={() => initQuestions()}
+              className="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl"
+            >
+              התחל מבחן אמת חדש 🔄
+            </button>
+          </div>
+        ) : currentQ ? (
+          /* כרטיס השאלה הרגיל */
           <div className="space-y-6 bg-slate-900/40 p-5 sm:p-6 rounded-2xl border border-slate-800 shadow-xl">
             {currentQ.image && (
               <div className="space-y-2">
                 <span className="text-xs font-semibold text-slate-400 block">
-                  תרשים עזר (צביטה עם 2 אצבעות להגדלה וגרירה):
+                  תרשים עזר (צביטה עם 2 אצבעות להגדלה):
                 </span>
                 <PinchZoomImage src={currentQ.image} alt={currentQ.question} />
               </div>
@@ -345,31 +446,28 @@ export default function QuizPage() {
               <button
                 type="button"
                 onClick={handleSpeakQuestion}
-                className={`flex-shrink-0 p-2.5 rounded-xl border transition ${
-                  isSpeaking
-                    ? "bg-rose-950/80 border-rose-500 text-rose-300 animate-pulse"
-                    : "bg-slate-800/80 border-slate-700 text-slate-300 hover:bg-slate-700 hover:text-white"
-                }`}
-                title={isSpeaking ? "עצור הקראה" : "הקרא שאלה ותשובות"}
-                aria-label="הקראה קולית"
+                className="flex-shrink-0 p-2.5 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 hover:text-white"
+                title="הקרא שאלה"
               >
-                {isSpeaking ? "⏹️ עצור" : "🔊 הקרא"}
+                {isSpeaking ? "⏹️" : "🔊"}
               </button>
             </div>
 
+            {/* אפשרויות שעברו ערבוב אקראי */}
             <div className="space-y-3">
-              {currentQ.options.map((opt, idx) => {
+              {currentQ.shuffledOptions.map((opt, idx) => {
+                const isSelected = userAnswers[currentIndex] === idx;
                 let btnStyle = "bg-slate-900 border-slate-700 hover:border-slate-500 text-slate-200";
-                
-                if (isAnswerSubmitted) {
-                  if (idx === currentQ.correctAnswer) {
+
+                if (mode === "practice" && isAnswerSubmitted) {
+                  if (idx === currentQ.newCorrectAnswer) {
                     btnStyle = "bg-emerald-950/80 border-emerald-500 text-emerald-200 font-semibold ring-1 ring-emerald-500";
-                  } else if (idx === selectedAnswer) {
+                  } else if (isSelected) {
                     btnStyle = "bg-rose-950/80 border-rose-500 text-rose-200 ring-1 ring-rose-500";
                   } else {
                     btnStyle = "bg-slate-900/40 border-slate-800 text-slate-500 opacity-60";
                   }
-                } else if (selectedAnswer === idx) {
+                } else if (isSelected) {
                   btnStyle = "bg-indigo-950/60 border-indigo-500 text-indigo-200 ring-1 ring-indigo-500";
                 }
 
@@ -377,7 +475,6 @@ export default function QuizPage() {
                   <button
                     key={idx}
                     type="button"
-                    disabled={isAnswerSubmitted}
                     onClick={() => handleSelectOption(idx)}
                     className={`w-full text-right p-4 rounded-xl border text-sm sm:text-base transition flex items-center justify-between ${btnStyle}`}
                   >
@@ -390,22 +487,23 @@ export default function QuizPage() {
               })}
             </div>
 
+            {/* לחצני ניווט ובדיקה */}
             <div className="flex items-center justify-between pt-4 border-t border-slate-800 gap-3">
               <button
                 type="button"
                 onClick={handlePrev}
                 disabled={currentIndex === 0}
-                className="px-4 py-2.5 rounded-lg border border-slate-700 bg-slate-800 hover:bg-slate-700 disabled:opacity-30 disabled:pointer-events-none text-sm font-medium transition"
+                className="px-4 py-2.5 rounded-lg border border-slate-700 bg-slate-800 disabled:opacity-30 text-sm font-medium"
               >
                 הקודם
               </button>
 
-              {!isAnswerSubmitted ? (
+              {mode === "practice" && !isAnswerSubmitted ? (
                 <button
                   type="button"
-                  onClick={handleSubmit}
-                  disabled={selectedAnswer === null}
-                  className="px-6 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:opacity-40 disabled:pointer-events-none text-white font-semibold text-sm transition shadow-lg shadow-indigo-600/20"
+                  onClick={handlePracticeSubmit}
+                  disabled={userAnswers[currentIndex] === null}
+                  className="px-6 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:opacity-40 text-white font-semibold text-sm shadow-lg"
                 >
                   בדוק תשובה
                 </button>
@@ -413,8 +511,8 @@ export default function QuizPage() {
                 <button
                   type="button"
                   onClick={handleNext}
-                  disabled={currentIndex === filteredQuestions.length - 1}
-                  className="px-6 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 disabled:opacity-30 disabled:pointer-events-none text-white font-semibold text-sm transition shadow-lg shadow-emerald-600/20"
+                  disabled={currentIndex === questionsList.length - 1}
+                  className="px-6 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 disabled:opacity-30 text-white font-semibold text-sm"
                 >
                   לשאלה הבאה ⬅️
                 </button>
@@ -423,64 +521,39 @@ export default function QuizPage() {
               <button
                 type="button"
                 onClick={handleNext}
-                disabled={currentIndex === filteredQuestions.length - 1}
-                className="px-4 py-2.5 rounded-lg border border-slate-700 bg-slate-800 hover:bg-slate-700 disabled:opacity-30 disabled:pointer-events-none text-sm font-medium transition"
+                disabled={currentIndex === questionsList.length - 1}
+                className="px-4 py-2.5 rounded-lg border border-slate-700 bg-slate-800 disabled:opacity-30 text-sm font-medium"
               >
                 הבא
               </button>
             </div>
 
-            {/* בלוק הסבר מדעי עם גלילה אוטומטית אליו */}
-            {isAnswerSubmitted && (
+            {/* בלוק הסבר במצב תרגול עם גלילה אוטומטית */}
+            {mode === "practice" && isAnswerSubmitted && (
               <div
                 ref={explanationRef}
-                className="mt-6 p-5 sm:p-6 rounded-xl bg-slate-900 border border-indigo-500/50 shadow-2xl space-y-4 scroll-mt-6 animate-in fade-in slide-in-from-bottom-4 duration-300"
+                className="mt-6 p-5 rounded-xl bg-slate-900 border border-indigo-500/50 shadow-2xl space-y-4 scroll-mt-6"
               >
-                <div className="flex items-center justify-between gap-2 border-b border-slate-800 pb-3">
+                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
                   <div className="flex items-center gap-2">
-                    <span className="text-lg">
-                      {selectedAnswer === currentQ.correctAnswer ? "✅" : "❌"}
-                    </span>
+                    <span>{userAnswers[currentIndex] === currentQ.newCorrectAnswer ? "✅" : "❌"}</span>
                     <h3 className="text-base font-bold text-indigo-300">
-                      {selectedAnswer === currentQ.correctAnswer ? "תשובה נכונה! כל הכבוד!" : "תשובה שגויה. להלן ההסבר המדעי:"}
+                      {userAnswers[currentIndex] === currentQ.newCorrectAnswer ? "תשובה נכונה!" : "תשובה שגויה. להלן ההסבר המדעי:"}
                     </h3>
                   </div>
-
                   <button
                     type="button"
                     onClick={handleSpeakExplanation}
-                    className="text-xs px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 hover:text-white hover:bg-slate-700 transition"
+                    className="text-xs px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300"
                   >
                     🔊 הקרא הסבר
                   </button>
                 </div>
-
-                <p className="text-sm sm:text-base text-slate-200 leading-relaxed">
-                  {currentQ.explanation}
-                </p>
-
-                {currentQ.distractorAnalysis && (
-                  <div className="pt-3 border-t border-slate-800/80">
-                    <h4 className="text-xs font-semibold text-slate-400 mb-2">
-                      ניתוח ושלילת מסיחים:
-                    </h4>
-                    <ul className="space-y-1.5 text-xs text-slate-400 list-disc list-inside">
-                      {currentQ.distractorAnalysis.map((item, dIdx) => (
-                        <li key={dIdx} className="leading-normal">
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+                <p className="text-sm text-slate-200 leading-relaxed">{currentQ.explanation}</p>
               </div>
             )}
           </div>
-        ) : (
-          <div className="text-center py-12 text-slate-500">
-            לא נמצאו שאלות במוסד זה.
-          </div>
-        )}
+        ) : null}
       </div>
     </main>
   );
