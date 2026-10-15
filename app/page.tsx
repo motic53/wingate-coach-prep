@@ -203,6 +203,14 @@ export default function App() {
 
     return () => clearInterval(timer);
   }, [mode, examFinished]);
+  // טעינה מוקדמת של התמונה הבאה כדי שתופיע מיידית בלי צורך ברענון
+  useEffect(() => {
+    const nextQ = questionsList[currentIndex + 1];
+    if (nextQ && nextQ.image) {
+      const img = new Image();
+      img.src = nextQ.image;
+    }
+  }, [currentIndex, questionsList]);
 
   const currentQ = questionsList[currentIndex];
 
