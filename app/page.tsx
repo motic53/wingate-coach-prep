@@ -105,12 +105,14 @@ function PinchZoomImage({ src, alt }: { src: string; alt: string }) {
           transformOrigin: "center center"
         }}
       >
-        <img
-          src={src}
-          alt={alt}
-          className="w-full h-full object-contain pointer-events-none"
-          loading="eager"
-        />
+       <img
+  key={src} // מכריח את הדפדפן לטעון ולצייר את התמונה מחדש מיד עם שינוי הנתיב
+  src={src}
+  alt={alt}
+  className="w-full h-full object-contain pointer-events-none"
+  loading="eager"
+  decoding="sync"
+/>
       </div>
 
       {scale > 1 && (
