@@ -105,13 +105,20 @@ function PinchZoomImage({ src, alt }: { src: string; alt: string }) {
           transformOrigin: "center center"
         }}
       >
-       <img
-  key={src} // מכריח את הדפדפן לטעון ולצייר את התמונה מחדש מיד עם שינוי הנתיב
+  <img
+  key={src}
   src={src}
   alt={alt}
   className="w-full h-full object-contain pointer-events-none"
   loading="eager"
-  decoding="sync"
+  decoding="async"
+  onError={(e) => {
+    // במקרה של כשל בטעינה, מנסה לטעון מחדש מיד עם עקיפת מטמון תקוע
+    const target = e.currentTarget;
+    if (!target.src.includes("?retry=")) {
+      target.src = `${src}?retry=${Date.now()}`;
+    }
+  }}
 />
       </div>
 
