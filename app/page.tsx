@@ -20,124 +20,40 @@ interface ShuffledQuestion extends Question {
 function PinchZoomImage({ src, alt }: { src: string; alt: string }) {
   const [scale, setScale] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
-
-  const initialDistance = useRef<number | null>(null);
-  const initialScale = useRef(1);
-  const isDragging = useRef(false);
-  const dragStart = useRef({ x: 0, y: 0 });
-  const lastTouchTime = useRef(0);
+  const [imgKey, setImgKey] = useState(src);
+  const [isFailed, setIsFailed] = useState(false);
 
   useEffect(() => {
     setScale(1);
     setPosition({ x: 0, y: 0 });
-    initialDistance.current = null;
-    isDragging.current = false;
+    setImgKey(`${src}?t=${Date.now()}`);
+    setIsFailed(false);
   }, [src]);
 
-  const getPinchDistance = (touches: React.TouchList) => {
-    const dx = touches[0].clientX - touches[1].clientX;
-    const dy = touches[0].clientY - touches[1].clientY;
-    return Math.sqrt(dx * dx + dy * dy);
-  };
-
-  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (e.touches.length === 2) {
-      initialDistance.current = getPinchDistance(e.touches);
-      initialScale.current = scale;
-      isDragging.current = false;
-    } else if (e.touches.length === 1) {
-      const now = Date.now();
-      if (now - lastTouchTime.current < 300) {
-        if (scale > 1) {
-          setScale(1);
-          setPosition({ x: 0, y: 0 });
-        } else {
-          setScale(2.5);
-        }
-      }
-      lastTouchTime.current = now;
-
-      if (scale > 1) {
-        isDragging.current = true;
-        dragStart.current = {
-          x: e.touches[0].clientX - position.x,
-          y: e.touches[0].clientY - position.y
-        };
-      }
-    }
-  };
-
-  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (e.touches.length === 2 && initialDistance.current !== null) {
-      const currentDistance = getPinchDistance(e.touches);
-      const ratio = currentDistance / initialDistance.current;
-      const nextScale = Math.min(Math.max(initialScale.current * ratio, 1), 4.5);
-      setScale(nextScale);
-      if (nextScale === 1) setPosition({ x: 0, y: 0 });
-    } else if (e.touches.length === 1 && isDragging.current && scale > 1) {
-      const maxOffset = (scale - 1) * 220;
-      const nextX = e.touches[0].clientX - dragStart.current.x;
-      const nextY = e.touches[0].clientY - dragStart.current.y;
-      setPosition({
-        x: Math.max(-maxOffset, Math.min(maxOffset, nextX)),
-        y: Math.max(-maxOffset, Math.min(maxOffset, nextY))
-      });
-    }
-  };
-
-  const handleTouchEnd = () => {
-    initialDistance.current = null;
-    isDragging.current = false;
-  };
-
   return (
-    <div
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-      onTouchCancel={handleTouchEnd}
-      className="relative w-full h-72 sm:h-96 overflow-hidden rounded-xl border border-slate-700 bg-slate-950 select-none touch-none flex items-center justify-center cursor-crosshair"
-    >
-      <div
-        className="w-full h-full relative transition-transform duration-75 flex items-center justify-center pointer-events-none"
-        style={{
-          transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
-          transformOrigin: "center center"
-        }}
-      >
+    <div className="relative w-full h-72 sm:h-96 overflow-hidden rounded-xl border border-slate-700 bg-slate-950 flex items-center justify-center select-none touch-none">
+      {isFailed ? (
+        <div className="text-center p-4">
+          <p className="text-rose-400 text-sm mb-2">לא ניתן לטעון את התמונה</p>
+          <button
+            type="button"
+            onClick={() => {
+              setIsFailed(false);
+              setImgKey(`${src}?retry=${Date.now()}`);
+            }}
+            className="px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white text-xs rounded"
+          >
+            נסה שוב 🔄
+          </button>
+        </div>
+      ) : (
         <img
-          key={src}
-          src={src}
+          key={imgKey}
+          src={imgKey}
           alt={alt}
           className="w-full h-full object-contain pointer-events-none"
-          loading="eager"
-          decoding="async"
-          onError={(e) => {
-            const target = e.currentTarget;
-            if (!target.src.includes("?retry=")) {
-              target.src = `${src}?retry=${Date.now()}`;
-            }
-          }}
+          onError={() => setIsFailed(true)}
         />
-      </div>
-
-      {scale > 1 && (
-        <button
-          type="button"
-          onClick={() => {
-            setScale(1);
-            setPosition({ x: 0, y: 0 });
-          }}
-          className="absolute bottom-3 left-3 bg-slate-900/90 text-xs text-indigo-300 font-bold px-3 py-1.5 rounded-full border border-indigo-500/40 shadow-lg backdrop-blur"
-        >
-          איפוס זום ({Math.round(scale * 100)}%)
-        </button>
-      )}
-
-      {scale === 1 && (
-        <div className="absolute bottom-2 right-3 pointer-events-none text-[11px] text-slate-400/80 bg-slate-900/70 px-2 py-0.5 rounded backdrop-blur">
-          צבוט ב-2 אצבעות להגדלה 🔍
-        </div>
       )}
     </div>
   );
@@ -157,6 +73,17 @@ export default function App() {
   const [examFinished, setExamFinished] = useState(false);
 
   const explanationRef = useRef<HTMLDivElement | null>(null);
+
+  // ספירת כמויות השאלות לכל מוסד ולסך הכל
+  const counts = useMemo(() => {
+    const mesoCount = allQuestions.filter((q) => q.institution === "meso").length;
+    const wingateCount = allQuestions.filter((q) => q.institution === "wingate").length;
+    return {
+      meso: mesoCount,
+      wingate: wingateCount,
+      total: allQuestions.length
+    };
+  }, []);
 
   const initQuestions = useCallback(() => {
     let base = allQuestions.filter((q) => {
@@ -192,17 +119,6 @@ export default function App() {
   useEffect(() => {
     initQuestions();
   }, [initQuestions]);
-
-  // טעינה מוקדמת ברקע של כל התמונות במאגר למניעת מסכים ריקים
-  useEffect(() => {
-    if (!questionsList.length) return;
-    questionsList.forEach((q) => {
-      if (q.image) {
-        const img = new Image();
-        img.src = q.image;
-      }
-    });
-  }, [questionsList]);
 
   // טיימר לבחינה
   useEffect(() => {
@@ -327,7 +243,7 @@ export default function App() {
               סימולטור הכנה למבחני מאמני כושר
             </h1>
             <p className="text-xs sm:text-sm text-slate-400 mt-1">
-              שאלות ברמת קושי גבוהה • מסיחים קרובים • ערבוב אקראי של מיקומי התשובות
+              סה"כ במאגר: {counts.total} שאלות (מזו: {counts.meso} | וינגייט: {counts.wingate})
             </p>
           </div>
 
@@ -350,27 +266,44 @@ export default function App() {
                   : "bg-slate-900 border-slate-800 text-slate-400 hover:text-white"
               }`}
             >
-              ⏱️ מבחן אמת קצוב בזמן
+              ⏱️ מבחן אמת (30 שאלות)
             </button>
           </div>
         </header>
 
-        {/* בחירת מוסד במצב תרגול */}
+        {/* בחירת מוסד במצב תרגול עם כמויות */}
         {mode === "practice" && (
-          <div className="flex justify-center gap-2">
-            {(["meso", "wingate", "all"] as const).map((inst) => (
-              <button
-                key={inst}
-                onClick={() => setSelectedInst(inst)}
-                className={`px-3 py-1.5 text-xs font-semibold rounded-md border ${
-                  selectedInst === inst
-                    ? "bg-indigo-900/60 border-indigo-500 text-indigo-200"
-                    : "bg-slate-900 border-slate-800 text-slate-400"
-                }`}
-              >
-                {inst === "meso" ? "מזו אקדמי" : inst === "wingate" ? "וינגייט" : "הכל משולב"}
-              </button>
-            ))}
+          <div className="flex flex-wrap justify-center gap-2">
+            <button
+              onClick={() => setSelectedInst("meso")}
+              className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg border transition ${
+                selectedInst === "meso"
+                  ? "bg-indigo-900/70 border-indigo-500 text-indigo-100 shadow"
+                  : "bg-slate-900 border-slate-800 text-slate-400 hover:text-white"
+              }`}
+            >
+              מזו אקדמי ({counts.meso})
+            </button>
+            <button
+              onClick={() => setSelectedInst("wingate")}
+              className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg border transition ${
+                selectedInst === "wingate"
+                  ? "bg-indigo-900/70 border-indigo-500 text-indigo-100 shadow"
+                  : "bg-slate-900 border-slate-800 text-slate-400 hover:text-white"
+              }`}
+            >
+              וינגייט ({counts.wingate})
+            </button>
+            <button
+              onClick={() => setSelectedInst("all")}
+              className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg border transition ${
+                selectedInst === "all"
+                  ? "bg-indigo-900/70 border-indigo-500 text-indigo-100 shadow"
+                  : "bg-slate-900 border-slate-800 text-slate-400 hover:text-white"
+              }`}
+            >
+              הכל משולב ({counts.total})
+            </button>
           </div>
         )}
 
@@ -455,6 +388,16 @@ export default function App() {
         ) : currentQ ? (
           /* כרטיס השאלה הרגיל */
           <div className="space-y-6 bg-slate-900/40 p-5 sm:p-6 rounded-2xl border border-slate-800 shadow-xl">
+            {/* מונה שאלה מתוך סך הכל ומוסד */}
+            <div className="flex items-center justify-between text-xs text-slate-400 pb-2 border-b border-slate-800/80">
+              <span>
+                שאלה <strong className="text-indigo-400 font-mono text-sm">{currentIndex + 1}</strong> מתוך <strong className="font-mono text-sm">{questionsList.length}</strong>
+              </span>
+              <span className="px-2.5 py-0.5 rounded bg-slate-800 text-slate-300 font-medium">
+                {currentQ.institution === "meso" ? "מזו אקדמי" : "וינגייט"}
+              </span>
+            </div>
+
             {currentQ.image && (
               <div className="space-y-2">
                 <span className="text-xs font-semibold text-slate-400 block">
@@ -553,7 +496,7 @@ export default function App() {
               </button>
             </div>
 
-            {/* בלוק הסבר במצב תרגול עם פירוט המסיחים והתשובות הלא נכונות */}
+            {/* בלוק הסבר במצב תרגול */}
             {mode === "practice" && isAnswerSubmitted && (
               <div
                 ref={explanationRef}
