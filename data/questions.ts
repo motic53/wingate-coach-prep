@@ -9,16 +9,28 @@ export interface Question {
   explanation: string;
   distractorAnalysis?: string[];
 }
-
+export interface Question {
+  id: string;
+  institution: "wingate" | "meso";
+  isExamPrep?: boolean;
+  image?: string;
+  videoUrl?: string; // מזהה הסרטון ביוטיוב או כתובת מלאה
+  question: string;
+  options: string[];
+  correctAnswer: number;
+  explanation: string;
+  distractorAnalysis?: string[];
+}
 export const allQuestions: Question[] = [
   // ========================================================
   // קבוצה 1: 15 שאלות המבדק הממוקדות (isExamPrep: true)
   // ========================================================
+// נושא 1: עצמות
   {
     id: "prep-1",
     institution: "meso",
     isExamPrep: true,
-    image: "/images/meso/meso_bone_classification_by_shape.jpg",
+    videoUrl: "https://www.youtube.com/embed/rDGqkMHPDqE",
     question: "כיצד מוגדרת עצם ססמואידית (Sesamoid bone) ומהו תפקידה הביומכני העיקרי?",
     options: [
       "עצם המתפתחת בתוך גיד, מגדילה את זרוע המנוף ומפחיתה שחיקה במפרק",
