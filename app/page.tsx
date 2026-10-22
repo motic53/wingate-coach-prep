@@ -23,6 +23,14 @@ function PinchZoomImage({ src, alt }: { src: string; alt: string }) {
   const [imgKey, setImgKey] = useState(src);
   const [isFailed, setIsFailed] = useState(false);
 
+  const containerRef = useRef<HTMLDivElement>(null);
+  const initialDistance = useRef<number | null>(null);
+  const initialScale = useRef(1);
+  const isDragging = useRef(false);
+  const dragStart = useRef({ x: 0, y: 0 });
+  const lastTouchTime = useRef(0);
+
+  // איפוס בכל מעבר בין שאלות או החלפת תמונה
   useEffect(() => {
     setScale(1);
     setPosition({ x: 0, y: 0 });
@@ -30,8 +38,112 @@ function PinchZoomImage({ src, alt }: { src: string; alt: string }) {
     setIsFailed(false);
   }, [src]);
 
+  // זום באמצעות גלגלת עכבר (עבור מחשב)
+  const handleWheel = (e: React.WheelEvent) => {
+    e.preventDefault();
+    const zoomFactor = e.deltaY < 0 ? 1.2 : 0.8;
+    setScale((prev) => {
+      const next = Math.min(Math.max(prev * zoomFactor, 1), 4);
+      if (next === 1) setPosition({ x: 0, y: 0 });
+      return next;
+    });
+  };
+
+  // תמיכה במגע (מובייל / טאבלט)
+  const handleTouchStart = (e: React.TouchEvent) => {
+    // זיהוי דאבל-טאפ להגדלה/איפוס מהיר
+    const now = Date.now();
+    if (e.touches.length === 1 && now - lastTouchTime.current < 300) {
+      if (scale > 1) {
+        setScale(1);
+        setPosition({ x: 0, y: 0 });
+      } else {
+        setScale(2.5);
+      }
+      lastTouchTime.current = 0;
+      return;
+    }
+    lastTouchTime.current = now;
+
+    if (e.touches.length === 2) {
+      // תחילת צביטה בשתי אצבעות
+      const dist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      initialDistance.current = dist;
+      initialScale.current = scale;
+    } else if (e.touches.length === 1 && scale > 1) {
+      // תחילת גרירה
+      isDragging.current = true;
+      dragStart.current = {
+        x: e.touches[0].clientX - position.x,
+        y: e.touches[0].clientY - position.y,
+      };
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (e.touches.length === 2 && initialDistance.current !== null) {
+      const dist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      const newScale = Math.min(
+        Math.max((dist / initialDistance.current) * initialScale.current, 1),
+        4
+      );
+      setScale(newScale);
+      if (newScale === 1) setPosition({ x: 0, y: 0 });
+    } else if (e.touches.length === 1 && isDragging.current && scale > 1) {
+      setPosition({
+        x: e.touches[0].clientX - dragStart.current.x,
+        y: e.touches[0].clientY - dragStart.current.y,
+      });
+    }
+  };
+
+  const handleTouchEnd = () => {
+    initialDistance.current = null;
+    isDragging.current = false;
+  };
+
+  // תמיכה בגרירה עם עכבר (מחשב)
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (scale <= 1) return;
+    isDragging.current = true;
+    dragStart.current = {
+      x: e.clientX - position.x,
+      y: e.clientY - position.y,
+    };
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging.current || scale <= 1) return;
+    setPosition({
+      x: e.clientX - dragStart.current.x,
+      y: e.clientY - dragStart.current.y,
+    });
+  };
+
+  const handleMouseUp = () => {
+    isDragging.current = false;
+  };
+
   return (
-    <div className="relative w-full h-72 sm:h-96 overflow-hidden rounded-xl border border-slate-700 bg-slate-950 flex items-center justify-center select-none touch-none">
+    <div
+      ref={containerRef}
+      onWheel={handleWheel}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseUp}
+      className="relative w-full h-72 sm:h-96 overflow-hidden rounded-xl border border-slate-700 bg-slate-950 flex items-center justify-center select-none touch-none"
+      style={{ cursor: scale > 1 ? (isDragging.current ? "grabbing" : "grab") : "zoom-in" }}
+    >
       {isFailed ? (
         <div className="text-center p-4">
           <p className="text-rose-400 text-sm mb-2">לא ניתן לטעון את התמונה</p>
@@ -47,13 +159,36 @@ function PinchZoomImage({ src, alt }: { src: string; alt: string }) {
           </button>
         </div>
       ) : (
-        <img
-          key={imgKey}
-          src={imgKey}
-          alt={alt}
-          className="w-full h-full object-contain pointer-events-none"
-          onError={() => setIsFailed(true)}
-        />
+        <div
+          className="w-full h-full flex items-center justify-center pointer-events-none"
+          style={{
+            transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
+            transformOrigin: "center center",
+            transition: isDragging.current ? "none" : "transform 0.1s ease-out",
+          }}
+        >
+          <img
+            key={imgKey}
+            src={imgKey}
+            alt={alt}
+            className="w-full h-full object-contain pointer-events-none"
+            onError={() => setIsFailed(true)}
+          />
+        </div>
+      )}
+
+      {/* כפתור איפוס מהיר כשנמצאים בזום */}
+      {scale > 1 && (
+        <button
+          type="button"
+          onClick={() => {
+            setScale(1);
+            setPosition({ x: 0, y: 0 });
+          }}
+          className="absolute bottom-3 left-3 bg-slate-900/90 text-xs text-indigo-300 font-bold px-3 py-1.5 rounded-full border border-indigo-500/40 shadow-lg backdrop-blur z-20 hover:bg-slate-800"
+        >
+          איפוס זום ({Math.round(scale * 100)}%) ✖
+        </button>
       )}
     </div>
   );
