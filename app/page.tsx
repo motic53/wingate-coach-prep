@@ -408,9 +408,12 @@ export default function App() {
             )}
 
             <div className="flex items-start justify-between gap-3">
-              <h2 className="text-lg sm:text-xl font-bold leading-relaxed text-slate-100 flex-1">
-                {currentQ.question}
-              </h2>
+              <h2 className={`text-lg sm:text-xl font-bold leading-relaxed flex-1 ${
+  currentQ.isExamPrep ? "text-amber-400" : "text-slate-100"
+}`}>
+  {currentQ.isExamPrep && <span className="text-amber-500 font-extrabold ml-2">⚡ [מבדק 3/11]</span>}
+  {currentQ.question}
+</h2>
               <button
                 type="button"
                 onClick={handleSpeakQuestion}
