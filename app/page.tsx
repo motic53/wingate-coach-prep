@@ -30,7 +30,6 @@ function PinchZoomImage({ src, alt }: { src: string; alt: string }) {
   const dragStart = useRef({ x: 0, y: 0 });
   const lastTouchTime = useRef(0);
 
-  // איפוס בכל מעבר בין שאלות או החלפת תמונה
   useEffect(() => {
     setScale(1);
     setPosition({ x: 0, y: 0 });
@@ -38,7 +37,6 @@ function PinchZoomImage({ src, alt }: { src: string; alt: string }) {
     setIsFailed(false);
   }, [src]);
 
-  // זום באמצעות גלגלת עכבר (עבור מחשב)
   const handleWheel = (e: React.WheelEvent) => {
     e.preventDefault();
     const zoomFactor = e.deltaY < 0 ? 1.2 : 0.8;
@@ -49,9 +47,7 @@ function PinchZoomImage({ src, alt }: { src: string; alt: string }) {
     });
   };
 
-  // תמיכה במגע (מובייל / טאבלט)
   const handleTouchStart = (e: React.TouchEvent) => {
-    // זיהוי דאבל-טאפ להגדלה/איפוס מהיר
     const now = Date.now();
     if (e.touches.length === 1 && now - lastTouchTime.current < 300) {
       if (scale > 1) {
@@ -66,7 +62,6 @@ function PinchZoomImage({ src, alt }: { src: string; alt: string }) {
     lastTouchTime.current = now;
 
     if (e.touches.length === 2) {
-      // תחילת צביטה בשתי אצבעות
       const dist = Math.hypot(
         e.touches[0].clientX - e.touches[1].clientX,
         e.touches[0].clientY - e.touches[1].clientY
@@ -74,7 +69,6 @@ function PinchZoomImage({ src, alt }: { src: string; alt: string }) {
       initialDistance.current = dist;
       initialScale.current = scale;
     } else if (e.touches.length === 1 && scale > 1) {
-      // תחילת גרירה
       isDragging.current = true;
       dragStart.current = {
         x: e.touches[0].clientX - position.x,
@@ -108,7 +102,6 @@ function PinchZoomImage({ src, alt }: { src: string; alt: string }) {
     isDragging.current = false;
   };
 
-  // תמיכה בגרירה עם עכבר (מחשב)
   const handleMouseDown = (e: React.MouseEvent) => {
     if (scale <= 1) return;
     isDragging.current = true;
@@ -177,7 +170,6 @@ function PinchZoomImage({ src, alt }: { src: string; alt: string }) {
         </div>
       )}
 
-      {/* כפתור איפוס מהיר כשנמצאים בזום */}
       {scale > 1 && (
         <button
           type="button"
@@ -196,7 +188,7 @@ function PinchZoomImage({ src, alt }: { src: string; alt: string }) {
 
 export default function App() {
   const [mode, setMode] = useState<"practice" | "exam">("practice");
-  const [selectedInst, setSelectedInst] = useState<"all" | "meso" | "wingate">("meso");
+  const [selectedInst, setSelectedInst] = useState<"all" | "meso" | "wingate" | "exam_prep">("exam_prep");
 
   const [questionsList, setQuestionsList] = useState<ShuffledQuestion[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -209,21 +201,25 @@ export default function App() {
 
   const explanationRef = useRef<HTMLDivElement | null>(null);
 
-  // ספירת כמויות השאלות לכל מוסד ולסך הכל
+  // ספירת כמויות השאלות לכל לשונית
   const counts = useMemo(() => {
-    const mesoCount = allQuestions.filter((q) => q.institution === "meso").length;
+    const examPrepCount = allQuestions.filter((q) => q.isExamPrep).length;
+    const mesoCount = allQuestions.filter((q) => q.institution === "meso" && !q.isExamPrep).length;
     const wingateCount = allQuestions.filter((q) => q.institution === "wingate").length;
     return {
+      examPrep: examPrepCount,
       meso: mesoCount,
       wingate: wingateCount,
-      total: allQuestions.length
+      total: allQuestions.length,
     };
   }, []);
 
   const initQuestions = useCallback(() => {
     let base = allQuestions.filter((q) => {
-      if (selectedInst === "all") return true;
-      return q.institution === selectedInst;
+      if (selectedInst === "exam_prep") return q.isExamPrep;
+      if (selectedInst === "meso") return q.institution === "meso" && !q.isExamPrep;
+      if (selectedInst === "wingate") return q.institution === "wingate";
+      return true; // 'all'
     });
 
     if (mode === "exam") {
@@ -239,7 +235,7 @@ export default function App() {
       return {
         ...q,
         shuffledOptions: shuffled,
-        newCorrectAnswer: newIndex
+        newCorrectAnswer: newIndex,
       };
     });
 
@@ -255,7 +251,6 @@ export default function App() {
     initQuestions();
   }, [initQuestions]);
 
-  // טיימר לבחינה
   useEffect(() => {
     if (mode !== "exam" || examFinished) return;
 
@@ -378,13 +373,13 @@ export default function App() {
               סימולטור הכנה למבחני מאמני כושר
             </h1>
             <p className="text-xs sm:text-sm text-slate-400 mt-1">
-              סה"כ במאגר: {counts.total} שאלות (מזו: {counts.meso} | וינגייט: {counts.wingate})
+              סה"כ במאגר: {counts.total} שאלות | מבדק: {counts.examPrep} | מזו: {counts.meso} | וינגייט: {counts.wingate}
             </p>
           </div>
 
           <div className="flex gap-2">
             <button
-              onClick={() => { setMode("practice"); }}
+              onClick={() => setMode("practice")}
               className={`px-4 py-2 text-sm font-bold rounded-lg border transition ${
                 mode === "practice"
                   ? "bg-indigo-600 border-indigo-500 text-white shadow-lg"
@@ -394,7 +389,7 @@ export default function App() {
               📖 תרגול לימודי
             </button>
             <button
-              onClick={() => { setMode("exam"); }}
+              onClick={() => setMode("exam")}
               className={`px-4 py-2 text-sm font-bold rounded-lg border transition ${
                 mode === "exam"
                   ? "bg-rose-600 border-rose-500 text-white shadow-lg shadow-rose-900/40 animate-pulse"
@@ -406,9 +401,21 @@ export default function App() {
           </div>
         </header>
 
-        {/* בחירת מוסד במצב תרגול עם כמויות */}
+        {/* לשוניות בחירה - כולל לשונית מבדק ייעודית בכתום */}
         {mode === "practice" && (
           <div className="flex flex-wrap justify-center gap-2">
+            <button
+              onClick={() => setSelectedInst("exam_prep")}
+              className={`px-4 py-1.5 text-xs font-bold rounded-lg border transition flex items-center gap-1.5 ${
+                selectedInst === "exam_prep"
+                  ? "bg-amber-500 border-amber-400 text-slate-950 shadow-lg shadow-amber-500/20"
+                  : "bg-slate-900 border-amber-500/40 text-amber-400 hover:bg-slate-800"
+              }`}
+            >
+              <span>⚡ מבדק 3/11</span>
+              <span>({counts.examPrep})</span>
+            </button>
+
             <button
               onClick={() => setSelectedInst("meso")}
               className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg border transition ${
@@ -419,6 +426,7 @@ export default function App() {
             >
               מזו אקדמי ({counts.meso})
             </button>
+
             <button
               onClick={() => setSelectedInst("wingate")}
               className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg border transition ${
@@ -429,6 +437,7 @@ export default function App() {
             >
               וינגייט ({counts.wingate})
             </button>
+
             <button
               onClick={() => setSelectedInst("all")}
               className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg border transition ${
@@ -485,7 +494,9 @@ export default function App() {
                 return (
                   <div key={idx} className={`p-4 rounded-xl border ${isCorrect ? "bg-emerald-950/20 border-emerald-900" : "bg-rose-950/20 border-rose-900"} space-y-3`}>
                     <div className="flex justify-between font-semibold text-sm">
-                      <span>שאלה {idx + 1}: {q.question}</span>
+                      <span className={q.isExamPrep ? "text-amber-400" : ""}>
+                        {q.isExamPrep && "⚡ "}שאלה {idx + 1}: {q.question}
+                      </span>
                       <span>{isCorrect ? "✅ נכון" : "❌ שגוי"}</span>
                     </div>
                     <div className="text-xs text-slate-400">
@@ -521,34 +532,43 @@ export default function App() {
             </button>
           </div>
         ) : currentQ ? (
-          /* כרטיס השאלה הרגיל */
+          /* כרטיס השאלה */
           <div className="space-y-6 bg-slate-900/40 p-5 sm:p-6 rounded-2xl border border-slate-800 shadow-xl">
-            {/* מונה שאלה מתוך סך הכל ומוסד */}
+            {/* מונה שאלה ותיוג */}
             <div className="flex items-center justify-between text-xs text-slate-400 pb-2 border-b border-slate-800/80">
               <span>
                 שאלה <strong className="text-indigo-400 font-mono text-sm">{currentIndex + 1}</strong> מתוך <strong className="font-mono text-sm">{questionsList.length}</strong>
               </span>
-              <span className="px-2.5 py-0.5 rounded bg-slate-800 text-slate-300 font-medium">
-                {currentQ.institution === "meso" ? "מזו אקדמי" : "וינגייט"}
-              </span>
+              <div className="flex items-center gap-1.5">
+                {currentQ.isExamPrep && (
+                  <span className="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold">
+                    ⚡ שאלת מבדק
+                  </span>
+                )}
+                <span className="px-2.5 py-0.5 rounded bg-slate-800 text-slate-300 font-medium">
+                  {currentQ.institution === "meso" ? "מזו אקדמי" : "וינגייט"}
+                </span>
+              </div>
             </div>
 
+            {/* תצוגת תמונה עם זום */}
             {currentQ.image && (
               <div className="space-y-2">
                 <span className="text-xs font-semibold text-slate-400 block">
-                  תרשים עזר (צביטה עם 2 אצבעות להגדלה):
+                  תרשים עזר (צביטה עם 2 אצבעות או גלגלת עכבר להגדלה):
                 </span>
                 <PinchZoomImage src={currentQ.image} alt={currentQ.question} />
               </div>
             )}
 
+            {/* כותרת השאלה - בכתום אם שייכת למבדק */}
             <div className="flex items-start justify-between gap-3">
               <h2 className={`text-lg sm:text-xl font-bold leading-relaxed flex-1 ${
-  currentQ.isExamPrep ? "text-amber-400" : "text-slate-100"
-}`}>
-  {currentQ.isExamPrep && <span className="text-amber-500 font-extrabold ml-2">⚡ [מבדק 3/11]</span>}
-  {currentQ.question}
-</h2>
+                currentQ.isExamPrep ? "text-amber-400" : "text-slate-100"
+              }`}>
+                {currentQ.isExamPrep && <span className="text-amber-500 font-black ml-2">⚡</span>}
+                {currentQ.question}
+              </h2>
               <button
                 type="button"
                 onClick={handleSpeakQuestion}
@@ -559,7 +579,7 @@ export default function App() {
               </button>
             </div>
 
-            {/* אפשרויות שעברו ערבוב אקראי */}
+            {/* אפשרויות תשובה */}
             <div className="space-y-3">
               {currentQ.shuffledOptions.map((opt, idx) => {
                 const isSelected = userAnswers[currentIndex] === idx;
@@ -677,7 +697,11 @@ export default function App() {
               </div>
             )}
           </div>
-        ) : null}
+        ) : (
+          <div className="text-center p-8 bg-slate-900 rounded-xl border border-slate-800 text-slate-400">
+            לא נמצאו שאלות בקטגוריה זו.
+          </div>
+        )}
       </div>
     </main>
   );
