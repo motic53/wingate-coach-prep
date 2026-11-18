@@ -1,8 +1,3 @@
-הנה הקובץ המלא של `src/data/questions.ts` מתחילתו ועד סופו — נקי, מאומת וללא שגיאות תחביר, כולל כל 198 השאלות, כאשר 25 שאלות המבחן המסכם (`final-sim-1` עד `final-sim-25`) מעודכנות ומאוזנות באורך ובנוסח בהתאם לחוברת הלימוד של מזו אקדמי.
-
-פשוט סמן את **כל התוכן** של קובץ השאלות ב-GitHub, מחק אותו, והדבק את הקובץ המלא שלמטה:
-
-```typescript
 export interface Question {
   id: string;
   institution: "wingate" | "meso";
@@ -4592,5 +4587,3 @@ export const allQuestions: Question[] = [
     ]
   }
 ];
-
-```
