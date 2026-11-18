@@ -3,17 +3,6 @@ export interface Question {
   institution: "wingate" | "meso";
   isExamPrep?: boolean;
   image?: string;
-  question: string;
-  options: string[];
-  correctAnswer: number;
-  explanation: string;
-  distractorAnalysis?: string[];
-}
-export interface Question {
-  id: string;
-  institution: "wingate" | "meso";
-  isExamPrep?: boolean;
-  image?: string;
   videoUrl?: string; // מזהה הסרטון ביוטיוב או כתובת מלאה
   question: string;
   options: string[];
@@ -21,11 +10,12 @@ export interface Question {
   explanation: string;
   distractorAnalysis?: string[];
 }
+
 export const allQuestions: Question[] = [
   // ========================================================
   // קבוצה 1: 15 שאלות המבדק הממוקדות (isExamPrep: true)
   // ========================================================
-// נושא 1: עצמות
+  // נושא 1: עצמות
   {
     id: "prep-1",
     institution: "meso",
@@ -344,7 +334,6 @@ export const allQuestions: Question[] = [
   // ========================================================
   // תוספת שאלות הכנה למבדק (prep-16 עד prep-25) - צבע כתום
   // ========================================================
-
   // נושא 1: עצמות - תפקידים ומבנה
   {
     id: "prep-16",
@@ -367,7 +356,6 @@ export const allQuestions: Question[] = [
       "שגוי: נוזל סינוביאלי מופרש מהממברנה הסינוביאלית במפרק, לא מהטרבקולות."
     ]
   },
-
   // נושא 2: שמות עצמות - גפה עליונה (אמה)
   {
     id: "prep-17",
@@ -390,7 +378,6 @@ export const allQuestions: Question[] = [
       "שגוי: העצמות מקבילות זו לצד זו במישור החזיתי."
     ]
   },
-
   // נושא 2: שמות עצמות - חגורת בית החזה
   {
     id: "prep-18",
@@ -413,7 +400,6 @@ export const allQuestions: Question[] = [
       "שגוי: שלוש העצמות המרכיבות את עצם האגן."
     ]
   },
-
   // נושא 3: מישורי תנועה - המישור האופקי
   {
     id: "prep-19",
@@ -436,7 +422,6 @@ export const allQuestions: Question[] = [
       "שגוי: כפיפה צדית מתרחשת במישור החזיתי."
     ]
   },
-
   // נושא 4: תנועות במפרקים - קרסול
   {
     id: "prep-20",
@@ -459,7 +444,6 @@ export const allQuestions: Question[] = [
       "שגוי: אלו תנועות קרסול וכף רגל מובהקות."
     ]
   },
-
   // נושא 5: עמוד השדרה - חוליות מיוחדות (C1 ו-C2)
   {
     id: "prep-21",
@@ -482,7 +466,6 @@ export const allQuestions: Question[] = [
       "שגוי: אלו חוליות צוואר עליונות ולא חוליות חזיות."
     ]
   },
-
   // נושא 5: עמוד השדרה - רצועות בין-קוציות
   {
     id: "prep-22",
@@ -504,7 +487,6 @@ export const allQuestions: Question[] = [
       "שגוי: הגדרה שאינה קיימת באנטומיה של עמוד השדרה."
     ]
   },
-
   // נושא 6: רקמות חיבור - מרכיבי המטריקס
   {
     id: "prep-23",
@@ -527,7 +509,6 @@ export const allQuestions: Question[] = [
       "שגוי: זהו רק החלק האנאורגני של רקמת העצם."
     ]
   },
-
   // נושא 7: סוגי כיווץ שריר - מנגנון הפקת כוח
   {
     id: "prep-24",
@@ -550,7 +531,6 @@ export const allQuestions: Question[] = [
       "שגוי: במנוחה פסיבית לא מופק מומנט כוח פעיל."
     ]
   },
-
   // נושא 7: סוגי כיווץ שריר - דוגמה מעשית בתרגיל
   {
     id: "prep-25",
@@ -3041,7 +3021,7 @@ export const allQuestions: Question[] = [
       "מפני שמספר כלי הדם בגופו של ספורטאי מצטמצם כדי לחסוך באנרגיה במנוחה"
     ],
     correctAnswer: 0,
-    explanation: "תפוקת הלב במנוחה קבועה (כ-5 ליטר/דקה, $Q = HR \times SV$). בזכות נפח פעימה גדול (מעל 100 מ\"ל לעומת 70 מ\"ל), הלב שומר על אותה תפוקה בדופק נמוך (ברדיקרדיה).",
+    explanation: "תפוקת הלב במנוחה קבועה (כ-5 ליטר/דקה, Q = HR * SV). בזכות נפח פעימה גדול (מעל 100 מ\"ל לעומת 70 מ\"ל), הלב שומר על אותה תפוקה בדופק נמוך (ברדיקרדיה).",
     distractorAnalysis: [
       "נכון: ההסבר ההמודינמי המדויק לברדיקרדיה של ספורטאים.",
       "שגוי: צריכת החמצן הבסיסית במנוחה דומה (כ-3.5 מ\"ל/ק\"ג/דקה).",
@@ -3249,11 +3229,10 @@ export const allQuestions: Question[] = [
       "שגוי: המערכת האנדוקרינית פעילה ומווסתת אינטנסיבית במאמץ."
     ]
   },
+
   // ========================================================
   // קבוצה 6: השלמת הסילבוס למבחן הסופי - פרקים 7, 8, 9 (Meso Academy)
   // ========================================================
-
-  // --- פרק 7: הזרוע, המרפק, האמה וכף היד ---
   {
     id: "m-final-1",
     institution: "meso",
@@ -3378,8 +3357,6 @@ export const allQuestions: Question[] = [
       "שגוי: העצב הסיאטי נמצא באגן ובגפה התחתונה."
     ]
   },
-
-  // --- פרק 8: האגן, הירך והברך ---
   {
     id: "m-final-7",
     institution: "meso",
@@ -3547,8 +3524,6 @@ export const allQuestions: Question[] = [
       "שגוי: הם שייכים למפרק ה-Tibiofemoral."
     ]
   },
-
-  // --- פרק 9: השוק, הקרסול, כף הרגל וניתוח תנועה ---
   {
     id: "m-final-15",
     institution: "meso",
@@ -3627,11 +3602,10 @@ export const allQuestions: Question[] = [
       "שגוי: אינו שריר פושט בהונות."
     ]
   },
+
   // ========================================================
   // קבוצה 7: הרחבת מאגר למבחן הסופי - תחל/אחז, יציבה ויישום (Meso Academy)
   // ========================================================
-
-  // --- פרק 1 ו-2: מבוא, תאים, רקמות חיבור ומערכת השלד ---
   {
     id: "m-final-19",
     institution: "meso",
@@ -3714,8 +3688,6 @@ export const allQuestions: Question[] = [
       "שגוי: לסחוס אין אספקת דם ישירה ולכן החלמתו איטית מאוד."
     ]
   },
-
-  // --- פרק 3: עמוד השדרה, האגן ובית החזה ---
   {
     id: "m-final-23",
     institution: "meso",
@@ -3798,8 +3770,6 @@ export const allQuestions: Question[] = [
       "שגוי: אין שבירת סחוס."
     ]
   },
-
-  // --- פרק 4 ו-5: תפקידי שרירים, נשימה, ברייסינג ושרירי הגו ---
   {
     id: "m-final-27",
     institution: "meso",
@@ -3882,8 +3852,6 @@ export const allQuestions: Question[] = [
       "שגוי: הסיבים מצטלבים זה בזה ואינם מקבילים."
     ]
   },
-
-  // --- פרק 6: חגורת הכתף - תחל/אחז, תנועות שכמה ויישום ---
   {
     id: "m-final-31",
     institution: "meso",
@@ -3966,8 +3934,6 @@ export const allQuestions: Question[] = [
       "שגוי: אין לו קפסולה מפרקית וצלע 12 נמצאת בתחתית בית החזה."
     ]
   },
-
-  // --- פרק 8 ו-9: גפה תחתונה - טבלאות תחל/אחז, ירך, ברך וכף רגל ---
   {
     id: "m-final-35",
     institution: "meso",
@@ -4066,550 +4032,7 @@ export const allQuestions: Question[] = [
       "שגוי: בגיד אכילס נאחזים הגסטרוקנמיוס והסולאוס.",
       "שגוי: בבסיס Metatarsal 5 נאחז ה-Peroneus Brevis.",
       "שגוי: אף שריר אינו נאחז בעצם ה-Talus (היא חסרת אחיזות שרירים)."
-    ],
-    // ========================================================
-  // קבוצה 8: סימולציית מבחן מסכם - 25 שאלות אמת לפי המיקוד (Meso Final)
-  // ========================================================
-
-  // סעיף 1: העצם
-  {
-    id: "final-sim-1",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/meso/meso_bone_cell_stricture.jpg",
-    question: "מתאמן שבר את עצם הבריח וכעת העצם בתהליך איחוי ובנייה מחדש. מהו תפקידו של כל אחד משלושת תאי העצם?",
-    options: [
-      "Osteoblast בונה רקמת עצם חדשה; Osteoclast מפרק וסופג רקמת עצם; Osteocyte תא בוגר המנטר עומסים",
-      "Osteoclast בונה רקמת עצם חדשה; Osteoblast מפרק וממיס עצם; Osteocyte מייצר תאי דם אדומים",
-      "Osteocyte בונה סחוס היאליני; Osteoblast מפרק רצועות; Osteoclast מייצר נוזל סינוביאלי",
-      "שלושת התאים מבצעים בניית עצם בלבד ואינם משתתפים כלל בפירוק או בבקרת עומסים"
-    ],
-    correctAnswer: 0,
-    explanation: "במחזור השחלוף (Remodeling): האוסטאובלסט בונה עצם, האוסטאוקלסט מפרק עצם קיימת, והאוסטאוציט כלוא במטריקס ומשמש חיישן לעומסים מכניים[cite: 103, 104].",
-    distractorAnalysis: [
-      "נכון: חלוקת התפקידים המדויקת של שלושת תאי העצם[cite: 103].",
-      "שגוי: תפקידי ה-Osteoblast וה-Osteoclast הוחלפו[cite: 103].",
-      "שגוי: תאי העצם אינם בונים סחוס או נוזל סינוביאלי[cite: 103].",
-      "שגוי: פירוק עצם על ידי אוסטאוקלסטים הוא חלק בלתי נפרד משחלוף העצם[cite: 103, 104]."
     ]
-  },
-  {
-    id: "final-sim-2",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/meso/meso_peak_bone_mass.jpg",
-    question: "מתי מושג שיא מסת העצם (Peak Bone Mass) אצל האדם, ומדוע אימוני התנגדות קריטיים לנשים סביב גיל 50?",
-    options: [
-      "שיא מסת העצם מושג בסוף שנות ה-20; סביב גיל 50 ירידת האסטרוגן מסירה ריסון מה-Osteoclasts ואימוני התנגדות מעודדים בנייה לפי חוק וולף",
-      "שיא מסת העצם מושג בגיל 10; סביב גיל 50 עליית האסטרוגן גורמת לעיבוי יתר של העצם ונעילת מפרקים",
-      "שיא מסת העצם מושג בגיל 60; אימוני התנגדות אסורים מעל גיל 50 כי הם מפרקים את מסת העצם",
-      "מסת העצם נשארת זהה לחלוטין מגיל 20 ועד גיל 90 ללא כל השפעה של הורמונים או פעילות גופנית"
-    ],
-    correctAnswer: 0,
-    explanation: "שיא מסת העצם מושג סביב סוף שנות ה-20[cite: 108]. בגיל המעבר ירידת האסטרוגן מאיצה פירוק עצם על ידי אוסטאוקלסטים, ואימוני כוח (חוק וולף) מגרים אוסטאובלסטים לבנות עצם[cite: 106, 108, 109].",
-    distractorAnalysis: [
-      "נכון: שילוב מדויק של עקומת מסת העצם, השפעת האסטרוגן וחוק וולף[cite: 106, 108, 109].",
-      "שגוי: שיא המסה אינו בגיל 10 ובגיל המעבר יש ירידה באסטרוגן[cite: 108].",
-      "שגוי: אימוני התנגדות הם הכלי המניעתי היעיל ביותר לאוסטאופורוזיס[cite: 109].",
-      "שגוי: מסת העצם משתנה לאורך החיים ומושפעת מהורמונים ועומס מכני[cite: 106, 108]."
-    ]
-  },
-
-  // סעיף 2: עמוד השדרה
-  {
-    id: "final-sim-3",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/meso/meso_spine_structure_and_regions.jpg",
-    question: "מהו מספר החוליות בכל אחד מחמשת אזורי עמוד השדרה (מלמעלה למטה), ומה מייחד את C1 ו-C2?",
-    options: [
-      "7 צוואריות, 12 חזיות, 5 מותניות, 5 בעצה ו-4 בזנב (33 סה\"כ); C1 (Atlas) נושאת את הגולגולת ו-C2 (Axis) בעלת Dens לרוטציית הראש",
-      "5 צוואריות, 12 חזיות, 7 מותניות, 4 בעצה ו-5 בזנב; C1 בעלת גוף חוליה ענק ו-C2 מתחברת לצלע הראשונה",
-      "7 צוואריות, 10 חזיות, 5 מותניות, 5 בעצה ו-5 בזנב; בין C1 ל-C2 נמצא הדיסק הבין-חולייתי העבה ביותר בגוף",
-      "8 צוואריות, 12 חזיות, 5 מותניות, 5 בעצה ו-3 בזנב; C1 ו-C2 מאוחות לעצם אחת ללא תנועה"
-    ],
-    correctAnswer: 0,
-    explanation: "עמוד השדרה מורכב מ-33 חוליות: 7 צוואריות, 12 חזיות, 5 מותניות, 5 סקרליות מאוחות ו-4 קוקסיגאליות מאוחות[cite: 118]. בין C1 (אטלס) ל-C2 (אקסיס) אין דיסק כדי לאפשר רוטציה סביב ה-Dens[cite: 127, 130].",
-    distractorAnalysis: [
-      "נכון: מספור החוליות ואפיון האטלס והאקסיס מדויקים לחלוטין[cite: 118, 129].",
-      "שגוי: מספר החוליות בצוואר ובמותן הוחלף, ולאטלס אין גוף חוליה[cite: 118, 129].",
-      "שגוי: בין C1 ל-C2 אין דיסק בין-חולייתי כלל[cite: 127, 130].",
-      "שגוי: יש 7 חוליות צוואריות (8 זוגות עצבים צוואריים) והן נעות בחופשיות[cite: 118, 129]."
-    ]
-  },
-  {
-    id: "final-sim-4",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/meso/meso_three_connected_vertebrae.jpg",
-    question: "ממה מורכב הדיסק הבין-חולייתי, ואילו עקומות בעמוד השדרה נחשבות לעקומות שניוניות (Secondary)?",
-    options: [
-      "הדיסק מורכב ממעטפת סיבית (Anulus fibrosus) וגרעין ג'לי (Nucleus pulposus); העקומות השניוניות הן הלורדוזה הצווארית והלורדוזה המותנית",
-      "הדיסק מורכב מסחוס אלסטי ונוזל סינוביאלי; העקומות השניוניות הן הקיפוזה החזית והקיפוזה הסקראלית",
-      "הדיסק מורכב מעצם ספוגית; העקומות השניוניות קיימות כבר אצל העובר ברחם בצורת C",
-      "הדיסק מורכב מרקמת אפיתל; כל ארבע העקומות של עמוד השדרה מתפתחות רק לאחר גיל ההתבגרות"
-    ],
-    correctAnswer: 0,
-    explanation: "הדיסק בנוי מטבעת סיבית חיצונית (Anulus fibrosus) ומרכז ג'לי בולם זעזועים (Nucleus pulposus)[cite: 126]. העקומות הראשוניות הן החזית והסקראלית, והשניוניות הן הצווארית והמותנית[cite: 120].",
-    distractorAnalysis: [
-      "נכון: תיאור מדויק של מבנה הדיסק והעקומות השניוניות[cite: 120, 126].",
-      "שגוי: החזית והסקראלית הן עקומות ראשוניות (Primary)[cite: 120].",
-      "שגוי: העובר ברחם נמצא בעקומות הראשוניות בצורת C[cite: 120].",
-      "שגוי: העקומות מתפתחות בינקות עם הרמת הראש והתחלת ההליכה[cite: 120]."
-    ]
-  },
-
-  // סעיף 3: רקמות חיבור
-  {
-    id: "final-sim-5",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/meso/meso_fibers.jpg",
-    question: "מהו התפקיד הייחודי של Aponeurosis, Fascia ו-Bursa במערכת התנועה?",
-    options: [
-      "Aponeurosis: גיד שטוח ורחב המחבר שריר לשריר/עצם; Fascia: רקמת חיבור העוטפת ומפרידה שרירים; Bursa: שק נוזל סינוביאלי המפחית חיכוך",
-      "Aponeurosis: מחברת עצם לעצם; Fascia: מייצרת תאי דם אדומים; Bursa: מעבירה דחף חשמלי מהמוח לשריר",
-      "Aponeurosis: סחוס המרפד את הברך; Fascia: שריר נשימה עיקרי; Bursa: עצם ססמואידית בתוך גיד",
-      "שלושת המבנים הם סוגים שונים של סיבי שריר חלק בדפנות כלי הדם"
-    ],
-    correctAnswer: 0,
-    explanation: "לצד גיד (שריר-עצם) ורצועה (עצם-עצם): אפונאורוזיס הוא יריעה גידית שטוחה, פאשיה עוטפת ומפרידה רקמות, ובורסה היא כרית נוזל סינוביאלי להפחתת חיכוך[cite: 151, 153, 154, 155, 156].",
-    distractorAnalysis: [
-      "נכון: הגדרות מדויקות מתוך טבלת הסיכום של פרק 4 בחוברת[cite: 156].",
-      "שגוי: עצם לעצם מחברת רצועה (Ligament)[cite: 156].",
-      "שגוי: ערבוב שגוי של מושגים ממערכות השלד והנשימה.",
-      "שגוי: כולם מבנים של רקמת חיבור ולא רקמת שריר[cite: 156]."
-    ]
-  },
-
-  // סעיף 4: פעולת השריר
-  {
-    id: "final-sim-6",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/meso/meso_muscle_tissues_table.jpg",
-    question: "מתאמן מבצע ירידה איטית ומבוקרת בשלב הנגטיב של עליית מתח (Pull-up), ולאחר מכן עוצר ל-3 שניות באמצע התנועה. אילו סוגי כיווץ מתרחשים?",
-    options: [
-      "בירידה המבוקרת: כיווץ אקסצנטרי (השריר מתארך בשליטה תחת מתח); בעצירה במקום: כיווץ איזומטרי (ללא שינוי באורך השריר)",
-      "בירידה המבוקרת: כיווץ קונצנטרי (השריר מתקצר); בעצירה במקום: הרפיה מלאה ללא מתח שרירי",
-      "בירידה המבוקרת: הרפיה פסיבית; בעצירה במקום: כיווץ אקסצנטרי מהיר",
-      "בשני השלבים מתרחש כיווץ קונצנטרי כיוון שהשריר מתנגד לכוח המשיכה"
-    ],
-    correctAnswer: 0,
-    explanation: "בלימת ירידה תוך התארכות מבוקרת היא כיווץ אקסצנטרי; החזקה סטטית ללא תנועה במפרק היא כיווץ איזומטרי; עלייה וקיצור השריר הם כיווץ קונצנטרי[cite: 148, 149].",
-    distractorAnalysis: [
-      "נכון: ניתוח ביומכני מדויק של שלבי התרגיל[cite: 149].",
-      "שגוי: קונצנטרי מתרחש בעלייה (קיצור), ובעצירה יש מתח איזומטרי גבוה[cite: 149].",
-      "שגוי: הרפיה תגרום לנפילה חופשית ללא שליטה[cite: 150].",
-      "שגוי: כיווץ קונצנטרי מחייב קיצור של השריר[cite: 149]."
-    ]
-  },
-  {
-    id: "final-sim-7",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/biceps_brachii.jpeg",
-    question: "בתרגיל כפיפת מרפק בעמידה (Biceps Curl), מהו תפקידו של כל שריר: Biceps Brachii, Triceps Brachii, Brachialis ו-Anterior Deltoid?",
-    options: [
-      "Biceps Brachii: Agonist; Triceps Brachii: Antagonist; Brachialis: Synergist; Anterior Deltoid: Fixator (מייצב את הכתף)",
-      "Biceps Brachii: Fixator; Triceps Brachii: Synergist; Brachialis: Antagonist; Anterior Deltoid: Agonist",
-      "Triceps Brachii: Agonist; Biceps Brachii: Antagonist; Anterior Deltoid: Synergist; Brachialis: Fixator",
-      "כל ארבעת השרירים פועלים יחד כ-Agonists לביצוע כפיפת המרפק"
-    ],
-    correctAnswer: 0,
-    explanation: "האגוניסט מבצע את התנועה (Biceps), האנטגוניסט מרפה מנגד (Triceps), הסינרגיסט מסייע לתנועה (Brachialis), והמייצב מקבע מפרק סמוך מול הכוח החיצוני (Anterior Deltoid בכתף)[cite: 150, 151].",
-    distractorAnalysis: [
-      "נכון: חלוקת תפקידים מדויקת מתוך טבלת פרק 4 בחוברת[cite: 150].",
-      "שגוי: תפקידי השרירים הוצגו בצורה הפוכה ומבולבלת[cite: 150].",
-      "שגוי: הטרייספס הוא האנטגוניסט בכפיפת מרפק[cite: 150].",
-      "שגוי: הטרייספס והדלתואיד הקדמי אינם אגוניסטים בכפיפת מרפק[cite: 150]."
-    ]
-  },
-
-  // סעיף 5: שרירי הגו והנשימה
-  {
-    id: "final-sim-8",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/rectus_abdominis.jpeg",
-    question: "מהי הפעולה העיקרית של Rectus Abdominis, ומהו המבנה האנטומי המכונה Linea Alba?",
-    options: [
-      "Rectus Abdominis מבצע כפיפת גו ו-PPT; ה-Linea Alba היא רצועת רקמת חיבור אורכית מ-Xiphoid עד ה-Pubis המחברת בין שני צדי הבטן",
-      "Rectus Abdominis מבצע פשיטת גו ו-APT; ה-Linea Alba היא עצם שטוחה במרכז הבטן המגנה על הקיבה",
-      "Rectus Abdominis מבצע רוטציה של הגו בלבד; ה-Linea Alba היא שריר רוחבי עמוק העוטף את עמוד השדרה",
-      "Rectus Abdominis מרחיק את האגן לצדדים; ה-Linea Alba היא עצב המעצבב את הסרעפת"
-    ],
-    correctAnswer: 0,
-    explanation: "ה-Rectus Abdominis כופף את הגו ומגלגל את האגן לאחור (PPT)[cite: 173]. ה-Linea Alba ('הקו הלבן') היא רצועת רקמת חיבור קולגנית במרכז הבטן שבה נפגשות האפונאורוזות של שרירי הבטן[cite: 171].",
-    distractorAnalysis: [
-      "נכון: הגדרה אנטומית ותפקודית מדויקת[cite: 171, 173].",
-      "שגוי: כפיפת גו ו-PPT הם פעולותיו, ואין עצם במרכז הבטן[cite: 99, 173].",
-      "שגוי: רוטציה מבוצעת בעיקר על ידי האלכסונים, וה-Linea Alba היא רקמת חיבור[cite: 171, 175].",
-      "שגוי: אינו מרחיק אגן וה-Linea Alba אינה עצב[cite: 171, 173]."
-    ]
-  },
-  {
-    id: "final-sim-9",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/external_oblique.png",
-    question: "מתאמן מבצע סיבוב של הגו (Rotation) שמאלה בתרגיל Russian Twist. אילו שרירים אלכסוניים פועלים יחד לביצוע תנועה זו?",
-    options: [
-      "External Oblique ימני (מסובב לצד הנגדי) יחד עם Internal Oblique שמאלי (מסובב לאותו צד)",
-      "External Oblique שמאלי יחד עם Internal Oblique ימני",
-      "שני ה-External Obliques של ימין ושמאל מתכווצים יחד ללא מעורבות של Internal Oblique",
-      "Transversus Abdominis שמאלי בלבד ללא שום מעורבות של השרירים האלכסוניים"
-    ],
-    correctAnswer: 0,
-    explanation: "בכיווץ חד-צדדי, External Oblique מסובב את הגו לצד הנגדי (ימני מסובב שמאלה), ואילו Internal Oblique מסובב לאותו צד (שמאלי מסובב שמאלה)[cite: 174, 175].",
-    distractorAnalysis: [
-      "נכון: שילוב הפעולה הצולב המדויק של האלכסונים ברוטציה שמאלה[cite: 175].",
-      "שגוי: שילוב זה מסובב את הגו ימינה[cite: 175].",
-      "שגוי: כיווץ דו-צדדי של החיצוניים מבצע כפיפת גו קדימה, לא רוטציה[cite: 174].",
-      "שגוי: ה-Transversus Abdominis מייצב לחץ תוך-בטני ואינו מייצר רוטציה[cite: 176]."
-    ]
-  },
-  {
-    id: "final-sim-10",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/meso/meso_breathing_mechanics.jpg",
-    question: "מה מתרחש בסרעפת (Diaphragm) בזמן שאיפה (Inspiration) לעומת נשיפה (Expiration)?",
-    options: [
-      "בשאיפה הסרעפת מתכווצת, יורדת ומשתטחת ונפח בית החזה גדל; בנשיפה היא מרפה ועולה חזרה לצורת כיפה",
-      "בשאיפה הסרעפת מרפה ועולה כלפי מעלה; בנשיפה היא מתכווצת ויורדת אל תוך חלל הבטן",
-      "בשאיפה הסרעפת מתכווצת ועולה לכיוון הגרון; בנשיפה היא נשארת שטוחה ללא תנועה",
-      "הסרעפת פועלת רק בנשיפה מאומצת ואינה משתתפת כלל בתהליך השאיפה"
-    ],
-    correctAnswer: 0,
-    explanation: "במנוחה הסרעפת בצורת כיפה[cite: 183]. בשאיפה סיביה מתכווצים ומושכים את הגיד המרכזי מטה (משתטחת), מה שמגדיל את נפח בית החזה[cite: 181, 183]. בנשיפה היא מרפה ועולה[cite: 181, 183].",
-    distractorAnalysis: [
-      "נכון: מכניקת הנשימה המדויקת של הסרעפת[cite: 181, 183].",
-      "שגוי: הפוך – התכווצות מורידה ומשטיחה את הכיפה[cite: 183].",
-      "שגוי: כיווץ מושך את הגיד המרכזי מטה ולא מעלה[cite: 183].",
-      "שגוי: הסרעפת היא שריר השאיפה העיקרי[cite: 180]."
-    ]
-  },
-
-  // סעיף 6: חגורת הכתפיים והזרוע
-  {
-    id: "final-sim-11",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/serratus_anterior.png",
-    question: "מתאמן מבצע שכיבות סמיכה והגבול הפנימי של השכמה שלו בולט החוצה ('שכמה מכונפת' - Winging Scapula). איזה שריר חלש ומהי פעולתו?",
-    options: [
-      "Serratus Anterior – תפקידו להצמיד את השכמה לבית החזה ולבצע Protraction ו-Upward Rotation",
-      "Rhomboids – תפקידם להרחיק את השכמה מעמוד השדרה ולבצע Depression",
-      "Latissimus Dorsi – תפקידו להרים את השכמה לכיוון האוזן ולבצע Elevation",
-      "Triceps Brachii – תפקידו לקבע את השכמה אל עצם הבריח בזמן דחיפה"
-    ],
-    correctAnswer: 0,
-    explanation: "ה-Serratus Anterior מצמיד את הגבול המדיאלי של השכמה לצלעות ומבצע Protraction ו-Upward Rotation[cite: 197]. חולשה שלו גורמת לבליטת השכמה החוצה (Winging)[cite: 198].",
-    distractorAnalysis: [
-      "נכון: זיהוי השריר החלש והבנת תפקידו בייצוב השכמה[cite: 197, 198].",
-      "שגוי: המעוינים מבצעים Retraction (קירוב) ולא Protraction[cite: 200].",
-      "שגוי: הרחב גבי מניע את עצם הזרוע ואינו מייצב את השכמה לצלעות[cite: 201].",
-      "שגוי: הטרייספס מניע את המרפק והכתף ואינו מייצב את השכמה[cite: 216]."
-    ]
-  },
-  {
-    id: "final-sim-12",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/trapezius.png",
-    question: "אילו תנועות שכמה מבצעים שלושת חלקי ה-Trapezius, ואילו שרירים מבצעים Retraction (קירוב שכמות) בתרגיל חתירה?",
-    options: [
-      "Upper Trapezius: Elevation; Middle Trapezius: Retraction; Lower Trapezius: Depression; בחתירה פועלים Middle Trapezius ו-Rhomboids",
-      "Upper Trapezius: Depression; Middle Trapezius: Protraction; Lower Trapezius: Elevation; בחתירה פועל Serratus Anterior",
-      "כל חלקי ה-Trapezius מבצעים אך ורק Downward Rotation של השכמה",
-      "Rhomboids מבצעים Protraction, בעוד Upper Trapezius מבצע פשיטת מרפק"
-    ],
-    correctAnswer: 0,
-    explanation: "הטרפז העליון מרים שכמה, האמצעי מקרב, והתחתון מוריד[cite: 199]. בתרגיל חתירה (Seated Row), מקרבי השכמות העיקריים הם Middle Trapezius ו-Rhomboids[cite: 201].",
-    distractorAnalysis: [
-      "נכון: חלוקה מדויקת של חלקי הטרפז ומקרבי השכמות[cite: 199, 201].",
-      "שגוי: הפוך בין העליון לתחתון, והסרטוס מבצע הרחקת שכמות (Protraction)[cite: 199, 201].",
-      "שגוי: הטרפז העליון והתחתון מבצעים דווקא Upward Rotation[cite: 199].",
-      "שגוי: המעוינים מקרבים שכמות והטרפז אינו חוצה את המרפק[cite: 199, 200]."
-    ]
-  },
-  {
-    id: "final-sim-13",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/latissimus_dorsi.jpeg",
-    question: "מהן שלוש התנועות שמבצע Latissimus Dorsi במפרק הכתף, ומה קורה כאשר הידיים מקובעות על מוט המתח?",
-    options: [
-      "מבצע Extension, Adduction ו-Internal Rotation בכתף; כשהידיים מקובעות הוא מושך את הגוף והאגן מעלה אל המוט",
-      "מבצע Flexion, Abduction ו-External Rotation בכתף; כשהידיים מקובעות הוא דוחף את המוט כלפי מעלה",
-      "מבצע Protraction ו-Elevation של השכמה בלבד ללא תנועה במפרק הכתף",
-      "מבצע כפיפת מרפק וסופינציה של האמה כיוון שהוא נאחז בעצם הרדיוס"
-    ],
-    correctAnswer: 0,
-    explanation: "ה-Latissimus Dorsi נאחז בחריץ הדו-ראשי של עצם הזרוע ומבצע פשיטה, קירוב ורוטציה פנימית[cite: 202]. במתח (אחז מקובע) הוא מרים את הגו אל הזרועות[cite: 187, 202].",
-    distractorAnalysis: [
-      "נכון: שלוש פעולות השריר ויישום עקרון הקצה המקובע במתח[cite: 187, 202].",
-      "שגוי: אלו הפעולות ההפוכות לפעולות הרחב גבי[cite: 202].",
-      "שגוי: הרחב גבי מניע את עצם הזרוע (Glenohumeral)[cite: 201, 202].",
-      "שגוי: השריר אינו חוצה את המרפק ואינו נאחז ברדיוס[cite: 202]."
-    ]
-  },
-  {
-    id: "final-sim-14",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/supraspinatus.jpeg",
-    question: "מתאמן מתלונן על כאב בצד הכתף בעת הרמת משקולות לצדדים (Lateral Raise). איזה שריר מ-Rotator Cuff יוזם את 15 המעלות הראשונות ונצבט תחת האקרומיון?",
-    options: [
-      "Supraspinatus – יוזם את 15 המעלות הראשונות של Abduction וגידו עובר במרווח הצר מתחת לאקרומיון",
-      "Subscapularis – מבצע Internal Rotation ונאחז בגבשושית הקטנה בחזית הכתף",
-      "Infraspinatus – מבצע External Rotation ונאחז בחלק האחורי של האולנה",
-      "Teres Minor – מבצע Adduction ומתחבר ישירות לעצם הבריח"
-    ],
-    correctAnswer: 0,
-    explanation: "ה-Supraspinatus מתחיל את ההרחקה (15° ראשונות) וממרכז את ראש הזרוע[cite: 205]. גידו והבורסה התת-אקרומיאלית עלולים להיצבט מתחת לאקרומיון בהרמות לצד[cite: 207].",
-    distractorAnalysis: [
-      "נכון: תפקיד הסופראספינטוס ומנגנון תסמונת הצביטה (Impingement)[cite: 205, 207].",
-      "שגוי: הסובסקפולריס מבצע רוטציה פנימית ואינו יוזם הרחקה[cite: 205].",
-      "שגוי: האינפראספינטוס מבצע רוטציה חיצונית ונאחז בהומרוס (לא באולנה)[cite: 205].",
-      "שגוי: הטרס מיינור מבצע רוטציה חיצונית ונאחז בהומרוס[cite: 205]."
-    ]
-  },
-  {
-    id: "final-sim-15",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/triceps_brachii.png",
-    question: "מהי פעולתו העיקרית של Triceps Brachii, ואיזה ראש שלו חוצה גם את מפרק הכתף?",
-    options: [
-      "מבצע Elbow Extension (נאחז ב-Olecranon); הראש הארוך (Long head) יוצא מהשכמה ומסייע גם ב-Shoulder Extension",
-      "מבצע Elbow Flexion (נאחז ברדיוס); הראש הצדי (Lateral head) חוצה את הכתף ומבצע Abduction",
-      "מבצע Supination של האמה; הראש המדיאלי נאחז באקרומיון ומרים את השכמה",
-      "כל שלושת הראשים חד-מפרקיים ופועלים אך ורק בכפיפת שורש כף היד"
-    ],
-    correctAnswer: 0,
-    explanation: "שלושת ראשי ה-Triceps נאחזים באולקרנון של האולנה לפשיטת מרפק[cite: 216]. רק הראש הארוך יוצא מהשכמה ולכן חוצה גם את הכתף ומסייע בפשיטתה[cite: 216].",
-    distractorAnalysis: [
-      "נכון: אנטומיה ותפקוד מדויקים של התלת-ראשי וראשו הארוך[cite: 216].",
-      "שגוי: הטרייספס פושט מרפק (לא כופף) ונאחז באולנה[cite: 216].",
-      "שגוי: אינו מבצע סופינציה ואינו נאחז באקרומיון[cite: 216].",
-      "שגוי: הראש הארוך דו-מפרקי ואינו מגיע לשורש כף היד[cite: 216]."
-    ]
-  },
-
-  // סעיף 7: הירך והאגן
-  {
-    id: "final-sim-16",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/iliopsoas.jpeg",
-    question: "מתאמן יושב שעות רבות מול מחשב וסובל מהטיית אגן קדמית מוגברת (APT). איזה שריר מקוצר מושך את האגן ומהן פעולותיו?",
-    options: [
-      "Iliopsoas – מכופף הירך העיקרי (נאחז ב-Lesser trochanter), וכשהרגליים מקובעות הוא מושך את האגן והמותן ל-APT",
-      "Gluteus Maximus – פושט הירך העיקרי, וכשהרגליים מקובעות הוא מושך את האגן ל-APT",
-      "Hamstrings – כופפי הברך, וכשהרגליים מקובעות הם מגבירים את הלורדוזה המותנית ויוצרים APT",
-      "Rectus Abdominis – כופף הגו, הגורם להטיית אגן קדמית מוגברת (APT) כשהוא מקוצר"
-    ],
-    correctAnswer: 0,
-    explanation: "ה-Iliopsoas יוצא מחוליות המותן והכסל ונאחז ב-Lesser trochanter[cite: 235]. קיצור שלו מושך את האגן קדימה ומטה (APT) ומעמיק את הקשת המותנית[cite: 235, 248].",
-    distractorAnalysis: [
-      "נכון: תפקיד האיליופסואס וההשלכה של קיצורו על מנח האגן[cite: 235].",
-      "שגוי: Gluteus Maximus מבצע PPT (הטיה אחורית) ולא APT[cite: 240, 248].",
-      "שגוי: Hamstrings מבצעים PPT ומיישרים את הלורדוזה[cite: 247, 249].",
-      "שגוי: Rectus Abdominis מבצע PPT (מושך את הפוביס מעלה)[cite: 248]."
-    ]
-  },
-  {
-    id: "final-sim-17",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/gluteus.jpeg",
-    question: "מהן הפעולות של Gluteus Maximus לעומת Gluteus Medius, ומה יקרה אם Gluteus Medius חלש?",
-    options: [
-      "Gluteus Maximus מבצע Hip Extension, External Rotation ו-PPT; Gluteus Medius מבצע Hip Abduction וחולשתו גורמת לצניחת אגן (Trendelenburg)",
-      "Gluteus Maximus מבצע Hip Flexion ו-APT; Gluteus Medius מבצע Hip Adduction וחולשתו גורמת לשכמה מכונפת",
-      "שני השרירים מבצעים Knee Extension וחולשתם מונעת יישור של מפרק הברך",
-      "Gluteus Medius מבצע PPT בלבד ואין לו שום תפקיד בייצוב האגן בעמידה על רגל אחת"
-    ],
-    correctAnswer: 0,
-    explanation: "ה-Gluteus Maximus פושט ירך, מסובב חיצונית ומבצע PPT[cite: 240]. ה-Gluteus Medius מרחיק ירך ומייצב את האגן בעמידה על רגל אחת; חולשתו גורמת לצניחת אגן (Trendelenburg Gait)[cite: 241, 242].",
-    distractorAnalysis: [
-      "נכון: הבחנה מלאה בין שני שרירי העכוז והשלכות חולשת העכוז האמצעי[cite: 240, 241, 242].",
-      "שגוי: פעולות הפוכות, ושכמה מכונפת נובעת מחולשת Serratus Anterior[cite: 198, 240].",
-      "שגוי: שרירי העכוז אינם חוצים את מפרק הברך[cite: 240, 241].",
-      "שגוי: ייצוב האגן בעמידה על רגל אחת הוא תפקידו המרכזי של Gluteus Medius[cite: 242]."
-    ]
-  },
-  {
-    id: "final-sim-18",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/quadriceps.jpeg",
-    question: "איזה ראש של Quadriceps חוצה שני מפרקים, ואיזו תנועה מבצע כל אחד משלושת ראשי ה-Vasti?",
-    options: [
-      "Rectus Femoris חוצה ירך וברך (מבצע Hip Flexion + Knee Extension); שלושת ה-Vasti מבצעים Knee Extension בלבד",
-      "Vastus Lateralis חוצה ירך וברך; Rectus Femoris מבצע Knee Flexion בלבד",
-      "Vastus Medialis חוצה ירך, ברך וקרסול; כל ארבעת הראשים מבצעים Hip Extension",
-      "כל ארבעת ראשי ה-Quadriceps יוצאים מהאגן ומבצעים כפיפת ברך ופשיטת ירך"
-    ],
-    correctAnswer: 0,
-    explanation: "ה-Rectus Femoris יוצא מה-AIIS באגן ולכן מבצע כפיפת ירך ופשיטת ברך[cite: 237]. שלושת ה-Vasti (Lateralis, Medialis, Intermedius) יוצאים מהפמור ופושטים רק את הברך[cite: 237, 238].",
-    distractorAnalysis: [
-      "נכון: אבחנה מדויקת בין הראש הדו-מפרקי לשלושת הראשים החד-מפרקיים[cite: 237, 238].",
-      "שגוי: Vastus Lateralis חד-מפרקי ו-Rectus Femoris פושט ברך (לא כופף)[cite: 237].",
-      "שגוי: Vastus Medialis חוצה רק את הברך[cite: 237].",
-      "שגוי: אלו הפעולות ההפוכות (פעולות ה-Hamstrings)[cite: 247]."
-    ]
-  },
-  {
-    id: "final-sim-19",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/hamstrings.png",
-    question: "מהן הפעולות של קבוצת ה-Hamstrings, ואיזה ראש בקבוצה זו חוצה רק את מפרק הברך?",
-    options: [
-      "מבצעים Knee Flexion, Hip Extension ו-PPT; הראש הקצר של Biceps Femoris יוצא מהפמור ומניע רק את הברך",
-      "מבצעים Knee Extension, Hip Flexion ו-APT; ה-Semitendinosus מניע רק את הירך",
-      "מבצעים Hip Abduction ו-Internal Rotation; הראש הארוך של Biceps Femoris חוצה רק את הברך",
-      "כל שרירי ה-Hamstrings נאחזים בפיקה ומיישרים את מפרק הברך בבעיטה"
-    ],
-    correctAnswer: 0,
-    explanation: "ה-Hamstrings (Semitendinosus, Semimembranosus, Biceps Femoris) מכופפים ברך, פושטים ירך ומבצעים PPT[cite: 245, 247]. רק הראש הקצר של Biceps Femoris יוצא מהפמור וחוצה רק את הברך[cite: 246].",
-    distractorAnalysis: [
-      "נכון: פעולות הקבוצה והחריג האנטומי של הראש הקצר של הביספס פמוריס[cite: 246, 247].",
-      "שגוי: אלו פעולות של כופפי הירך ופושטי הברך[cite: 237].",
-      "שגוי: הראש הארוך יוצא מה-Ischial tuberosity וחוצה שני מפרקים[cite: 246].",
-      "שגוי: ההמסטרינגס נמצאים מאחור ונאחזים בטיביה ובפיבולה[cite: 246]."
-    ]
-  },
-  {
-    id: "final-sim-20",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/sartorius.jpeg",
-    question: "מהן הפעולות המשולבות של שריר ה-Sartorius (השריר הארוך ביותר בגוף) בירך ובברך?",
-    options: [
-      "בירך: Flexion, Abduction ו-External Rotation; בברך: מסייע ב-Flexion (מנח ישיבת חייט שלובה)",
-      "בירך: Extension, Adduction ו-Internal Rotation; בברך: מבצע Extension מלא",
-      "בירך: Hip Extension בלבד; בברך: מונע תנועת Valgus יחד עם רצועת ה-ACL",
-      "אינו חוצה את מפרק הברך כלל ופועל רק ככופף ירך חד-מפרקי"
-    ],
-    correctAnswer: 0,
-    explanation: "ה-Sartorius יוצא מה-ASIS ונאחז ב-Pes anserinus בשוקה[cite: 236]. מהלכו האלכסוני מייצר כפיפה, הרחקה ורוטציה חיצונית בירך, וכפיפה בברך[cite: 236].",
-    distractorAnalysis: [
-      "נכון: ארבע הפעולות המשולבות של שריר החייטים[cite: 236].",
-      "שגוי: כל הפעולות הוצגו בצורה הפוכה[cite: 236].",
-      "שגוי: אינו פושט ירך ואינו רצועת ברך[cite: 236].",
-      "שגוי: הוא שריר דו-מפרקי החוצה גם את הירך וגם את הברך[cite: 236]."
-    ]
-  },
-
-  // סעיף 8: הברך
-  {
-    id: "final-sim-21",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/quadriceps.jpeg",
-    question: "מהו התפקיד של כל אחת מארבע רצועות הברך (ACL, PCL, MCL, LCL)?",
-    options: [
-      "ACL מונעת תזוזה קדמית של ה-Tibia; PCL מונעת תזוזה אחורית של ה-Tibia; MCL מונעת Valgus; LCL מונעת Varus",
-      "ACL מונעת Valgus; PCL מונעת Varus; MCL מונעת תזוזה קדמית של ה-Tibia; LCL מונעת תזוזה אחורית",
-      "ACL ו-PCL מונעות כפיפת ברך; MCL ו-LCL מונעות פשיטת ברך",
-      "כל ארבע הרצועות מחברות את עצם הפיקה אל עצם ה-Fibula"
-    ],
-    correctAnswer: 0,
-    explanation: "הרצועות הצולבות בולמות תזוזת גזירה קדמית (ACL) ואחורית (PCL) של הטיביה על הפמור[cite: 319, 321]. הרצועות הצדיות בולמות קריסה פנימה (MCL - Valgus) והחוצה (LCL - Varus)[cite: 317].",
-    distractorAnalysis: [
-      "נכון: מיפוי מדויק של תפקידי ארבע רצועות הברך[cite: 317, 319, 321].",
-      "שגוי: תפקידי הרצועות הצולבות והצדיות הוחלפו[cite: 317, 319, 321].",
-      "שגוי: הברך מבצעת כפיפה ופשיטה בחופשיות[cite: 314].",
-      "שגוי: הרצועות מחברות בין הפמור לטיביה ולפיבולה, לא לפיקה[cite: 317, 318]."
-    ]
-  },
-  {
-    id: "final-sim-22",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/quadriceps.jpeg",
-    question: "מאיזה סוג סחוס בנויים המניסקוסים בברך, ומה ההבדל בין Medial Meniscus ל-Lateral Meniscus?",
-    options: [
-      "סחוס סיבי (Fibrocartilage); Medial Meniscus בצורת C ומחובר לרצועות ולכן פחות תנועתי ונפגע יותר, בעוד Lateral עגול ותנועתי יותר",
-      "סחוס היאליני (Hyaline); Lateral Meniscus מחובר ל-MCL ולכן נפגע פי עשרה יותר מה-Medial",
-      "סחוס אלסטי (Elastic); שני המניסקוסים מרחפים חופשי בנוזל הסינוביאלי ללא חיבור לעצם",
-      "רקמת עצם ספוגית; תפקידם היחיד הוא לייצר נוזל סינוביאלי במפרק הברך"
-    ],
-    correctAnswer: 0,
-    explanation: "המניסקוסים בנויים מסחוס סיבי עמיד לדחיסה[cite: 322]. המניסקוס המדיאלי בצורת C ומקובע ל-MCL, ולכן תנועתיותו נמוכה והוא חשוף הרבה יותר לקרעים[cite: 317, 322].",
-    distractorAnalysis: [
-      "נכון: סוג הסחוס והסיבה האנטומית לשכיחות הפגיעה במניסקוס המדיאלי[cite: 317, 322].",
-      "שגוי: הם עשויים סחוס סיבי, והמדיאלי הוא שמחובר ל-MCL[cite: 317, 322].",
-      "שגוי: הם מחוברים ל-Tibial Plateau ואינם עשויים סחוס אלסטי[cite: 322].",
-      "שגוי: המניסקוסים הם סחוס סיבי ונוזל סינוביאלי מיוצר בקפסולה[cite: 112, 322]."
-    ]
-  },
-
-  // סעיף 9: השוק וכף הרגל
-  {
-    id: "final-sim-23",
-    institution: "meso",
-    isExamPrep: true,
-    question: "מתאמן מתקשה להרים את קדמת כף הרגל בהליכה ('שמיטת כף רגל' - Foot Drop). איזה שריר חלש ומהן פעולותיו?",
-    options: [
-      "Tibialis Anterior – השריר העיקרי לביצוע Dorsiflexion ו-Inversion בקרסול ובכף הרגל",
-      "Gastrocnemius – השריר העיקרי לביצוע Plantar Flexion ו-Knee Flexion",
-      "Soleus – השריר העמוק המייצב את הקרסול בעמידה ומבצע Plantar Flexion",
-      "Tibialis Posterior – השריר העמוק במדור האחורי המבצע Plantar Flexion ו-Inversion"
-    ],
-    correctAnswer: 0,
-    explanation: "ה-Tibialis Anterior נמצא במדור הקדמי של השוק ומבצע Dorsiflexion (הרמת כף הרגל) ו-Inversion[cite: 347]. חולשה שלו גורמת לקושי בהרמת כף הרגל מהקרקע.",
-    distractorAnalysis: [
-      "נכון: זיהוי השריר הקדמי ותפקידו בהרמת כף הרגל[cite: 347].",
-      "שגוי: הגסטרוקנמיוס מוריד את כף הרגל מטה (Plantar Flexion)[cite: 353].",
-      "שגוי: הסולאוס מוריד את כף הרגל מטה (Plantar Flexion)[cite: 354].",
-      "שגוי: הטיביאליס האחורי מבצע Plantar Flexion ולא Dorsiflexion[cite: 355]."
-    ]
-  },
-  {
-    id: "final-sim-24",
-    institution: "meso",
-    isExamPrep: true,
-    question: "מה ההבדל האנטומי והתפקודי בין Gastrocnemius ל-Soleus, וכיצד נבודד כל אחד מהם בחדר הכושר?",
-    options: [
-      "Gastrocnemius חוצה ברך וקרסול (מודגש בהרמת עקבים בעמידה עם ברך ישרה); Soleus חוצה רק את הקרסול (מודגש בהרמת עקבים בישיבה עם ברך כפופה)",
-      "Soleus חוצה ברך וקרסול (מודגש בעמידה); Gastrocnemius חוצה רק את הקרסול (מודגש בישיבה)",
-      "Gastrocnemius מבצע Dorsiflexion; Soleus מבצע Eversion",
-      "שניהם שרירים חד-מפרקיים ופועלים בעוצמה זהה לחלוטין בכל זווית של מפרק הברך"
-    ],
-    correctAnswer: 0,
-    explanation: "שניהם מתחברים לגיד אכילס ומבצעים Plantar Flexion[cite: 352, 353, 354]. אך ה-Gastrocnemius חוצה גם את הברך ולכן בברך כפופה (בישיבה) הוא מקוצר ומוחלש, והעבודה עוברת ל-Soleus[cite: 353, 354].",
-    distractorAnalysis: [
-      "נכון: ההבדל המפרקי ויישומו בתרגילי תאומים בעמידה מול ישיבה[cite: 353, 354].",
-      "שגוי: התפקידים והמבנה הוחלפו בין שני השרירים[cite: 353, 354].",
-      "שגוי: שניהם מבצעים Plantar Flexion[cite: 353, 354].",
-      "שגוי: ה-Gastrocnemius הוא שריר דו-מפרקי[cite: 352]."
-    ]
-  },
-  {
-    id: "final-sim-25",
-    institution: "meso",
-    isExamPrep: true,
-    question: "היכן ממוקם שריר ה-Tibialis Posterior, מהן פעולותיו ומה יקרה לכף הרגל אם הוא חלש?",
-    options: [
-      "השריר העמוק ביותר במדור האחורי של השוק; מבצע Inversion ו-Plantar Flexion ותומך בקשת כף הרגל (חולשתו תוביל לקריסת הקשת / כף רגל שטוחה)",
-      "השריר השטחי במדור הקדמי של השוק; מבצע Dorsiflexion ו-Eversion (חולשתו גורמת לנעילת הברך)",
-      "השריר הלטרלי ביותר בשוק; מבצע Eversion בלבד ומתחבר לעצם הפיקה",
-      "שריר פנימי בכף הרגל המבצע פשיטת בהונות ואינו חוצה את מפרק הקרסול"
-    ],
-    correctAnswer: 0,
-    explanation: "ה-Tibialis Posterior נמצא עמוק במדור האחורי של השוק, עובר מאחורי הפטישון המדיאלי ונאחז בעצמות כף הרגל[cite: 355]. הוא מבצע Inversion ו-Plantar Flexion ותומך בקשת האורכית[cite: 355].",
-    distractorAnalysis: [
-      "נכון: מיקום, פעולות והשלכה תפקודית של חולשת הטיביאליס האחורי[cite: 355].",
-      "שגוי: זהו תיאור שגוי המבלבל עם המדור הקדמי[cite: 347, 355].",
-      "שגוי: השרירים הלטרליים הם Peroneus Longus ו-Brevis[cite: 348].",
-      "שגוי: השריר מתחיל בשוק (Tibia, Fibula) וחוצה את הקרסול[cite: 355]."
-    ]
-  }
   },
   {
     id: "m-final-40",
@@ -4629,7 +4052,536 @@ export const allQuestions: Question[] = [
       "שגוי: ה-Plantar fascia נמצאת בסוליית כף הרגל (מהעקב לאצבעות).",
       "שגוי: הקשתות בנויות מעצמות, רצועות ושרירים ופועלות כקפיץ גמיש."
     ]
-    // ========================================================
+  },
+
+  // ========================================================
+  // קבוצה 8: סימולציית מבחן מסכם - 25 שאלות אמת לפי המיקוד (Meso Final)
+  // ========================================================
+  {
+    id: "final-sim-1",
+    institution: "meso",
+    isExamPrep: true,
+    image: "/images/meso/meso_bone_cell_stricture.jpg",
+    question: "מתאמן שבר את עצם הבריח וכעת העצם בתהליך איחוי ובנייה מחדש. מהו תפקידו של כל אחד משלושת תאי העצם?",
+    options: [
+      "Osteoblast בונה רקמת עצם חדשה; Osteoclast מפרק וסופג רקמת עצם; Osteocyte תא בוגר המנטר עומסים",
+      "Osteoclast בונה רקמת עצם חדשה; Osteoblast מפרק וממיס עצם; Osteocyte מייצר תאי דם אדומים",
+      "Osteocyte בונה סחוס היאליני; Osteoblast מפרק רצועות; Osteoclast מייצר נוזל סינוביאלי",
+      "שלושת התאים מבצעים בניית עצם בלבד ואינם משתתפים כלל בפירוק או בבקרת עומסים"
+    ],
+    correctAnswer: 0,
+    explanation: "במחזור השחלוף (Remodeling): האוסטאובלסט בונה עצם, האוסטאוקלסט מפרק עצם קיימת, והאוסטאוציט כלוא במטריקס ומשמש חיישן לעומסים מכניים.",
+    distractorAnalysis: [
+      "נכון: חלוקת התפקידים המדויקת של שלושת תאי העצם.",
+      "שגוי: תפקידי ה-Osteoblast וה-Osteoclast הוחלפו.",
+      "שגוי: תאי העצם אינם בונים סחוס או נוזל סינוביאלי.",
+      "שגוי: פירוק עצם על ידי אוסטאוקלסטים הוא חלק בלתי נפרד משחלוף העצם."
+    ]
+  },
+  {
+    id: "final-sim-2",
+    institution: "meso",
+    isExamPrep: true,
+    image: "/images/meso/meso_peak_bone_mass.jpg",
+    question: "מתי מושג שיא מסת העצם (Peak Bone Mass) אצל האדם, ומדוע אימוני התנגדות קריטיים לנשים סביב גיל 50?",
+    options: [
+      "שיא מסת העצם מושג בסוף שנות ה-20; סביב גיל 50 ירידת האסטרוגן מסירה ריסון מה-Osteoclasts ואימוני התנגדות מעודדים בנייה לפי חוק וולף",
+      "שיא מסת העצם מושג בגיל 10; סביב גיל 50 עליית האסטרוגן גורמת לעיבוי יתר של העצם ונעילת מפרקים",
+      "שיא מסת העצם מושג בגיל 60; אימוני התנגדות אסורים מעל גיל 50 כי הם מפרקים את מסת העצם",
+      "מסת העצם נשארת זהה לחלוטין מגיל 20 ועד גיל 90 ללא כל השפעה של הורמונים או פעילות גופנית"
+    ],
+    correctAnswer: 0,
+    explanation: "שיא מסת העצם מושג סביב סוף שנות ה-20. בגיל המעבר ירידת האסטרוגן מאיצה פירוק עצם על ידי אוסטאוקלסטים, ואימוני כוח (חוק וולף) מגרים אוסטאובלסטים לבנות עצם.",
+    distractorAnalysis: [
+      "נכון: שילוב מדויק של עקומת מסת העצם, השפעת האסטרוגן וחוק וולף.",
+      "שגוי: שיא המסה אינו בגיל 10 ובגיל המעבר יש ירידה באסטרוגן.",
+      "שגוי: אימוני התנגדות הם הכלי המניעתי היעיל ביותר לאוסטאופורוזיס.",
+      "שגוי: מסת העצם משתנה לאורך החיים ומושפעת מהורמונים ועומס מכני."
+    ]
+  },
+  {
+    id: "final-sim-3",
+    institution: "meso",
+    isExamPrep: true,
+    image: "/images/meso/meso_spine_structure_and_regions.jpg",
+    question: "מהו מספר החוליות בכל אחד מחמשת אזורי עמוד השדרה (מלמעלה למטה), ומה מייחד את C1 ו-C2?",
+    options: [
+      "7 צוואריות, 12 חזיות, 5 מותניות, 5 בעצה ו-4 בזנב (33 סה\"כ); C1 (Atlas) נושאת את הגולגולת ו-C2 (Axis) בעלת Dens לרוטציית הראש",
+      "5 צוואריות, 12 חזיות, 7 מותניות, 4 בעצה ו-5 בזנב; C1 בעלת גוף חוליה ענק ו-C2 מתחברת לצלע הראשונה",
+      "7 צוואריות, 10 חזיות, 5 מותניות, 5 בעצה ו-5 בזנב; בין C1 ל-C2 נמצא הדיסק הבין-חולייתי העבה ביותר בגוף",
+      "8 צוואריות, 12 חזיות, 5 מותניות, 5 בעצה ו-3 בזנב; C1 ו-C2 מאוחות לעצם אחת ללא תנועה"
+    ],
+    correctAnswer: 0,
+    explanation: "עמוד השדרה מורכב מ-33 חוליות: 7 צוואריות, 12 חזיות, 5 מותניות, 5 סקרליות מאוחות ו-4 קוקסיגאליות מאוחות. בין C1 (אטלס) ל-C2 (אקסיס) אין דיסק כדי לאפשר רוטציה סביב ה-Dens.",
+    distractorAnalysis: [
+      "נכון: מספור החוליות ואפיון האטלס והאקסיס מדויקים לחלוטין.",
+      "שגוי: מספר החוליות בצוואר ובמותן הוחלף, ולאטלס אין גוף חוליה.",
+      "שגוי: בין C1 ל-C2 אין דיסק בין-חולייתי כלל.",
+      "שגוי: יש 7 חוליות צוואריות (8 זוגות עצבים צוואריים) והן נעות בחופשיות."
+    ]
+  },
+  {
+    id: "final-sim-4",
+    institution: "meso",
+    isExamPrep: true,
+    image: "/images/meso/meso_three_connected_vertebrae.jpg",
+    question: "ממה מורכב הדיסק הבין-חולייתי, ואילו עקומות בעמוד השדרה נחשבות לעקומות שניוניות (Secondary)?",
+    options: [
+      "הדיסק מורכב ממעטפת סיבית (Anulus fibrosus) וגרעין ג'לי (Nucleus pulposus); העקומות השניוניות הן הלורדוזה הצווארית והלורדוזה המותנית",
+      "הדיסק מורכב מסחוס אלסטי ונוזל סינוביאלי; העקומות השניוניות הן הקיפוזה החזית והקיפוזה הסקראלית",
+      "הדיסק מורכב מעצם ספוגית; העקומות השניוניות קיימות כבר אצל העובר ברחם בצורת C",
+      "הדיסק מורכב מרקמת אפיתל; כל ארבע העקומות של עמוד השדרה מתפתחות רק לאחר גיל ההתבגרות"
+    ],
+    correctAnswer: 0,
+    explanation: "הדיסק בנוי מטבעת סיבית חיצונית (Anulus fibrosus) ומרכז ג'לי בולם זעזועים (Nucleus pulposus). העקומות הראשוניות הן החזית והסקראלית, והשניוניות הן הצווארית והמותנית.",
+    distractorAnalysis: [
+      "נכון: תיאור מדויק של מבנה הדיסק והעקומות השניוניות.",
+      "שגוי: החזית והסקראלית הן עקומות ראשוניות (Primary).",
+      "שגוי: העובר ברחם נמצא בעקומות הראשוניות בצורת C.",
+      "שגוי: העקומות מתפתחות בינקות עם הרמת הראש והתחלת ההליכה."
+    ]
+  },
+  {
+    id: "final-sim-5",
+    institution: "meso",
+    isExamPrep: true,
+    image: "/images/meso/meso_fibers.jpg",
+    question: "מהו התפקיד הייחודי של Aponeurosis, Fascia ו-Bursa במערכת התנועה?",
+    options: [
+      "Aponeurosis: גיד שטוח ורחב המחבר שריר לשריר/עצם; Fascia: רקמת חיבור העוטפת ומפרידה שרירים; Bursa: שק נוזל סינוביאלי המפחית חיכוך",
+      "Aponeurosis: מחברת עצם לעצם; Fascia: מייצרת תאי דם אדומים; Bursa: מעבירה דחף חשמלי מהמוח לשריר",
+      "Aponeurosis: סחוס המרפד את הברך; Fascia: שריר נשימה עיקרי; Bursa: עצם ססמואידית בתוך גיד",
+      "שלושת המבנים הם סוגים שונים של סיבי שריר חלק בדפנות כלי הדם"
+    ],
+    correctAnswer: 0,
+    explanation: "לצד גיד (שריר-עצם) ורצועה (עצם-עצם): אפונאורוזיס הוא יריעה גידית שטוחה, פאשיה עוטפת ומפרידה רקמות, ובורסה היא כרית נוזל סינוביאלי להפחתת חיכוך.",
+    distractorAnalysis: [
+      "נכון: הגדרות מדויקות מתוך טבלת הסיכום של פרק 4 בחוברת.",
+      "שגוי: עצם לעצם מחברת רצועה (Ligament).",
+      "שגוי: ערבוב שגוי של מושגים ממערכות השלד והנשימה.",
+      "שגוי: כולם מבנים של רקמת חיבור ולא רקמת שריר."
+    ]
+  },
+  {
+    id: "final-sim-6",
+    institution: "meso",
+    isExamPrep: true,
+    image: "/images/meso/meso_muscle_tissues_table.jpg",
+    question: "מתאמן מבצע ירידה איטית ומבוקרת בשלב הנגטיב של עליית מתח (Pull-up), ולאחר מכן עוצר ל-3 שניות באמצע התנועה. אילו סוגי כיווץ מתרחשים?",
+    options: [
+      "בירידה המבוקרת: כיווץ אקסצנטרי (השריר מתארך בשליטה תחת מתח); בעצירה במקום: כיווץ איזומטרי (ללא שינוי באורך השריר)",
+      "בירידה המבוקרת: כיווץ קונצנטרי (השריר מתקצר); בעצירה במקום: הרפיה מלאה ללא מתח שרירי",
+      "בירידה המבוקרת: הרפיה פסיבית; בעצירה במקום: כיווץ אקסצנטרי מהיר",
+      "בשני השלבים מתרחש כיווץ קונצנטרי כיוון שהשריר מתנגד לכוח המשיכה"
+    ],
+    correctAnswer: 0,
+    explanation: "בלימת ירידה תוך התארכות מבוקרת היא כיווץ אקסצנטרי; החזקה סטטית ללא תנועה במפרק היא כיווץ איזומטרי; עלייה וקיצור השריר הם כיווץ קונצנטרי.",
+    distractorAnalysis: [
+      "נכון: ניתוח ביומכני מדויק של שלבי התרגיל.",
+      "שגוי: קונצנטרי מתרחש בעלייה (קיצור), ובעצירה יש מתח איזומטרי גבוה.",
+      "שגוי: הרפיה תגרום לנפילה חופשית ללא שליטה.",
+      "שגוי: כיווץ קונצנטרי מחייב קיצור של השריר."
+    ]
+  },
+  {
+    id: "final-sim-7",
+    institution: "meso",
+    isExamPrep: true,
+    image: "/images/biceps_brachii.jpeg",
+    question: "בתרגיל כפיפת מרפק בעמידה (Biceps Curl), מהו תפקידו של כל שריר: Biceps Brachii, Triceps Brachii, Brachialis ו-Anterior Deltoid?",
+    options: [
+      "Biceps Brachii: Agonist; Triceps Brachii: Antagonist; Brachialis: Synergist; Anterior Deltoid: Fixator (מייצב את הכתף)",
+      "Biceps Brachii: Fixator; Triceps Brachii: Synergist; Brachialis: Antagonist; Anterior Deltoid: Agonist",
+      "Triceps Brachii: Agonist; Biceps Brachii: Antagonist; Anterior Deltoid: Synergist; Brachialis: Fixator",
+      "כל ארבעת השרירים פועלים יחד כ-Agonists לביצוע כפיפת המרפק"
+    ],
+    correctAnswer: 0,
+    explanation: "האגוניסט מבצע את התנועה (Biceps), האנטגוניסט מרפה מנגד (Triceps), הסינרגיסט מסייע לתנועה (Brachialis), והמייצב מקבע מפרק סמוך מול הכוח החיצוני (Anterior Deltoid בכתף).",
+    distractorAnalysis: [
+      "נכון: חלוקת תפקידים מדויקת מתוך טבלת פרק 4 בחוברת.",
+      "שגוי: תפקידי השרירים הוצגו בצורה הפוכה ומבולבלת.",
+      "שגוי: הטרייספס הוא האנטגוניסט בכפיפת מרפק.",
+      "שגוי: הטרייספס והדלתואיד הקדמי אינם אגוניסטים בכפיפת מרפק."
+    ]
+  },
+  {
+    id: "final-sim-8",
+    institution: "meso",
+    isExamPrep: true,
+    image: "/images/rectus_abdominis.jpeg",
+    question: "מהי הפעולה העיקרית של Rectus Abdominis, ומהו המבנה האנטומי המכונה Linea Alba?",
+    options: [
+      "Rectus Abdominis מבצע כפיפת גו ו-PPT; ה-Linea Alba היא רצועת רקמת חיבור אורכית מ-Xiphoid עד ה-Pubis המחברת בין שני צדי הבטן",
+      "Rectus Abdominis מבצע פשיטת גו ו-APT; ה-Linea Alba היא עצם שטוחה במרכז הבטן המגנה על הקיבה",
+      "Rectus Abdominis מבצע רוטציה של הגו בלבד; ה-Linea Alba היא שריר רוחבי עמוק העוטף את עמוד השדרה",
+      "Rectus Abdominis מרחיק את האגן לצדדים; ה-Linea Alba היא עצב המעצבב את הסרעפת"
+    ],
+    correctAnswer: 0,
+    explanation: "ה-Rectus Abdominis כופף את הגו ומגלגל את האגן לאחור (PPT). ה-Linea Alba ('הקו הלבן') היא רצועת רקמת חיבור קולגנית במרכז הבטן שבה נפגשות האפונאורוזות של שרירי הבטן.",
+    distractorAnalysis: [
+      "נכון: הגדרה אנטומית ותפקודית מדויקת.",
+      "שגוי: כפיפת גו ו-PPT הם פעולותיו, ואין עצם במרכז הבטן.",
+      "שגוי: רוטציה מבוצעת בעיקר על ידי האלכסונים, וה-Linea Alba היא רקמת חיבור.",
+      "שגוי: אינו מרחיק אגן וה-Linea Alba אינה עצב."
+    ]
+  },
+  {
+    id: "final-sim-9",
+    institution: "meso",
+    isExamPrep: true,
+    image: "/images/external_oblique.png",
+    question: "מתאמן מבצע סיבוב של הגו (Rotation) שמאלה בתרגיל Russian Twist. אילו שרירים אלכסוניים פועלים יחד לביצוע תנועה זו?",
+    options: [
+      "External Oblique ימני (מסובב לצד הנגדי) יחד עם Internal Oblique שמאלי (מסובב לאותו צד)",
+      "External Oblique שמאלי יחד עם Internal Oblique ימני",
+      "שני ה-External Obliques של ימין ושמאל מתכווצים יחד ללא מעורבות של Internal Oblique",
+      "Transversus Abdominis שמאלי בלבד ללא שום מעורבות של השרירים האלכסוניים"
+    ],
+    correctAnswer: 0,
+    explanation: "בכיווץ חד-צדדי, External Oblique מסובב את הגו לצד הנגדי (ימני מסובב שמאלה), ואילו Internal Oblique מסובב לאותו צד (שמאלי מסובב שמאלה).",
+    distractorAnalysis: [
+      "נכון: שילוב הפעולה הצולב המדויק של האלכסונים ברוטציה שמאלה.",
+      "שגוי: שילוב זה מסובב את הגו ימינה.",
+      "שגוי: כיווץ דו-צדדי של החיצוניים מבצע כפיפת גו קדימה, לא רוטציה.",
+      "שגוי: ה-Transversus Abdominis מייצב לחץ תוך-בטני ואינו מייצר רוטציה."
+    ]
+  },
+  {
+    id: "final-sim-10",
+    institution: "meso",
+    isExamPrep: true,
+    image: "/images/meso/meso_breathing_mechanics.jpg",
+    question: "מה מתרחש בסרעפת (Diaphragm) בזמן שאיפה (Inspiration) לעומת נשיפה (Expiration)?",
+    options: [
+      "בשאיפה הסרעפת מתכווצת, יורדת ומשתטחת ונפח בית החזה גדל; בנשיפה היא מרפה ועולה חזרה לצורת כיפה",
+      "בשאיפה הסרעפת מרפה ועולה כלפי מעלה; בנשיפה היא מתכווצת ויורדת אל תוך חלל הבטן",
+      "בשאיפה הסרעפת מתכווצת ועולה לכיוון הגרון; בנשיפה היא נשארת שטוחה ללא תנועה",
+      "הסרעפת פועלת רק בנשיפה מאומצת ואינה משתתפת כלל בתהליך השאיפה"
+    ],
+    correctAnswer: 0,
+    explanation: "במנוחה הסרעפת בצורת כיפה. בשאיפה סיביה מתכווצים ומושכים את הגיד המרכזי מטה (משתטחת), מה שמגדיל את נפח בית החזה. בנשיפה היא מרפה ועולה.",
+    distractorAnalysis: [
+      "נכון: מכניקת הנשימה המדויקת של הסרעפת.",
+      "שגוי: הפוך – התכווצות מורידה ומשטיחה את הכיפה.",
+      "שגוי: כיווץ מושך את הגיד המרכזי מטה ולא מעלה.",
+      "שגוי: הסרעפת היא שריר השאיפה העיקרי."
+    ]
+  },
+  {
+    id: "final-sim-11",
+    institution: "meso",
+    isExamPrep: true,
+    image: "/images/serratus_anterior.png",
+    question: "מתאמן מבצע שכיבות סמיכה והגבול הפנימי של השכמה שלו בולט החוצה ('שכמה מכונפת' - Winging Scapula). איזה שריר חלש ומהי פעולתו?",
+    options: [
+      "Serratus Anterior – תפקידו להצמיד את השכמה לבית החזה ולבצע Protraction ו-Upward Rotation",
+      "Rhomboids – תפקידם להרחיק את השכמה מעמוד השדרה ולבצע Depression",
+      "Latissimus Dorsi – תפקידו להרים את השכמה לכיוון האוזן ולבצע Elevation",
+      "Triceps Brachii – תפקידו לקבע את השכמה אל עצם הבריח בזמן דחיפה"
+    ],
+    correctAnswer: 0,
+    explanation: "ה-Serratus Anterior מצמיד את הגבול המדיאלי של השכמה לצלעות ומבצע Protraction ו-Upward Rotation. חולשה שלו גורמת לבליטת השכמה החוצה (Winging).",
+    distractorAnalysis: [
+      "נכון: זיהוי השריר החלש והבנת תפקידו בייצוב השכמה.",
+      "שגוי: המעוינים מבצעים Retraction (קירוב) ולא Protraction.",
+      "שגוי: הרחב גבי מניע את עצם הזרוע ואינו מייצב את השכמה לצלעות.",
+      "שגוי: הטרייספס מניע את המרפק והכתף ואינו מייצב את השכמה."
+    ]
+  },
+  {
+    id: "final-sim-12",
+    institution: "meso",
+    isExamPrep: true,
+    image: "/images/trapezius.png",
+    question: "אילו תנועות שכמה מבצעים שלושת חלקי ה-Trapezius, ואילו שרירים מבצעים Retraction (קירוב שכמות) בתרגיל חתירה?",
+    options: [
+      "Upper Trapezius: Elevation; Middle Trapezius: Retraction; Lower Trapezius: Depression; בחתירה פועלים Middle Trapezius ו-Rhomboids",
+      "Upper Trapezius: Depression; Middle Trapezius: Protraction; Lower Trapezius: Elevation; בחתירה פועל Serratus Anterior",
+      "כל חלקי ה-Trapezius מבצעים אך ורק Downward Rotation של השכמה",
+      "Rhomboids מבצעים Protraction, בעוד Upper Trapezius מבצע פשיטת מרפק"
+    ],
+    correctAnswer: 0,
+    explanation: "הטרפז העליון מרים שכמה, האמצעי מקרב, והתחתון מוריד. בתרגיל חתירה (Seated Row), מקרבי השכמות העיקריים הם Middle Trapezius ו-Rhomboids.",
+    distractorAnalysis: [
+      "נכון: חלוקה מדויקת של חלקי הטרפז ומקרבי השכמות.",
+      "שגוי: הפוך בין העליון לתחתון, והסרטוס מבצע הרחקת שכמות (Protraction).",
+      "שגוי: הטרפז העליון והתחתון מבצעים דווקא Upward Rotation.",
+      "שגוי: המעוינים מקרבים שכמות והטרפז אינו חוצה את המרפק."
+    ]
+  },
+  {
+    id: "final-sim-13",
+    institution: "meso",
+    isExamPrep: true,
+    image: "/images/latissimus_dorsi.jpeg",
+    question: "מהן שלוש התנועות שמבצע Latissimus Dorsi במפרק הכתף, ומה קורה כאשר הידיים מקובעות על מוט המתח?",
+    options: [
+      "מבצע Extension, Adduction ו-Internal Rotation בכתף; כשהידיים מקובעות הוא מושך את הגוף והאגן מעלה אל המוט",
+      "מבצע Flexion, Abduction ו-External Rotation בכתף; כשהידיים מקובעות הוא דוחף את המוט כלפי מעלה",
+      "מבצע Protraction ו-Elevation של השכמה בלבד ללא תנועה במפרק הכתף",
+      "מבצע כפיפת מרפק וסופינציה של האמה כיוון שהוא נאחז בעצם הרדיוס"
+    ],
+    correctAnswer: 0,
+    explanation: "ה-Latissimus Dorsi נאחז בחריץ הדו-ראשי של עצם הזרוע ומבצע פשיטה, קירוב ורוטציה פנימית. במתח (אחז מקובע) הוא מרים את הגו אל הזרועות.",
+    distractorAnalysis: [
+      "נכון: שלוש פעולות השריר ויישום עקרון הקצה המקובע במתח.",
+      "שגוי: אלו הפעולות ההפוכות לפעולות הרחב גבי.",
+      "שגוי: הרחב גבי מניע את עצם הזרוע (Glenohumeral).",
+      "שגוי: השריר אינו חוצה את המרפק ואינו נאחז ברדיוס."
+    ]
+  },
+  {
+    id: "final-sim-14",
+    institution: "meso",
+    isExamPrep: true,
+    image: "/images/supraspinatus.jpeg",
+    question: "מתאמן מתלונן על כאב בצד הכתף בעת הרמת משקולות לצדדים (Lateral Raise). איזה שריר מ-Rotator Cuff יוזם את 15 המעלות הראשונות ונצבט תחת האקרומיון?",
+    options: [
+      "Supraspinatus – יוזם את 15 המעלות הראשונות של Abduction וגידו עובר במרווח הצר מתחת לאקרומיון",
+      "Subscapularis – מבצע Internal Rotation ונאחז בגבשושית הקטנה בחזית הכתף",
+      "Infraspinatus – מבצע External Rotation ונאחז בחלק האחורי של האולנה",
+      "Teres Minor – מבצע Adduction ומתחבר ישירות לעצם הבריח"
+    ],
+    correctAnswer: 0,
+    explanation: "ה-Supraspinatus מתחיל את ההרחקה (15° ראשונות) וממרכז את ראש הזרוע. גידו והבורסה התת-אקרומיאלית עלולים להיצבט מתחת לאקרומיון בהרמות לצד.",
+    distractorAnalysis: [
+      "נכון: תפקיד הסופראספינטוס ומנגנון תסמונת הצביטה (Impingement).",
+      "שגוי: הסובסקפולריס מבצע רוטציה פנימית ואינו יוזם הרחקה.",
+      "שגוי: האינפראספינטוס מבצע רוטציה חיצונית ונאחז בהומרוס (לא באולנה).",
+      "שגוי: הטרס מיינור מבצע רוטציה חיצונית ונאחז בהומרוס."
+    ]
+  },
+  {
+    id: "final-sim-15",
+    institution: "meso",
+    isExamPrep: true,
+    image: "/images/triceps_brachii.png",
+    question: "מהי פעולתו העיקרית של Triceps Brachii, ואיזה ראש שלו חוצה גם את מפרק הכתף?",
+    options: [
+      "מבצע Elbow Extension (נאחז ב-Olecranon); הראש הארוך (Long head) יוצא מהשכמה ומסייע גם ב-Shoulder Extension",
+      "מבצע Elbow Flexion (נאחז ברדיוס); הראש הצדי (Lateral head) חוצה את הכתף ומבצע Abduction",
+      "מבצע Supination של האמה; הראש המדיאלי נאחז באקרומיון ומרים את השכמה",
+      "כל שלושת הראשים חד-מפרקיים ופועלים אך ורק בכפיפת שורש כף היד"
+    ],
+    correctAnswer: 0,
+    explanation: "שלושת ראשי ה-Triceps נאחזים באולקרנון של האולנה לפשיטת מרפק. רק הראש הארוך יוצא מהשכמה ולכן חוצה גם את הכתף ומסייע בפשיטתה.",
+    distractorAnalysis: [
+      "נכון: אנטומיה ותפקוד מדויקים של התלת-ראשי וראשו הארוך.",
+      "שגוי: הטרייספס פושט מרפק (לא כופף) ונאחז באולנה.",
+      "שגוי: אינו מבצע סופינציה ואינו נאחז באקרומיון.",
+      "שגוי: הראש הארוך דו-מפרקי ואינו מגיע לשורש כף היד."
+    ]
+  },
+  {
+    id: "final-sim-16",
+    institution: "meso",
+    isExamPrep: true,
+    image: "/images/iliopsoas.jpeg",
+    question: "מתאמן יושב שעות רבות מול מחשב וסובל מהטיית אגן קדמית מוגברת (APT). איזה שריר מקוצר מושך את האגן ומהן פעולותיו?",
+    options: [
+      "Iliopsoas – מכופף הירך העיקרי (נאחז ב-Lesser trochanter), וכשהרגליים מקובעות הוא מושך את האגן והמותן ל-APT",
+      "Gluteus Maximus – פושט הירך העיקרי, וכשהרגליים מקובעות הוא מושך את האגן ל-APT",
+      "Hamstrings – כופפי הברך, וכשהרגליים מקובעות הם מגבירים את הלורדוזה המותנית ויוצרים APT",
+      "Rectus Abdominis – כופף הגו, הגורם להטיית אגן קדמית מוגברת (APT) כשהוא מקוצר"
+    ],
+    correctAnswer: 0,
+    explanation: "ה-Iliopsoas יוצא מחוליות המותן והכסל ונאחז ב-Lesser trochanter. קיצור שלו מושך את האגן קדימה ומטה (APT) ומעמיק את הקשת המותנית.",
+    distractorAnalysis: [
+      "נכון: תפקיד האיליופסואס וההשלכה של קיצורו על מנח האגן.",
+      "שגוי: Gluteus Maximus מבצע PPT (הטיה אחורית) ולא APT.",
+      "שגוי: Hamstrings מבצעים PPT ומיישרים את הלורדוזה.",
+      "שגוי: Rectus Abdominis מבצע PPT (מושך את הפוביס מעלה)."
+    ]
+  },
+  {
+    id: "final-sim-17",
+    institution: "meso",
+    isExamPrep: true,
+    image: "/images/gluteus.jpeg",
+    question: "מהן הפעולות של Gluteus Maximus לעומת Gluteus Medius, ומה יקרה אם Gluteus Medius חלש?",
+    options: [
+      "Gluteus Maximus מבצע Hip Extension, External Rotation ו-PPT; Gluteus Medius מבצע Hip Abduction וחולשתו גורמת לצניחת אגן (Trendelenburg)",
+      "Gluteus Maximus מבצע Hip Flexion ו-APT; Gluteus Medius מבצע Hip Adduction וחולשתו גורמת לשכמה מכונפת",
+      "שני השרירים מבצעים Knee Extension וחולשתם מונעת יישור של מפרק הברך",
+      "Gluteus Medius מבצע PPT בלבד ואין לו שום תפקיד בייצוב האגן בעמידה על רגל אחת"
+    ],
+    correctAnswer: 0,
+    explanation: "ה-Gluteus Maximus פושט ירך, מסובב חיצונית ומבצע PPT. ה-Gluteus Medius מרחיק ירך ומייצב את האגן בעמידה על רגל אחת; חולשתו גורמת לצניחת אגן (Trendelenburg Gait).",
+    distractorAnalysis: [
+      "נכון: הבחנה מלאה בין שני שרירי העכוז והשלכות חולשת העכוז האמצעי.",
+      "שגוי: פעולות הפוכות, ושכמה מכונפת נובעת מחולשת Serratus Anterior.",
+      "שגוי: שרירי העכוז אינם חוצים את מפרק הברך.",
+      "שגוי: ייצוב האגן בעמידה על רגל אחת הוא תפקידו המרכזי של Gluteus Medius."
+    ]
+  },
+  {
+    id: "final-sim-18",
+    institution: "meso",
+    isExamPrep: true,
+    image: "/images/quadriceps.jpeg",
+    question: "איזה ראש של Quadriceps חוצה שני מפרקים, ואיזו תנועה מבצע כל אחד משלושת ראשי ה-Vasti?",
+    options: [
+      "Rectus Femoris חוצה ירך וברך (מבצע Hip Flexion + Knee Extension); שלושת ה-Vasti מבצעים Knee Extension בלבד",
+      "Vastus Lateralis חוצה ירך וברך; Rectus Femoris מבצע Knee Flexion בלבד",
+      "Vastus Medialis חוצה ירך, ברך וקרסול; כל ארבעת הראשים מבצעים Hip Extension",
+      "כל ארבעת ראשי ה-Quadriceps יוצאים מהאגן ומבצעים כפיפת ברך ופשיטת ירך"
+    ],
+    correctAnswer: 0,
+    explanation: "ה-Rectus Femoris יוצא מה-AIIS באגן ולכן מבצע כפיפת ירך ופשיטת ברך. שלושת ה-Vasti (Lateralis, Medialis, Intermedius) יוצאים מהפמור ופושטים רק את הברך.",
+    distractorAnalysis: [
+      "נכון: אבחנה מדויקת בין הראש הדו-מפרקי לשלושת הראשים החד-מפרקיים.",
+      "שגוי: Vastus Lateralis חד-מפרקי ו-Rectus Femoris פושט ברך (לא כופף).",
+      "שגוי: Vastus Medialis חוצה רק את הברך.",
+      "שגוי: אלו הפעולות ההפוכות (פעולות ה-Hamstrings)."
+    ]
+  },
+  {
+    id: "final-sim-19",
+    institution: "meso",
+    isExamPrep: true,
+    image: "/images/hamstrings.png",
+    question: "מהן הפעולות של קבוצת ה-Hamstrings, ואיזה ראש בקבוצה זו חוצה רק את מפרק הברך?",
+    options: [
+      "מבצעים Knee Flexion, Hip Extension ו-PPT; הראש הקצר של Biceps Femoris יוצא מהפמור ומניע רק את הברך",
+      "מבצעים Knee Extension, Hip Flexion ו-APT; ה-Semitendinosus מניע רק את הירך",
+      "מבצעים Hip Abduction ו-Internal Rotation; הראש הארוך של Biceps Femoris חוצה רק את הברך",
+      "כל שרירי ה-Hamstrings נאחזים בפיקה ומיישרים את מפרק הברך בבעיטה"
+    ],
+    correctAnswer: 0,
+    explanation: "ה-Hamstrings (Semitendinosus, Semimembranosus, Biceps Femoris) מכופפים ברך, פושטים ירך ומבצעים PPT. רק הראש הקצר של Biceps Femoris יוצא מהפמור וחוצה רק את הברך.",
+    distractorAnalysis: [
+      "נכון: פעולות הקבוצה והחריג האנטומי של הראש הקצר של הביספס פמוריס.",
+      "שגוי: אלו פעולות של כופפי הירך ופושטי הברך.",
+      "שגוי: הראש הארוך יוצא מה-Ischial tuberosity וחוצה שני מפרקים.",
+      "שגוי: ההמסטרינגס נמצאים מאחור ונאחזים בטיביה ובפיבולה."
+    ]
+  },
+  {
+    id: "final-sim-20",
+    institution: "meso",
+    isExamPrep: true,
+    image: "/images/sartorius.jpeg",
+    question: "מהן הפעולות המשולבות של שריר ה-Sartorius (השריר הארוך ביותר בגוף) בירך ובברך?",
+    options: [
+      "בירך: Flexion, Abduction ו-External Rotation; בברך: מסייע ב-Flexion (מנח ישיבת חייט שלובה)",
+      "בירך: Extension, Adduction ו-Internal Rotation; בברך: מבצע Extension מלא",
+      "בירך: Hip Extension בלבד; בברך: מונע תנועת Valgus יחד עם רצועת ה-ACL",
+      "אינו חוצה את מפרק הברך כלל ופועל רק ככופף ירך חד-מפרקי"
+    ],
+    correctAnswer: 0,
+    explanation: "ה-Sartorius יוצא מה-ASIS ונאחז ב-Pes anserinus בשוקה. מהלכו האלכסוני מייצר כפיפה, הרחקה ורוטציה חיצונית בירך, וכפיפה בברך.",
+    distractorAnalysis: [
+      "נכון: ארבע הפעולות המשולבות של שריר החייטים.",
+      "שגוי: כל הפעולות הוצגו בצורה הפוכה.",
+      "שגוי: אינו פושט ירך ואינו רצועת ברך.",
+      "שגוי: הוא שריר דו-מפרקי החוצה גם את הירך וגם את הברך."
+    ]
+  },
+  {
+    id: "final-sim-21",
+    institution: "meso",
+    isExamPrep: true,
+    image: "/images/quadriceps.jpeg",
+    question: "מהו התפקיד של כל אחת מארבע רצועות הברך (ACL, PCL, MCL, LCL)?",
+    options: [
+      "ACL מונעת תזוזה קדמית של ה-Tibia; PCL מונעת תזוזה אחורית של ה-Tibia; MCL מונעת Valgus; LCL מונעת Varus",
+      "ACL מונעת Valgus; PCL מונעת Varus; MCL מונעת תזוזה קדמית של ה-Tibia; LCL מונעת תזוזה אחורית",
+      "ACL ו-PCL מונעות כפיפת ברך; MCL ו-LCL מונעות פשיטת ברך",
+      "כל ארבע הרצועות מחברות את עצם הפיקה אל עצם ה-Fibula"
+    ],
+    correctAnswer: 0,
+    explanation: "הרצועות הצולבות בולמות תזוזת גזירה קדמית (ACL) ואחורית (PCL) של הטיביה על הפמור. הרצועות הצדיות בולמות קריסה פנימה (MCL - Valgus) והחוצה (LCL - Varus).",
+    distractorAnalysis: [
+      "נכון: מיפוי מדויק של תפקידי ארבע רצועות הברך.",
+      "שגוי: תפקידי הרצועות הצולבות והצדיות הוחלפו.",
+      "שגוי: הברך מבצעת כפיפה ופשיטה בחופשיות.",
+      "שגוי: הרצועות מחברות בין הפמור לטיביה ולפיבולה, לא לפיקה."
+    ]
+  },
+  {
+    id: "final-sim-22",
+    institution: "meso",
+    isExamPrep: true,
+    image: "/images/quadriceps.jpeg",
+    question: "מאיזה סוג סחוס בנויים המניסקוסים בברך, ומה ההבדל בין Medial Meniscus ל-Lateral Meniscus?",
+    options: [
+      "סחוס סיבי (Fibrocartilage); Medial Meniscus בצורת C ומחובר לרצועות ולכן פחות תנועתי ונפגע יותר, בעוד Lateral עגול ותנועתי יותר",
+      "סחוס היאליני (Hyaline); Lateral Meniscus מחובר ל-MCL ולכן נפגע פי עשרה יותר מה-Medial",
+      "סחוס אלסטי (Elastic); שני המניסקוסים מרחפים חופשי בנוזל הסינוביאלי ללא חיבור לעצם",
+      "רקמת עצם ספוגית; תפקידם היחיד הוא לייצר נוזל סינוביאלי במפרק הברך"
+    ],
+    correctAnswer: 0,
+    explanation: "המניסקוסים בנויים מסחוס סיבי עמיד לדחיסה. המניסקוס המדיאלי בצורת C ומקובע ל-MCL, ולכן תנועתיותו נמוכה והוא חשוף הרבה יותר לקרעים.",
+    distractorAnalysis: [
+      "נכון: סוג הסחוס והסיבה האנטומית לשכיחות הפגיעה במניסקוס המדיאלי.",
+      "שגוי: הם עשויים סחוס סיבי, והמדיאלי הוא שמחובר ל-MCL.",
+      "שגוי: הם מחוברים ל-Tibial Plateau ואינם עשויים סחוס אלסטי.",
+      "שגוי: המניסקוסים הם סחוס סיבי ונוזל סינוביאלי מיוצר בקפסולה."
+    ]
+  },
+  {
+    id: "final-sim-23",
+    institution: "meso",
+    isExamPrep: true,
+    question: "מתאמן מתקשה להרים את קדמת כף הרגל בהליכה ('שמיטת כף רגל' - Foot Drop). איזה שריר חלש ומהן פעולותיו?",
+    options: [
+      "Tibialis Anterior – השריר העיקרי לביצוע Dorsiflexion ו-Inversion בקרסול ובכף הרגל",
+      "Gastrocnemius – השריר העיקרי לביצוע Plantar Flexion ו-Knee Flexion",
+      "Soleus – השריר העמוק המייצב את הקרסול בעמידה ומבצע Plantar Flexion",
+      "Tibialis Posterior – השריר העמוק במדור האחורי המבצע Plantar Flexion ו-Inversion"
+    ],
+    correctAnswer: 0,
+    explanation: "ה-Tibialis Anterior נמצא במדור הקדמי של השוק ומבצע Dorsiflexion (הרמת כף הרגל) ו-Inversion. חולשה שלו גורמת לקושי בהרמת כף הרגל מהקרקע.",
+    distractorAnalysis: [
+      "נכון: זיהוי השריר הקדמי ותפקידו בהרמת כף הרגל.",
+      "שגוי: הגסטרוקנמיוס מוריד את כף הרגל מטה (Plantar Flexion).",
+      "שגוי: הסולאוס מוריד את כף הרגל מטה (Plantar Flexion).",
+      "שגוי: הטיביאליס האחורי מבצע Plantar Flexion ולא Dorsiflexion."
+    ]
+  },
+  {
+    id: "final-sim-24",
+    institution: "meso",
+    isExamPrep: true,
+    question: "מה ההבדל האנטומי והתפקודי בין Gastrocnemius ל-Soleus, וכיצד נבודד כל אחד מהם בחדר הכושר?",
+    options: [
+      "Gastrocnemius חוצה ברך וקרסול (מודגש בהרמת עקבים בעמידה עם ברך ישרה); Soleus חוצה רק את הקרסול (מודגש בהרמת עקבים בישיבה עם ברך כפופה)",
+      "Soleus חוצה ברך וקרסול (מודגש בעמידה); Gastrocnemius חוצה רק את הקרסול (מודגש בישיבה)",
+      "Gastrocnemius מבצע Dorsiflexion; Soleus מבצע Eversion",
+      "שניהם שרירים חד-מפרקיים ופועלים בעוצמה זהה לחלוטין בכל זווית של מפרק הברך"
+    ],
+    correctAnswer: 0,
+    explanation: "שניהם מתחברים לגיד אכילס ומבצעים Plantar Flexion. אך ה-Gastrocnemius חוצה גם את הברך ולכן בברך כפופה (בישיבה) הוא מקוצר ומוחלש, והעבודה עוברת ל-Soleus.",
+    distractorAnalysis: [
+      "נכון: ההבדל המפרקי ויישומו בתרגילי תאומים בעמידה מול ישיבה.",
+      "שגוי: התפקידים והמבנה הוחלפו בין שני השרירים.",
+      "שגוי: שניהם מבצעים Plantar Flexion.",
+      "שגוי: ה-Gastrocnemius הוא שריר דו-מפרקי."
+    ]
+  },
+  {
+    id: "final-sim-25",
+    institution: "meso",
+    isExamPrep: true,
+    question: "היכן ממוקם שריר ה-Tibialis Posterior, מהן פעולותיו ומה יקרה לכף הרגל אם הוא חלש?",
+    options: [
+      "השריר העמוק ביותר במדור האחורי של השוק; מבצע Inversion ו-Plantar Flexion ותומך בקשת כף הרגל (חולשתו תוביל לקריסת הקשת / כף רגל שטוחה)",
+      "השריר השטחי במדור הקדמי של השוק; מבצע Dorsiflexion ו-Eversion (חולשתו גורמת לנעילת הברך)",
+      "השריר הלטרלי ביותר בשוק; מבצע Eversion בלבד ומתחבר לעצם הפיקה",
+      "שריר פנימי בכף הרגל המבצע פשיטת בהונות ואינו חוצה את מפרק הקרסול"
+    ],
+    correctAnswer: 0,
+    explanation: "ה-Tibialis Posterior נמצא עמוק במדור האחורי של השוק, עובר מאחורי הפטישון המדיאלי ונאחז בעצמות כף הרגל. הוא מבצע Inversion ו-Plantar Flexion ותומך בקשת האורכית.",
+    distractorAnalysis: [
+      "נכון: מיקום, פעולות והשלכה תפקודית של חולשת הטיביאליס האחורי.",
+      "שגוי: זהו תיאור שגוי המבלבל עם המדור הקדמי.",
+      "שגוי: השרירים הלטרליים הם Peroneus Longus ו-Brevis.",
+      "שגוי: השריר מתחיל בשוק (Tibia, Fibula) וחוצה את הקרסול."
+    ]
+  }
+];
+
+// ========================================================
 // פונקציית ערבוב כפולה: מערבבת הן את סדר השאלות והן את סדר התשובות
 // ושומרת על סנכרון מלא של correctAnswer ושל distractorAnalysis
 // ========================================================
@@ -4666,5 +4618,3 @@ export function getRandomizedExamSet(questions: Question[], count = 25): Questio
     };
   });
 }
-  }
-];
