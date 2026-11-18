@@ -4054,533 +4054,785 @@ export const allQuestions: Question[] = [
     ]
   },
 
-  // ========================================================
-  // קבוצה 8: סימולציית מבחן מסכם - 25 שאלות אמת לפי המיקוד (Meso Final)
-  // ========================================================
-  {
-    id: "final-sim-1",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/meso/meso_bone_cell_stricture.jpg",
-    question: "מתאמן שבר את עצם הבריח וכעת העצם בתהליך איחוי ובנייה מחדש. מהו תפקידו של כל אחד משלושת תאי העצם?",
-    options: [
-      "Osteoblast בונה רקמת עצם חדשה; Osteoclast מפרק וסופג רקמת עצם; Osteocyte תא בוגר המנטר עומסים",
-      "Osteoclast בונה רקמת עצם חדשה; Osteoblast מפרק וממיס עצם; Osteocyte מייצר תאי דם אדומים",
-      "Osteocyte בונה סחוס היאליני; Osteoblast מפרק רצועות; Osteoclast מייצר נוזל סינוביאלי",
-      "שלושת התאים מבצעים בניית עצם בלבד ואינם משתתפים כלל בפירוק או בבקרת עומסים"
-    ],
-    correctAnswer: 0,
-    explanation: "במחזור השחלוף (Remodeling): האוסטאובלסט בונה עצם, האוסטאוקלסט מפרק עצם קיימת, והאוסטאוציט כלוא במטריקס ומשמש חיישן לעומסים מכניים.",
-    distractorAnalysis: [
-      "נכון: חלוקת התפקידים המדויקת של שלושת תאי העצם.",
-      "שגוי: תפקידי ה-Osteoblast וה-Osteoclast הוחלפו.",
-      "שגוי: תאי העצם אינם בונים סחוס או נוזל סינוביאלי.",
-      "שגוי: פירוק עצם על ידי אוסטאוקלסטים הוא חלק בלתי נפרד משחלוף העצם."
-    ]
-  },
-  {
-    id: "final-sim-2",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/meso/meso_peak_bone_mass.jpg",
-    question: "מתי מושג שיא מסת העצם (Peak Bone Mass) אצל האדם, ומדוע אימוני התנגדות קריטיים לנשים סביב גיל 50?",
-    options: [
-      "שיא מסת העצם מושג בסוף שנות ה-20; סביב גיל 50 ירידת האסטרוגן מסירה ריסון מה-Osteoclasts ואימוני התנגדות מעודדים בנייה לפי חוק וולף",
-      "שיא מסת העצם מושג בגיל 10; סביב גיל 50 עליית האסטרוגן גורמת לעיבוי יתר של העצם ונעילת מפרקים",
-      "שיא מסת העצם מושג בגיל 60; אימוני התנגדות אסורים מעל גיל 50 כי הם מפרקים את מסת העצם",
-      "מסת העצם נשארת זהה לחלוטין מגיל 20 ועד גיל 90 ללא כל השפעה של הורמונים או פעילות גופנית"
-    ],
-    correctAnswer: 0,
-    explanation: "שיא מסת העצם מושג סביב סוף שנות ה-20. בגיל המעבר ירידת האסטרוגן מאיצה פירוק עצם על ידי אוסטאוקלסטים, ואימוני כוח (חוק וולף) מגרים אוסטאובלסטים לבנות עצם.",
-    distractorAnalysis: [
-      "נכון: שילוב מדויק של עקומת מסת העצם, השפעת האסטרוגן וחוק וולף.",
-      "שגוי: שיא המסה אינו בגיל 10 ובגיל המעבר יש ירידה באסטרוגן.",
-      "שגוי: אימוני התנגדות הם הכלי המניעתי היעיל ביותר לאוסטאופורוזיס.",
-      "שגוי: מסת העצם משתנה לאורך החיים ומושפעת מהורמונים ועומס מכני."
-    ]
-  },
-  {
-    id: "final-sim-3",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/meso/meso_spine_structure_and_regions.jpg",
-    question: "מהו מספר החוליות בכל אחד מחמשת אזורי עמוד השדרה (מלמעלה למטה), ומה מייחד את C1 ו-C2?",
-    options: [
-      "7 צוואריות, 12 חזיות, 5 מותניות, 5 בעצה ו-4 בזנב (33 סה\"כ); C1 (Atlas) נושאת את הגולגולת ו-C2 (Axis) בעלת Dens לרוטציית הראש",
-      "5 צוואריות, 12 חזיות, 7 מותניות, 4 בעצה ו-5 בזנב; C1 בעלת גוף חוליה ענק ו-C2 מתחברת לצלע הראשונה",
-      "7 צוואריות, 10 חזיות, 5 מותניות, 5 בעצה ו-5 בזנב; בין C1 ל-C2 נמצא הדיסק הבין-חולייתי העבה ביותר בגוף",
-      "8 צוואריות, 12 חזיות, 5 מותניות, 5 בעצה ו-3 בזנב; C1 ו-C2 מאוחות לעצם אחת ללא תנועה"
-    ],
-    correctAnswer: 0,
-    explanation: "עמוד השדרה מורכב מ-33 חוליות: 7 צוואריות, 12 חזיות, 5 מותניות, 5 סקרליות מאוחות ו-4 קוקסיגאליות מאוחות. בין C1 (אטלס) ל-C2 (אקסיס) אין דיסק כדי לאפשר רוטציה סביב ה-Dens.",
-    distractorAnalysis: [
-      "נכון: מספור החוליות ואפיון האטלס והאקסיס מדויקים לחלוטין.",
-      "שגוי: מספר החוליות בצוואר ובמותן הוחלף, ולאטלס אין גוף חוליה.",
-      "שגוי: בין C1 ל-C2 אין דיסק בין-חולייתי כלל.",
-      "שגוי: יש 7 חוליות צוואריות (8 זוגות עצבים צוואריים) והן נעות בחופשיות."
-    ]
-  },
-  {
-    id: "final-sim-4",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/meso/meso_three_connected_vertebrae.jpg",
-    question: "ממה מורכב הדיסק הבין-חולייתי, ואילו עקומות בעמוד השדרה נחשבות לעקומות שניוניות (Secondary)?",
-    options: [
-      "הדיסק מורכב ממעטפת סיבית (Anulus fibrosus) וגרעין ג'לי (Nucleus pulposus); העקומות השניוניות הן הלורדוזה הצווארית והלורדוזה המותנית",
-      "הדיסק מורכב מסחוס אלסטי ונוזל סינוביאלי; העקומות השניוניות הן הקיפוזה החזית והקיפוזה הסקראלית",
-      "הדיסק מורכב מעצם ספוגית; העקומות השניוניות קיימות כבר אצל העובר ברחם בצורת C",
-      "הדיסק מורכב מרקמת אפיתל; כל ארבע העקומות של עמוד השדרה מתפתחות רק לאחר גיל ההתבגרות"
-    ],
-    correctAnswer: 0,
-    explanation: "הדיסק בנוי מטבעת סיבית חיצונית (Anulus fibrosus) ומרכז ג'לי בולם זעזועים (Nucleus pulposus). העקומות הראשוניות הן החזית והסקראלית, והשניוניות הן הצווארית והמותנית.",
-    distractorAnalysis: [
-      "נכון: תיאור מדויק של מבנה הדיסק והעקומות השניוניות.",
-      "שגוי: החזית והסקראלית הן עקומות ראשוניות (Primary).",
-      "שגוי: העובר ברחם נמצא בעקומות הראשוניות בצורת C.",
-      "שגוי: העקומות מתפתחות בינקות עם הרמת הראש והתחלת ההליכה."
-    ]
-  },
-  {
-    id: "final-sim-5",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/meso/meso_fibers.jpg",
-    question: "מהו התפקיד הייחודי של Aponeurosis, Fascia ו-Bursa במערכת התנועה?",
-    options: [
-      "Aponeurosis: גיד שטוח ורחב המחבר שריר לשריר/עצם; Fascia: רקמת חיבור העוטפת ומפרידה שרירים; Bursa: שק נוזל סינוביאלי המפחית חיכוך",
-      "Aponeurosis: מחברת עצם לעצם; Fascia: מייצרת תאי דם אדומים; Bursa: מעבירה דחף חשמלי מהמוח לשריר",
-      "Aponeurosis: סחוס המרפד את הברך; Fascia: שריר נשימה עיקרי; Bursa: עצם ססמואידית בתוך גיד",
-      "שלושת המבנים הם סוגים שונים של סיבי שריר חלק בדפנות כלי הדם"
-    ],
-    correctAnswer: 0,
-    explanation: "לצד גיד (שריר-עצם) ורצועה (עצם-עצם): אפונאורוזיס הוא יריעה גידית שטוחה, פאשיה עוטפת ומפרידה רקמות, ובורסה היא כרית נוזל סינוביאלי להפחתת חיכוך.",
-    distractorAnalysis: [
-      "נכון: הגדרות מדויקות מתוך טבלת הסיכום של פרק 4 בחוברת.",
-      "שגוי: עצם לעצם מחברת רצועה (Ligament).",
-      "שגוי: ערבוב שגוי של מושגים ממערכות השלד והנשימה.",
-      "שגוי: כולם מבנים של רקמת חיבור ולא רקמת שריר."
-    ]
-  },
-  {
-    id: "final-sim-6",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/meso/meso_muscle_tissues_table.jpg",
-    question: "מתאמן מבצע ירידה איטית ומבוקרת בשלב הנגטיב של עליית מתח (Pull-up), ולאחר מכן עוצר ל-3 שניות באמצע התנועה. אילו סוגי כיווץ מתרחשים?",
-    options: [
-      "בירידה המבוקרת: כיווץ אקסצנטרי (השריר מתארך בשליטה תחת מתח); בעצירה במקום: כיווץ איזומטרי (ללא שינוי באורך השריר)",
-      "בירידה המבוקרת: כיווץ קונצנטרי (השריר מתקצר); בעצירה במקום: הרפיה מלאה ללא מתח שרירי",
-      "בירידה המבוקרת: הרפיה פסיבית; בעצירה במקום: כיווץ אקסצנטרי מהיר",
-      "בשני השלבים מתרחש כיווץ קונצנטרי כיוון שהשריר מתנגד לכוח המשיכה"
-    ],
-    correctAnswer: 0,
-    explanation: "בלימת ירידה תוך התארכות מבוקרת היא כיווץ אקסצנטרי; החזקה סטטית ללא תנועה במפרק היא כיווץ איזומטרי; עלייה וקיצור השריר הם כיווץ קונצנטרי.",
-    distractorAnalysis: [
-      "נכון: ניתוח ביומכני מדויק של שלבי התרגיל.",
-      "שגוי: קונצנטרי מתרחש בעלייה (קיצור), ובעצירה יש מתח איזומטרי גבוה.",
-      "שגוי: הרפיה תגרום לנפילה חופשית ללא שליטה.",
-      "שגוי: כיווץ קונצנטרי מחייב קיצור של השריר."
-    ]
-  },
-  {
-    id: "final-sim-7",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/biceps_brachii.jpeg",
-    question: "בתרגיל כפיפת מרפק בעמידה (Biceps Curl), מהו תפקידו של כל שריר: Biceps Brachii, Triceps Brachii, Brachialis ו-Anterior Deltoid?",
-    options: [
-      "Biceps Brachii: Agonist; Triceps Brachii: Antagonist; Brachialis: Synergist; Anterior Deltoid: Fixator (מייצב את הכתף)",
-      "Biceps Brachii: Fixator; Triceps Brachii: Synergist; Brachialis: Antagonist; Anterior Deltoid: Agonist",
-      "Triceps Brachii: Agonist; Biceps Brachii: Antagonist; Anterior Deltoid: Synergist; Brachialis: Fixator",
-      "כל ארבעת השרירים פועלים יחד כ-Agonists לביצוע כפיפת המרפק"
-    ],
-    correctAnswer: 0,
-    explanation: "האגוניסט מבצע את התנועה (Biceps), האנטגוניסט מרפה מנגד (Triceps), הסינרגיסט מסייע לתנועה (Brachialis), והמייצב מקבע מפרק סמוך מול הכוח החיצוני (Anterior Deltoid בכתף).",
-    distractorAnalysis: [
-      "נכון: חלוקת תפקידים מדויקת מתוך טבלת פרק 4 בחוברת.",
-      "שגוי: תפקידי השרירים הוצגו בצורה הפוכה ומבולבלת.",
-      "שגוי: הטרייספס הוא האנטגוניסט בכפיפת מרפק.",
-      "שגוי: הטרייספס והדלתואיד הקדמי אינם אגוניסטים בכפיפת מרפק."
-    ]
-  },
-  {
-    id: "final-sim-8",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/rectus_abdominis.jpeg",
-    question: "מהי הפעולה העיקרית של Rectus Abdominis, ומהו המבנה האנטומי המכונה Linea Alba?",
-    options: [
-      "Rectus Abdominis מבצע כפיפת גו ו-PPT; ה-Linea Alba היא רצועת רקמת חיבור אורכית מ-Xiphoid עד ה-Pubis המחברת בין שני צדי הבטן",
-      "Rectus Abdominis מבצע פשיטת גו ו-APT; ה-Linea Alba היא עצם שטוחה במרכז הבטן המגנה על הקיבה",
-      "Rectus Abdominis מבצע רוטציה של הגו בלבד; ה-Linea Alba היא שריר רוחבי עמוק העוטף את עמוד השדרה",
-      "Rectus Abdominis מרחיק את האגן לצדדים; ה-Linea Alba היא עצב המעצבב את הסרעפת"
-    ],
-    correctAnswer: 0,
-    explanation: "ה-Rectus Abdominis כופף את הגו ומגלגל את האגן לאחור (PPT). ה-Linea Alba ('הקו הלבן') היא רצועת רקמת חיבור קולגנית במרכז הבטן שבה נפגשות האפונאורוזות של שרירי הבטן.",
-    distractorAnalysis: [
-      "נכון: הגדרה אנטומית ותפקודית מדויקת.",
-      "שגוי: כפיפת גו ו-PPT הם פעולותיו, ואין עצם במרכז הבטן.",
-      "שגוי: רוטציה מבוצעת בעיקר על ידי האלכסונים, וה-Linea Alba היא רקמת חיבור.",
-      "שגוי: אינו מרחיק אגן וה-Linea Alba אינה עצב."
-    ]
-  },
-  {
-    id: "final-sim-9",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/external_oblique.png",
-    question: "מתאמן מבצע סיבוב של הגו (Rotation) שמאלה בתרגיל Russian Twist. אילו שרירים אלכסוניים פועלים יחד לביצוע תנועה זו?",
-    options: [
-      "External Oblique ימני (מסובב לצד הנגדי) יחד עם Internal Oblique שמאלי (מסובב לאותו צד)",
-      "External Oblique שמאלי יחד עם Internal Oblique ימני",
-      "שני ה-External Obliques של ימין ושמאל מתכווצים יחד ללא מעורבות של Internal Oblique",
-      "Transversus Abdominis שמאלי בלבד ללא שום מעורבות של השרירים האלכסוניים"
-    ],
-    correctAnswer: 0,
-    explanation: "בכיווץ חד-צדדי, External Oblique מסובב את הגו לצד הנגדי (ימני מסובב שמאלה), ואילו Internal Oblique מסובב לאותו צד (שמאלי מסובב שמאלה).",
-    distractorAnalysis: [
-      "נכון: שילוב הפעולה הצולב המדויק של האלכסונים ברוטציה שמאלה.",
-      "שגוי: שילוב זה מסובב את הגו ימינה.",
-      "שגוי: כיווץ דו-צדדי של החיצוניים מבצע כפיפת גו קדימה, לא רוטציה.",
-      "שגוי: ה-Transversus Abdominis מייצב לחץ תוך-בטני ואינו מייצר רוטציה."
-    ]
-  },
-  {
-    id: "final-sim-10",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/meso/meso_breathing_mechanics.jpg",
-    question: "מה מתרחש בסרעפת (Diaphragm) בזמן שאיפה (Inspiration) לעומת נשיפה (Expiration)?",
-    options: [
-      "בשאיפה הסרעפת מתכווצת, יורדת ומשתטחת ונפח בית החזה גדל; בנשיפה היא מרפה ועולה חזרה לצורת כיפה",
-      "בשאיפה הסרעפת מרפה ועולה כלפי מעלה; בנשיפה היא מתכווצת ויורדת אל תוך חלל הבטן",
-      "בשאיפה הסרעפת מתכווצת ועולה לכיוון הגרון; בנשיפה היא נשארת שטוחה ללא תנועה",
-      "הסרעפת פועלת רק בנשיפה מאומצת ואינה משתתפת כלל בתהליך השאיפה"
-    ],
-    correctAnswer: 0,
-    explanation: "במנוחה הסרעפת בצורת כיפה. בשאיפה סיביה מתכווצים ומושכים את הגיד המרכזי מטה (משתטחת), מה שמגדיל את נפח בית החזה. בנשיפה היא מרפה ועולה.",
-    distractorAnalysis: [
-      "נכון: מכניקת הנשימה המדויקת של הסרעפת.",
-      "שגוי: הפוך – התכווצות מורידה ומשטיחה את הכיפה.",
-      "שגוי: כיווץ מושך את הגיד המרכזי מטה ולא מעלה.",
-      "שגוי: הסרעפת היא שריר השאיפה העיקרי."
-    ]
-  },
-  {
-    id: "final-sim-11",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/serratus_anterior.png",
-    question: "מתאמן מבצע שכיבות סמיכה והגבול הפנימי של השכמה שלו בולט החוצה ('שכמה מכונפת' - Winging Scapula). איזה שריר חלש ומהי פעולתו?",
-    options: [
-      "Serratus Anterior – תפקידו להצמיד את השכמה לבית החזה ולבצע Protraction ו-Upward Rotation",
-      "Rhomboids – תפקידם להרחיק את השכמה מעמוד השדרה ולבצע Depression",
-      "Latissimus Dorsi – תפקידו להרים את השכמה לכיוון האוזן ולבצע Elevation",
-      "Triceps Brachii – תפקידו לקבע את השכמה אל עצם הבריח בזמן דחיפה"
-    ],
-    correctAnswer: 0,
-    explanation: "ה-Serratus Anterior מצמיד את הגבול המדיאלי של השכמה לצלעות ומבצע Protraction ו-Upward Rotation. חולשה שלו גורמת לבליטת השכמה החוצה (Winging).",
-    distractorAnalysis: [
-      "נכון: זיהוי השריר החלש והבנת תפקידו בייצוב השכמה.",
-      "שגוי: המעוינים מבצעים Retraction (קירוב) ולא Protraction.",
-      "שגוי: הרחב גבי מניע את עצם הזרוע ואינו מייצב את השכמה לצלעות.",
-      "שגוי: הטרייספס מניע את המרפק והכתף ואינו מייצב את השכמה."
-    ]
-  },
-  {
-    id: "final-sim-12",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/trapezius.png",
-    question: "אילו תנועות שכמה מבצעים שלושת חלקי ה-Trapezius, ואילו שרירים מבצעים Retraction (קירוב שכמות) בתרגיל חתירה?",
-    options: [
-      "Upper Trapezius: Elevation; Middle Trapezius: Retraction; Lower Trapezius: Depression; בחתירה פועלים Middle Trapezius ו-Rhomboids",
-      "Upper Trapezius: Depression; Middle Trapezius: Protraction; Lower Trapezius: Elevation; בחתירה פועל Serratus Anterior",
-      "כל חלקי ה-Trapezius מבצעים אך ורק Downward Rotation של השכמה",
-      "Rhomboids מבצעים Protraction, בעוד Upper Trapezius מבצע פשיטת מרפק"
-    ],
-    correctAnswer: 0,
-    explanation: "הטרפז העליון מרים שכמה, האמצעי מקרב, והתחתון מוריד. בתרגיל חתירה (Seated Row), מקרבי השכמות העיקריים הם Middle Trapezius ו-Rhomboids.",
-    distractorAnalysis: [
-      "נכון: חלוקה מדויקת של חלקי הטרפז ומקרבי השכמות.",
-      "שגוי: הפוך בין העליון לתחתון, והסרטוס מבצע הרחקת שכמות (Protraction).",
-      "שגוי: הטרפז העליון והתחתון מבצעים דווקא Upward Rotation.",
-      "שגוי: המעוינים מקרבים שכמות והטרפז אינו חוצה את המרפק."
-    ]
-  },
-  {
-    id: "final-sim-13",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/latissimus_dorsi.jpeg",
-    question: "מהן שלוש התנועות שמבצע Latissimus Dorsi במפרק הכתף, ומה קורה כאשר הידיים מקובעות על מוט המתח?",
-    options: [
-      "מבצע Extension, Adduction ו-Internal Rotation בכתף; כשהידיים מקובעות הוא מושך את הגוף והאגן מעלה אל המוט",
-      "מבצע Flexion, Abduction ו-External Rotation בכתף; כשהידיים מקובעות הוא דוחף את המוט כלפי מעלה",
-      "מבצע Protraction ו-Elevation של השכמה בלבד ללא תנועה במפרק הכתף",
-      "מבצע כפיפת מרפק וסופינציה של האמה כיוון שהוא נאחז בעצם הרדיוס"
-    ],
-    correctAnswer: 0,
-    explanation: "ה-Latissimus Dorsi נאחז בחריץ הדו-ראשי של עצם הזרוע ומבצע פשיטה, קירוב ורוטציה פנימית. במתח (אחז מקובע) הוא מרים את הגו אל הזרועות.",
-    distractorAnalysis: [
-      "נכון: שלוש פעולות השריר ויישום עקרון הקצה המקובע במתח.",
-      "שגוי: אלו הפעולות ההפוכות לפעולות הרחב גבי.",
-      "שגוי: הרחב גבי מניע את עצם הזרוע (Glenohumeral).",
-      "שגוי: השריר אינו חוצה את המרפק ואינו נאחז ברדיוס."
-    ]
-  },
-  {
-    id: "final-sim-14",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/supraspinatus.jpeg",
-    question: "מתאמן מתלונן על כאב בצד הכתף בעת הרמת משקולות לצדדים (Lateral Raise). איזה שריר מ-Rotator Cuff יוזם את 15 המעלות הראשונות ונצבט תחת האקרומיון?",
-    options: [
-      "Supraspinatus – יוזם את 15 המעלות הראשונות של Abduction וגידו עובר במרווח הצר מתחת לאקרומיון",
-      "Subscapularis – מבצע Internal Rotation ונאחז בגבשושית הקטנה בחזית הכתף",
-      "Infraspinatus – מבצע External Rotation ונאחז בחלק האחורי של האולנה",
-      "Teres Minor – מבצע Adduction ומתחבר ישירות לעצם הבריח"
-    ],
-    correctAnswer: 0,
-    explanation: "ה-Supraspinatus מתחיל את ההרחקה (15° ראשונות) וממרכז את ראש הזרוע. גידו והבורסה התת-אקרומיאלית עלולים להיצבט מתחת לאקרומיון בהרמות לצד.",
-    distractorAnalysis: [
-      "נכון: תפקיד הסופראספינטוס ומנגנון תסמונת הצביטה (Impingement).",
-      "שגוי: הסובסקפולריס מבצע רוטציה פנימית ואינו יוזם הרחקה.",
-      "שגוי: האינפראספינטוס מבצע רוטציה חיצונית ונאחז בהומרוס (לא באולנה).",
-      "שגוי: הטרס מיינור מבצע רוטציה חיצונית ונאחז בהומרוס."
-    ]
-  },
-  {
-    id: "final-sim-15",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/triceps_brachii.png",
-    question: "מהי פעולתו העיקרית של Triceps Brachii, ואיזה ראש שלו חוצה גם את מפרק הכתף?",
-    options: [
-      "מבצע Elbow Extension (נאחז ב-Olecranon); הראש הארוך (Long head) יוצא מהשכמה ומסייע גם ב-Shoulder Extension",
-      "מבצע Elbow Flexion (נאחז ברדיוס); הראש הצדי (Lateral head) חוצה את הכתף ומבצע Abduction",
-      "מבצע Supination של האמה; הראש המדיאלי נאחז באקרומיון ומרים את השכמה",
-      "כל שלושת הראשים חד-מפרקיים ופועלים אך ורק בכפיפת שורש כף היד"
-    ],
-    correctAnswer: 0,
-    explanation: "שלושת ראשי ה-Triceps נאחזים באולקרנון של האולנה לפשיטת מרפק. רק הראש הארוך יוצא מהשכמה ולכן חוצה גם את הכתף ומסייע בפשיטתה.",
-    distractorAnalysis: [
-      "נכון: אנטומיה ותפקוד מדויקים של התלת-ראשי וראשו הארוך.",
-      "שגוי: הטרייספס פושט מרפק (לא כופף) ונאחז באולנה.",
-      "שגוי: אינו מבצע סופינציה ואינו נאחז באקרומיון.",
-      "שגוי: הראש הארוך דו-מפרקי ואינו מגיע לשורש כף היד."
-    ]
-  },
-  {
-    id: "final-sim-16",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/iliopsoas.jpeg",
-    question: "מתאמן יושב שעות רבות מול מחשב וסובל מהטיית אגן קדמית מוגברת (APT). איזה שריר מקוצר מושך את האגן ומהן פעולותיו?",
-    options: [
-      "Iliopsoas – מכופף הירך העיקרי (נאחז ב-Lesser trochanter), וכשהרגליים מקובעות הוא מושך את האגן והמותן ל-APT",
-      "Gluteus Maximus – פושט הירך העיקרי, וכשהרגליים מקובעות הוא מושך את האגן ל-APT",
-      "Hamstrings – כופפי הברך, וכשהרגליים מקובעות הם מגבירים את הלורדוזה המותנית ויוצרים APT",
-      "Rectus Abdominis – כופף הגו, הגורם להטיית אגן קדמית מוגברת (APT) כשהוא מקוצר"
-    ],
-    correctAnswer: 0,
-    explanation: "ה-Iliopsoas יוצא מחוליות המותן והכסל ונאחז ב-Lesser trochanter. קיצור שלו מושך את האגן קדימה ומטה (APT) ומעמיק את הקשת המותנית.",
-    distractorAnalysis: [
-      "נכון: תפקיד האיליופסואס וההשלכה של קיצורו על מנח האגן.",
-      "שגוי: Gluteus Maximus מבצע PPT (הטיה אחורית) ולא APT.",
-      "שגוי: Hamstrings מבצעים PPT ומיישרים את הלורדוזה.",
-      "שגוי: Rectus Abdominis מבצע PPT (מושך את הפוביס מעלה)."
-    ]
-  },
-  {
-    id: "final-sim-17",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/gluteus.jpeg",
-    question: "מהן הפעולות של Gluteus Maximus לעומת Gluteus Medius, ומה יקרה אם Gluteus Medius חלש?",
-    options: [
-      "Gluteus Maximus מבצע Hip Extension, External Rotation ו-PPT; Gluteus Medius מבצע Hip Abduction וחולשתו גורמת לצניחת אגן (Trendelenburg)",
-      "Gluteus Maximus מבצע Hip Flexion ו-APT; Gluteus Medius מבצע Hip Adduction וחולשתו גורמת לשכמה מכונפת",
-      "שני השרירים מבצעים Knee Extension וחולשתם מונעת יישור של מפרק הברך",
-      "Gluteus Medius מבצע PPT בלבד ואין לו שום תפקיד בייצוב האגן בעמידה על רגל אחת"
-    ],
-    correctAnswer: 0,
-    explanation: "ה-Gluteus Maximus פושט ירך, מסובב חיצונית ומבצע PPT. ה-Gluteus Medius מרחיק ירך ומייצב את האגן בעמידה על רגל אחת; חולשתו גורמת לצניחת אגן (Trendelenburg Gait).",
-    distractorAnalysis: [
-      "נכון: הבחנה מלאה בין שני שרירי העכוז והשלכות חולשת העכוז האמצעי.",
-      "שגוי: פעולות הפוכות, ושכמה מכונפת נובעת מחולשת Serratus Anterior.",
-      "שגוי: שרירי העכוז אינם חוצים את מפרק הברך.",
-      "שגוי: ייצוב האגן בעמידה על רגל אחת הוא תפקידו המרכזי של Gluteus Medius."
-    ]
-  },
-  {
-    id: "final-sim-18",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/quadriceps.jpeg",
-    question: "איזה ראש של Quadriceps חוצה שני מפרקים, ואיזו תנועה מבצע כל אחד משלושת ראשי ה-Vasti?",
-    options: [
-      "Rectus Femoris חוצה ירך וברך (מבצע Hip Flexion + Knee Extension); שלושת ה-Vasti מבצעים Knee Extension בלבד",
-      "Vastus Lateralis חוצה ירך וברך; Rectus Femoris מבצע Knee Flexion בלבד",
-      "Vastus Medialis חוצה ירך, ברך וקרסול; כל ארבעת הראשים מבצעים Hip Extension",
-      "כל ארבעת ראשי ה-Quadriceps יוצאים מהאגן ומבצעים כפיפת ברך ופשיטת ירך"
-    ],
-    correctAnswer: 0,
-    explanation: "ה-Rectus Femoris יוצא מה-AIIS באגן ולכן מבצע כפיפת ירך ופשיטת ברך. שלושת ה-Vasti (Lateralis, Medialis, Intermedius) יוצאים מהפמור ופושטים רק את הברך.",
-    distractorAnalysis: [
-      "נכון: אבחנה מדויקת בין הראש הדו-מפרקי לשלושת הראשים החד-מפרקיים.",
-      "שגוי: Vastus Lateralis חד-מפרקי ו-Rectus Femoris פושט ברך (לא כופף).",
-      "שגוי: Vastus Medialis חוצה רק את הברך.",
-      "שגוי: אלו הפעולות ההפוכות (פעולות ה-Hamstrings)."
-    ]
-  },
-  {
-    id: "final-sim-19",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/hamstrings.png",
-    question: "מהן הפעולות של קבוצת ה-Hamstrings, ואיזה ראש בקבוצה זו חוצה רק את מפרק הברך?",
-    options: [
-      "מבצעים Knee Flexion, Hip Extension ו-PPT; הראש הקצר של Biceps Femoris יוצא מהפמור ומניע רק את הברך",
-      "מבצעים Knee Extension, Hip Flexion ו-APT; ה-Semitendinosus מניע רק את הירך",
-      "מבצעים Hip Abduction ו-Internal Rotation; הראש הארוך של Biceps Femoris חוצה רק את הברך",
-      "כל שרירי ה-Hamstrings נאחזים בפיקה ומיישרים את מפרק הברך בבעיטה"
-    ],
-    correctAnswer: 0,
-    explanation: "ה-Hamstrings (Semitendinosus, Semimembranosus, Biceps Femoris) מכופפים ברך, פושטים ירך ומבצעים PPT. רק הראש הקצר של Biceps Femoris יוצא מהפמור וחוצה רק את הברך.",
-    distractorAnalysis: [
-      "נכון: פעולות הקבוצה והחריג האנטומי של הראש הקצר של הביספס פמוריס.",
-      "שגוי: אלו פעולות של כופפי הירך ופושטי הברך.",
-      "שגוי: הראש הארוך יוצא מה-Ischial tuberosity וחוצה שני מפרקים.",
-      "שגוי: ההמסטרינגס נמצאים מאחור ונאחזים בטיביה ובפיבולה."
-    ]
-  },
-  {
-    id: "final-sim-20",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/sartorius.jpeg",
-    question: "מהן הפעולות המשולבות של שריר ה-Sartorius (השריר הארוך ביותר בגוף) בירך ובברך?",
-    options: [
-      "בירך: Flexion, Abduction ו-External Rotation; בברך: מסייע ב-Flexion (מנח ישיבת חייט שלובה)",
-      "בירך: Extension, Adduction ו-Internal Rotation; בברך: מבצע Extension מלא",
-      "בירך: Hip Extension בלבד; בברך: מונע תנועת Valgus יחד עם רצועת ה-ACL",
-      "אינו חוצה את מפרק הברך כלל ופועל רק ככופף ירך חד-מפרקי"
-    ],
-    correctAnswer: 0,
-    explanation: "ה-Sartorius יוצא מה-ASIS ונאחז ב-Pes anserinus בשוקה. מהלכו האלכסוני מייצר כפיפה, הרחקה ורוטציה חיצונית בירך, וכפיפה בברך.",
-    distractorAnalysis: [
-      "נכון: ארבע הפעולות המשולבות של שריר החייטים.",
-      "שגוי: כל הפעולות הוצגו בצורה הפוכה.",
-      "שגוי: אינו פושט ירך ואינו רצועת ברך.",
-      "שגוי: הוא שריר דו-מפרקי החוצה גם את הירך וגם את הברך."
-    ]
-  },
-  {
-    id: "final-sim-21",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/quadriceps.jpeg",
-    question: "מהו התפקיד של כל אחת מארבע רצועות הברך (ACL, PCL, MCL, LCL)?",
-    options: [
-      "ACL מונעת תזוזה קדמית של ה-Tibia; PCL מונעת תזוזה אחורית של ה-Tibia; MCL מונעת Valgus; LCL מונעת Varus",
-      "ACL מונעת Valgus; PCL מונעת Varus; MCL מונעת תזוזה קדמית של ה-Tibia; LCL מונעת תזוזה אחורית",
-      "ACL ו-PCL מונעות כפיפת ברך; MCL ו-LCL מונעות פשיטת ברך",
-      "כל ארבע הרצועות מחברות את עצם הפיקה אל עצם ה-Fibula"
-    ],
-    correctAnswer: 0,
-    explanation: "הרצועות הצולבות בולמות תזוזת גזירה קדמית (ACL) ואחורית (PCL) של הטיביה על הפמור. הרצועות הצדיות בולמות קריסה פנימה (MCL - Valgus) והחוצה (LCL - Varus).",
-    distractorAnalysis: [
-      "נכון: מיפוי מדויק של תפקידי ארבע רצועות הברך.",
-      "שגוי: תפקידי הרצועות הצולבות והצדיות הוחלפו.",
-      "שגוי: הברך מבצעת כפיפה ופשיטה בחופשיות.",
-      "שגוי: הרצועות מחברות בין הפמור לטיביה ולפיבולה, לא לפיקה."
-    ]
-  },
-  {
-    id: "final-sim-22",
-    institution: "meso",
-    isExamPrep: true,
-    image: "/images/quadriceps.jpeg",
-    question: "מאיזה סוג סחוס בנויים המניסקוסים בברך, ומה ההבדל בין Medial Meniscus ל-Lateral Meniscus?",
-    options: [
-      "סחוס סיבי (Fibrocartilage); Medial Meniscus בצורת C ומחובר לרצועות ולכן פחות תנועתי ונפגע יותר, בעוד Lateral עגול ותנועתי יותר",
-      "סחוס היאליני (Hyaline); Lateral Meniscus מחובר ל-MCL ולכן נפגע פי עשרה יותר מה-Medial",
-      "סחוס אלסטי (Elastic); שני המניסקוסים מרחפים חופשי בנוזל הסינוביאלי ללא חיבור לעצם",
-      "רקמת עצם ספוגית; תפקידם היחיד הוא לייצר נוזל סינוביאלי במפרק הברך"
-    ],
-    correctAnswer: 0,
-    explanation: "המניסקוסים בנויים מסחוס סיבי עמיד לדחיסה. המניסקוס המדיאלי בצורת C ומקובע ל-MCL, ולכן תנועתיותו נמוכה והוא חשוף הרבה יותר לקרעים.",
-    distractorAnalysis: [
-      "נכון: סוג הסחוס והסיבה האנטומית לשכיחות הפגיעה במניסקוס המדיאלי.",
-      "שגוי: הם עשויים סחוס סיבי, והמדיאלי הוא שמחובר ל-MCL.",
-      "שגוי: הם מחוברים ל-Tibial Plateau ואינם עשויים סחוס אלסטי.",
-      "שגוי: המניסקוסים הם סחוס סיבי ונוזל סינוביאלי מיוצר בקפסולה."
-    ]
-  },
-  {
-    id: "final-sim-23",
-    institution: "meso",
-    isExamPrep: true,
-    question: "מתאמן מתקשה להרים את קדמת כף הרגל בהליכה ('שמיטת כף רגל' - Foot Drop). איזה שריר חלש ומהן פעולותיו?",
-    options: [
-      "Tibialis Anterior – השריר העיקרי לביצוע Dorsiflexion ו-Inversion בקרסול ובכף הרגל",
-      "Gastrocnemius – השריר העיקרי לביצוע Plantar Flexion ו-Knee Flexion",
-      "Soleus – השריר העמוק המייצב את הקרסול בעמידה ומבצע Plantar Flexion",
-      "Tibialis Posterior – השריר העמוק במדור האחורי המבצע Plantar Flexion ו-Inversion"
-    ],
-    correctAnswer: 0,
-    explanation: "ה-Tibialis Anterior נמצא במדור הקדמי של השוק ומבצע Dorsiflexion (הרמת כף הרגל) ו-Inversion. חולשה שלו גורמת לקושי בהרמת כף הרגל מהקרקע.",
-    distractorAnalysis: [
-      "נכון: זיהוי השריר הקדמי ותפקידו בהרמת כף הרגל.",
-      "שגוי: הגסטרוקנמיוס מוריד את כף הרגל מטה (Plantar Flexion).",
-      "שגוי: הסולאוס מוריד את כף הרגל מטה (Plantar Flexion).",
-      "שגוי: הטיביאליס האחורי מבצע Plantar Flexion ולא Dorsiflexion."
-    ]
-  },
-  {
-    id: "final-sim-24",
-    institution: "meso",
-    isExamPrep: true,
-    question: "מה ההבדל האנטומי והתפקודי בין Gastrocnemius ל-Soleus, וכיצד נבודד כל אחד מהם בחדר הכושר?",
-    options: [
-      "Gastrocnemius חוצה ברך וקרסול (מודגש בהרמת עקבים בעמידה עם ברך ישרה); Soleus חוצה רק את הקרסול (מודגש בהרמת עקבים בישיבה עם ברך כפופה)",
-      "Soleus חוצה ברך וקרסול (מודגש בעמידה); Gastrocnemius חוצה רק את הקרסול (מודגש בישיבה)",
-      "Gastrocnemius מבצע Dorsiflexion; Soleus מבצע Eversion",
-      "שניהם שרירים חד-מפרקיים ופועלים בעוצמה זהה לחלוטין בכל זווית של מפרק הברך"
-    ],
-    correctAnswer: 0,
-    explanation: "שניהם מתחברים לגיד אכילס ומבצעים Plantar Flexion. אך ה-Gastrocnemius חוצה גם את הברך ולכן בברך כפופה (בישיבה) הוא מקוצר ומוחלש, והעבודה עוברת ל-Soleus.",
-    distractorAnalysis: [
-      "נכון: ההבדל המפרקי ויישומו בתרגילי תאומים בעמידה מול ישיבה.",
-      "שגוי: התפקידים והמבנה הוחלפו בין שני השרירים.",
-      "שגוי: שניהם מבצעים Plantar Flexion.",
-      "שגוי: ה-Gastrocnemius הוא שריר דו-מפרקי."
-    ]
-  },
-  {
-    id: "final-sim-25",
-    institution: "meso",
-    isExamPrep: true,
-    question: "היכן ממוקם שריר ה-Tibialis Posterior, מהן פעולותיו ומה יקרה לכף הרגל אם הוא חלש?",
-    options: [
-      "השריר העמוק ביותר במדור האחורי של השוק; מבצע Inversion ו-Plantar Flexion ותומך בקשת כף הרגל (חולשתו תוביל לקריסת הקשת / כף רגל שטוחה)",
-      "השריר השטחי במדור הקדמי של השוק; מבצע Dorsiflexion ו-Eversion (חולשתו גורמת לנעילת הברך)",
-      "השריר הלטרלי ביותר בשוק; מבצע Eversion בלבד ומתחבר לעצם הפיקה",
-      "שריר פנימי בכף הרגל המבצע פשיטת בהונות ואינו חוצה את מפרק הקרסול"
-    ],
-    correctAnswer: 0,
-    explanation: "ה-Tibialis Posterior נמצא עמוק במדור האחורי של השוק, עובר מאחורי הפטישון המדיאלי ונאחז בעצמות כף הרגל. הוא מבצע Inversion ו-Plantar Flexion ותומך בקשת האורכית.",
-    distractorAnalysis: [
-      "נכון: מיקום, פעולות והשלכה תפקודית של חולשת הטיביאליס האחורי.",
-      "שגוי: זהו תיאור שגוי המבלבל עם המדור הקדמי.",
-      "שגוי: השרירים הלטרליים הם Peroneus Longus ו-Brevis.",
-      "שגוי: השריר מתחיל בשוק (Tibia, Fibula) וחוצה את הקרסול."
-    ]
-  }
-];
+ "use client";
 
+import React, { useState, useRef, useEffect, useCallback, useMemo } from "react";
+import { allQuestions, Question } from "../data/questions";
+
+function shuffleArray<T>(array: T[]): T[] {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+interface ShuffledQuestion extends Question {
+  shuffledOptions: string[];
+  newCorrectAnswer: number;
+  shuffledDistractorAnalysis?: string[];
+}
+
+function PinchZoomImage({ src, alt }: { src: string; alt: string }) {
+  const [scale, setScale] = useState(1);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [imgKey, setImgKey] = useState(src);
+  const [isFailed, setIsFailed] = useState(false);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const initialDistance = useRef<number | null>(null);
+  const initialScale = useRef(1);
+  const isDragging = useRef(false);
+  const dragStart = useRef({ x: 0, y: 0 });
+  const lastTouchTime = useRef(0);
+
+  useEffect(() => {
+    setScale(1);
+    setPosition({ x: 0, y: 0 });
+    setImgKey(`${src}?t=${Date.now()}`);
+    setIsFailed(false);
+  }, [src]);
+
+  const handleWheel = (e: React.WheelEvent) => {
+    e.preventDefault();
+    const zoomFactor = e.deltaY < 0 ? 1.2 : 0.8;
+    setScale((prev) => {
+      const next = Math.min(Math.max(prev * zoomFactor, 1), 4);
+      if (next === 1) setPosition({ x: 0, y: 0 });
+      return next;
+    });
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const now = Date.now();
+    if (e.touches.length === 1 && now - lastTouchTime.current < 300) {
+      if (scale > 1) {
+        setScale(1);
+        setPosition({ x: 0, y: 0 });
+      } else {
+        setScale(2.5);
+      }
+      lastTouchTime.current = 0;
+      return;
+    }
+    lastTouchTime.current = now;
+
+    if (e.touches.length === 2) {
+      const dist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      initialDistance.current = dist;
+      initialScale.current = scale;
+    } else if (e.touches.length === 1 && scale > 1) {
+      isDragging.current = true;
+      dragStart.current = {
+        x: e.touches[0].clientX - position.x,
+        y: e.touches[0].clientY - position.y,
+      };
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (e.touches.length === 2 && initialDistance.current !== null) {
+      const dist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      const newScale = Math.min(
+        Math.max((dist / initialDistance.current) * initialScale.current, 1),
+        4
+      );
+      setScale(newScale);
+      if (newScale === 1) setPosition({ x: 0, y: 0 });
+    } else if (e.touches.length === 1 && isDragging.current && scale > 1) {
+      setPosition({
+        x: e.touches[0].clientX - dragStart.current.x,
+        y: e.touches[0].clientY - dragStart.current.y,
+      });
+    }
+  };
+
+  const handleTouchEnd = () => {
+    initialDistance.current = null;
+    isDragging.current = false;
+  };
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (scale <= 1) return;
+    isDragging.current = true;
+    dragStart.current = {
+      x: e.clientX - position.x,
+      y: e.clientY - position.y,
+    };
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging.current || scale <= 1) return;
+    setPosition({
+      x: e.clientX - dragStart.current.x,
+      y: e.clientY - dragStart.current.y,
+    });
+  };
+
+  const handleMouseUp = () => {
+    isDragging.current = false;
+  };
+
+  return (
+    <div
+      ref={containerRef}
+      onWheel={handleWheel}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseUp}
+      className="relative w-full h-72 sm:h-96 overflow-hidden rounded-xl border border-slate-700 bg-slate-950 flex items-center justify-center select-none touch-none"
+      style={{ cursor: scale > 1 ? (isDragging.current ? "grabbing" : "grab") : "zoom-in" }}
+    >
+      {isFailed ? (
+        <div className="text-center p-4">
+          <p className="text-rose-400 text-sm mb-2">לא ניתן לטעון את התמונה</p>
+          <button
+            type="button"
+            onClick={() => {
+              setIsFailed(false);
+              setImgKey(`${src}?retry=${Date.now()}`);
+            }}
+            className="px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white text-xs rounded"
+          >
+            נסה שוב 🔄
+          </button>
+        </div>
+      ) : (
+        <div
+          className="w-full h-full flex items-center justify-center pointer-events-none"
+          style={{
+            transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
+            transformOrigin: "center center",
+            transition: isDragging.current ? "none" : "transform 0.1s ease-out",
+          }}
+        >
+          <img
+            key={imgKey}
+            src={imgKey}
+            alt={alt}
+            className="w-full h-full object-contain pointer-events-none"
+            onError={() => setIsFailed(true)}
+          />
+        </div>
+      )}
+
+      {scale > 1 && (
+        <button
+          type="button"
+          onClick={() => {
+            setScale(1);
+            setPosition({ x: 0, y: 0 });
+          }}
+          className="absolute bottom-3 left-3 bg-slate-900/90 text-xs text-indigo-300 font-bold px-3 py-1.5 rounded-full border border-indigo-500/40 shadow-lg backdrop-blur z-20 hover:bg-slate-800"
+        >
+          איפוס זום ({Math.round(scale * 100)}%) ✖
+        </button>
+      )}
+    </div>
+  );
+}
+
+export default function App() {
+  const [mode, setMode] = useState<"practice" | "exam" | "final_anatomy">("practice");
+  const [selectedInst, setSelectedInst] = useState<"all" | "meso" | "wingate" | "exam_prep" | "final_sim">("final_sim");
+
+  const [questionsList, setQuestionsList] = useState<ShuffledQuestion[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [userAnswers, setUserAnswers] = useState<(number | null)[]>([]);
+  const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+
+  const [examTimeLeft, setExamTimeLeft] = useState(40 * 60);
+  const [examFinished, setExamFinished] = useState(false);
+
+  const explanationRef = useRef<HTMLDivElement | null>(null);
+
+  const counts = useMemo(() => {
+    const finalSimCount = allQuestions.filter((q) => q.id.startsWith("final-sim-")).length;
+    const examPrepCount = allQuestions.filter((q) => q.isExamPrep && !q.id.startsWith("final-sim-")).length;
+    const mesoCount = allQuestions.filter((q) => q.institution === "meso" && !q.isExamPrep).length;
+    const wingateCount = allQuestions.filter((q) => q.institution === "wingate").length;
+    return {
+      finalSim: finalSimCount,
+      examPrep: examPrepCount,
+      meso: mesoCount,
+      wingate: wingateCount,
+      total: allQuestions.length,
+    };
+  }, []);
+
+  const initQuestions = useCallback(() => {
+    let base: Question[] = [];
+
+    if (mode === "final_anatomy") {
+      // מבחן אמת מסכם באנטומיה: 25 שאלות המיקוד בלבד, מעורבבות מחדש בכל פתיחה
+      base = shuffleArray(allQuestions.filter((q) => q.id.startsWith("final-sim-"))).slice(0, 25);
+    } else if (mode === "exam") {
+      base = shuffleArray(allQuestions).slice(0, 30);
+    } else {
+      base = allQuestions.filter((q) => {
+        if (selectedInst === "final_sim") return q.id.startsWith("final-sim-");
+        if (selectedInst === "exam_prep") return q.isExamPrep && !q.id.startsWith("final-sim-");
+        if (selectedInst === "meso") return q.institution === "meso" && !q.isExamPrep;
+        if (selectedInst === "wingate") return q.institution === "wingate";
+        return true;
+      });
+      base = shuffleArray(base);
+    }
+
+    // ערבוב כפול: גם סדר השאלות וגם סדר 4 האפשרויות בכל שאלה (תוך סנכרון מלא של ניתוח המסיחים)
+    const prepared: ShuffledQuestion[] = base.map((q) => {
+      const indexedOptions = q.options.map((optText, idx) => ({
+        text: optText,
+        isCorrect: idx === q.correctAnswer,
+        analysis: q.distractorAnalysis ? q.distractorAnalysis[idx] : undefined,
+      }));
+
+      const shuffledItems = shuffleArray(indexedOptions);
+      const newIndex = shuffledItems.findIndex((item) => item.isCorrect);
+
+      return {
+        ...q,
+        shuffledOptions: shuffledItems.map((item) => item.text),
+        newCorrectAnswer: newIndex,
+        shuffledDistractorAnalysis: q.distractorAnalysis
+          ? shuffledItems.map((item) => item.analysis || "")
+          : undefined,
+      };
+    });
+
+    setQuestionsList(prepared);
+    setCurrentIndex(0);
+    setUserAnswers(new Array(prepared.length).fill(null));
+    setIsAnswerSubmitted(false);
+    setExamFinished(false);
+    setExamTimeLeft(mode === "final_anatomy" ? 35 * 60 : 45 * 60);
+  }, [mode, selectedInst]);
+
+  useEffect(() => {
+    initQuestions();
+  }, [initQuestions]);
+
+  const isTimedExam = mode === "exam" || mode === "final_anatomy";
+
+  useEffect(() => {
+    if (!isTimedExam || examFinished) return;
+
+    const timer = setInterval(() => {
+      setExamTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          setExamFinished(true);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [isTimedExam, examFinished]);
+
+  const currentQ = questionsList[currentIndex];
+
+  const stopSpeech = useCallback(() => {
+    if (typeof window !== "undefined" && "speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
+    }
+  }, []);
+
+  const speakText = useCallback(
+    (textToRead: string) => {
+      if (typeof window === "undefined" || !("speechSynthesis" in window)) {
+        alert("הדפדפן אינו תומך בהקראה קולית.");
+        return;
+      }
+      if (isSpeaking) {
+        stopSpeech();
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(textToRead);
+      utterance.lang = "he-IL";
+      utterance.rate = 0.95;
+      utterance.onstart = () => setIsSpeaking(true);
+      utterance.onend = () => setIsSpeaking(false);
+      utterance.onerror = () => setIsSpeaking(false);
+      window.speechSynthesis.speak(utterance);
+    },
+    [isSpeaking, stopSpeech]
+  );
+
+  const handleSpeakQuestion = () => {
+    if (!currentQ) return;
+    const opts = currentQ.shuffledOptions.map((opt, i) => `אפשרות ${i + 1}: ${opt}`).join(". ");
+    speakText(`שאלה: ${currentQ.question}. ${opts}`);
+  };
+
+  const handleSpeakExplanation = () => {
+    if (!currentQ) return;
+    let text = `הסבר מדעי: ${currentQ.explanation}. `;
+    if (currentQ.shuffledDistractorAnalysis) {
+      text += `ניתוח מסיחים ותשובות שגויות: ` + currentQ.shuffledDistractorAnalysis.join(". ");
+    }
+    speakText(text);
+  };
+
+  const handleSelectOption = (idx: number) => {
+    if (mode === "practice" && isAnswerSubmitted) return;
+    const nextAnswers = [...userAnswers];
+    nextAnswers[currentIndex] = idx;
+    setUserAnswers(nextAnswers);
+  };
+
+  const handlePracticeSubmit = () => {
+    if (userAnswers[currentIndex] === null || isAnswerSubmitted) return;
+    setIsAnswerSubmitted(true);
+    setTimeout(() => {
+      if (explanationRef.current) {
+        explanationRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 100);
+  };
+
+  const handleNext = () => {
+    if (currentIndex < questionsList.length - 1) {
+      setCurrentIndex((i) => i + 1);
+      setIsAnswerSubmitted(false);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  const handlePrev = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex((i) => i - 1);
+      setIsAnswerSubmitted(false);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  const examScore = useMemo(() => {
+    if (!questionsList.length) return 0;
+    let correct = 0;
+    questionsList.forEach((q, idx) => {
+      if (userAnswers[idx] === q.newCorrectAnswer) correct++;
+    });
+    return Math.round((correct / questionsList.length) * 100);
+  }, [questionsList, userAnswers]);
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
+  };
+
+  return (
+    <main className="min-h-screen bg-slate-950 text-slate-100 flex flex-col items-center p-3 sm:p-8 font-['Heebo']" dir="rtl">
+      <div className="w-full max-w-4xl space-y-6">
+        
+        {/* כותרת ומעבר מצבים */}
+        <header className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-4 border-b border-slate-800">
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
+              סימולטור הכנה למבחני מאמני כושר
+            </h1>
+            <p className="text-xs sm:text-sm text-slate-400 mt-1">
+              סה"כ במאגר: {counts.total} שאלות | מיקוד מסכם: {counts.finalSim} | מבדק: {counts.examPrep} | מזו: {counts.meso} | וינגייט: {counts.wingate}
+            </p>
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-2">
+            <button
+              onClick={() => setMode("practice")}
+              className={`px-3.5 py-2 text-xs sm:text-sm font-bold rounded-lg border transition ${
+                mode === "practice"
+                  ? "bg-indigo-600 border-indigo-500 text-white shadow-lg"
+                  : "bg-slate-900 border-slate-800 text-slate-400 hover:text-white"
+              }`}
+            >
+              📖 תרגול לימודי
+            </button>
+
+            <button
+              onClick={() => {
+                if (mode === "final_anatomy") {
+                  initQuestions();
+                } else {
+                  setMode("final_anatomy");
+                }
+              }}
+              className={`px-3.5 py-2 text-xs sm:text-sm font-bold rounded-lg border transition ${
+                mode === "final_anatomy"
+                  ? "bg-emerald-600 border-emerald-400 text-white shadow-lg shadow-emerald-900/40"
+                  : "bg-slate-900 border-emerald-500/40 text-emerald-400 hover:bg-slate-800"
+              }`}
+            >
+              🎯 מבחן אמת אנטומיה ({counts.finalSim} שאלות)
+            </button>
+
+            <button
+              onClick={() => {
+                if (mode === "exam") {
+                  initQuestions();
+                } else {
+                  setMode("exam");
+                }
+              }}
+              className={`px-3.5 py-2 text-xs sm:text-sm font-bold rounded-lg border transition ${
+                mode === "exam"
+                  ? "bg-rose-600 border-rose-500 text-white shadow-lg shadow-rose-900/40"
+                  : "bg-slate-900 border-slate-800 text-slate-400 hover:text-white"
+              }`}
+            >
+              ⏱️ מבחן כללי (30 שאלות)
+            </button>
+          </div>
+        </header>
+
+        {/* לשוניות בחירה במצב תרגול */}
+        {mode === "practice" && (
+          <div className="flex flex-wrap justify-center gap-2">
+            <button
+              onClick={() => setSelectedInst("final_sim")}
+              className={`px-4 py-1.5 text-xs font-bold rounded-lg border transition flex items-center gap-1.5 ${
+                selectedInst === "final_sim"
+                  ? "bg-emerald-500 border-emerald-400 text-slate-950 shadow-lg shadow-emerald-500/20"
+                  : "bg-slate-900 border-emerald-500/40 text-emerald-400 hover:bg-slate-800"
+              }`}
+            >
+              <span>🎯 מיקוד מבחן מסכם</span>
+              <span>({counts.finalSim})</span>
+            </button>
+
+            <button
+              onClick={() => setSelectedInst("exam_prep")}
+              className={`px-4 py-1.5 text-xs font-bold rounded-lg border transition flex items-center gap-1.5 ${
+                selectedInst === "exam_prep"
+                  ? "bg-amber-500 border-amber-400 text-slate-950 shadow-lg shadow-amber-500/20"
+                  : "bg-slate-900 border-amber-500/40 text-amber-400 hover:bg-slate-800"
+              }`}
+            >
+              <span>⚡ מבדק 3/11</span>
+              <span>({counts.examPrep})</span>
+            </button>
+
+            <button
+              onClick={() => setSelectedInst("meso")}
+              className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg border transition ${
+                selectedInst === "meso"
+                  ? "bg-indigo-900/70 border-indigo-500 text-indigo-100 shadow"
+                  : "bg-slate-900 border-slate-800 text-slate-400 hover:text-white"
+              }`}
+            >
+              מזו אקדמי ({counts.meso})
+            </button>
+
+            <button
+              onClick={() => setSelectedInst("wingate")}
+              className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg border transition ${
+                selectedInst === "wingate"
+                  ? "bg-indigo-900/70 border-indigo-500 text-indigo-100 shadow"
+                  : "bg-slate-900 border-slate-800 text-slate-400 hover:text-white"
+              }`}
+            >
+              וינגייט ({counts.wingate})
+            </button>
+
+            <button
+              onClick={() => setSelectedInst("all")}
+              className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg border transition ${
+                selectedInst === "all"
+                  ? "bg-indigo-900/70 border-indigo-500 text-indigo-100 shadow"
+                  : "bg-slate-900 border-slate-800 text-slate-400 hover:text-white"
+              }`}
+            >
+              הכל משולב ({counts.total})
+            </button>
+          </div>
+        )}
+
+        {/* סרגל עליון של מבחן אמת */}
+        {isTimedExam && !examFinished && (
+          <div className="flex items-center justify-between p-4 bg-slate-900 border border-rose-500/40 rounded-xl">
+            <div className="flex items-center gap-2">
+              <span className="text-xl">⏱️</span>
+              <div>
+                <div className="text-xs text-slate-400">
+                  {mode === "final_anatomy" ? "מבחן מסכם אנטומיה (25 שאלות מעורבבות):" : "זמן שנותר לבחינה:"}
+                </div>
+                <div className={`text-lg font-mono font-bold ${examTimeLeft < 300 ? "text-rose-400 animate-ping" : "text-amber-400"}`}>
+                  {formatTime(examTimeLeft)}
+                </div>
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <button
+                onClick={() => initQuestions()}
+                className="px-3 py-2 text-xs font-bold rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700"
+              >
+                ערבב מחדש 🔄
+              </button>
+              <button
+                onClick={() => setExamFinished(true)}
+                className="px-4 py-2 text-xs font-bold rounded-lg bg-rose-600 hover:bg-rose-500 text-white"
+              >
+                סיים והגש מבחן
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* מסך סיכום מבחן אמת */}
+        {isTimedExam && examFinished ? (
+          <div className="p-6 bg-slate-900 border border-indigo-500/40 rounded-2xl space-y-6">
+            <div className="text-center space-y-2">
+              <span className="text-5xl">{examScore >= 70 ? "🏆" : "⚠️"}</span>
+              <h2 className="text-2xl font-bold">
+                {examScore >= 70 ? "עברת את מבחן האמת בהצלחה!" : "לא עברת. נדרש תרגול נוסף."}
+              </h2>
+              <div className="text-4xl font-black font-mono text-indigo-400">
+                ציון סופי: {examScore}%
+              </div>
+              <p className="text-sm text-slate-400">ציון עובר: 70% ומעלה</p>
+            </div>
+
+            <div className="border-t border-slate-800 pt-4 space-y-4">
+              <h3 className="font-bold text-slate-300">סקירת תשובות, מסיחים והסברים מדעיים:</h3>
+              {questionsList.map((q, idx) => {
+                const userChoice = userAnswers[idx];
+                const isCorrect = userChoice === q.newCorrectAnswer;
+                return (
+                  <div key={idx} className={`p-4 rounded-xl border ${isCorrect ? "bg-emerald-950/20 border-emerald-900" : "bg-rose-950/20 border-rose-900"} space-y-3`}>
+                    <div className="flex justify-between font-semibold text-sm">
+                      <span className={q.isExamPrep ? "text-amber-400" : ""}>
+                        {q.isExamPrep && "⚡ "}שאלה {idx + 1}: {q.question}
+                      </span>
+                      <span>{isCorrect ? "✅ נכון" : "❌ שגוי"}</span>
+                    </div>
+                    <div className="text-xs text-slate-400">
+                      תשובתך: {userChoice !== null ? q.shuffledOptions[userChoice] : "לא סומן"}
+                    </div>
+                    {!isCorrect && (
+                      <div className="text-xs text-emerald-400">
+                        תשובה נכונה: {q.shuffledOptions[q.newCorrectAnswer]}
+                      </div>
+                    )}
+                    <div className="text-xs text-slate-300 bg-slate-900/80 p-2.5 rounded-lg border border-slate-800">
+                      💡 <strong>הסבר מדעי:</strong> {q.explanation}
+                    </div>
+
+                    {q.shuffledDistractorAnalysis && (
+                      <div className="text-xs text-slate-400 bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/80 space-y-1">
+                        <strong className="text-indigo-300 block mb-1">ניתוח ושלילת התשובות השגויות:</strong>
+                        {q.shuffledDistractorAnalysis.map((dist, dIdx) => (
+                          <div key={dIdx}>• {dist}</div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            <button
+              onClick={() => initQuestions()}
+              className="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl"
+            >
+              התחל מבחן אמת חדש ומעורבב 🔄
+            </button>
+          </div>
+        ) : currentQ ? (
+          /* כרטיס השאלה */
+          <div className="space-y-6 bg-slate-900/40 p-5 sm:p-6 rounded-2xl border border-slate-800 shadow-xl">
+            <div className="flex items-center justify-between text-xs text-slate-400 pb-2 border-b border-slate-800/80">
+              <span>
+                שאלה <strong className="text-indigo-400 font-mono text-sm">{currentIndex + 1}</strong> מתוך <strong className="font-mono text-sm">{questionsList.length}</strong>
+              </span>
+              <div className="flex items-center gap-1.5">
+                {currentQ.id.startsWith("final-sim-") && (
+                  <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold">
+                    🎯 מיקוד מבחן מסכם
+                  </span>
+                )}
+                {currentQ.isExamPrep && !currentQ.id.startsWith("final-sim-") && (
+                  <span className="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold">
+                    ⚡ שאלת מבדק
+                  </span>
+                )}
+                <span className="px-2.5 py-0.5 rounded bg-slate-800 text-slate-300 font-medium">
+                  {currentQ.institution === "meso" ? "מזו אקדמי" : "וינגייט"}
+                </span>
+              </div>
+            </div>
+
+            {currentQ.image && (
+              <div className="space-y-2">
+                <span className="text-xs font-semibold text-slate-400 block">
+                  תרשים עזר (צביטה עם 2 אצבעות או גלגלת עכבר להגדלה):
+                </span>
+                <PinchZoomImage src={currentQ.image} alt={currentQ.question} />
+              </div>
+            )}
+
+            <div className="flex items-start justify-between gap-3">
+              <h2 className={`text-lg sm:text-xl font-bold leading-relaxed flex-1 ${
+                currentQ.id.startsWith("final-sim-")
+                  ? "text-emerald-300"
+                  : currentQ.isExamPrep
+                  ? "text-amber-400"
+                  : "text-slate-100"
+              }`}>
+                {currentQ.isExamPrep && <span className="text-amber-500 font-black ml-2">⚡</span>}
+                {currentQ.question}
+              </h2>
+              <button
+                type="button"
+                onClick={handleSpeakQuestion}
+                className="flex-shrink-0 p-2.5 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 hover:text-white"
+                title="הקרא שאלה"
+              >
+                {isSpeaking ? "⏹️" : "🔊"}
+              </button>
+            </div>
+
+            {/* אפשרויות תשובה (מעורבבות בכל פתיחה) */}
+            <div className="space-y-3">
+              {currentQ.shuffledOptions.map((opt, idx) => {
+                const isSelected = userAnswers[currentIndex] === idx;
+                let btnStyle = "bg-slate-900 border-slate-700 hover:border-slate-500 text-slate-200";
+
+                if (mode === "practice" && isAnswerSubmitted) {
+                  if (idx === currentQ.newCorrectAnswer) {
+                    btnStyle = "bg-emerald-950/80 border-emerald-500 text-emerald-200 font-semibold ring-1 ring-emerald-500";
+                  } else if (isSelected) {
+                    btnStyle = "bg-rose-950/80 border-rose-500 text-rose-200 ring-1 ring-rose-500";
+                  } else {
+                    btnStyle = "bg-slate-900/40 border-slate-800 text-slate-500 opacity-60";
+                  }
+                } else if (isSelected) {
+                  btnStyle = "bg-indigo-950/60 border-indigo-500 text-indigo-200 ring-1 ring-indigo-500";
+                }
+
+                return (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => handleSelectOption(idx)}
+                    className={`w-full text-right p-4 rounded-xl border text-sm sm:text-base transition flex items-center justify-between ${btnStyle}`}
+                  >
+                    <span>{opt}</span>
+                    <span className="text-xs px-2.5 py-1 rounded bg-slate-800/80 text-slate-400 font-mono">
+                      {idx + 1}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* לחצני ניווט ובדיקה */}
+            <div className="flex items-center justify-between pt-4 border-t border-slate-800 gap-3">
+              <button
+                type="button"
+                onClick={handlePrev}
+                disabled={currentIndex === 0}
+                className="px-4 py-2.5 rounded-lg border border-slate-700 bg-slate-800 disabled:opacity-30 text-sm font-medium"
+              >
+                הקודם
+              </button>
+
+              {mode === "practice" && !isAnswerSubmitted ? (
+                <button
+                  type="button"
+                  onClick={handlePracticeSubmit}
+                  disabled={userAnswers[currentIndex] === null}
+                  className="px-6 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:opacity-40 text-white font-semibold text-sm shadow-lg"
+                >
+                  בדוק תשובה
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={handleNext}
+                  disabled={currentIndex === questionsList.length - 1}
+                  className="px-6 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 disabled:opacity-30 text-white font-semibold text-sm"
+                >
+                  לשאלה הבאה ⬅️
+                </button>
+              )}
+
+              <button
+                type="button"
+                onClick={handleNext}
+                disabled={currentIndex === questionsList.length - 1}
+                className="px-4 py-2.5 rounded-lg border border-slate-700 bg-slate-800 disabled:opacity-30 text-sm font-medium"
+              >
+                הבא
+              </button>
+            </div>
+
+            {/* בלוק הסבר במצב תרגול */}
+            {mode === "practice" && isAnswerSubmitted && (
+              <div
+                ref={explanationRef}
+                className="mt-6 p-5 rounded-xl bg-slate-900 border border-indigo-500/50 shadow-2xl space-y-4 scroll-mt-6"
+              >
+                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                  <div className="flex items-center gap-2">
+                    <span>{userAnswers[currentIndex] === currentQ.newCorrectAnswer ? "✅" : "❌"}</span>
+                    <h3 className="text-base font-bold text-indigo-300">
+                      {userAnswers[currentIndex] === currentQ.newCorrectAnswer ? "תשובה נכונה!" : "תשובה שגויה. להלן ההסבר המדעי:"}
+                    </h3>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleSpeakExplanation}
+                    className="text-xs px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white"
+                  >
+                    🔊 הקרא הסבר
+                  </button>
+                </div>
+                
+                <p className="text-sm text-slate-200 leading-relaxed">
+                  {currentQ.explanation}
+                </p>
+
+                {currentQ.shuffledDistractorAnalysis && (
+                  <div className="pt-3 border-t border-slate-800/80">
+                    <h4 className="text-xs font-bold text-indigo-300 mb-2">
+                      מדוע שאר התשובות שגויות? (ניתוח מסיחים):
+                    </h4>
+                    <ul className="space-y-1.5 text-xs text-slate-400 list-disc list-inside">
+                      {currentQ.shuffledDistractorAnalysis.map((item, dIdx) => (
+                        <li key={dIdx} className="leading-normal">
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="text-center p-8 bg-slate-900 rounded-xl border border-slate-800 text-slate-400">
+            לא נמצאו שאלות בקטגוריה זו.
+          </div>
+        )}
+      </div>
+    </main>
+  );
+}
 // ========================================================
 // פונקציית ערבוב כפולה: מערבבת הן את סדר השאלות והן את סדר התשובות
 // ושומרת על סנכרון מלא של correctAnswer ושל distractorAnalysis
