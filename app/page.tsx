@@ -15,6 +15,7 @@ function shuffleArray<T>(array: T[]): T[] {
 interface ShuffledQuestion extends Question {
   shuffledOptions: string[];
   newCorrectAnswer: number;
+  shuffledDistractorAnalysis?: string[];
 }
 
 function PinchZoomImage({ src, alt }: { src: string; alt: string }) {
@@ -187,8 +188,8 @@ function PinchZoomImage({ src, alt }: { src: string; alt: string }) {
 }
 
 export default function App() {
-  const [mode, setMode] = useState<"practice" | "exam">("practice");
-  const [selectedInst, setSelectedInst] = useState<"all" | "meso" | "wingate" | "exam_prep">("exam_prep");
+  const [mode, setMode] = useState<"practice" | "exam" | "final_anatomy">("practice");
+  const [selectedInst, setSelectedInst] = useState<"all" | "meso" | "wingate" | "exam_prep" | "final_sim">("final_sim");
 
   const [questionsList, setQuestionsList] = useState<ShuffledQuestion[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -196,17 +197,18 @@ export default function App() {
   const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
 
-  const [examTimeLeft, setExamTimeLeft] = useState(45 * 60);
+  const [examTimeLeft, setExamTimeLeft] = useState(40 * 60);
   const [examFinished, setExamFinished] = useState(false);
 
   const explanationRef = useRef<HTMLDivElement | null>(null);
 
-  // ספירת כמויות השאלות לכל לשונית
   const counts = useMemo(() => {
-    const examPrepCount = allQuestions.filter((q) => q.isExamPrep).length;
+    const finalSimCount = allQuestions.filter((q) => q.id.startsWith("final-sim-")).length;
+    const examPrepCount = allQuestions.filter((q) => q.isExamPrep && !q.id.startsWith("final-sim-")).length;
     const mesoCount = allQuestions.filter((q) => q.institution === "meso" && !q.isExamPrep).length;
     const wingateCount = allQuestions.filter((q) => q.institution === "wingate").length;
     return {
+      finalSim: finalSimCount,
       examPrep: examPrepCount,
       meso: mesoCount,
       wingate: wingateCount,
@@ -215,27 +217,42 @@ export default function App() {
   }, []);
 
   const initQuestions = useCallback(() => {
-    let base = allQuestions.filter((q) => {
-      if (selectedInst === "exam_prep") return q.isExamPrep;
-      if (selectedInst === "meso") return q.institution === "meso" && !q.isExamPrep;
-      if (selectedInst === "wingate") return q.institution === "wingate";
-      return true; // 'all'
-    });
+    let base: Question[] = [];
 
-    if (mode === "exam") {
-      base = shuffleArray(base).slice(0, 30);
+    if (mode === "final_anatomy") {
+      // מבחן אמת מסכם באנטומיה: 25 שאלות המיקוד בלבד, מעורבבות מחדש בכל פתיחה
+      base = shuffleArray(allQuestions.filter((q) => q.id.startsWith("final-sim-"))).slice(0, 25);
+    } else if (mode === "exam") {
+      base = shuffleArray(allQuestions).slice(0, 30);
     } else {
+      base = allQuestions.filter((q) => {
+        if (selectedInst === "final_sim") return q.id.startsWith("final-sim-");
+        if (selectedInst === "exam_prep") return q.isExamPrep && !q.id.startsWith("final-sim-");
+        if (selectedInst === "meso") return q.institution === "meso" && !q.isExamPrep;
+        if (selectedInst === "wingate") return q.institution === "wingate";
+        return true;
+      });
       base = shuffleArray(base);
     }
 
+    // ערבוב כפול: גם סדר השאלות וגם סדר 4 האפשרויות בכל שאלה (תוך סנכרון מלא של ניתוח המסיחים)
     const prepared: ShuffledQuestion[] = base.map((q) => {
-      const correctText = q.options[q.correctAnswer];
-      const shuffled = shuffleArray(q.options);
-      const newIndex = shuffled.indexOf(correctText);
+      const indexedOptions = q.options.map((optText, idx) => ({
+        text: optText,
+        isCorrect: idx === q.correctAnswer,
+        analysis: q.distractorAnalysis ? q.distractorAnalysis[idx] : undefined,
+      }));
+
+      const shuffledItems = shuffleArray(indexedOptions);
+      const newIndex = shuffledItems.findIndex((item) => item.isCorrect);
+
       return {
         ...q,
-        shuffledOptions: shuffled,
+        shuffledOptions: shuffledItems.map((item) => item.text),
         newCorrectAnswer: newIndex,
+        shuffledDistractorAnalysis: q.distractorAnalysis
+          ? shuffledItems.map((item) => item.analysis || "")
+          : undefined,
       };
     });
 
@@ -244,15 +261,17 @@ export default function App() {
     setUserAnswers(new Array(prepared.length).fill(null));
     setIsAnswerSubmitted(false);
     setExamFinished(false);
-    setExamTimeLeft(45 * 60);
+    setExamTimeLeft(mode === "final_anatomy" ? 35 * 60 : 45 * 60);
   }, [mode, selectedInst]);
 
   useEffect(() => {
     initQuestions();
   }, [initQuestions]);
 
+  const isTimedExam = mode === "exam" || mode === "final_anatomy";
+
   useEffect(() => {
-    if (mode !== "exam" || examFinished) return;
+    if (!isTimedExam || examFinished) return;
 
     const timer = setInterval(() => {
       setExamTimeLeft((prev) => {
@@ -266,7 +285,7 @@ export default function App() {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [mode, examFinished]);
+  }, [isTimedExam, examFinished]);
 
   const currentQ = questionsList[currentIndex];
 
@@ -308,8 +327,8 @@ export default function App() {
   const handleSpeakExplanation = () => {
     if (!currentQ) return;
     let text = `הסבר מדעי: ${currentQ.explanation}. `;
-    if (currentQ.distractorAnalysis) {
-      text += `ניתוח מסיחים ותשובות שגויות: ` + currentQ.distractorAnalysis.join(". ");
+    if (currentQ.shuffledDistractorAnalysis) {
+      text += `ניתוח מסיחים ותשובות שגויות: ` + currentQ.shuffledDistractorAnalysis.join(". ");
     }
     speakText(text);
   };
@@ -363,7 +382,7 @@ export default function App() {
   };
 
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100 flex flex-col items-center p-3 sm:p-8" dir="rtl">
+    <main className="min-h-screen bg-slate-950 text-slate-100 flex flex-col items-center p-3 sm:p-8 font-['Heebo']" dir="rtl">
       <div className="w-full max-w-4xl space-y-6">
         
         {/* כותרת ומעבר מצבים */}
@@ -373,14 +392,14 @@ export default function App() {
               סימולטור הכנה למבחני מאמני כושר
             </h1>
             <p className="text-xs sm:text-sm text-slate-400 mt-1">
-              סה"כ במאגר: {counts.total} שאלות | מבדק: {counts.examPrep} | מזו: {counts.meso} | וינגייט: {counts.wingate}
+              סה"כ במאגר: {counts.total} שאלות | מיקוד מסכם: {counts.finalSim} | מבדק: {counts.examPrep} | מזו: {counts.meso} | וינגייט: {counts.wingate}
             </p>
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex flex-wrap justify-center gap-2">
             <button
               onClick={() => setMode("practice")}
-              className={`px-4 py-2 text-sm font-bold rounded-lg border transition ${
+              className={`px-3.5 py-2 text-xs sm:text-sm font-bold rounded-lg border transition ${
                 mode === "practice"
                   ? "bg-indigo-600 border-indigo-500 text-white shadow-lg"
                   : "bg-slate-900 border-slate-800 text-slate-400 hover:text-white"
@@ -388,22 +407,58 @@ export default function App() {
             >
               📖 תרגול לימודי
             </button>
+
             <button
-              onClick={() => setMode("exam")}
-              className={`px-4 py-2 text-sm font-bold rounded-lg border transition ${
+              onClick={() => {
+                if (mode === "final_anatomy") {
+                  initQuestions();
+                } else {
+                  setMode("final_anatomy");
+                }
+              }}
+              className={`px-3.5 py-2 text-xs sm:text-sm font-bold rounded-lg border transition ${
+                mode === "final_anatomy"
+                  ? "bg-emerald-600 border-emerald-400 text-white shadow-lg shadow-emerald-900/40"
+                  : "bg-slate-900 border-emerald-500/40 text-emerald-400 hover:bg-slate-800"
+              }`}
+            >
+              🎯 מבחן אמת אנטומיה ({counts.finalSim} שאלות)
+            </button>
+
+            <button
+              onClick={() => {
+                if (mode === "exam") {
+                  initQuestions();
+                } else {
+                  setMode("exam");
+                }
+              }}
+              className={`px-3.5 py-2 text-xs sm:text-sm font-bold rounded-lg border transition ${
                 mode === "exam"
-                  ? "bg-rose-600 border-rose-500 text-white shadow-lg shadow-rose-900/40 animate-pulse"
+                  ? "bg-rose-600 border-rose-500 text-white shadow-lg shadow-rose-900/40"
                   : "bg-slate-900 border-slate-800 text-slate-400 hover:text-white"
               }`}
             >
-              ⏱️ מבחן אמת (30 שאלות)
+              ⏱️ מבחן כללי (30 שאלות)
             </button>
           </div>
         </header>
 
-        {/* לשוניות בחירה - כולל לשונית מבדק ייעודית בכתום */}
+        {/* לשוניות בחירה במצב תרגול */}
         {mode === "practice" && (
           <div className="flex flex-wrap justify-center gap-2">
+            <button
+              onClick={() => setSelectedInst("final_sim")}
+              className={`px-4 py-1.5 text-xs font-bold rounded-lg border transition flex items-center gap-1.5 ${
+                selectedInst === "final_sim"
+                  ? "bg-emerald-500 border-emerald-400 text-slate-950 shadow-lg shadow-emerald-500/20"
+                  : "bg-slate-900 border-emerald-500/40 text-emerald-400 hover:bg-slate-800"
+              }`}
+            >
+              <span>🎯 מיקוד מבחן מסכם</span>
+              <span>({counts.finalSim})</span>
+            </button>
+
             <button
               onClick={() => setSelectedInst("exam_prep")}
               className={`px-4 py-1.5 text-xs font-bold rounded-lg border transition flex items-center gap-1.5 ${
@@ -452,28 +507,38 @@ export default function App() {
         )}
 
         {/* סרגל עליון של מבחן אמת */}
-        {mode === "exam" && !examFinished && (
+        {isTimedExam && !examFinished && (
           <div className="flex items-center justify-between p-4 bg-slate-900 border border-rose-500/40 rounded-xl">
             <div className="flex items-center gap-2">
               <span className="text-xl">⏱️</span>
               <div>
-                <div className="text-xs text-slate-400">זמן שנותר לבחינה:</div>
+                <div className="text-xs text-slate-400">
+                  {mode === "final_anatomy" ? "מבחן מסכם אנטומיה (25 שאלות מעורבבות):" : "זמן שנותר לבחינה:"}
+                </div>
                 <div className={`text-lg font-mono font-bold ${examTimeLeft < 300 ? "text-rose-400 animate-ping" : "text-amber-400"}`}>
                   {formatTime(examTimeLeft)}
                 </div>
               </div>
             </div>
-            <button
-              onClick={() => setExamFinished(true)}
-              className="px-4 py-2 text-xs font-bold rounded-lg bg-rose-600 hover:bg-rose-500 text-white"
-            >
-              סיים והגש מבחן
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={() => initQuestions()}
+                className="px-3 py-2 text-xs font-bold rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700"
+              >
+                ערבב מחדש 🔄
+              </button>
+              <button
+                onClick={() => setExamFinished(true)}
+                className="px-4 py-2 text-xs font-bold rounded-lg bg-rose-600 hover:bg-rose-500 text-white"
+              >
+                סיים והגש מבחן
+              </button>
+            </div>
           </div>
         )}
 
         {/* מסך סיכום מבחן אמת */}
-        {mode === "exam" && examFinished ? (
+        {isTimedExam && examFinished ? (
           <div className="p-6 bg-slate-900 border border-indigo-500/40 rounded-2xl space-y-6">
             <div className="text-center space-y-2">
               <span className="text-5xl">{examScore >= 70 ? "🏆" : "⚠️"}</span>
@@ -511,10 +576,10 @@ export default function App() {
                       💡 <strong>הסבר מדעי:</strong> {q.explanation}
                     </div>
 
-                    {q.distractorAnalysis && (
+                    {q.shuffledDistractorAnalysis && (
                       <div className="text-xs text-slate-400 bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/80 space-y-1">
                         <strong className="text-indigo-300 block mb-1">ניתוח ושלילת התשובות השגויות:</strong>
-                        {q.distractorAnalysis.map((dist, dIdx) => (
+                        {q.shuffledDistractorAnalysis.map((dist, dIdx) => (
                           <div key={dIdx}>• {dist}</div>
                         ))}
                       </div>
@@ -528,19 +593,23 @@ export default function App() {
               onClick={() => initQuestions()}
               className="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl"
             >
-              התחל מבחן אמת חדש 🔄
+              התחל מבחן אמת חדש ומעורבב 🔄
             </button>
           </div>
         ) : currentQ ? (
           /* כרטיס השאלה */
           <div className="space-y-6 bg-slate-900/40 p-5 sm:p-6 rounded-2xl border border-slate-800 shadow-xl">
-            {/* מונה שאלה ותיוג */}
             <div className="flex items-center justify-between text-xs text-slate-400 pb-2 border-b border-slate-800/80">
               <span>
                 שאלה <strong className="text-indigo-400 font-mono text-sm">{currentIndex + 1}</strong> מתוך <strong className="font-mono text-sm">{questionsList.length}</strong>
               </span>
               <div className="flex items-center gap-1.5">
-                {currentQ.isExamPrep && (
+                {currentQ.id.startsWith("final-sim-") && (
+                  <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold">
+                    🎯 מיקוד מבחן מסכם
+                  </span>
+                )}
+                {currentQ.isExamPrep && !currentQ.id.startsWith("final-sim-") && (
                   <span className="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold">
                     ⚡ שאלת מבדק
                   </span>
@@ -551,7 +620,6 @@ export default function App() {
               </div>
             </div>
 
-            {/* תצוגת תמונה עם זום */}
             {currentQ.image && (
               <div className="space-y-2">
                 <span className="text-xs font-semibold text-slate-400 block">
@@ -561,10 +629,13 @@ export default function App() {
               </div>
             )}
 
-            {/* כותרת השאלה - בכתום אם שייכת למבדק */}
             <div className="flex items-start justify-between gap-3">
               <h2 className={`text-lg sm:text-xl font-bold leading-relaxed flex-1 ${
-                currentQ.isExamPrep ? "text-amber-400" : "text-slate-100"
+                currentQ.id.startsWith("final-sim-")
+                  ? "text-emerald-300"
+                  : currentQ.isExamPrep
+                  ? "text-amber-400"
+                  : "text-slate-100"
               }`}>
                 {currentQ.isExamPrep && <span className="text-amber-500 font-black ml-2">⚡</span>}
                 {currentQ.question}
@@ -579,7 +650,7 @@ export default function App() {
               </button>
             </div>
 
-            {/* אפשרויות תשובה */}
+            {/* אפשרויות תשובה (מעורבבות בכל פתיחה) */}
             <div className="space-y-3">
               {currentQ.shuffledOptions.map((opt, idx) => {
                 const isSelected = userAnswers[currentIndex] === idx;
@@ -680,13 +751,13 @@ export default function App() {
                   {currentQ.explanation}
                 </p>
 
-                {currentQ.distractorAnalysis && (
+                {currentQ.shuffledDistractorAnalysis && (
                   <div className="pt-3 border-t border-slate-800/80">
                     <h4 className="text-xs font-bold text-indigo-300 mb-2">
                       מדוע שאר התשובות שגויות? (ניתוח מסיחים):
                     </h4>
                     <ul className="space-y-1.5 text-xs text-slate-400 list-disc list-inside">
-                      {currentQ.distractorAnalysis.map((item, dIdx) => (
+                      {currentQ.shuffledDistractorAnalysis.map((item, dIdx) => (
                         <li key={dIdx} className="leading-normal">
                           {item}
                         </li>
