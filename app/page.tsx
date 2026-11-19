@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { allQuestions, Question } from "../data/questions";
+import { fitnessIntroQuestions } from "../data/fitnessIntroQuestions";
 
 function shuffleArray<T>(array: T[]): T[] {
   const arr = [...array];
@@ -188,8 +189,8 @@ function PinchZoomImage({ src, alt }: { src: string; alt: string }) {
 }
 
 export default function App() {
-  const [mode, setMode] = useState<"practice" | "exam" | "final_anatomy">("practice");
-  const [selectedInst, setSelectedInst] = useState<"all" | "meso" | "wingate" | "exam_prep" | "final_sim">("final_sim");
+  const [mode, setMode] = useState<"practice" | "exam" | "final_anatomy" | "final_fitness">("practice");
+  const [selectedInst, setSelectedInst] = useState<"all" | "meso" | "wingate" | "exam_prep" | "final_sim" | "fitness_intro">("fitness_intro");
 
   const [questionsList, setQuestionsList] = useState<ShuffledQuestion[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -203,36 +204,48 @@ export default function App() {
   const explanationRef = useRef<HTMLDivElement | null>(null);
 
   const counts = useMemo(() => {
+    const fitnessIntroCount = fitnessIntroQuestions.length;
     const finalSimCount = allQuestions.filter((q) => q.id.startsWith("final-sim-")).length;
     const examPrepCount = allQuestions.filter((q) => q.isExamPrep && !q.id.startsWith("final-sim-")).length;
     const mesoCount = allQuestions.filter((q) => q.institution === "meso" && !q.isExamPrep).length;
     const wingateCount = allQuestions.filter((q) => q.institution === "wingate").length;
     return {
+      fitnessIntro: fitnessIntroCount,
       finalSim: finalSimCount,
       examPrep: examPrepCount,
       meso: mesoCount,
       wingate: wingateCount,
-      total: allQuestions.length,
+      total: allQuestions.length + fitnessIntroCount,
     };
   }, []);
 
   const initQuestions = useCallback(() => {
     let base: Question[] = [];
 
-    if (mode === "final_anatomy") {
-      // מבחן אמת מסכם באנטומיה: 25 שאלות המיקוד בלבד, מעורבבות מחדש בכל פתיחה
+    if (mode === "final_fitness") {
+      // מבחן אמת מסכם: מבוא לכושר גופני - 30 שאלות רנדומליות מתוך 40 שאלות המיקוד
+      base = shuffleArray(fitnessIntroQuestions).slice(0, 30);
+    } else if (mode === "final_anatomy") {
+      // מבחן אמת מסכם באנטומיה: 25 שאלות המיקוד
       base = shuffleArray(allQuestions.filter((q) => q.id.startsWith("final-sim-"))).slice(0, 25);
     } else if (mode === "exam") {
-      base = shuffleArray(allQuestions).slice(0, 30);
+      base = shuffleArray([...allQuestions, ...fitnessIntroQuestions]).slice(0, 30);
     } else {
-      base = allQuestions.filter((q) => {
-        if (selectedInst === "final_sim") return q.id.startsWith("final-sim-");
-        if (selectedInst === "exam_prep") return q.isExamPrep && !q.id.startsWith("final-sim-");
-        if (selectedInst === "meso") return q.institution === "meso" && !q.isExamPrep;
-        if (selectedInst === "wingate") return q.institution === "wingate";
-        return true;
-      });
-      base = shuffleArray(base);
+      if (selectedInst === "fitness_intro") {
+        base = shuffleArray(fitnessIntroQuestions);
+      } else {
+        base = allQuestions.filter((q) => {
+          if (selectedInst === "final_sim") return q.id.startsWith("final-sim-");
+          if (selectedInst === "exam_prep") return q.isExamPrep && !q.id.startsWith("final-sim-");
+          if (selectedInst === "meso") return q.institution === "meso" && !q.isExamPrep;
+          if (selectedInst === "wingate") return q.institution === "wingate";
+          return true;
+        });
+        if (selectedInst === "all") {
+          base = [...base, ...fitnessIntroQuestions];
+        }
+        base = shuffleArray(base);
+      }
     }
 
     // ערבוב כפול: גם סדר השאלות וגם סדר 4 האפשרויות בכל שאלה (תוך סנכרון מלא של ניתוח המסיחים)
@@ -268,7 +281,7 @@ export default function App() {
     initQuestions();
   }, [initQuestions]);
 
-  const isTimedExam = mode === "exam" || mode === "final_anatomy";
+  const isTimedExam = mode === "exam" || mode === "final_anatomy" || mode === "final_fitness";
 
   useEffect(() => {
     if (!isTimedExam || examFinished) return;
@@ -392,7 +405,7 @@ export default function App() {
               סימולטור הכנה למבחני מאמני כושר
             </h1>
             <p className="text-xs sm:text-sm text-slate-400 mt-1">
-              סה"כ במאגר: {counts.total} שאלות | מיקוד מסכם: {counts.finalSim} | מבדק: {counts.examPrep} | מזו: {counts.meso} | וינגייט: {counts.wingate}
+              סה"כ במאגר: {counts.total} שאלות | מבוא לכושר: {counts.fitnessIntro} | אנטומיה: {counts.finalSim} | מזו: {counts.meso} | וינגייט: {counts.wingate}
             </p>
           </div>
 
@@ -410,6 +423,23 @@ export default function App() {
 
             <button
               onClick={() => {
+                if (mode === "final_fitness") {
+                  initQuestions();
+                } else {
+                  setMode("final_fitness");
+                }
+              }}
+              className={`px-3.5 py-2 text-xs sm:text-sm font-bold rounded-lg border transition ${
+                mode === "final_fitness"
+                  ? "bg-sky-600 border-sky-400 text-white shadow-lg shadow-sky-900/40"
+                  : "bg-slate-900 border-sky-500/40 text-sky-400 hover:bg-slate-800"
+              }`}
+            >
+              🏃 מבחן מבוא לכושר (30 שאלות)
+            </button>
+
+            <button
+              onClick={() => {
                 if (mode === "final_anatomy") {
                   initQuestions();
                 } else {
@@ -422,7 +452,7 @@ export default function App() {
                   : "bg-slate-900 border-emerald-500/40 text-emerald-400 hover:bg-slate-800"
               }`}
             >
-              🎯 מבחן אמת אנטומיה ({counts.finalSim} שאלות)
+              🎯 מבחן אנטומיה ({counts.finalSim} שאלות)
             </button>
 
             <button
@@ -439,7 +469,7 @@ export default function App() {
                   : "bg-slate-900 border-slate-800 text-slate-400 hover:text-white"
               }`}
             >
-              ⏱️ מבחן כללי (30 שאלות)
+              ⏱️ מבחן כללי (30)
             </button>
           </div>
         </header>
@@ -448,6 +478,18 @@ export default function App() {
         {mode === "practice" && (
           <div className="flex flex-wrap justify-center gap-2">
             <button
+              onClick={() => setSelectedInst("fitness_intro")}
+              className={`px-4 py-1.5 text-xs font-bold rounded-lg border transition flex items-center gap-1.5 ${
+                selectedInst === "fitness_intro"
+                  ? "bg-sky-500 border-sky-400 text-slate-950 shadow-lg shadow-sky-500/20"
+                  : "bg-slate-900 border-sky-500/40 text-sky-400 hover:bg-slate-800"
+              }`}
+            >
+              <span>🏃 מיקוד מבוא לכושר גופני</span>
+              <span>({counts.fitnessIntro})</span>
+            </button>
+
+            <button
               onClick={() => setSelectedInst("final_sim")}
               className={`px-4 py-1.5 text-xs font-bold rounded-lg border transition flex items-center gap-1.5 ${
                 selectedInst === "final_sim"
@@ -455,7 +497,7 @@ export default function App() {
                   : "bg-slate-900 border-emerald-500/40 text-emerald-400 hover:bg-slate-800"
               }`}
             >
-              <span>🎯 מיקוד מבחן מסכם</span>
+              <span>🎯 מיקוד אנטומיה</span>
               <span>({counts.finalSim})</span>
             </button>
 
@@ -513,7 +555,11 @@ export default function App() {
               <span className="text-xl">⏱️</span>
               <div>
                 <div className="text-xs text-slate-400">
-                  {mode === "final_anatomy" ? "מבחן מסכם אנטומיה (25 שאלות מעורבבות):" : "זמן שנותר לבחינה:"}
+                  {mode === "final_fitness"
+                    ? "מבחן מסכם מבוא לכושר גופני (30 שאלות רנדומליות מתוך 40):"
+                    : mode === "final_anatomy"
+                    ? "מבחן מסכם אנטומיה (25 שאלות מעורבבות):"
+                    : "זמן שנותר לבחינה:"}
                 </div>
                 <div className={`text-lg font-mono font-bold ${examTimeLeft < 300 ? "text-rose-400 animate-ping" : "text-amber-400"}`}>
                   {formatTime(examTimeLeft)}
@@ -604,12 +650,17 @@ export default function App() {
                 שאלה <strong className="text-indigo-400 font-mono text-sm">{currentIndex + 1}</strong> מתוך <strong className="font-mono text-sm">{questionsList.length}</strong>
               </span>
               <div className="flex items-center gap-1.5">
-                {currentQ.id.startsWith("final-sim-") && (
-                  <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold">
-                    🎯 מיקוד מבחן מסכם
+                {currentQ.id.startsWith("fit-intro-") && (
+                  <span className="px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/40 font-bold">
+                    🏃 מבוא לכושר גופני
                   </span>
                 )}
-                {currentQ.isExamPrep && !currentQ.id.startsWith("final-sim-") && (
+                {currentQ.id.startsWith("final-sim-") && (
+                  <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold">
+                    🎯 מיקוד אנטומיה
+                  </span>
+                )}
+                {currentQ.isExamPrep && !currentQ.id.startsWith("final-sim-") && !currentQ.id.startsWith("fit-intro-") && (
                   <span className="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold">
                     ⚡ שאלת מבדק
                   </span>
@@ -631,7 +682,9 @@ export default function App() {
 
             <div className="flex items-start justify-between gap-3">
               <h2 className={`text-lg sm:text-xl font-bold leading-relaxed flex-1 ${
-                currentQ.id.startsWith("final-sim-")
+                currentQ.id.startsWith("fit-intro-")
+                  ? "text-sky-300"
+                  : currentQ.id.startsWith("final-sim-")
                   ? "text-emerald-300"
                   : currentQ.isExamPrep
                   ? "text-amber-400"
